@@ -105,13 +105,21 @@ alter table settings enable row level security;
 alter table customers enable row level security;
 alter table mail_requests enable row level security;
 
+drop policy if exists "public read/write restaurants" on restaurants;
 create policy "public read/write restaurants" on restaurants for all using (true) with check (true);
+drop policy if exists "public read/write employees" on employees;
 create policy "public read/write employees" on employees for all using (true) with check (true);
+drop policy if exists "public read/write products" on products;
 create policy "public read/write products" on products for all using (true) with check (true);
+drop policy if exists "public read/write orders" on orders;
 create policy "public read/write orders" on orders for all using (true) with check (true);
+drop policy if exists "public read/write sessions" on sessions;
 create policy "public read/write sessions" on sessions for all using (true) with check (true);
+drop policy if exists "public read/write settings" on settings;
 create policy "public read/write settings" on settings for all using (true) with check (true);
+drop policy if exists "public read/write customers" on customers;
 create policy "public read/write customers" on customers for all using (true) with check (true);
+drop policy if exists "public read/write mail_requests" on mail_requests;
 create policy "public read/write mail_requests" on mail_requests for all using (true) with check (true);
 
 -- Enable realtime (Firestore-style live streams) on the tables the app

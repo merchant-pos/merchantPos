@@ -113,11 +113,26 @@ def main(bundel: str) -> int:
                 masalah.append((m.start(), jenis, t))
     masalah.sort()
 
+    # Aman diulang: tiap create policy harus didahului drop-nya.
+    #
+    # create policy tidak punya "if not exists", jadi bundel yang
+    # dijalankan dua kali berhenti di kebijakan pertama yang sudah ada —
+    # setelah separuh perubahan lain terlanjur masuk.
+    tanpa_drop = []
+    for m in re.finditer(r'create\s+policy\s+("[^"]+"|[a-z_]+)', bersih, re.I):
+        nama = m.group(1)
+        if not re.search(r'drop\s+policy\s+if\s+exists\s+' + re.escape(nama),
+                         bersih[:m.start()], re.I):
+            tanpa_drop.append((m.start(), nama))
+
     print(f'tabel dibuat        : {len(dibuat)}')
+    print(f'policy tanpa drop   : {len(tanpa_drop)}')
+    for pos, nama in tanpa_drop:
+        print(f'  {bagian(pos):32s} {nama}')
     print(f'dipakai sebelum ada : {len(masalah)}')
     for pos, jenis, t in masalah:
         print(f'  {bagian(pos):32s} {jenis} {t}')
-    return 1 if masalah else 0
+    return 1 if (masalah or tanpa_drop) else 0
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1] if len(sys.argv) > 1

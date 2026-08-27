@@ -8,4 +8,5 @@ create table if not exists categories (
 create index if not exists idx_categories_resto on categories(resto_id);
 
 alter table categories enable row level security;
+drop policy if exists "public read/write categories" on categories;
 create policy "public read/write categories" on categories for all using (true) with check (true);

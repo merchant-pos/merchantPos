@@ -42,17 +42,23 @@ alter table expenses enable row level security;
 -- resto's GL mapping and expenses. Nobody else (including other
 -- employee roles or the public) has any access — no policy means denied
 -- by default once RLS is enabled.
+drop policy if exists "gl_accounts: finance/admin read" on gl_accounts;
 create policy "gl_accounts: finance/admin read" on gl_accounts
   for select using (is_resto_employee(resto_id, array['admin', 'finance']));
+drop policy if exists "gl_accounts: finance/admin write" on gl_accounts;
 create policy "gl_accounts: finance/admin write" on gl_accounts
   for insert with check (is_resto_employee(resto_id, array['admin', 'finance']));
+drop policy if exists "gl_accounts: finance/admin update" on gl_accounts;
 create policy "gl_accounts: finance/admin update" on gl_accounts
   for update using (is_resto_employee(resto_id, array['admin', 'finance']))
   with check (is_resto_employee(resto_id, array['admin', 'finance']));
 
+drop policy if exists "expenses: finance/admin read" on expenses;
 create policy "expenses: finance/admin read" on expenses
   for select using (is_resto_employee(resto_id, array['admin', 'finance']));
+drop policy if exists "expenses: finance/admin insert" on expenses;
 create policy "expenses: finance/admin insert" on expenses
   for insert with check (is_resto_employee(resto_id, array['admin', 'finance']));
+drop policy if exists "expenses: finance/admin delete" on expenses;
 create policy "expenses: finance/admin delete" on expenses
   for delete using (is_resto_employee(resto_id, array['admin', 'finance']));

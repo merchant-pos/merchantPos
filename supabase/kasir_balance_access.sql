@@ -20,17 +20,21 @@
 -- (the customer app shows the QRIS details from it).
 
 drop policy if exists "expenses: finance/admin read" on expenses;
+drop policy if exists "expenses: finance/admin/kasir read" on expenses;
 create policy "expenses: finance/admin/kasir read" on expenses
   for select using (is_resto_employee(resto_id, array['admin', 'finance', 'kasir']));
 
 drop policy if exists "expenses: finance/admin insert" on expenses;
+drop policy if exists "expenses: finance/admin/kasir insert" on expenses;
 create policy "expenses: finance/admin/kasir insert" on expenses
   for insert with check (is_resto_employee(resto_id, array['admin', 'finance', 'kasir']));
 
 drop policy if exists "expense_gl_accounts: finance/admin read" on expense_gl_accounts;
+drop policy if exists "expense_gl_accounts: finance/admin/kasir read" on expense_gl_accounts;
 create policy "expense_gl_accounts: finance/admin/kasir read" on expense_gl_accounts
   for select using (is_resto_employee(resto_id, array['admin', 'finance', 'kasir']));
 
 drop policy if exists "petty_cash_entries: finance/admin read" on petty_cash_entries;
+drop policy if exists "petty_cash_entries: finance/admin/kasir read" on petty_cash_entries;
 create policy "petty_cash_entries: finance/admin/kasir read" on petty_cash_entries
   for select using (is_resto_employee(resto_id, array['admin', 'finance', 'kasir']));

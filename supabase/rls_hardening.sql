@@ -51,8 +51,10 @@ $$;
 
 -- ── restaurants ──────────────────────────────────────────────────────
 drop policy if exists "public read/write restaurants" on restaurants;
+drop policy if exists "restaurants: public read" on restaurants;
 create policy "restaurants: public read" on restaurants
   for select using (true);
+drop policy if exists "restaurants: admin update own" on restaurants;
 create policy "restaurants: admin update own" on restaurants
   for update using (is_resto_employee(id, array['admin']))
   with check (is_resto_employee(id, array['admin']));
@@ -61,28 +63,36 @@ create policy "restaurants: admin update own" on restaurants
 
 -- ── employees ────────────────────────────────────────────────────────
 drop policy if exists "public read/write employees" on employees;
+drop policy if exists "employees: read own or admin of resto" on employees;
 create policy "employees: read own or admin of resto" on employees
   for select using (
     email = auth.jwt()->>'email'
     or is_resto_employee(resto_id, array['admin'])
   );
+drop policy if exists "employees: admin insert" on employees;
 create policy "employees: admin insert" on employees
   for insert with check (is_resto_employee(resto_id, array['admin']));
+drop policy if exists "employees: admin update" on employees;
 create policy "employees: admin update" on employees
   for update using (is_resto_employee(resto_id, array['admin']))
   with check (is_resto_employee(resto_id, array['admin']));
+drop policy if exists "employees: admin delete" on employees;
 create policy "employees: admin delete" on employees
   for delete using (is_resto_employee(resto_id, array['admin']));
 
 -- ── products ─────────────────────────────────────────────────────────
 drop policy if exists "public read/write products" on products;
+drop policy if exists "products: public read" on products;
 create policy "products: public read" on products
   for select using (true);
+drop policy if exists "products: employees insert" on products;
 create policy "products: employees insert" on products
   for insert with check (is_resto_employee(resto_id, array['admin','kasir']));
+drop policy if exists "products: employees update" on products;
 create policy "products: employees update" on products
   for update using (is_resto_employee(resto_id, array['admin','kasir']))
   with check (is_resto_employee(resto_id, array['admin','kasir']));
+drop policy if exists "products: employees delete" on products;
 create policy "products: employees delete" on products
   for delete using (is_resto_employee(resto_id, array['admin','kasir']));
 -- Guest self-order stock decrements go through decrement_stock() above
@@ -96,17 +106,21 @@ drop policy if exists "public read/write orders" on orders;
 -- session_id (an unguessable UUID) without any auth session to scope
 -- against. This is a deliberate trade-off of this app's "no login
 -- required to order" design — treat session_id like a bearer token.
+drop policy if exists "orders: public read" on orders;
 create policy "orders: public read" on orders
   for select using (true);
 -- Inserts stay public: guest checkout has no auth session either.
+drop policy if exists "orders: public insert" on orders;
 create policy "orders: public insert" on orders
   for insert with check (true);
 -- Updates (kitchen_status, payment_status, ...) are now employee-only —
 -- this is the fix for guests being able to mark their own order "paid"
 -- by hitting the API directly instead of actually paying.
+drop policy if exists "orders: employees update" on orders;
 create policy "orders: employees update" on orders
   for update using (is_resto_employee(resto_id, array['admin','kasir','chef']))
   with check (is_resto_employee(resto_id, array['admin','kasir','chef']));
+drop policy if exists "orders: admin delete" on orders;
 create policy "orders: admin delete" on orders
   for delete using (is_resto_employee(resto_id, array['admin']));
 
@@ -115,27 +129,35 @@ drop policy if exists "public read/write sessions" on sessions;
 -- Reads/inserts/updates stay public: scanning a table QR (creating/
 -- resuming a session) and the idle-timer "touch" both happen with no
 -- auth session, same trade-off as orders above.
+drop policy if exists "sessions: public read" on sessions;
 create policy "sessions: public read" on sessions
   for select using (true);
+drop policy if exists "sessions: public insert" on sessions;
 create policy "sessions: public insert" on sessions
   for insert with check (true);
+drop policy if exists "sessions: public update" on sessions;
 create policy "sessions: public update" on sessions
   for update using (true) with check (true);
+drop policy if exists "sessions: employees delete" on sessions;
 create policy "sessions: employees delete" on sessions
   for delete using (is_resto_employee(resto_id, array['admin','kasir']));
 
 -- ── settings (QRIS/bank info) ───────────────────────────────────────
 drop policy if exists "public read/write settings" on settings;
+drop policy if exists "settings: public read" on settings;
 create policy "settings: public read" on settings
   for select using (true);
+drop policy if exists "settings: admin insert" on settings;
 create policy "settings: admin insert" on settings
   for insert with check (is_resto_employee(resto_id, array['admin']));
+drop policy if exists "settings: admin update" on settings;
 create policy "settings: admin update" on settings
   for update using (is_resto_employee(resto_id, array['admin']))
   with check (is_resto_employee(resto_id, array['admin']));
 
 -- ── customers (profile: name/phone/photo) ───────────────────────────
 drop policy if exists "public read/write customers" on customers;
+drop policy if exists "customers: own row only" on customers;
 create policy "customers: own row only" on customers
   for all using (email = auth.jwt()->>'email')
   with check (email = auth.jwt()->>'email');
@@ -145,5 +167,6 @@ drop policy if exists "public read/write mail_requests" on mail_requests;
 -- Insert-only from the client; the send-receipt Edge Function processes
 -- the queue using the service role key, which bypasses RLS entirely —
 -- so no select/update/delete policy is needed (and none is granted).
+drop policy if exists "mail_requests: public insert" on mail_requests;
 create policy "mail_requests: public insert" on mail_requests
   for insert with check (true);

@@ -29,6 +29,7 @@ create index if not exists idx_gl_journal_entries_ref on gl_journal_entries(refe
 
 alter table gl_journal_entries enable row level security;
 
+drop policy if exists "gl_journal_entries: finance/admin read" on gl_journal_entries;
 create policy "gl_journal_entries: finance/admin read" on gl_journal_entries
   for select using (is_resto_employee(resto_id, array['admin', 'finance']));
 -- Deliberately no insert/update/delete policy for any role — every row

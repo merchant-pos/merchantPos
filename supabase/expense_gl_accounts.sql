@@ -16,9 +16,12 @@ create index if not exists idx_expense_gl_accounts_resto on expense_gl_accounts(
 
 alter table expense_gl_accounts enable row level security;
 
+drop policy if exists "expense_gl_accounts: finance/admin read" on expense_gl_accounts;
 create policy "expense_gl_accounts: finance/admin read" on expense_gl_accounts
   for select using (is_resto_employee(resto_id, array['admin', 'finance']));
+drop policy if exists "expense_gl_accounts: finance/admin insert" on expense_gl_accounts;
 create policy "expense_gl_accounts: finance/admin insert" on expense_gl_accounts
   for insert with check (is_resto_employee(resto_id, array['admin', 'finance']));
+drop policy if exists "expense_gl_accounts: finance/admin delete" on expense_gl_accounts;
 create policy "expense_gl_accounts: finance/admin delete" on expense_gl_accounts
   for delete using (is_resto_employee(resto_id, array['admin', 'finance']));

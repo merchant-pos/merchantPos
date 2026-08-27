@@ -36,6 +36,7 @@ $$;
 
 -- ── employees: let super_admin manage any resto's employees ─────────
 drop policy if exists "employees: read own or admin of resto" on employees;
+drop policy if exists "employees: read own, resto admin, or super_admin" on employees;
 create policy "employees: read own, resto admin, or super_admin" on employees
   for select using (
     email = auth.jwt()->>'email'
@@ -44,6 +45,7 @@ create policy "employees: read own, resto admin, or super_admin" on employees
   );
 
 drop policy if exists "employees: admin insert" on employees;
+drop policy if exists "employees: admin or super_admin insert" on employees;
 create policy "employees: admin or super_admin insert" on employees
   for insert with check (
     is_super_admin()
@@ -51,6 +53,7 @@ create policy "employees: admin or super_admin insert" on employees
   );
 
 drop policy if exists "employees: admin update" on employees;
+drop policy if exists "employees: admin or super_admin update" on employees;
 create policy "employees: admin or super_admin update" on employees
   for update using (
     is_super_admin()
@@ -62,6 +65,7 @@ create policy "employees: admin or super_admin update" on employees
   );
 
 drop policy if exists "employees: admin delete" on employees;
+drop policy if exists "employees: admin or super_admin delete" on employees;
 create policy "employees: admin or super_admin delete" on employees
   for delete using (
     is_super_admin()
@@ -69,10 +73,12 @@ create policy "employees: admin or super_admin delete" on employees
   );
 
 -- ── restaurants: let super_admin create new restos + edit any resto ──
+drop policy if exists "restaurants: super_admin insert" on restaurants;
 create policy "restaurants: super_admin insert" on restaurants
   for insert with check (is_super_admin());
 
 drop policy if exists "restaurants: admin update own" on restaurants;
+drop policy if exists "restaurants: admin or super_admin update" on restaurants;
 create policy "restaurants: admin or super_admin update" on restaurants
   for update using (is_super_admin() or is_resto_employee(id, array['admin']))
   with check (is_super_admin() or is_resto_employee(id, array['admin']));

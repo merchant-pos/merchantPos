@@ -26,9 +26,12 @@ create index if not exists idx_petty_cash_entries_resto on petty_cash_entries(re
 
 alter table petty_cash_entries enable row level security;
 
+drop policy if exists "petty_cash_entries: finance/admin read" on petty_cash_entries;
 create policy "petty_cash_entries: finance/admin read" on petty_cash_entries
   for select using (is_resto_employee(resto_id, array['admin', 'finance']));
+drop policy if exists "petty_cash_entries: finance/admin insert" on petty_cash_entries;
 create policy "petty_cash_entries: finance/admin insert" on petty_cash_entries
   for insert with check (is_resto_employee(resto_id, array['admin', 'finance']));
+drop policy if exists "petty_cash_entries: finance/admin delete" on petty_cash_entries;
 create policy "petty_cash_entries: finance/admin delete" on petty_cash_entries
   for delete using (is_resto_employee(resto_id, array['admin', 'finance']));
