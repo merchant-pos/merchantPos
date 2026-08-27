@@ -62,7 +62,7 @@ class SuperAdminFinanceScreen extends StatelessWidget {
               icon: Icons.local_offer_outlined,
               title: 'Diskon Langganan',
               subtitle: 'Potongan harga untuk merchant tertentu',
-              color: const Color(0xFF6366F1),
+              color: const Color(0xFF059669),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (_) => const BillingDiscountScreen(),
               )),
@@ -99,7 +99,7 @@ class SuperAdminFinanceScreen extends StatelessWidget {
               icon: Icons.tag,
               title: 'Mapping GL Account',
               subtitle: 'Nomor akun pendapatan, diskon, dan pengeluaran',
-              color: const Color(0xFF8B5CF6),
+              color: const Color(0xFF0D9488),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (_) =>
                     const FinanceGlMappingScreen(restoId: kPlatformRestoId),

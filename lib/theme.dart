@@ -34,12 +34,12 @@ class MerchantPosTheme {
   static const darkSurfaceHigh = Color(0xFF272A36);
   static const darkBorder = Color(0xFF343846);
 
-  /// Ungu mereknya dinaikkan terangnya untuk latar gelap.
+  /// Hijau mereknya dinaikkan terangnya untuk latar gelap.
   ///
   /// Warna yang sama persis di atas latar gelap jatuh di bawah ambang
-  /// keterbacaan — tulisan ungu tua di atas abu tua nyaris tidak
-  /// terbaca. Yang dijaga bukan kode heksanya, tapi jarak kontrasnya.
-  static const brandOnDark = Color(0xFF8B85F0);
+  /// keterbacaan — emerald tua di atas abu tua nyaris tidak terbaca.
+  /// Yang dijaga bukan kode heksanya, tapi jarak kontrasnya.
+  static const brandOnDark = Color(0xFF34D399); // emerald 400
 
   /// Warna latar kartu yang benar untuk tema yang sedang dipakai.
   ///
@@ -122,7 +122,7 @@ class MerchantPosTheme {
 
   static Color onBrandTintOf(BuildContext context) =>
       Theme.of(context).brightness == Brightness.dark
-          ? const Color(0xFFC7D2FE)
+          ? const Color(0xFFA7F3D0) // emerald 200
           : brandDark;
 
   /// Warna teks utama. Menggantikan Colors.black87 yang ditulis

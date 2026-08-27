@@ -244,11 +244,24 @@ class _Sidebar extends StatelessWidget {
                         horizontal: 10, vertical: 1),
                     child: Material(
                       color: aktif
-                          ? MerchantPosTheme.brand.withOpacity(0.12)
+                          ? MerchantPosTheme.brand.withOpacity(0.16)
                           : Colors.transparent,
                       borderRadius: BorderRadius.circular(9),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(9),
+                        // Sorotan fokus dimatikan, sorotan tunjuk
+                        // dibedakan.
+                        //
+                        // Sesudah satu menu diketuk, fokus papan ketik
+                        // mendarat di baris pertama sidebar dan Material
+                        // melukiskan focusColor abu-abunya di sana — dan
+                        // baris yang tersorot abu di antara baris polos
+                        // terbaca sebagai "yang sedang dibuka", padahal
+                        // yang sedang dibuka baris lain. Dua baris tampak
+                        // aktif sekaligus, dan yang benar justru yang
+                        // sorotannya lebih samar.
+                        focusColor: Colors.transparent,
+                        hoverColor: MerchantPosTheme.brand.withOpacity(0.06),
                         onTap: () => onPilih(i),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(

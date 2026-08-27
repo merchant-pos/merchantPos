@@ -135,14 +135,14 @@ class KasirHomeScreen extends StatelessWidget {
                   icon: Icons.account_balance_wallet_outlined,
                   title: 'Keuangan',
                   subtitle: 'Saldo, pengeluaran, setor tunai',
-                  color: const Color(0xFF6366F1),
+                  color: const Color(0xFF059669),
                   loadCount: () => _penandaKeuangan(restoId),
                   tiles: () => [
                     BadgedHubTile(
                       icon: Icons.account_balance_wallet_outlined,
                       title: 'Saldo & Pengeluaran',
                       subtitle: 'Lihat saldo, catat pengeluaran dari Petty Cash',
-                      color: const Color(0xFF6366F1),
+                      color: const Color(0xFF059669),
                       loadCount: () => restoId == null
                           ? Future.value(0)
                           : PettyCashRepository().pendingCount(restoId),
@@ -164,7 +164,7 @@ class KasirHomeScreen extends StatelessWidget {
                   icon: Icons.tune,
                   title: 'Pengelolaan',
                   subtitle: 'Promo per menu, bundling, minimum belanja',
-                  color: const Color(0xFF8B5CF6),
+                  color: const Color(0xFF0D9488),
                   tiles: () => [
                     HubMenuTile(
                       icon: Icons.local_offer_outlined,

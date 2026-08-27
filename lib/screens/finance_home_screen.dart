@@ -109,7 +109,7 @@ class FinanceHomeScreen extends StatelessWidget {
                       icon: Icons.account_balance_wallet_outlined,
                       title: 'Saldo & Pengeluaran',
                       subtitle: 'Lihat saldo total, catat pengeluaran',
-                      color: const Color(0xFF6366F1),
+                      color: const Color(0xFF059669),
                       loadCount: () => restoId == null ? Future.value(0) : PettyCashRepository().pendingCount(restoId),
                       destination: () => const FinanceBalanceScreen(),
                     ),
@@ -175,7 +175,7 @@ class FinanceHomeScreen extends StatelessWidget {
                   icon: Icons.receipt_long_outlined,
                   title: 'Tagihan Langganan',
                   subtitle: 'Biaya bulanan Merchant-POS & bukti pembayaran',
-                  color: const Color(0xFF6366F1),
+                  color: const Color(0xFF059669),
                   onTap: () {
                     final restoId = context.read<AuthProvider>().restoId;
                     if (restoId == null) return;

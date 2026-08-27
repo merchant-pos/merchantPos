@@ -42,7 +42,7 @@ const kSupportStatusLabel = {
 const kSupportStatusWarna = {
   SupportStatus.open: Color(0xFFDC2626),
   SupportStatus.onProgress: Color(0xFFF59E0B),
-  SupportStatus.confirmCustomer: Color(0xFF6366F1),
+  SupportStatus.confirmCustomer: Color(0xFF059669),
   SupportStatus.closed: Color(0xFF10B981),
 };
 

@@ -174,7 +174,7 @@ class _JournalDetailDialogState extends State<_JournalDetailDialog> {
               const Divider(height: 20),
               Row(
                 children: [
-                  Expanded(child: _totalBox('Debit', debit, const Color(0xFF4F46E5), currency)),
+                  Expanded(child: _totalBox('Debit', debit, const Color(0xFFEF4444), currency)),
                   const SizedBox(width: 8),
                   Expanded(child: _totalBox('Kredit', credit, const Color(0xFF10B981), currency)),
                 ],
@@ -216,7 +216,12 @@ class _JournalDetailDialogState extends State<_JournalDetailDialog> {
 
   Widget _row(GlJournalEntry e, NumberFormat currency, DateFormat dateFmt) {
     final isDebit = e.entryType == JournalEntryType.debit;
-    final color = isDebit ? const Color(0xFF4F46E5) : const Color(0xFF10B981);
+    // Merah untuk debit, sama seperti layar Jurnal GL.
+    //
+    // Sebelumnya indigo — dan menghijaukannya begitu saja akan membuat
+    // debit dan kredit berwarna sama, yang persis menghapus satu-
+    // satunya hal yang dibedakan warna di baris ini.
+    final color = isDebit ? const Color(0xFFEF4444) : const Color(0xFF10B981);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 8),

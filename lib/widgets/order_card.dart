@@ -182,8 +182,8 @@ class _OrderCardState extends State<OrderCard> {
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: order.source == OrderSource.kasir
-                        ? MerchantPosTheme.tintOf(context, Colors.indigo)
-                        : MerchantPosTheme.tintOf(context, Colors.purple),
+                        ? MerchantPosTheme.tintOf(context, Colors.teal)
+                        : MerchantPosTheme.tintOf(context, Colors.green),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
@@ -192,7 +192,7 @@ class _OrderCardState extends State<OrderCard> {
                         : 'Pesanan Mandiri',
                     style: TextStyle(
                       fontSize: 11,
-                      color: order.source == OrderSource.kasir ? Colors.indigo : Colors.purple,
+                      color: order.source == OrderSource.kasir ? Colors.teal : Colors.green,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

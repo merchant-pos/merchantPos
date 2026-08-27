@@ -147,7 +147,7 @@ class AdminHomeScreen extends StatelessWidget {
                       icon: Icons.insights_outlined,
                       title: 'Laporan Penjualan',
                       subtitle: 'Menu terlaris, menu tidak laku, dan jam ramai',
-                      color: const Color(0xFF8B5CF6),
+                      color: const Color(0xFF0D9488),
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (_) => const MerchantReportScreen()),
@@ -159,14 +159,14 @@ class AdminHomeScreen extends StatelessWidget {
                   icon: Icons.account_balance_wallet_outlined,
                   title: 'Keuangan',
                   subtitle: 'Saldo, pengeluaran, setor tunai',
-                  color: const Color(0xFF6366F1),
+                  color: const Color(0xFF059669),
                   loadCount: () => _penandaKeuangan(restoId),
                   tiles: () => [
                     BadgedHubTile(
                       icon: Icons.account_balance_wallet_outlined,
                       title: 'Saldo & Pengeluaran',
                       subtitle: 'Lihat saldo, catat pengeluaran dari Petty Cash',
-                      color: const Color(0xFF6366F1),
+                      color: const Color(0xFF059669),
                       loadCount: () => restoId == null
                           ? Future.value(0)
                           : PettyCashRepository().pendingCount(restoId),
@@ -188,13 +188,13 @@ class AdminHomeScreen extends StatelessWidget {
                   icon: Icons.tune,
                   title: 'Pengelolaan',
                   subtitle: 'Produk, diskon, dan pengumuman',
-                  color: const Color(0xFF8B5CF6),
+                  color: const Color(0xFF0D9488),
                   tiles: () => [
                     HubMenuTile(
                       icon: Icons.inventory_2_outlined,
                       title: 'Kelola Produk',
                       subtitle: 'Tambah/edit produk, kategori, level/varian',
-                      color: const Color(0xFF6366F1),
+                      color: const Color(0xFF059669),
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => const ProductListScreen()),
                       ),
@@ -212,7 +212,7 @@ class AdminHomeScreen extends StatelessWidget {
                       icon: Icons.campaign_outlined,
                       title: 'Kirim Pengumuman',
                       subtitle: 'Blast info & promo ke kotak masuk merchant ini',
-                      color: const Color(0xFF8B5CF6),
+                      color: const Color(0xFF0D9488),
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => const PublishAnnouncementScreen()),
                       ),

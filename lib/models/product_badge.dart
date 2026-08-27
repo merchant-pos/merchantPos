@@ -53,7 +53,7 @@ const kBadgeKeterangan = {
 const kBadgeWarna = {
   ProductBadge.baru: Color(0xFF16A34A),
   ProductBadge.terlaris: Color(0xFFF59E0B),
-  ProductBadge.rekomendasi: Color(0xFF7C3AED),
+  ProductBadge.rekomendasi: Color(0xFF166534),
   ProductBadge.diskon: Color(0xFFDC2626),
 };
 

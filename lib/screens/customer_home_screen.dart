@@ -645,7 +645,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                     icon: Icons.account_circle_outlined,
                     title: 'Profil',
                     subtitle: 'Nama, nomor HP, dan foto kamu',
-                    color: const Color(0xFF6366F1),
+                    color: const Color(0xFF059669),
                     onTap: () async {
                       final email = context.read<AuthProvider>().user!.email!;
                       await Navigator.of(context).push(
@@ -832,7 +832,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.qr_code_scanner, size: 72, color: Colors.indigo),
+                const Icon(Icons.qr_code_scanner, size: 72, color: Colors.teal),
                 const SizedBox(height: 16),
                 const Text(
                   'Scan QR code di meja kamu, atau pilih merchant dulu untuk mulai pesan.',
@@ -953,7 +953,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                 if (resto == null) return const SizedBox.shrink();
                 return Container(
                   width: double.infinity,
-                  color: MerchantPosTheme.tintOf(context, Colors.indigo),
+                  color: MerchantPosTheme.tintOf(context, Colors.teal),
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

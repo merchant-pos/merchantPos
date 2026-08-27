@@ -115,7 +115,7 @@ const _taxHints = {
   'service': 'Biaya service yang dipungut (Dine In)',
 };
 const _taxIcons = {'ppn': Icons.receipt_long_outlined, 'service': Icons.room_service_outlined};
-const _taxColor = Color(0xFF8B5CF6);
+const _taxColor = Color(0xFF0D9488);
 
 const _allMethods = [
   ..._paymentMethods,
@@ -157,7 +157,7 @@ double _parseRate(String raw) =>
     double.tryParse(raw.trim().replaceAll(',', '.')) ?? 0;
 
 const _incomeColor = Color(0xFF10B981);
-const _pettyCashColor = Color(0xFF6366F1);
+const _pettyCashColor = Color(0xFF059669);
 const _totalColor = Color(0xFF14B8A6);
 const _expenseColor = Color(0xFFEF4444);
 
@@ -697,7 +697,7 @@ class _FinanceGlMappingScreenState extends State<FinanceGlMappingScreen> {
                         const SizedBox(height: 14),
                         _GlSectionCard(
                           icon: Icons.workspace_premium_outlined,
-                          color: const Color(0xFF6366F1),
+                          color: const Color(0xFF059669),
                           title: 'GL Langganan',
                           subtitle: 'Pendapatan Merchant-POS dari biaya langganan merchant',
                           children: [
@@ -706,7 +706,7 @@ class _FinanceGlMappingScreenState extends State<FinanceGlMappingScreen> {
                               label: 'GL Pendapatan Langganan',
                               hint: 'Dicatat sebesar harga daftar, sebelum '
                                   'potongan',
-                              color: const Color(0xFF6366F1),
+                              color: const Color(0xFF059669),
                               codeCtrl: _codeCtrls[_subscriptionMethod]!,
                               nameCtrl: _nameCtrls[_subscriptionMethod]!,
                               editing: _editing,
@@ -716,7 +716,7 @@ class _FinanceGlMappingScreenState extends State<FinanceGlMappingScreen> {
                               label: 'GL Diskon Langganan',
                               hint: 'Potongan harga langganan untuk merchant '
                                   'tertentu',
-                              color: const Color(0xFF6366F1),
+                              color: const Color(0xFF059669),
                               codeCtrl:
                                   _codeCtrls[_subscriptionDiscountMethod]!,
                               nameCtrl:

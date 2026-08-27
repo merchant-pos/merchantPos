@@ -72,7 +72,7 @@ class SettingsMenuScreen extends StatelessWidget {
                   icon: Icons.storefront_outlined,
                   title: 'Info Merchant',
                   subtitle: 'Nama & alamat yang dilihat customer',
-                  color: const Color(0xFF6366F1),
+                  color: const Color(0xFF059669),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => const RestaurantInfoScreen()),
                   ),

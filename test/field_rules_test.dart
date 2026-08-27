@@ -53,10 +53,16 @@ void main() {
       expect(validateGmail('gamal@company.co.id'), isNotNull);
     });
 
-    test('menolak lebih dari 25 karakter', () {
-      // 16 huruf + @gmail.com = 26 karakter.
-      expect(validateGmail('${'a' * 16}@gmail.com'), contains('maksimal 25'));
-      expect(validateGmail('${'a' * 15}@gmail.com'), isNull);
+    test('menolak lebih dari 40 karakter', () {
+      // 31 huruf + @gmail.com = 41 karakter.
+      expect(validateGmail('${'a' * 31}@gmail.com'), contains('maksimal 40'));
+      expect(validateGmail('${'a' * 30}@gmail.com'), isNull);
+    });
+
+    // Batas lamanya 25, dan alamat sepanjang ini ditolaknya — padahal
+    // ini alamat sungguhan, bukan salah ketik.
+    test('alamat panjang yang benar-benar dipakai orang diterima', () {
+      expect(validateGmail('ethereumlutherbase@gmail.com'), isNull);
     });
 
     test('menolak emoji dan alamat setengah jadi', () {

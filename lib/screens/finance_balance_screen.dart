@@ -646,7 +646,7 @@ class _FinanceBalanceScreenState extends State<FinanceBalanceScreen> {
                                   ? 'Petty Cash (${currency.format(_pettyCashPending)} pending)'
                                   : 'Petty Cash',
                               value: currency.format(_pettyCashBalance),
-                              color: const Color(0xFF6366F1),
+                              color: const Color(0xFF059669),
                             ),
                           ),
                           const SizedBox(width: 8),
@@ -754,7 +754,7 @@ class _FinanceBalanceScreenState extends State<FinanceBalanceScreen> {
                             // supaya kasir tidak mengira saldonya sudah
                             // bertambah.
                             label: _needsApproval ? 'Ajukan Top Up' : 'Top Up',
-                            color: const Color(0xFF6366F1),
+                            color: const Color(0xFF059669),
                             onTap: _addPettyCash,
                           ),
                       ),
@@ -800,7 +800,7 @@ class _FinanceBalanceScreenState extends State<FinanceBalanceScreen> {
                                   pendingInDay > 0
                                       ? '+ ${currency.format(group.total)} · $pendingInDay menunggu persetujuan'
                                       : '+ ${currency.format(group.total)}',
-                                  style: const TextStyle(color: Color(0xFF6366F1), fontWeight: FontWeight.w600)),
+                                  style: const TextStyle(color: Color(0xFF059669), fontWeight: FontWeight.w600)),
                               childrenPadding: const EdgeInsets.only(bottom: 4),
                               children: group.items
                                   .map((e) => Column(
@@ -827,7 +827,7 @@ class _FinanceBalanceScreenState extends State<FinanceBalanceScreen> {
                                         ),
                                         trailing: Text('+ ${currency.format(e.amount)}',
                                             style: const TextStyle(
-                                                color: Color(0xFF6366F1), fontWeight: FontWeight.w600)),
+                                                color: Color(0xFF059669), fontWeight: FontWeight.w600)),
                                         // Ketuk membuka pembukuan di balik
                                         // baris ini. "Petty cash bertambah"
                                         // saja tidak bisa dijawab kalau ada
@@ -1275,7 +1275,7 @@ class _AddExpenseDialogState extends State<_AddExpenseDialog> {
   @override
   Widget build(BuildContext context) {
     final currency = NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
-    const accentColor = Color(0xFF6366F1); // Petty Cash's colour throughout the app
+    const accentColor = Color(0xFF059669); // Petty Cash's colour throughout the app
     final noFunds = widget.availablePettyCash <= 0;
 
     return Dialog(
@@ -1550,7 +1550,7 @@ class _AddPettyCashDialogState extends State<_AddPettyCashDialog> {
     final available = _source == PettyCashSource.cashWithdrawal
         ? widget.availableCash
         : widget.availableNonCash;
-    final accentColor = isWithdrawal ? const Color(0xFF10B981) : const Color(0xFF6366F1);
+    final accentColor = isWithdrawal ? const Color(0xFF10B981) : const Color(0xFF059669);
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -1569,10 +1569,10 @@ class _AddPettyCashDialogState extends State<_AddPettyCashDialog> {
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF6366F1).withOpacity(0.12),
+                        color: const Color(0xFF059669).withOpacity(0.12),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.savings_outlined, color: Color(0xFF6366F1)),
+                      child: const Icon(Icons.savings_outlined, color: Color(0xFF059669)),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
@@ -1616,7 +1616,7 @@ class _AddPettyCashDialogState extends State<_AddPettyCashDialog> {
                           icon: Icons.qr_code_2,
                           label: 'Non Cash',
                           selected: _source == PettyCashSource.incomeWithdrawal,
-                          color: const Color(0xFF8B5CF6),
+                          color: const Color(0xFF0D9488),
                           onTap: () =>
                               setState(() => _source = PettyCashSource.incomeWithdrawal),
                         ),
@@ -1627,7 +1627,7 @@ class _AddPettyCashDialogState extends State<_AddPettyCashDialog> {
                           icon: Icons.edit_outlined,
                           label: 'Manual',
                           selected: _source == PettyCashSource.manual,
-                          color: const Color(0xFF6366F1),
+                          color: const Color(0xFF059669),
                           onTap: () => setState(() => _source = PettyCashSource.manual),
                         ),
                       ),
@@ -1831,7 +1831,7 @@ class _IncomeSplitCard extends StatelessWidget {
                 child: _half(
                   context,
                   icon: Icons.qr_code_2,
-                  color: const Color(0xFF8B5CF6),
+                  color: const Color(0xFF0D9488),
                   label: 'Saldo Non Cash',
                   hint: 'QRIS & transfer',
                   value: nonCashBalance,

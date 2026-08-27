@@ -78,7 +78,7 @@ class SuperAdminHomeScreen extends StatelessWidget {
                       icon: Icons.badge_outlined,
                       title: 'Kelola Karyawan',
                       subtitle: 'Tambah/edit/hapus akun Admin, Kasir, Chef, Finance — semua resto',
-                      color: const Color(0xFF6366F1),
+                      color: const Color(0xFF059669),
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => const EmployeeManagementScreen()),
                       ),
@@ -128,7 +128,7 @@ class SuperAdminHomeScreen extends StatelessWidget {
                   title: 'Analisa Pasar',
                   subtitle:
                       'Pelanggan & merchant teratas, dan yang belum bergerak',
-                  color: const Color(0xFF6366F1),
+                  color: const Color(0xFF059669),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (_) => const MarketReportScreen()),

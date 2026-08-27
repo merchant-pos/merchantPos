@@ -105,7 +105,7 @@ class _MarketReportScreenState extends State<MarketReportScreen> {
                     ),
                     _Bagian(
                       icon: Icons.person_off_outlined,
-                      warna: const Color(0xFF6366F1),
+                      warna: const Color(0xFF059669),
                       judul: 'Pelanggan Belum Pernah Memesan',
                       catatan: 'Sudah memasang aplikasinya dan berhenti di '
                           'situ — bagian tersulitnya sudah lewat, yang '

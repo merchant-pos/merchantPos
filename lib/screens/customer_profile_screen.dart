@@ -131,10 +131,10 @@ class _CustomerProfileScreenState extends State<CustomerProfileScreen> {
                   children: [
                     CircleAvatar(
                       radius: 48,
-                      backgroundColor: MerchantPosTheme.tintOf(context, Colors.indigo),
+                      backgroundColor: MerchantPosTheme.tintOf(context, Colors.teal),
                       backgroundImage: avatarImage,
                       child: avatarImage == null
-                          ? const Icon(Icons.person, size: 48, color: Colors.indigo)
+                          ? const Icon(Icons.person, size: 48, color: Colors.teal)
                           : null,
                     ),
                     Positioned(
@@ -143,7 +143,7 @@ class _CustomerProfileScreenState extends State<CustomerProfileScreen> {
                       child: Container(
                         padding: const EdgeInsets.all(6),
                         decoration: const BoxDecoration(
-                          color: Colors.indigo,
+                          color: Colors.teal,
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(Icons.camera_alt, size: 16, color: Colors.white),

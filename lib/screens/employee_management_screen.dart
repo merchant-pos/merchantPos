@@ -22,9 +22,9 @@ const _roleLabels = {
 };
 
 const _roleColors = {
-  'super_admin': Color(0xFF7C3AED),
+  'super_admin': Color(0xFF166534),
   'owner': Color(0xFFD97706),
-  'admin': Color(0xFF6366F1),
+  'admin': Color(0xFF059669),
   'kasir': Color(0xFF0EA5E9),
   'chef': Color(0xFFF97316),
   'finance': Color(0xFF10B981),

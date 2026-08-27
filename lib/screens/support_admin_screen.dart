@@ -332,7 +332,7 @@ class _BarisChat extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 6, vertical: 1.5),
                 decoration: BoxDecoration(
                   color: (tiket.dariMerchant
-                          ? const Color(0xFF8B5CF6)
+                          ? const Color(0xFF0D9488)
                           : const Color(0xFF0EA5E9))
                       .withOpacity(0.14),
                   borderRadius: BorderRadius.circular(5),
@@ -343,7 +343,7 @@ class _BarisChat extends StatelessWidget {
                     fontSize: 9.5,
                     fontWeight: FontWeight.bold,
                     color: tiket.dariMerchant
-                        ? const Color(0xFF7C3AED)
+                        ? const Color(0xFF166534)
                         : const Color(0xFF0284C7),
                   ),
                 ),

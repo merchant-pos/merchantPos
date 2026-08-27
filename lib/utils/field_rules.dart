@@ -16,7 +16,13 @@ import 'package:flutter/services.dart';
 
 const kNameMaxLength = 40;
 const kPhoneMaxLength = 15;
-const kEmailMaxLength = 25;
+/// 40, bukan 25.
+///
+/// Batas lamanya menolak alamat yang benar-benar dipakai orang —
+/// "ethereumlutherbase@gmail.com" saja sudah 28 karakter. Yang ditolak
+/// bukan salah ketik melainkan email sungguhan, dan penolakannya
+/// terjadi di layar admin yang sedang mendaftarkan karyawan baru.
+const kEmailMaxLength = 40;
 const kNipMaxLength = 15;
 
 /// Huruf, angka, spasi, dan tanda baca yang wajar dipakai pada nama

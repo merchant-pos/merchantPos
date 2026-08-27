@@ -165,14 +165,14 @@ class OwnerHomeScreen extends StatelessWidget {
                       icon: Icons.history,
                       title: 'Riwayat Kasir',
                       subtitle: 'Transaksi yang diinput kasir — rekap per hari',
-                      color: const Color(0xFF6366F1),
+                      color: const Color(0xFF059669),
                       onTap: () => _open(context, const TransactionHistoryScreen()),
                     ),
                     HubMenuTile(
                       icon: Icons.insights_outlined,
                       title: 'Laporan Penjualan',
                       subtitle: 'Menu terlaris, menu tidak laku, dan jam ramai',
-                      color: const Color(0xFF8B5CF6),
+                      color: const Color(0xFF0D9488),
                       onTap: () => _open(context, const MerchantReportScreen()),
                     ),
                     ],
@@ -182,7 +182,7 @@ class OwnerHomeScreen extends StatelessWidget {
                     icon: Icons.account_balance_wallet_outlined,
                     title: 'Keuangan',
                     subtitle: 'Pemasukan, saldo, setoran, GL, jurnal, laporan',
-                    color: const Color(0xFF6366F1),
+                    color: const Color(0xFF059669),
                     loadCount: () => _penandaKeuangan(restoId),
                     tiles: () => [
                       HubMenuTile(
@@ -196,7 +196,7 @@ class OwnerHomeScreen extends StatelessWidget {
                       icon: Icons.account_balance_wallet_outlined,
                       title: 'Saldo & Pengeluaran',
                       subtitle: 'Lihat saldo total, catat pengeluaran',
-                      color: const Color(0xFF6366F1),
+                      color: const Color(0xFF059669),
                       loadCount: () => restoId == null
                           ? Future.value(0)
                           : PettyCashRepository().pendingCount(restoId),
@@ -216,7 +216,7 @@ class OwnerHomeScreen extends StatelessWidget {
                       icon: Icons.numbers,
                       title: 'Mapping GL Account',
                       subtitle: 'Nomor akun untuk pemasukan & pengeluaran',
-                      color: const Color(0xFF8B5CF6),
+                      color: const Color(0xFF0D9488),
                       onTap: () => _open(context, const FinanceGlMappingScreen()),
                     ),
                       HubMenuTile(
@@ -248,13 +248,13 @@ class OwnerHomeScreen extends StatelessWidget {
                     icon: Icons.tune,
                     title: 'Pengelolaan',
                     subtitle: 'Produk, diskon, pengumuman, tagihan langganan',
-                    color: const Color(0xFF8B5CF6),
+                    color: const Color(0xFF0D9488),
                     tiles: () => [
                       HubMenuTile(
                       icon: Icons.inventory_2_outlined,
                       title: 'Kelola Produk',
                       subtitle: 'Tambah/edit produk, kategori, level/varian',
-                      color: const Color(0xFF8B5CF6),
+                      color: const Color(0xFF0D9488),
                       onTap: () => _open(context, const ProductListScreen()),
                     ),
                       HubMenuTile(
@@ -270,7 +270,7 @@ class OwnerHomeScreen extends StatelessWidget {
                       icon: Icons.campaign_outlined,
                       title: 'Kirim Pengumuman',
                       subtitle: 'Blast info & promo ke kotak masuk merchant ini',
-                      color: const Color(0xFF8B5CF6),
+                      color: const Color(0xFF0D9488),
                       onTap: () => _open(context, const PublishAnnouncementScreen()),
                     ),
                       // Tagihan langganan Merchant-POS — bukan keuangan resto.
@@ -282,7 +282,7 @@ class OwnerHomeScreen extends StatelessWidget {
                       icon: Icons.receipt_long_outlined,
                       title: 'Tagihan Langganan',
                       subtitle: 'Biaya bulanan Merchant-POS & bukti pembayaran',
-                      color: const Color(0xFF6366F1),
+                      color: const Color(0xFF059669),
                       onTap: () {
                         final restoId = context.read<AuthProvider>().restoId;
                         if (restoId == null) return;

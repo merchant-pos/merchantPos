@@ -541,11 +541,11 @@ class _FasilitasChip extends StatelessWidget {
 
   static const _palet = [
     Color(0xFF10B981),
-    Color(0xFF6366F1),
+    Color(0xFF059669),
     Color(0xFFF59E0B),
     Color(0xFFEC4899),
     Color(0xFF14B8A6),
-    Color(0xFF8B5CF6),
+    Color(0xFF0D9488),
   ];
 
   /// Fasilitas yang punya ikonnya sendiri — dipakai menghitung lebar
