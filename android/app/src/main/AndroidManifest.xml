@@ -1,0 +1,85 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Ubin peta OpenStreetMap diambil lewat jaringan. Selama ini izin
+         internet datang menumpang dari manifest paket lain; menulisnya
+         sendiri membuatnya tidak bergantung pada paket mana yang
+         kebetulan masih terpasang. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <!-- Saving the receipt PNG to the gallery (gal). Android 10+ writes
+         via MediaStore and needs no permission, but minSdk here is 23 so
+         older devices still do. -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+    <!-- Memasang APK versi baru yang diunduh dari dalam aplikasi.
+         Tanpa izin ini Android menolak membuka layar pemasangnya, dan
+         kegagalannya terlihat seperti aplikasinya yang rusak: berkasnya
+         terunduh utuh lalu tidak terjadi apa-apa. -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- Notifikasi status pesanan. Wajib diminta saat berjalan sejak
+         Android 13; tanpa izin ini notifikasinya terkirim tapi tidak
+         pernah terlihat. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Mengambil titik lokasi resto sekali saat didaftarkan. Tidak ada
+         pelacakan di latar belakang: izinnya hanya diminta saat tombol
+         "Lokasi Saya" ditekan di layar Info Resto. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <application
+        android:label="MerchantPOS"
+        android:name="${applicationName}"
+        android:icon="@mipmap/launcher_icon">
+        <!--
+          singleTask, dan TANPA taskAffinity="".
+
+          taskAffinity kosong berarti activity ini tidak berkerabat
+          dengan task mana pun — termasuk task-nya sendiri. Apa pun yang
+          membukanya dengan FLAG_ACTIVITY_NEW_TASK, dan notifikasi
+          selalu begitu, membuat Android menaruhnya di task baru alih-alih
+          memakai yang sudah ada. Hasilnya dua MerchantPOS berjajar di
+          Recent Apps, masing-masing dengan keadaannya sendiri.
+
+          singleTop saja tidak cukup: ia hanya mencegah tumpukan ganda di
+          dalam SATU task, sementara masalahnya justru task keduanya.
+          singleTask menarik kembali task yang sudah ada.
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:enableOnBackInvokedCallback="true"
+            android:windowSoftInputMode="adjustResize">
+            <!-- Specifies an Android theme to apply to this Activity as soon as
+                 the Android process has started. This theme is visible to the user
+                 while the Flutter UI initializes. After that, this theme continues
+                 to determine the Window background behind the Flutter UI. -->
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- Don't delete the meta-data below.
+             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+    <!-- Required to query activities that can process text, see:
+         https://developer.android.com/training/package-visibility and
+         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+
+         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+    </queries>
+</manifest>

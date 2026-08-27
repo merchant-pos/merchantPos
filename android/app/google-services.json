@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1015088896093",
+    "project_id": "kaata-pos",
+    "storage_bucket": "kaata-pos.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1015088896093:android:580b40f91ead89bf0e55b4",
+        "android_client_info": {
+          "package_name": "com.gamskahfi.merchantpos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1015088896093-70sdsokrigmfbiaeqeu3lqdangg1878c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gamskahfi.merchantpos",
+            "certificate_hash": "9a845101b064f8c5c22552ec4e36335c554ac096"
+          }
+        },
+        {
+          "client_id": "1015088896093-5k1bi18rhsifjd67bduvu58hhd9s7sv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGfuG38Z7ixIkG4OKF4wiJz3CPpMJUa4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1015088896093-5k1bi18rhsifjd67bduvu58hhd9s7sv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

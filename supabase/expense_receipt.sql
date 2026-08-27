@@ -1,0 +1,12 @@
+-- KaataGo — bukti pengeluaran (run AFTER finance.sql).
+--
+-- Optional photo of the receipt/nota backing an expense, stored as a
+-- base64 string in the row itself — the same approach products already
+-- use for their photos, so there's no storage bucket to provision or
+-- keep permissions in sync with.
+--
+-- The app downsizes to 900px wide at 70% JPEG before encoding (see
+-- FinanceBalanceScreen), which keeps a receipt readable while landing
+-- well inside Postgres' row limits. Nullable because attaching one is
+-- entirely optional.
+alter table expenses add column if not exists receipt_base64 text;

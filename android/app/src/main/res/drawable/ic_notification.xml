@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Ikon kecil notifikasi MerchantPOS: huruf K berpanah, bentuk yang sama
+  dengan logo aplikasinya.
+
+  Harus siluet putih di atas transparan dan berada di folder `drawable`.
+  Plugin notifikasi mencarinya dengan getIdentifier(name, "drawable",
+  package), sehingga ikon di `mipmap` — termasuk ikon peluncur — tidak
+  akan pernah ditemukan, id-nya jadi 0, dan Android menolak notifikasi
+  tanpa ikon kecil yang sah.
+
+  Warnanya juga tidak boleh penuh: sejak Android 5 ikon kecil dijadikan
+  siluet, jadi anak panah amber pun akan tampil putih di sini.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="#FFFFFF">
+
+    <!-- Batang tegak -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M6.2,7.2 h2.5 v11.1 h-2.5 z" />
+
+    <!-- Lengan atas -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M9.4,12.7 L14.9,7.3 h3.9 L13.3,12.7 z" />
+
+    <!-- Lengan bawah -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M9.4,12.7 h3.9 L18.8,18.1 h-3.9 z" />
+
+    <!-- Kepala panah -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M17,14.8 L20.4,12.7 v4.2 z" />
+</vector>

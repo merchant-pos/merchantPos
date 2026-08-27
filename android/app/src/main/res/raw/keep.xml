@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Menahan sumber daya yang hanya dicari lewat nama saat aplikasi berjalan.
+
+  Build release menjalankan penciutan sumber daya (shrinkReleaseRes), yang
+  membuang apa pun yang tidak disebut dari kode atau XML Android. Dua
+  berkas di bawah ini memang tidak pernah disebut dari sana: keduanya
+  dicari flutter_local_notifications dengan getIdentifier(nama, jenis,
+  paket) — sebuah pencarian berdasarkan teks yang tidak bisa dilihat
+  penciutnya.
+
+  Akibatnya keduanya ikut terbuang dari APK, dan kegagalannya baru
+  muncul di perangkat: ikonnya "could not be found", notifikasinya
+  ditolak Android, dan nada deringnya tidak pernah berbunyi. Semuanya
+  hanya di build release — di debug penciutan tidak jalan, jadi
+  pengujian sehari-hari tidak pernah menunjukkannya.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/ic_notification,@raw/merchantpos_notif" />

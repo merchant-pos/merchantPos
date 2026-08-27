@@ -1,0 +1,11 @@
+-- KaataGo — nama kasir/admin pada pesanan (run AFTER schema.sql).
+--
+-- Records who entered an order placed through the Kasir/Admin screen, so
+-- a receipt and Riwayat Transaksi can name the person on shift.
+--
+-- Separate from `customer_label`, which for a Kasir sale holds that
+-- employee's *email*. An email identifies the account but reads poorly on
+-- a printed receipt, and it's the wrong thing to show a customer.
+--
+-- Null for customer self-orders — nobody entered those on their behalf.
+alter table orders add column if not exists cashier_name text;

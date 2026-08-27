@@ -1,0 +1,67 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Release signing — never commit the keystore or its passwords
+/android/key.properties
+*.jks
+*.keystore
+
+# iOS signing
+/ios/Runner.xcodeproj/project.pbxproj.orig
+*.mobileprovision
+*.p12
+
+# Claude Code internal state — not part of the app
+.claude/
+
+# Renamed release APKs (build artifacts, not source)
+/KaataGo Realase/
+
+# Berkas kunci sementara yang dibuat Word saat dokumennya dibuka.
+~$*
+
+# Pekerja sqflite untuk web dibangkitkan `dart run sqflite_common_ffi_web:setup`,
+# bukan ditulis tangan — ikut versi paketnya, jadi tidak perlu masuk git.
+web/sqflite_sw.js
+web/sqlite3.wasm

@@ -1,0 +1,186 @@
+name: merchant_pos
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.4
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+  # Teks bawaan Material (tombol dialog, pemilih tanggal) ikut berganti
+  # bahasa — tanpa ini separuh layar berbahasa Inggris dan separuhnya
+  # lagi tetap Indonesia.
+  flutter_localizations:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+
+  # Local database for offline-first storage
+  sqflite: ^2.3.3
+  path: ^1.9.0
+
+  # State management
+  provider: ^6.1.2
+
+  # Currency / number / date formatting (e.g. Rp)
+  intl: ^0.19.0
+
+  # Unique IDs for transactions/products
+  uuid: ^4.5.1
+
+  # Dummy QR code generation for the QRIS payment screen
+  qr_flutter: ^4.1.0
+
+  # Persist app settings (QRIS merchant info, bank account) on-device
+  shared_preferences: ^2.3.2
+
+  # Supabase: auth (Google Sign-In) + Postgres database (shared employee
+  # list, customer orders, and cross-device payment settings), with
+  # realtime subscriptions standing in for Firestore's live streams.
+  supabase_flutter: ^2.6.0
+  google_sign_in: ^6.2.1
+
+  # QR scanning for the "scan table QR to order" customer flow
+  mobile_scanner: ^5.2.3
+
+  # Profile photo: pick from gallery, stored as base64 in the customers
+  # table (no separate object-storage bucket needed)
+  # Used to trim the blank tail off the rasterised receipt (see
+  # utils/receipt_image.dart). Already present transitively via printing.
+  image: ^4.5.4
+  image_picker: ^1.1.2
+
+  # Needed only for image_picker's CAMERA source: mobile_scanner puts
+  # android.permission.CAMERA in the manifest, and Android then refuses
+  # ACTION_IMAGE_CAPTURE with a SecurityException unless that permission
+  # has been granted. image_picker never requests it itself, and a
+  # Finance user photographing a receipt would otherwise never have been
+  # through the QR scanner that does.
+  permission_handler: ^11.3.1
+
+  # Saves the rendered receipt PNG into the device's photo gallery, so a
+  # customer can keep/share their struk like any other picture.
+  gal: ^2.3.0
+
+  # Hands the receipt image to Android's share sheet (WhatsApp, Telegram,
+  # Gmail, ...). Replaces the email-a-receipt flow, which needed a mail
+  # provider and an Edge Function that were never deployed.
+  share_plus: ^10.1.2
+
+  # Reads the app's version/build number (from pubspec.yaml) at runtime,
+  # shown as a footer on the role-choice screen.
+  package_info_plus: ^8.0.2
+
+  # Finance's bank-statement-style transaction report: generates a PDF
+  # (pdf) and hands it to the OS share/print sheet (printing).
+  pdf: ^3.11.1
+  printing: ^5.13.4
+  flutter_local_notifications: ^19.5.0
+  url_launcher: ^6.3.1
+  # Peta untuk memilih titik lokasi resto. OpenStreetMap, bukan Google
+  # Maps: tanpa API key, tanpa akun, tanpa kuota yang bisa habis di
+  # tengah bulan. Kualitas ubinnya di bawah Google, tapi yang dibutuhkan
+  # di sini cuma memastikan pin-nya jatuh di jalan yang benar.
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+
+  geolocator: ^13.0.4
+  http: ^1.6.0
+  firebase_core: ^3.15.2
+  firebase_messaging: ^15.2.10
+  path_provider: ^2.1.5
+  open_filex: ^4.7.0
+  sqflite_common_ffi_web: ^0.4.5+4
+
+dependency_overrides:
+  # app_links 6.4.x's Android build.gradle references `flutter.compileSdkVersion`
+  # in a way our Flutter 3.24.5 toolchain's Gradle plugin doesn't inject into
+  # transitive plugin subprojects (only newer Flutter versions do) — pin to an
+  # older app_links that still hardcodes its own compileSdk instead.
+  app_links: 6.1.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^4.0.0
+
+  # Generates the Android/iOS home-screen app icon from assets/icon/merchantpos_icon.png
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/merchantpos_icon.png"
+  min_sdk_android: 23
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  assets:
+    - assets/icon/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package

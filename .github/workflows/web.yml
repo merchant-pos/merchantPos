@@ -1,0 +1,91 @@
+name: Konsol Web
+
+# Diterbitkan manual saja, untuk sekarang — lihat alasannya di bawah.
+on:
+  # Push otomatis sengaja dimatikan sampai REPO_SITUS di bawah diisi.
+  #
+  # Alur yang berjalan sendiri ke tujuan yang salah akan menimpa situs
+  # KaataGo dengan build MerchantPOS — dan itu terjadi pada push
+  # pertama, sebelum ada yang sempat membaca berkas ini.
+  #
+  # Nyalakan lagi setelah repo situsnya sendiri dibuat:
+  #   push:
+  #     branches: [prod-deploy-setup]
+  #     paths-ignore: ['**.md', 'docs/**', 'supabase/**', 'android/**', 'ios/**']
+  workflow_dispatch:
+
+# Satu deploy pada satu waktu; yang belakangan menunggu, tidak
+# menyalip.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+# Situsnya diterbitkan ke repo lain, jadi tidak ada izin pages yang
+# perlu diminta di sini — yang dipakai token khusus di bawah.
+permissions:
+  contents: read
+
+env:
+  # Repo situs pengguna. Namanya harus persis sama dengan nama akun,
+  # dan itulah satu-satunya bentuk repo yang dilayani GitHub di akar
+  # domain tanpa subjalur.
+  #
+  # Akar domain bukan soal rapi. Firebase JS SDK mendaftarkan
+  # firebase-messaging-sw.js dengan jalur mutlak dari akar, dan
+  # firebase_messaging_web tidak melewatkan registrasi buatan sendiri
+  # untuk menggantinya. Di bawah subjalur berkas itu tidak akan pernah
+  # ketemu, dan notifikasi dorong tidak akan pernah hidup.
+  # BELUM DIISI — ini masih repo situs KaataGo. Menjalankan alur ini
+  # apa adanya akan menimpa situs KaataGo dengan build MerchantPOS.
+  REPO_SITUS: GANTI-DULU/nama-repo-situs-merchantpos
+
+jobs:
+  terbitkan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          # Dipatok sama dengan yang dipakai di mesin lokal. Versi
+          # Flutter yang berbeda menghasilkan galat yang tidak pernah
+          # terlihat saat dibangun di tempat lain.
+          flutter-version: '3.24.5'
+          channel: stable
+
+      - run: flutter pub get
+
+      # Pekerja sqflite untuk web tidak ikut ke dalam git — dibangkitkan
+      # ulang di sini supaya isinya sesuai versi paketnya.
+      - run: dart run sqflite_common_ffi_web:setup
+
+      # Tanpa --base-href: situsnya melayani akar domain.
+      - run: flutter build web --release
+
+      # Jekyll mengabaikan berkas dan folder berawalan garis bawah.
+      # Flutter tidak memakainya sekarang, tapi satu berkas yang hilang
+      # diam-diam jauh lebih mahal daripada berkas penanda kosong.
+      - run: touch build/web/.nojekyll
+
+      - name: Dorong ke repo situs
+        env:
+          TOKEN: ${{ secrets.PAGES_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "Secret PAGES_TOKEN belum diisi di repo ini." >&2
+            echo "Buat token dengan izin Contents: write pada $REPO_SITUS," >&2
+            echo "lalu simpan sebagai secret bernama PAGES_TOKEN." >&2
+            exit 1
+          fi
+          cd build/web
+          git init -q
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          # Riwayat situsnya tidak dipelihara: yang dibutuhkan hanya
+          # keadaan terakhir, dan menyimpan tiap hasil build membuat
+          # repo itu membengkak oleh berkas yang tidak pernah dibaca.
+          git commit -q -m "Konsol web dari ${GITHUB_SHA::7}"
+          git push -q --force \
+            "https://x-access-token:${TOKEN}@github.com/${REPO_SITUS}.git" \
+            HEAD:main

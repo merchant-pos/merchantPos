@@ -1,0 +1,47 @@
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+
+// Newer plugins (gal, and app_links before it) write
+// `compileSdk flutter.compileSdkVersion` in their own build.gradle. That
+// `flutter` extension is only injected into :app by our Flutter 3.24.5
+// Gradle plugin — never into transitive plugin subprojects — so those
+// plugins fail at evaluation time with "compileSdkVersion is not
+// specified". Newer Flutter versions inject it everywhere; until we move
+// to one, stand in with the same values :app uses.
+//
+// Registered as beforeEvaluate because the failure happens while the
+// plugin's build.gradle is being evaluated — an afterEvaluate hook would
+// run far too late to help.
+//
+// :app is excluded deliberately — it gets the real `flutter` extension
+// when dev.flutter.flutter-gradle-plugin is applied, and that happens
+// after this hook runs. Defining a stand-in there makes the plugin find
+// a plain Map instead of its own extension and fail with "Must provide
+// Flutter source directory".
+subprojects {
+    beforeEvaluate { subproject ->
+        if (subproject.name != "app" && !subproject.hasProperty("flutter")) {
+            subproject.ext.flutter = [
+                compileSdkVersion: 35,
+                minSdkVersion    : 23,
+                targetSdkVersion : 34,
+            ]
+        }
+    }
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}

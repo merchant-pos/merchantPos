@@ -1,0 +1,83 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
+}
+
+// Release signing config — kept out of source control (android/key.properties
+// is gitignored). Falls back to nothing if the file is missing, so a fresh
+// checkout still builds debug/profile fine; only `--release` needs it.
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+android {
+    namespace = "com.gamskahfi.merchantpos"
+    compileSdk = 35 // some plugins now need SDK 35+ (backward compatible)
+    ndkVersion = "26.1.10909125" // required by app_links, google_sign_in, etc.
+
+    compileOptions {
+        // flutter_local_notifications memakai API java.time, yang baru ada
+        // di Android 8. Desugaring menyediakan tiruannya untuk perangkat
+        // lebih lama — tanpa ini build release ditolak mentah-mentah.
+        coreLibraryDesugaringEnabled = true
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId = "com.gamskahfi.merchantpos"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        minSdk = 23 // required by firebase_auth / google_sign_in
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropertiesFile.exists()) {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            // Real release signing (android/key.properties + merchantpos-release.jks)
+            // when present; falls back to the debug key otherwise so a fresh
+            // checkout without the keystore still builds.
+            signingConfig = keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
+        }
+    }
+    // Note: renaming the release APK's output filename via
+    // applicationVariants doesn't survive `flutter build apk` — Flutter's
+    // own tooling copies the assembled APK to the canonical
+    // build/app/outputs/flutter-apk/app-release.apk path regardless of
+    // any custom Gradle output name. The rename to
+    // "MerchantPOS-Release-<version>.apk" is done as a copy step after the
+    // build instead (see the build commands used for releases).
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    // Pasangan dari coreLibraryDesugaringEnabled di atas: pustaka inilah
+    // yang menyediakan java.time dkk untuk Android di bawah 8.
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
+}
