@@ -1,17 +1,16 @@
 name: Konsol Web
 
-# Diterbitkan manual saja, untuk sekarang — lihat alasannya di bawah.
+# Terbit sendiri tiap push ke main, dan tetap bisa dipicu manual.
 on:
-  # Push otomatis sengaja dimatikan sampai REPO_SITUS di bawah diisi.
-  #
-  # Alur yang berjalan sendiri ke tujuan yang salah akan menimpa situs
-  # KaataGo dengan build MerchantPOS — dan itu terjadi pada push
-  # pertama, sebelum ada yang sempat membaca berkas ini.
-  #
-  # Nyalakan lagi setelah repo situsnya sendiri dibuat:
-  #   push:
-  #     branches: [prod-deploy-setup]
-  #     paths-ignore: ['**.md', 'docs/**', 'supabase/**', 'android/**', 'ios/**']
+  push:
+    branches: [main]
+    # Perubahan yang tidak ikut terbangun tidak perlu membangun ulang.
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'supabase/**'
+      - 'android/**'
+      - 'ios/**'
   workflow_dispatch:
 
 # Satu deploy pada satu waktu; yang belakangan menunggu, tidak
@@ -35,9 +34,7 @@ env:
   # firebase_messaging_web tidak melewatkan registrasi buatan sendiri
   # untuk menggantinya. Di bawah subjalur berkas itu tidak akan pernah
   # ketemu, dan notifikasi dorong tidak akan pernah hidup.
-  # BELUM DIISI — ini masih repo situs KaataGo. Menjalankan alur ini
-  # apa adanya akan menimpa situs KaataGo dengan build MerchantPOS.
-  REPO_SITUS: GANTI-DULU/nama-repo-situs-merchantpos
+  REPO_SITUS: merchant-pos/merchant-pos.github.io
 
 jobs:
   terbitkan:

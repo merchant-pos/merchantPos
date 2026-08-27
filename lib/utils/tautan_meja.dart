@@ -4,15 +4,7 @@
 /// yang sudah tercetak menunjuk ke tempat yang salah. Kalau alamatnya
 /// pindah, jalur lama harus tetap dilayani — bukan sekadar dialihkan
 /// sekali lalu dilupakan.
-///
-/// BELUM DIISI. Nilainya masih menunjuk situs KaataGo, dan itu salah
-/// dalam cara yang tidak akan terlihat saat diuji: QR-nya tetap bisa
-/// dipindai, mejanya tetap ketemu — karena databasenya sama — dan yang
-/// muncul di layar pelanggan adalah merek yang salah.
-///
-/// Ganti begitu situs MerchantPOS punya alamatnya sendiri, lalu cetak
-/// QR mejanya dari sana.
-const kAlamatWeb = 'https://bujejuki-spec.github.io/';
+const kAlamatWeb = 'https://merchant-pos.github.io/';
 
 /// Isi QR meja: tautan, bukan teks biasa.
 ///

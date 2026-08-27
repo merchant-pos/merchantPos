@@ -71,8 +71,6 @@ angkanya nol, atau chat yang diam-diam jadi pengaduan.
   jari SHA-1, yang keduanya hanya berlaku untuk aplikasi Android
 - **Auth Google** di proyek Supabase baru: aktifkan providernya, lalu
   daftarkan alamat webnya di Redirect URLs dan Site URL
-- `lib/utils/tautan_meja.dart` → `kAlamatWeb` masih menunjuk situs
-  KaataGo
-- `.github/workflows/web.yml` → `REPO_SITUS`, dan pemicu push-nya masih
-  dimatikan supaya tidak menimpa situs KaataGo
-- `scripts/release.sh` → repo rilis dan landing page
+- **Repo situs** `merchant-pos/merchant-pos.github.io` belum dibuat,
+  dan secret `PAGES_TOKEN` belum diisi di repo ini — tanpa keduanya
+  alur terbitnya berhenti dengan pesan yang menyebutkannya
