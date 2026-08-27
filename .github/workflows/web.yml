@@ -40,7 +40,11 @@ jobs:
   terbitkan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # v5, bukan v4: v4 berjalan di atas Node 20 yang sudah usang, dan
+      # runner memaksanya ke Node 24 sambil memperingatkan tiap kali.
+      # Peringatan yang muncul di tiap run akhirnya berhenti dibaca —
+      # termasuk saat isinya berubah jadi sesuatu yang penting.
+      - uses: actions/checkout@v5
 
       - uses: subosito/flutter-action@v2
         with:
