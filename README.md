@@ -1,6 +1,15 @@
 # MerchantPOS
 
 Aplikasi POS + pesan-sendiri untuk merchant, dibangun dengan Flutter.
+
+**Web saja.** Tidak ada APK, dan alur rilisnya sengaja dihapus —
+`release.sh`, pengunggah aset GitHub, dan catatan kunci penandatangan
+rilis ikut dibuang. Yang tertinggal cuma alur terbit konsol web.
+
+Folder `android/` sengaja dibiarkan. Ia tidak dipakai, tapi
+menghapusnya membuat `flutter` perlu membangkitkannya lagi kalau suatu
+hari APK-nya dibutuhkan — dan yang dibangkitkan ulang tidak membawa
+serta penyesuaian yang pernah ada di dalamnya.
 Berasal dari salinan KaataGo, tapi sejak commit pemisahan ia berdiri
 sendiri: proyek Supabase-nya sendiri, datanya sendiri, dan tidak ada
 lagi konstanta yang terikat merek lain.
@@ -56,12 +65,12 @@ angkanya nol, atau chat yang diam-diam jadi pengaduan.
   `FCM_SERVICE_ACCOUNT`, `PUSH_HOOK_SECRET`, `RELEASE_HOOK_SECRET`,
   `RESEND_API_KEY`, `XENDIT_SECRET_KEY`, `XENDIT_CALLBACK_TOKEN`,
   `XENDIT_ACCOUNT_ID`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`
-- **Firebase** masih memakai proyek `kaata-pos`. Push notif baru jalan
-  setelah `com.gamskahfi.merchantpos` didaftarkan sebagai aplikasi
-  Android di sana (atau di proyek Firebase sendiri), berikut
-  `google-services.json`-nya
-- **Login Google**: SHA-1 kunci rilis harus terdaftar untuk package
-  barunya — lihat `android/BACA-DULU-KUNCI-RILIS.md`
+- **Firebase** masih memakai proyek `kaata-pos`. Karena web saja, yang
+  dibutuhkan cuma konfigurasi web di `lib/firebase_web_options.dart`
+  berikut kunci VAPID-nya — bukan `google-services.json` maupun sidik
+  jari SHA-1, yang keduanya hanya berlaku untuk aplikasi Android
+- **Auth Google** di proyek Supabase baru: aktifkan providernya, lalu
+  daftarkan alamat webnya di Redirect URLs dan Site URL
 - `lib/utils/tautan_meja.dart` → `kAlamatWeb` masih menunjuk situs
   KaataGo
 - `.github/workflows/web.yml` → `REPO_SITUS`, dan pemicu push-nya masih
