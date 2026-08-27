@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../db/support_repository.dart';
-import '../models/billing.dart';
 import '../providers/auth_provider.dart';
-import 'billing_discount_screen.dart';
 import 'billing_screen.dart';
 import 'cash_deposit_screen.dart';
 import 'cashier_shift_screen.dart';
@@ -21,7 +18,6 @@ import 'finance_report_screen.dart';
 import 'inbox_screen.dart';
 import 'katalog_siap.dart';
 import 'level_management_screen.dart';
-import 'market_report_screen.dart';
 import 'merchant_report_screen.dart';
 import 'pending_payment_screen.dart';
 import 'product_list_screen.dart';
@@ -31,12 +27,8 @@ import 'publish_announcement_screen.dart';
 import 'restaurant_info_screen.dart';
 import 'restaurant_manage_list_screen.dart';
 import 'settings_screen.dart';
-import 'super_admin_billing_screen.dart';
-import 'super_admin_finance_screen.dart';
-import 'support_admin_screen.dart';
 import 'table_qr_generator_screen.dart';
 import 'transaction_history_screen.dart';
-import 'voucher_screen.dart';
 
 /// Satu tujuan di sidebar web.
 class MenuWeb {
@@ -48,42 +40,13 @@ class MenuWeb {
   /// sebelumnya.
   final String? kelompok;
 
-  /// Berapa hal yang menunggu dibaca di balik menu ini.
-  ///
-  /// Angkanya ditempel di sidebar. Tanpa ini, tanda "1 belum dibaca"
-  /// hanya terlihat sesudah menunya dibuka — padahal justru itu yang
-  /// seharusnya membuat orang membukanya.
-  ///
-  /// Aliran, bukan sekali hitung. Angka yang diperbarui berkala selalu
-  /// tertinggal sebanyak selang waktunya, dan yang menunggu jawaban
-  /// membaca keterlambatan itu sebagai "harus muat ulang dulu".
-  final Stream<int> Function()? belumDibaca;
-
   const MenuWeb({
     required this.ikon,
     required this.judul,
     required this.layar,
     this.kelompok,
-    this.belumDibaca,
   });
 }
-
-/// Percakapan yang menunggu jawaban Merchant-POS Admin.
-///
-/// Dihitung dari aliran tiket yang sama dengan yang dipakai layar
-/// Customer Service — bukan permintaan terpisah. Dua sumber untuk satu
-/// angka akan berbeda cepat atau lambat, dan yang berbeda dengan isi
-/// layarnya sendiri adalah yang lebih membingungkan.
-Stream<int> _supportBelumDibaca() => SupportRepository().semua().map(
-      (tiket) => SupportRepository.belumDibaca(tiket, sebagaiAdmin: true),
-    );
-
-/// Pembukuan Merchant-POS sendiri, bukan pembukuan merchant — ketiganya
-/// selalu menunjuk resto semu 'merchantpos'.
-Widget _saldoMerchantPOS() => const FinanceBalanceScreen(restoId: kPlatformRestoId);
-Widget _mappingMerchantPOS() =>
-    const FinanceGlMappingScreen(restoId: kPlatformRestoId);
-Widget _jurnalMerchantPOS() => const FinanceJournalScreen(restoId: kPlatformRestoId);
 
 /// Tagihan langganan butuh tahu cabang mana yang sedang dibuka.
 Widget _tagihan() => Builder(builder: (context) {
@@ -148,6 +111,17 @@ Widget _berandaKosong() => const SizedBox.shrink();
 /// Peran ini punya versi webnya sendiri.
 bool punyaVersiWeb(AuthProvider auth) => menuWebUntuk(auth).isNotEmpty;
 
+// Merchant-POS Admin memegang dua menu saja.
+//
+// Sisanya — billing, pembukuan platform, voucher, Customer Service,
+// analisa pasar, pengumuman, kotak masuk — dihilangkan dari sidebar,
+// bukan dicabut haknya. Fungsi, pemicu, dan kebijakan RLS-nya di
+// Postgres tidak disentuh sama sekali, dan is_super_admin() masih
+// membuka semuanya seperti sebelumnya.
+//
+// Ditulis terang-terangan karena menu yang hilang mudah dikira hak
+// yang hilang. Kalau suatu hari yang diinginkan memang mencabutnya,
+// tempatnya di RLS — bukan di daftar ini.
 const _superAdmin = <MenuWeb>[
   MenuWeb(
     kelompok: 'Merchant',
@@ -160,79 +134,8 @@ const _superAdmin = <MenuWeb>[
     judul: 'Kelola Karyawan',
     layar: EmployeeManagementScreen.new,
   ),
-  MenuWeb(
-    kelompok: 'Keuangan',
-    ikon: Icons.receipt_long_outlined,
-    judul: 'Billing Merchant',
-    layar: SuperAdminBillingScreen.new,
-  ),
-  // Isi hub Finance Merchant-POS dibongkar ke sidebar.
-  //
-  // Hub bertingkat masuk akal di ponsel: layarnya sempit, jadi tujuh
-  // tujuan disembunyikan di balik satu kartu. Di sidebar yang memang
-  // memuat semuanya, kartu itu berubah jadi ketukan tambahan menuju
-  // daftar yang seharusnya sudah terlihat sejak awal — dan tujuh
-  // tujuan itu jadi satu-satunya bagian aplikasi yang tidak bisa
-  // dicapai langsung dari kiri layar.
-  MenuWeb(
-    ikon: Icons.history,
-    judul: 'Riwayat Langganan',
-    layar: BillingHistoryScreen.new,
-  ),
-  MenuWeb(
-    ikon: Icons.local_offer_outlined,
-    judul: 'Diskon Langganan',
-    layar: BillingDiscountScreen.new,
-  ),
-  MenuWeb(
-    ikon: Icons.card_giftcard,
-    judul: 'Voucher Pelanggan',
-    layar: VoucherScreen.new,
-  ),
-  MenuWeb(
-    kelompok: 'Pembukuan Merchant-POS',
-    ikon: Icons.account_balance_wallet_outlined,
-    judul: 'Saldo & Pengeluaran',
-    layar: _saldoMerchantPOS,
-  ),
-  MenuWeb(
-    ikon: Icons.numbers,
-    judul: 'Mapping GL Account',
-    layar: _mappingMerchantPOS,
-  ),
-  MenuWeb(
-    ikon: Icons.menu_book_outlined,
-    judul: 'Jurnal GL Merchant-POS',
-    layar: _jurnalMerchantPOS,
-  ),
-  MenuWeb(
-    ikon: Icons.travel_explore,
-    judul: 'Jurnal GL Semua Merchant',
-    layar: AllRestoJournalScreen.new,
-  ),
-  MenuWeb(
-    kelompok: 'Pelanggan',
-    ikon: Icons.support_agent,
-    judul: 'Customer Service',
-    layar: SupportAdminScreen.new,
-    belumDibaca: _supportBelumDibaca,
-  ),
-  MenuWeb(
-    ikon: Icons.insights_outlined,
-    judul: 'Analisa Pasar',
-    layar: MarketReportScreen.new,
-  ),
-  MenuWeb(
-    ikon: Icons.campaign_outlined,
-    judul: 'Kirim Pengumuman',
-    layar: PublishAnnouncementScreen.new,
-  ),
-  MenuWeb(
-    ikon: Icons.inbox_outlined,
-    judul: 'Kotak Masuk',
-    layar: InboxScreen.new,
-  ),
 ];
+
 
 const _owner = <MenuWeb>[
   MenuWeb(

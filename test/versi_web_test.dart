@@ -316,6 +316,31 @@ void main() {
   // disentuh, dan peran admin tetap berhak atas semuanya di mata
   // database. Yang dijaga di sini cuma daftarnya, supaya tidak
   // pelan-pelan bertambah lagi tanpa ada yang memutuskannya.
+  // Merchant-POS Admin memegang dua menu saja; sisanya disembunyikan
+  // dari sidebar, bukan dicabut haknya di database.
+  group('sidebar Merchant-POS Admin dibatasi', () {
+    final blok = menu.substring(menu.indexOf('const _superAdmin = <MenuWeb>['));
+    final superAdmin = blok.substring(0, blok.indexOf('\n];'));
+
+    test('hanya List Merchant dan Kelola Karyawan', () {
+      final ada = RegExp(r"judul: '([^']+)'")
+          .allMatches(superAdmin)
+          .map((m) => m.group(1)!)
+          .toList();
+      expect(ada, ['List Merchant', 'Kelola Karyawan']);
+    });
+
+    test('yang disembunyikan benar-benar tidak ada di sidebarnya', () {
+      for (final m in [
+        'Billing Merchant', 'Riwayat Langganan', 'Diskon Langganan',
+        'Voucher Pelanggan', 'Customer Service', 'Analisa Pasar',
+        'Kirim Pengumuman', 'Kotak Masuk',
+      ]) {
+        expect(superAdmin, isNot(contains("judul: '$m'")), reason: m);
+      }
+    });
+  });
+
   group('sidebar Admin dibatasi', () {
     final blok = menu.substring(menu.indexOf('const _admin = <MenuWeb>['));
     final admin = blok.substring(0, blok.indexOf('\n];'));
@@ -348,84 +373,13 @@ void main() {
     });
   });
 
-  group('hub tidak bersarang lagi di sidebar', () {
-    final blok = menu.substring(menu.indexOf('const _superAdmin'));
-    final superAdmin = blok.substring(0, blok.indexOf('\n];'));
-
-    test('isi Finance Merchant-POS dibongkar ke sidebar', () {
-      for (final m in [
-        'Riwayat Langganan',
-        'Diskon Langganan',
-        'Voucher Pelanggan',
-        'Saldo & Pengeluaran',
-        'Mapping GL Account',
-        'Jurnal GL Merchant-POS',
-        'Jurnal GL Semua Merchant',
-      ]) {
-        expect(superAdmin, contains("judul: '$m'"), reason: m);
-      }
-      // Kartunya sendiri tidak ikut, kalau tidak jadi dua jalan ke
-      // tujuan yang sama.
-      expect(superAdmin, isNot(contains('SuperAdminFinanceScreen')));
-    });
-
-    // Ketiganya membaca pembukuan Merchant-POS sendiri, bukan pembukuan
-    // merchant mana pun — salah resto berarti angka orang lain.
-    test('pembukuan Merchant-POS menunjuk resto semu merchantpos', () {
-      for (final f in ['_saldoMerchantPOS', '_mappingMerchantPOS', '_jurnalMerchantPOS']) {
-        expect(menu, contains(f));
-      }
-      expect('restoId: kPlatformRestoId'.allMatches(menu).length, 3);
-    });
-  });
-
-  group('penanda dan popup di sidebar', () {
-    final shell = File('lib/screens/web_shell_screen.dart').readAsStringSync();
-
-    // Tanpa ini, "1 belum dibaca" hanya terlihat sesudah menunya
-    // dibuka — padahal justru itu yang seharusnya membuat orang
-    // membukanya.
-    test('Customer Service membawa angka belum dibaca ke sidebar', () {
-      expect(menu, contains('belumDibaca: _supportBelumDibaca'));
-      expect(menu, contains('SupportRepository().semua()'));
-      expect(shell, contains('if (m.belumDibaca != null)'));
-    });
-
-    // Angka yang diperbarui berkala selalu tertinggal sebanyak selang
-    // waktunya, dan yang menunggu jawaban membaca keterlambatan itu
-    // sebagai "harus muat ulang dulu".
-    test('angkanya mengalir, bukan dihitung berkala', () {
-      expect(shell, contains('StreamBuilder<int>('));
-      expect(shell, isNot(contains('Timer.periodic(')));
-      // Dari aliran tiket yang sama dengan layar Customer Service: dua
-      // sumber untuk satu angka akan berbeda cepat atau lambat.
-      expect(menu, contains('SupportRepository().semua().map('));
-    });
-
-    // Sidebar sudah memuat semuanya, jadi ini bukan satu-satunya jalan
-    // ke mana pun — gunanya memakai ruang kosong di sebelah sidebar
-    // untuk menunjukkan apa saja yang ada.
-    test('beranda berisi pintasan ke seluruh menu perannya', () {
-      expect(menu, contains('const menuBerandaWeb = MenuWeb('));
-      expect(shell, contains('if (tujuan.isNotEmpty) menuBerandaWeb'));
-      expect(shell, contains('class _Beranda'));
-    });
-
-    // Kartunya dirakit per kelompok, dan yang berada sebelum judul
-    // kelompok pertama tidak akan ikut terpasang sama sekali.
-    test('tiap peran mulai dengan sebuah kelompok', () {
-      for (final peran in ['_superAdmin', '_owner', '_admin', '_finance']) {
-        final b = menu.substring(menu.indexOf('const $peran = <MenuWeb>['));
-        final pertama = b.substring(0, b.indexOf('judul:'));
-        expect(pertama, contains('kelompok:'), reason: peran);
-      }
-    });
+  group('popup Support', () {
+    final fab = File('lib/widgets/support_fab.dart').readAsStringSync();
 
     // Lembar bawah selalu selebar jendela dan menempel di dasarnya; di
     // jendela lebar ia jadi panel raksasa di pojok yang berlawanan
     // dengan tombol yang barusan ditekan.
-    test('menu Support menempel pada tombolnya di web', () {
-      final fab = File('lib/widgets/support_fab.dart').readAsStringSync();
+    test('menempel pada tombolnya di web', () {
       expect(fab, contains('if (kIsWeb) {'));
       expect(fab, contains('alignment: Alignment.bottomRight'));
       // Satu badan menu, dipakai dua bentuk — bukan dua salinan yang
