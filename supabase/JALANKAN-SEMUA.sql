@@ -270,80 +270,7 @@ alter table restaurants add column if not exists category text;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 8. seed_products.sql
--- ═══════════════════════════════════════════════════════════
-
--- Seeds realistic Indonesian F&B categories + products.
--- IMPORTANT: replace 'resto-1' below with YOUR actual resto_id
--- (the same value used in your employees table's resto_id column)
--- before running this in Supabase SQL Editor.
---
--- After running, open the app as Admin/Kasir once — it automatically
--- pulls any new products/categories from Supabase into the local
--- device database (see ProductProvider.pullNewProductsFromFirestore /
--- CategoryProvider.pullNewFromSupabase).
-
-do $$
-declare
-  v_resto_id text := 'resto-1'; -- <-- change this
-begin
-
-insert into categories (id, resto_id, name) values
-  (gen_random_uuid()::text, v_resto_id, 'Makanan Utama'),
-  (gen_random_uuid()::text, v_resto_id, 'Ayam & Bebek'),
-  (gen_random_uuid()::text, v_resto_id, 'Seafood'),
-  (gen_random_uuid()::text, v_resto_id, 'Mie & Bakmi'),
-  (gen_random_uuid()::text, v_resto_id, 'Cemilan'),
-  (gen_random_uuid()::text, v_resto_id, 'Dessert'),
-  (gen_random_uuid()::text, v_resto_id, 'Kopi & Teh'),
-  (gen_random_uuid()::text, v_resto_id, 'Minuman')
-on conflict do nothing;
-
-insert into products (id, resto_id, name, category, price, stock, description) values
-  (gen_random_uuid()::text, v_resto_id, 'Nasi Goreng Spesial', 'Makanan Utama', 25000, 20, 'Nasi goreng dengan telur, ayam suwir, dan kerupuk.'),
-  (gen_random_uuid()::text, v_resto_id, 'Nasi Uduk Komplit', 'Makanan Utama', 22000, 15, 'Nasi uduk gurih dengan ayam goreng, tempe, dan sambal.'),
-  (gen_random_uuid()::text, v_resto_id, 'Nasi Campur Bali', 'Makanan Utama', 28000, 12, 'Nasi dengan lauk pauk khas Bali, ayam sisit, dan sambal matah.'),
-  (gen_random_uuid()::text, v_resto_id, 'Gado-Gado', 'Makanan Utama', 20000, 18, 'Sayuran segar dengan siraman bumbu kacang khas.'),
-  (gen_random_uuid()::text, v_resto_id, 'Soto Ayam', 'Makanan Utama', 23000, 15, 'Soto ayam kuah bening dengan suwiran ayam dan telur.'),
-
-  (gen_random_uuid()::text, v_resto_id, 'Ayam Geprek Sambal Bawang', 'Ayam & Bebek', 24000, 25, 'Ayam goreng crispy digeprek dengan sambal bawang pedas.'),
-  (gen_random_uuid()::text, v_resto_id, 'Ayam Bakar Madu', 'Ayam & Bebek', 27000, 15, 'Ayam bakar dengan bumbu madu manis gurih.'),
-  (gen_random_uuid()::text, v_resto_id, 'Bebek Goreng Sambal Ijo', 'Ayam & Bebek', 32000, 10, 'Bebek goreng renyah dengan sambal ijo khas Minang.'),
-  (gen_random_uuid()::text, v_resto_id, 'Ayam Penyet', 'Ayam & Bebek', 23000, 18, 'Ayam goreng penyet dengan sambal terasi pedas.'),
-
-  (gen_random_uuid()::text, v_resto_id, 'Cumi Goreng Tepung', 'Seafood', 30000, 12, 'Cumi segar digoreng garing dengan bumbu spesial.'),
-  (gen_random_uuid()::text, v_resto_id, 'Udang Saus Padang', 'Seafood', 35000, 10, 'Udang segar dimasak dengan saus padang pedas manis.'),
-  (gen_random_uuid()::text, v_resto_id, 'Ikan Bakar Kecap', 'Seafood', 33000, 10, 'Ikan segar dibakar dengan bumbu kecap manis.'),
-
-  (gen_random_uuid()::text, v_resto_id, 'Mie Ayam Bakso', 'Mie & Bakmi', 20000, 20, 'Mie ayam dengan topping bakso dan pangsit.'),
-  (gen_random_uuid()::text, v_resto_id, 'Mie Goreng Jawa', 'Mie & Bakmi', 21000, 15, 'Mie goreng dengan bumbu rempah khas Jawa.'),
-  (gen_random_uuid()::text, v_resto_id, 'Kwetiau Goreng', 'Mie & Bakmi', 23000, 12, 'Kwetiau goreng dengan telur, ayam, dan sayuran.'),
-
-  (gen_random_uuid()::text, v_resto_id, 'Tahu Isi', 'Cemilan', 10000, 25, 'Tahu goreng isi sayuran, disajikan dengan cabai rawit.'),
-  (gen_random_uuid()::text, v_resto_id, 'Pisang Goreng Coklat Keju', 'Cemilan', 15000, 20, 'Pisang goreng crispy dengan topping coklat dan keju.'),
-  (gen_random_uuid()::text, v_resto_id, 'Kentang Goreng', 'Cemilan', 15000, 25, 'Kentang goreng renyah dengan saus sambal/mayones.'),
-  (gen_random_uuid()::text, v_resto_id, 'Tempe Mendoan', 'Cemilan', 10000, 22, 'Tempe goreng tepung khas Banyumas, gurih dan renyah.'),
-
-  (gen_random_uuid()::text, v_resto_id, 'Es Krim Goreng', 'Dessert', 18000, 12, 'Es krim vanilla dibalut roti crispy, disajikan dingin.'),
-  (gen_random_uuid()::text, v_resto_id, 'Puding Coklat', 'Dessert', 12000, 15, 'Puding coklat lembut dengan saus vanilla.'),
-  (gen_random_uuid()::text, v_resto_id, 'Klepon', 'Dessert', 10000, 20, 'Klepon isi gula merah dengan taburan kelapa parut.'),
-
-  (gen_random_uuid()::text, v_resto_id, 'Kopi Susu Gula Aren', 'Kopi & Teh', 18000, 30, 'Kopi susu dengan gula aren asli, creamy dan manis.'),
-  (gen_random_uuid()::text, v_resto_id, 'Es Teh Manis', 'Kopi & Teh', 8000, 40, 'Teh manis segar disajikan dingin.'),
-  (gen_random_uuid()::text, v_resto_id, 'Americano', 'Kopi & Teh', 15000, 25, 'Kopi hitam americano, cocok untuk yang suka rasa kopi murni.'),
-  (gen_random_uuid()::text, v_resto_id, 'Matcha Latte', 'Kopi & Teh', 20000, 15, 'Matcha premium dengan susu creamy.'),
-
-  (gen_random_uuid()::text, v_resto_id, 'Es Jeruk Peras', 'Minuman', 12000, 20, 'Jeruk peras segar tanpa pengawet.'),
-  (gen_random_uuid()::text, v_resto_id, 'Es Campur', 'Minuman', 17000, 15, 'Es campur dengan buah-buahan segar dan sirup.'),
-  (gen_random_uuid()::text, v_resto_id, 'Jus Alpukat', 'Minuman', 16000, 15, 'Jus alpukat creamy dengan coklat.'),
-  (gen_random_uuid()::text, v_resto_id, 'Air Mineral', 'Minuman', 5000, 50, 'Air mineral dalam kemasan botol.')
-on conflict do nothing;
-
-end $$;
-
-
--- ═══════════════════════════════════════════════════════════
--- 9. rls_hardening.sql
+-- 8. rls_hardening.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — RLS hardening (run in Supabase SQL Editor AFTER schema.sql,
@@ -498,7 +425,7 @@ create policy "mail_requests: public insert" on mail_requests
 
 
 -- ═══════════════════════════════════════════════════════════
--- 10. super_admin.sql
+-- 9. super_admin.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — Super Admin role (run AFTER rls_hardening.sql).
@@ -582,7 +509,7 @@ create policy "restaurants: admin or super_admin update" on restaurants
 
 
 -- ═══════════════════════════════════════════════════════════
--- 11. finance.sql
+-- 10. finance.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — Finance role (run AFTER rls_hardening.sql and super_admin.sql).
@@ -646,7 +573,7 @@ create policy "expenses: finance/admin delete" on expenses
 
 
 -- ═══════════════════════════════════════════════════════════
--- 12. customer_browse_resto.sql
+-- 11. customer_browse_resto.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — lets a customer browse a resto's menu by picking it from a
@@ -657,7 +584,7 @@ alter table sessions alter column table_number drop not null;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 13. expense_gl_accounts.sql
+-- 12. expense_gl_accounts.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — GL account chart for EXPENSES (run AFTER finance.sql).
@@ -687,7 +614,7 @@ create policy "expense_gl_accounts: finance/admin delete" on expense_gl_accounts
 
 
 -- ═══════════════════════════════════════════════════════════
--- 14. order_type.sql
+-- 13. order_type.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — adds Dine In / Take Away to orders, chosen at checkout by
@@ -697,7 +624,7 @@ alter table orders add column if not exists order_type text not null default 'di
 
 
 -- ═══════════════════════════════════════════════════════════
--- 15. employee_name_nip.sql
+-- 14. employee_name_nip.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — adds Nama (name) and NIP (employee ID number) to employees.
@@ -706,7 +633,7 @@ alter table employees add column if not exists nip text;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 16. restaurant_active.sql
+-- 15. restaurant_active.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — lets Super Admin activate/deactivate a restaurant.
@@ -716,7 +643,7 @@ alter table restaurants add column if not exists active boolean not null default
 
 
 -- ═══════════════════════════════════════════════════════════
--- 17. mark_order_paid.sql
+-- 16. mark_order_paid.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — fixes customer QRIS "Simulasikan: Sudah Dibayar" silently
@@ -743,7 +670,7 @@ $$;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 18. order_customer_name.sql
+-- 17. order_customer_name.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — customer name for pickup, required for Take Away orders
@@ -752,7 +679,7 @@ alter table orders add column if not exists customer_name text;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 19. settings_finance_access.sql
+-- 18. settings_finance_access.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — lets Finance edit payment settings too (previously admin-only).
@@ -769,7 +696,7 @@ create policy "settings: admin or finance update" on settings
 
 
 -- ═══════════════════════════════════════════════════════════
--- 20. backfill_journal.sql
+-- 19. backfill_journal.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — Backfill jurnal untuk transaksi yang sudah ada
@@ -944,7 +871,7 @@ order by reference_type, entry_type;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 21. claim_guest_orders.sql
+-- 20. claim_guest_orders.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — mengalihkan riwayat pesanan tamu ke email yang baru login
@@ -1008,7 +935,7 @@ $$;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 22. expense_receipt.sql
+-- 21. expense_receipt.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — bukti pengeluaran (run AFTER finance.sql).
@@ -1026,7 +953,7 @@ alter table expenses add column if not exists receipt_base64 text;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 23. gl_journal.sql
+-- 22. gl_journal.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — GL Journal (run AFTER finance.sql; petty_cash.sql not required).
@@ -1165,7 +1092,7 @@ create trigger trg_log_expense_journal
 
 
 -- ═══════════════════════════════════════════════════════════
--- 24. petty_cash.sql
+-- 23. petty_cash.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — Petty Cash ledger (run AFTER finance.sql).
@@ -1205,7 +1132,7 @@ create policy "petty_cash_entries: finance/admin delete" on petty_cash_entries
 
 
 -- ═══════════════════════════════════════════════════════════
--- 25. journal_integrity.sql
+-- 24. journal_integrity.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — Journal integrity (run AFTER orders_gl_code.sql and
@@ -1561,7 +1488,7 @@ where j.gl_name is null
 
 
 -- ═══════════════════════════════════════════════════════════
--- 26. kasir_balance_access.sql
+-- 25. kasir_balance_access.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — Kasir bisa lihat saldo & catat pengeluaran
@@ -1603,7 +1530,7 @@ create policy "petty_cash_entries: finance/admin/kasir read" on petty_cash_entri
 
 
 -- ═══════════════════════════════════════════════════════════
--- 27. order_cashier_name.sql
+-- 26. order_cashier_name.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — nama kasir/admin pada pesanan (run AFTER schema.sql).
@@ -1620,7 +1547,7 @@ alter table orders add column if not exists cashier_name text;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 28. orders_gl_code.sql
+-- 27. orders_gl_code.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — orders.gl_code (run AFTER gl_journal.sql — reuses its
@@ -1706,7 +1633,7 @@ where o.gl_code is null;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 29. petty_cash_journal.sql
+-- 28. petty_cash_journal.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — Petty Cash journal mapping (run AFTER petty_cash.sql and
@@ -1809,7 +1736,7 @@ create trigger trg_log_petty_cash_journal
 
 
 -- ═══════════════════════════════════════════════════════════
--- 30. rejournal.sql
+-- 29. rejournal.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — Jurnal ulang (run AFTER journal_integrity.sql).
@@ -2000,7 +1927,7 @@ order by reference_type, entry_type;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 31. restaurant_logo.sql
+-- 30. restaurant_logo.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — logo resto (run AFTER schema.sql).
@@ -2016,7 +1943,7 @@ alter table restaurants add column if not exists logo_base64 text;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 32. restaurant_phone.sql
+-- 31. restaurant_phone.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — nomor HP resto (run AFTER schema.sql).
@@ -2028,7 +1955,7 @@ alter table restaurants add column if not exists phone text;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 33. table_number_text.sql
+-- 32. table_number_text.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — nomor meja jadi teks (run AFTER customer_browse_resto.sql).
@@ -2046,7 +1973,7 @@ alter table sessions alter column table_number type text using table_number::tex
 
 
 -- ═══════════════════════════════════════════════════════════
--- 34. tax_and_service.sql
+-- 33. tax_and_service.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — PPN & biaya service (run AFTER restaurant_phone.sql and
@@ -2175,7 +2102,7 @@ $$;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 35. tax_rates_finance.sql
+-- 34. tax_rates_finance.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — tarif PPN & biaya service dipindah ke Finance
@@ -2230,7 +2157,7 @@ grant execute on function set_tax_rates(text, numeric, numeric) to authenticated
 
 
 -- ═══════════════════════════════════════════════════════════
--- 36. cash_deposit.sql
+-- 35. cash_deposit.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — Setoran Saldo Cash + pemisahan Cash / Non Cash
@@ -2433,7 +2360,7 @@ $$;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 37. kitchen_checklist.sql
+-- 36. kitchen_checklist.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — checklist dapur per menu (run AFTER schema.sql).
@@ -2456,7 +2383,7 @@ alter table orders add column if not exists items_done jsonb not null default '[
 
 
 -- ═══════════════════════════════════════════════════════════
--- 38. owner_multi_resto.sql
+-- 37. owner_multi_resto.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — peran Owner + satu orang mengelola banyak resto
@@ -2550,7 +2477,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 39. rilis_setor_petty_inbox.sql
+-- 38. rilis_setor_petty_inbox.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — setoran & top up petty cash berjenjang, GL Suspense, dan
@@ -3035,7 +2962,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 40. employee_surrogate_key.sql
+-- 39. employee_surrogate_key.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — email karyawan jadi bisa diubah.
@@ -3086,7 +3013,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 41. promo_banner.sql
+-- 40. promo_banner.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — banner promo per resto.
@@ -3148,7 +3075,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 42. customer_cash_payment.sql
+-- 41. customer_cash_payment.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pelanggan boleh memilih bayar tunai di kasir.
@@ -3218,7 +3145,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 43. push_notifications.sql
+-- 42. push_notifications.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — notifikasi yang tetap sampai walau aplikasinya tertutup.
@@ -3566,7 +3493,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 44. announcement_categories.sql
+-- 43. announcement_categories.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pengumuman dibagi dua jenis, dan admin resto boleh mengirim.
@@ -3655,7 +3582,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 45. fix_device_tokens_rls.sql
+-- 44. fix_device_tokens_rls.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pendaftaran token push lewat fungsi, bukan tulis langsung.
@@ -3774,7 +3701,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 46. push_trigger_pg_net.sql
+-- 45. push_trigger_pg_net.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — panggil Edge Function langsung dari database, tanpa webhook.
@@ -3887,7 +3814,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 47. payment_gateway.sql
+-- 46. payment_gateway.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — QRIS sungguhan lewat Xendit.
@@ -4041,7 +3968,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 48. gateway_settlement.sql
+-- 47. gateway_settlement.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pencairan dana dari payment gateway.
@@ -4222,7 +4149,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 49. resto_payment_accounts.sql
+-- 48. resto_payment_accounts.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pencairan langsung ke rekening masing-masing resto.
@@ -4315,7 +4242,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 50. announcement_push.sql
+-- 49. announcement_push.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pengumuman ikut membunyikan HP.
@@ -4372,7 +4299,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 51. cash_payment_expiry.sql
+-- 50. cash_payment_expiry.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pesanan tunai yang tidak dilunasi di kasir hangus sendiri.
@@ -4458,7 +4385,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 52. counter_charge.sql
+-- 51. counter_charge.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — tagihan QRIS di meja kasir.
@@ -4495,7 +4422,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 53. gateway_account_super_admin.sql
+-- 52. gateway_account_super_admin.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pengenal sub-akun Xendit jadi urusan Super Admin saja.
@@ -4536,7 +4463,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 54. level_groups.sql
+-- 53. level_groups.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — tiap resto menyusun sendiri kelompok levelnya.
@@ -4662,7 +4589,7 @@ create trigger trg_seed_level_groups
 
 
 -- ═══════════════════════════════════════════════════════════
--- 55. product_out_of_stock.sql
+-- 54. product_out_of_stock.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — ketersediaan produk ditandai, bukan dihitung.
@@ -4706,7 +4633,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 56. resto_order_types.sql
+-- 55. resto_order_types.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — resto menentukan sendiri melayani Dine In, Take Away, atau
@@ -4744,7 +4671,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 57. default_gl_accounts.sql
+-- 56. default_gl_accounts.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — resto baru langsung punya bagan akun dan tarif pajaknya.
@@ -4910,7 +4837,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 58. discounts.sql
+-- 57. discounts.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — diskon: per menu (termasuk bundling) atau minimum belanja.
@@ -5117,7 +5044,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 59. promo_banner_period.sql
+-- 58. promo_banner_period.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — banner promo punya masa berlaku.
@@ -5145,7 +5072,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 60. announcement_audience.sql
+-- 59. announcement_audience.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pengumuman resto memilih sasarannya: karyawan, pelanggan,
@@ -5218,7 +5145,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 61. kasir_journal_read.sql
+-- 60. kasir_journal_read.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — kasir boleh melihat jurnal dari catatan yang dia buat.
@@ -5254,7 +5181,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 62. cancel_order.sql
+-- 61. cancel_order.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pelanggan boleh membatalkan pesanannya sendiri selama
@@ -5346,7 +5273,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 63. settled_at_counter.sql
+-- 62. settled_at_counter.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — menandai pesanan mandiri yang uangnya diterima di meja
@@ -5388,7 +5315,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 64. discount_min_qty.sql
+-- 63. discount_min_qty.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — diskon dengan syarat jumlah pembelian.
@@ -5418,7 +5345,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 65. discount_product_rules.sql
+-- 64. discount_product_rules.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — syarat jumlah menempel di tiap menu, bukan di promonya.
@@ -5471,7 +5398,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 66. billing.sql
+-- 65. billing.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — langganan bulanan resto.
@@ -5887,7 +5814,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 67. billing_va.sql
+-- 66. billing_va.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — tagihan langganan dibayar lewat Virtual Account Xendit.
@@ -6057,7 +5984,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 68. platform_finance.sql
+-- 67. platform_finance.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — keuangan MerchantPOS sendiri, terpisah dari keuangan resto.
@@ -6414,7 +6341,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 69. resto_soft_delete.sql
+-- 68. resto_soft_delete.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — menghapus resto tanpa membuang datanya.
@@ -6593,7 +6520,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 70. billing_discount_apply.sql
+-- 69. billing_discount_apply.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — diskon ikut memotong tagihan yang sudah terbit.
@@ -6760,7 +6687,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 71. billing_journal_gross.sql
+-- 70. billing_journal_gross.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pendapatan langganan dicatat sebesar harga penuh.
@@ -6911,7 +6838,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 72. gl_discount_backfill.sql
+-- 71. gl_discount_backfill.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — GL Diskon terisi bawaannya di tiap resto.
@@ -6973,7 +6900,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 73. platform_gl_renumber.sql
+-- 72. platform_gl_renumber.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — nomor akun penyewa platform dipindah ke golongan 11xxxxx.
@@ -7073,7 +7000,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 74. product_toppings.sql
+-- 73. product_toppings.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — topping per menu, berikut harga dan batas pilihnya.
@@ -7115,7 +7042,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 75. vouchers.sql
+-- 74. vouchers.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — voucher untuk pelanggan, dananya benar-benar berpindah.
@@ -7601,7 +7528,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 76. voucher_payouts.sql
+-- 75. voucher_payouts.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — voucher yang dipakai pelanggan dibayarkan sungguhan ke resto.
@@ -7944,7 +7871,7 @@ select cron.schedule('settle-voucher-payouts', '*/15 * * * *',
 
 
 -- ═══════════════════════════════════════════════════════════
--- 77. billing_due_day.sql
+-- 76. billing_due_day.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — tanggal tagih 29, 30, 31, dan jatuh tempo berikutnya.
@@ -8100,7 +8027,7 @@ $$;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 78. market_report.sql
+-- 77. market_report.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — laporan pasar untuk Super Admin.
@@ -8259,7 +8186,7 @@ revoke all on function report_idle_restos(integer) from public, anon;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 79. voucher_announcement.sql
+-- 78. voucher_announcement.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — voucher yang terbit langsung mengabari pelanggan.
@@ -8387,7 +8314,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 80. voucher_manage.sql
+-- 79. voucher_manage.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — banner voucher, dan menghapus batch yang tidak jadi.
@@ -8575,7 +8502,7 @@ revoke all on function delete_voucher_batch(text) from public, anon;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 81. balance_topup.sql
+-- 80. balance_topup.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — setoran modal ke saldo utama.
@@ -8742,7 +8669,7 @@ create trigger trg_log_balance_topup
 
 
 -- ═══════════════════════════════════════════════════════════
--- 82. voucher_new_customer.sql
+-- 81. voucher_new_customer.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — voucher khusus pengguna baru.
@@ -8977,7 +8904,7 @@ $$;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 83. qris_receipt_fields.sql
+-- 82. qris_receipt_fields.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — rincian kuitansi QRIS dari Xendit, jadi kolomnya sendiri.
@@ -9114,7 +9041,7 @@ where c.id = d.id;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 84. customer_display.sql
+-- 83. customer_display.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — layar pelanggan di meja kasir.
@@ -9262,7 +9189,7 @@ end $$;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 85. order_number.sql
+-- 84. order_number.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — nomor pesanan harian per resto.
@@ -9411,7 +9338,7 @@ do update set last_no = greatest(order_counters.last_no, excluded.last_no);
 
 
 -- ═══════════════════════════════════════════════════════════
--- 86. resto_facilities.sql
+-- 85. resto_facilities.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — fasilitas merchant.
@@ -9454,7 +9381,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 87. merchant_reviews.sql
+-- 86. merchant_reviews.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — penilaian merchant oleh pelanggan, dan jam bukanya.
@@ -9570,7 +9497,7 @@ $$;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 88. review_prompt.sql
+-- 87. review_prompt.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — mengajak pelanggan menilai, sejam sesudah membayar.
@@ -9685,7 +9612,7 @@ select cron.schedule('review-prompts', '*/20 * * * *',
 
 
 -- ═══════════════════════════════════════════════════════════
--- 89. order_cancel_kitchen.sql
+-- 88. order_cancel_kitchen.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pesanan yang batal berhenti punya status dapur.
@@ -9767,7 +9694,7 @@ where payment_status in ('cancelled', 'expired')
 
 
 -- ═══════════════════════════════════════════════════════════
--- 90. cashier_shift.sql
+-- 89. cashier_shift.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — buka dan tutup shift kasir.
@@ -10047,7 +9974,7 @@ grant execute on function shift_expected_cash(uuid, timestamptz) to authenticate
 
 
 -- ═══════════════════════════════════════════════════════════
--- 91. product_badges_reviews.sql
+-- 90. product_badges_reviews.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — label menu, penilaian menu, dan angka terjualnya.
@@ -10205,7 +10132,7 @@ grant execute on function product_stats(text) to anon, authenticated;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 92. product_review_per_order.sql
+-- 91. product_review_per_order.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — penilaian menu menempel pada pesanannya, bukan pada menunya.
@@ -10304,7 +10231,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 93. cash_variance.sql
+-- 92. cash_variance.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — GL Selisih Kasir, dan pelunasannya.
@@ -10608,7 +10535,7 @@ grant execute on function settle_cash_variance(uuid, text) to authenticated;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 94. merchant_report.sql
+-- 93. merchant_report.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — laporan penjualan untuk merchant sendiri.
@@ -10829,7 +10756,7 @@ grant execute on function report_sales_summary(text, date, date) to authenticate
 
 
 -- ═══════════════════════════════════════════════════════════
--- 95. shift_opening_check.sql
+-- 94. shift_opening_check.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — perkiraan modal awal saat shift dibuka.
@@ -10924,7 +10851,7 @@ grant execute on function expected_opening_cash(text) to authenticated;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 96. support_tickets.sql
+-- 95. support_tickets.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pengaduan, tiket, dan percakapannya.
@@ -11352,7 +11279,7 @@ grant execute on function mark_support_read(uuid) to authenticated;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 97. support_push.sql
+-- 96. support_push.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — notifikasi untuk MerchantPOS Support.
@@ -11466,7 +11393,7 @@ create trigger trg_queue_push_support
 
 
 -- ═══════════════════════════════════════════════════════════
--- 98. support_auto_reply.sql
+-- 97. support_auto_reply.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — sapaan otomatis, dan penanda belum dibaca yang tahan
@@ -11707,7 +11634,7 @@ $$;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 99. support_chat_rules.sql
+-- 98. support_chat_rules.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — chat bebas bukan pengaduan, dan tiket kembar tidak lahir
@@ -11899,7 +11826,7 @@ where id in (select id from kembar where urutan > 1);
 
 
 -- ═══════════════════════════════════════════════════════════
--- 100. support_pesan_kembar.sql
+-- 99. support_pesan_kembar.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — pesan kembar di dalam satu percakapan.
@@ -11989,7 +11916,7 @@ commit;
 
 
 -- ═══════════════════════════════════════════════════════════
--- 101. support_push_wording.sql
+-- 100. support_push_wording.sql
 -- ═══════════════════════════════════════════════════════════
 
 -- MerchantPOS — judul notifikasi chat tidak menyebut "pengaduan".

@@ -19,6 +19,16 @@ set -euo pipefail
 AKAR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 KELUARAN="$AKAR/supabase/JALANKAN-SEMUA.sql"
 
+# seed_products.sql sengaja tidak ikut.
+#
+# Isinya menu contoh untuk resto bernama 'resto-1', lengkap dengan
+# catatan "<-- change this" di dalamnya. Di database kosong ia gagal —
+# restonya tidak ada — dan kalau restonya dibuat lebih dulu, yang
+# masuk adalah delapan kategori dan puluhan menu karangan ke dalam
+# katalog merchant sungguhan.
+#
+# Jalankan sendiri kalau memang butuh data contoh, setelah mengganti
+# resto_id-nya.
 FILES=(
   schema.sql
   functions.sql
@@ -27,7 +37,6 @@ FILES=(
   product_level_groups.sql
   product_photo_desc.sql
   restaurant_category.sql
-  seed_products.sql
   rls_hardening.sql
   super_admin.sql
   finance.sql
