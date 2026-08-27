@@ -1,4 +1,4 @@
--- KaataGo — Backfill jurnal untuk transaksi yang sudah ada
+-- MerchantPOS — Backfill jurnal untuk transaksi yang sudah ada
 -- (run AFTER journal_integrity.sql).
 --
 -- The journal triggers only fire on new activity, so everything recorded

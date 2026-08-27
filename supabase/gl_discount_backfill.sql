@@ -1,4 +1,4 @@
--- KaataGo — GL Diskon terisi bawaannya di tiap resto.
+-- MerchantPOS — GL Diskon terisi bawaannya di tiap resto.
 --
 -- Jalankan SETELAH billing_journal_gross.sql. Aman diulang.
 --
@@ -36,17 +36,17 @@ where payment_method = 'discount'
   and coalesce(gl_code, '') = ''
   and resto_id in (select id from restaurants where is_platform = false);
 
--- KaataGo memakai golongan 11xxxxx untuk pembukuannya sendiri.
+-- MerchantPOS memakai golongan 11xxxxx untuk pembukuannya sendiri.
 insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values
-  ('kaatago', 'discount',              '1100072', 'GL Diskon Lain KaataGo'),
-  ('kaatago', 'subscription_discount', '1100002', 'GL Diskon Langganan')
+  ('merchantpos', 'discount',              '1100072', 'GL Diskon Lain MerchantPOS'),
+  ('merchantpos', 'subscription_discount', '1100002', 'GL Diskon Langganan')
 on conflict (resto_id, payment_method) do nothing;
 
 update gl_accounts
 set gl_code = '1100002',
     gl_name = coalesce(nullif(gl_name, ''), 'GL Diskon Langganan')
-where resto_id = 'kaatago'
+where resto_id = 'merchantpos'
   and payment_method = 'subscription_discount'
   and coalesce(gl_code, '') = '';
 

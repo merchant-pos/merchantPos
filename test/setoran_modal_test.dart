@@ -123,7 +123,7 @@ void main() {
   });
 
   group('wording masuk', () {
-    test('Karyawan Merchant sudah jadi KaataGo Merchant', () {
+    test('Karyawan Merchant sudah jadi MerchantPOS Merchant', () {
       final pilih =
           File('lib/screens/role_choice_screen.dart').readAsStringSync();
       expect(pilih, contains("context.tr('MerchantPOS Merchant')"));

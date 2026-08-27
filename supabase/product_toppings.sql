@@ -1,4 +1,4 @@
--- KaataGo — topping per menu, berikut harga dan batas pilihnya.
+-- MerchantPOS — topping per menu, berikut harga dan batas pilihnya.
 --
 -- Jalankan SETELAH platform_gl_renumber.sql. Aman diulang.
 --

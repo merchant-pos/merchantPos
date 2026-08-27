@@ -1,4 +1,4 @@
--- KaataGo — perkiraan modal awal saat shift dibuka.
+-- MerchantPOS — perkiraan modal awal saat shift dibuka.
 --
 -- Jalankan SETELAH cashier_shift.sql. Aman diulang.
 --

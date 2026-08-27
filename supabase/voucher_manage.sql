@@ -1,4 +1,4 @@
--- KaataGo — banner voucher, dan menghapus batch yang tidak jadi.
+-- MerchantPOS — banner voucher, dan menghapus batch yang tidak jadi.
 --
 -- Jalankan SETELAH voucher_announcement.sql. Aman dijalankan berulang.
 
@@ -72,9 +72,9 @@ begin
     auth.jwt() ->> 'email'
   );
 
-  perform _jurnal_kaatago('total_balance', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('total_balance', v_id, v_amount * p_quantity,
     'debit', 'Terbit voucher ' || v_code || ' — ' || p_quantity || ' × ' || v_amount);
-  perform _jurnal_kaatago('voucher', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('voucher', v_id, v_amount * p_quantity,
     'credit', 'Alokasi voucher ' || v_code);
 
   v_nilai := 'Rp ' || to_char(v_amount, 'FM999G999G999G999');
@@ -82,7 +82,7 @@ begin
   insert into app_announcements (
     title, body, category, audience, image_base64, created_by
   ) values (
-    'Voucher ' || v_nilai || ' dari KaataGo',
+    'Voucher ' || v_nilai || ' dari MerchantPOS',
     'Buruan tebus, kuotanya cuma ' || p_quantity || ' dan siapa cepat dia dapat! ' ||
     'Kode voucher: ' || v_code || E'\n\n' ||
     'Tiap voucher bernilai ' || v_nilai ||
@@ -119,7 +119,7 @@ $$;
 -- dari mana asalnya.
 --
 -- Dananya dikembalikan lebih dulu, bukan lenyap bersama barisnya. Batch
--- yang dihapus tanpa mengembalikan alokasinya adalah saldo KaataGo yang
+-- yang dihapus tanpa mengembalikan alokasinya adalah saldo MerchantPOS yang
 -- berkurang selamanya untuk voucher yang tidak pernah ada.
 
 create or replace function delete_voucher_batch(p_id text)
@@ -153,9 +153,9 @@ begin
   -- Alokasinya pulang ke saldo bebas, kecuali sudah pernah pulang lewat
   -- penjadwal kedaluwarsa.
   if v.settled_at is null then
-    perform _jurnal_kaatago('voucher', v.id, v.total_amount,
+    perform _jurnal_merchantpos('voucher', v.id, v.total_amount,
       'debit', 'Batal voucher ' || v.code);
-    perform _jurnal_kaatago('total_balance', v.id, v.total_amount,
+    perform _jurnal_merchantpos('total_balance', v.id, v.total_amount,
       'credit', 'Dana voucher ' || v.code || ' kembali — batch dihapus');
   end if;
 

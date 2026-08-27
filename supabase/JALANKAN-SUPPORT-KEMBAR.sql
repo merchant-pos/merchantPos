@@ -1,7 +1,7 @@
--- KaataGo — bagian 62: pesan kembar di dalam satu percakapan.
+-- MerchantPOS — bagian 62: pesan kembar di dalam satu percakapan.
 -- Jalankan SETELAH bagian 61. Aman diulang.
 
--- KaataGo — pesan kembar di dalam satu percakapan.
+-- MerchantPOS — pesan kembar di dalam satu percakapan.
 --
 -- Jalankan SETELAH support_chat_rules.sql. Aman diulang.
 --

@@ -1,4 +1,4 @@
--- KaataGo — diskon ikut memotong tagihan yang sudah terbit.
+-- MerchantPOS — diskon ikut memotong tagihan yang sudah terbit.
 --
 -- Jalankan SETELAH resto_soft_delete.sql. Aman diulang.
 --

@@ -1,10 +1,10 @@
--- KaataGo — keuangan KaataGo sendiri, terpisah dari keuangan resto.
+-- MerchantPOS — keuangan MerchantPOS sendiri, terpisah dari keuangan resto.
 --
 -- Jalankan SETELAH billing.sql dan billing_va.sql. Aman diulang.
 --
 -- Sampai sekarang seluruh pembukuan di aplikasi ini milik resto: uang
 -- yang masuk ke mereka, pengeluaran mereka, kas kecil mereka. Pendapatan
--- KaataGo sendiri — biaya langganan yang dibayarkan resto — tidak
+-- MerchantPOS sendiri — biaya langganan yang dibayarkan resto — tidak
 -- tercatat di mana pun kecuali sebagai baris tagihan berstatus lunas.
 --
 -- ── Kenapa memakai "resto" sendiri, bukan tabel baru ─────────────────
@@ -16,7 +16,7 @@
 -- satu sisi tidak pernah ikut ke sisi lain, dan yang menemukannya
 -- adalah selisih angka berbulan-bulan kemudian.
 --
--- Jadi KaataGo diberi satu barisnya sendiri di tabel restaurants,
+-- Jadi MerchantPOS diberi satu barisnya sendiri di tabel restaurants,
 -- ditandai is_platform. Seluruh layar keuangan yang sudah ada langsung
 -- bekerja untuknya.
 --
@@ -37,15 +37,15 @@ alter table restaurants add column if not exists is_platform boolean not null de
 -- untuk menyaring di tempat yang tidak melihat `active` — daftar resto
 -- di Super Admin, dan daftar langganan.
 insert into restaurants (id, name, address, active, is_platform)
-values ('kaatago', 'KaataGo', 'Pembukuan internal KaataGo', false, true)
+values ('merchantpos', 'MerchantPOS', 'Pembukuan internal MerchantPOS', false, true)
 on conflict (id) do update set is_platform = true;
 
 -- Ia bukan pelanggan dirinya sendiri.
 update resto_billing set active = false, monthly_price = 0
-where resto_id = 'kaatago';
+where resto_id = 'merchantpos';
 
 -- ─────────────────────────────────────────────────────────────────────
--- Bagan akun KaataGo
+-- Bagan akun MerchantPOS
 -- ─────────────────────────────────────────────────────────────────────
 --
 -- Nomor 11xxxxx dipakai supaya berbeda jelas dari 19xxxxx milik resto.
@@ -54,28 +54,28 @@ where resto_id = 'kaatago';
 
 insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values
-  ('kaatago', 'subscription',          '1100001', 'GL Pendapatan Langganan'),
-  ('kaatago', 'subscription_discount', '1100002', 'GL Diskon Langganan'),
-  ('kaatago', 'cash',                  '1100010', 'GL Kas Tunai KaataGo'),
-  ('kaatago', 'transfer',              '1100011', 'GL Rekening KaataGo'),
-  ('kaatago', 'qris',                  '1100012', 'GL Penerimaan QRIS KaataGo'),
-  ('kaatago', 'income_aggregate',      '1100020', 'GL Pendapatan KaataGo'),
-  ('kaatago', 'petty_cash',            '1100030', 'GL Petty Cash KaataGo'),
-  ('kaatago', 'total_balance',         '1100040', 'GL Total Saldo KaataGo'),
-  ('kaatago', 'suspense',              '1100050', 'GL Suspense KaataGo'),
-  ('kaatago', 'suspense_petty',        '1100051', 'GL Suspense Petty KaataGo'),
-  ('kaatago', 'gateway_fee',           '1100060', 'GL Biaya Gateway KaataGo'),
-  ('kaatago', 'ppn',                   '1100070', 'GL PPN KaataGo'),
-  ('kaatago', 'service',               '1100071', 'GL Biaya Service KaataGo'),
-  ('kaatago', 'discount',              '1100072', 'GL Diskon Lain KaataGo')
+  ('merchantpos', 'subscription',          '1100001', 'GL Pendapatan Langganan'),
+  ('merchantpos', 'subscription_discount', '1100002', 'GL Diskon Langganan'),
+  ('merchantpos', 'cash',                  '1100010', 'GL Kas Tunai MerchantPOS'),
+  ('merchantpos', 'transfer',              '1100011', 'GL Rekening MerchantPOS'),
+  ('merchantpos', 'qris',                  '1100012', 'GL Penerimaan QRIS MerchantPOS'),
+  ('merchantpos', 'income_aggregate',      '1100020', 'GL Pendapatan MerchantPOS'),
+  ('merchantpos', 'petty_cash',            '1100030', 'GL Petty Cash MerchantPOS'),
+  ('merchantpos', 'total_balance',         '1100040', 'GL Total Saldo MerchantPOS'),
+  ('merchantpos', 'suspense',              '1100050', 'GL Suspense MerchantPOS'),
+  ('merchantpos', 'suspense_petty',        '1100051', 'GL Suspense Petty MerchantPOS'),
+  ('merchantpos', 'gateway_fee',           '1100060', 'GL Biaya Gateway MerchantPOS'),
+  ('merchantpos', 'ppn',                   '1100070', 'GL PPN MerchantPOS'),
+  ('merchantpos', 'service',               '1100071', 'GL Biaya Service MerchantPOS'),
+  ('merchantpos', 'discount',              '1100072', 'GL Diskon Lain MerchantPOS')
 on conflict (resto_id, payment_method) do nothing;
 
 insert into expense_gl_accounts (resto_id, gl_code, gl_name)
-select 'kaatago', d.gl_code, d.gl_name
+select 'merchantpos', d.gl_code, d.gl_name
 from _default_expense_gl_accounts() d
 where not exists (
   select 1 from expense_gl_accounts e
-  where e.resto_id = 'kaatago' and e.gl_code = d.gl_code
+  where e.resto_id = 'merchantpos' and e.gl_code = d.gl_code
 );
 
 -- ─────────────────────────────────────────────────────────────────────
@@ -214,7 +214,7 @@ $$;
 -- Jurnal pendapatan langganan
 -- ─────────────────────────────────────────────────────────────────────
 --
--- Dicatat di buku KaataGo, bukan di buku restonya. Bagi resto, biaya
+-- Dicatat di buku MerchantPOS, bukan di buku restonya. Bagi resto, biaya
 -- langganan adalah pengeluaran mereka — dan mereka mencatatnya sendiri
 -- lewat menu Pengeluaran kalau mau. Menuliskannya ke jurnal mereka dari
 -- sini berarti kami menulis di pembukuan orang lain.
@@ -254,13 +254,13 @@ begin
   select name into v_resto from restaurants where id = new.resto_id;
 
   -- Pendapatan: kredit, karena uang masuk.
-  select * into v_gl from _gl_account_for('kaatago', 'subscription');
+  select * into v_gl from _gl_account_for('merchantpos', 'subscription');
   if v_gl.gl_code is not null and v_gl.gl_code <> '' then
     insert into gl_journal_entries (
       resto_id, entry_date, entry_time, gl_code, gl_name,
       reference_type, reference_id, amount, entry_type, description
     ) values (
-      'kaatago',
+      'merchantpos',
       (v_now at time zone 'Asia/Jakarta')::date,
       (v_now at time zone 'Asia/Jakarta')::time,
       v_gl.gl_code, v_gl.gl_name,
@@ -271,13 +271,13 @@ begin
 
   -- Diskon: debit, karena pendapatan yang tidak jadi diterima.
   if coalesce(new.discount_amount, 0) > 0 then
-    select * into v_gl from _gl_account_for('kaatago', 'subscription_discount');
+    select * into v_gl from _gl_account_for('merchantpos', 'subscription_discount');
     if v_gl.gl_code is not null and v_gl.gl_code <> '' then
       insert into gl_journal_entries (
         resto_id, entry_date, entry_time, gl_code, gl_name,
         reference_type, reference_id, amount, entry_type, description
       ) values (
-        'kaatago',
+        'merchantpos',
         (v_now at time zone 'Asia/Jakarta')::date,
         (v_now at time zone 'Asia/Jakarta')::time,
         v_gl.gl_code, v_gl.gl_name,

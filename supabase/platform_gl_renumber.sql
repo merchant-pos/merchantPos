@@ -1,10 +1,10 @@
--- KaataGo — nomor akun penyewa platform dipindah ke golongan 11xxxxx.
+-- MerchantPOS — nomor akun penyewa platform dipindah ke golongan 11xxxxx.
 --
 -- Jalankan SETELAH gl_discount_backfill.sql. Aman diulang.
 --
 -- ── Kenapa nomornya tidak sesuai ─────────────────────────────────────
 --
--- Baris 'kaatago' dimasukkan ke tabel restaurants, dan pemicu
+-- Baris 'merchantpos' dimasukkan ke tabel restaurants, dan pemicu
 -- seed_gl_accounts_for_new_resto langsung menyemai bagan akun BAWAAN
 -- RESTO untuknya — 195xxxx, 196xxxx, 199xxxx, dan seterusnya. Nomor
 -- 11xxxxx yang dimaksudkan untuk platform baru disisipkan sesudah itu,
@@ -12,7 +12,7 @@
 --
 -- Akibatnya bukan sekadar angka yang berbeda dari dokumen. Janjinya
 -- adalah satu baris jurnal bisa dikenali pemiliknya hanya dari nomor
--- akunnya — dan dengan KaataGo memakai 199xxxx yang sama dengan resto,
+-- akunnya — dan dengan MerchantPOS memakai 199xxxx yang sama dengan resto,
 -- janji itu tidak berlaku. Orang yang membaca ekspor gabungan tidak
 -- punya cara membedakan mana pendapatan resto dan mana pendapatan kami.
 --
@@ -45,40 +45,40 @@ update gl_journal_entries j
 set gl_code = p.ke,
     gl_name = p.nama
 from (values
-  ('cash',             '1950001', '1100010', 'GL Kas Tunai KaataGo'),
-  ('qris',             '1950002', '1100012', 'GL Penerimaan QRIS KaataGo'),
-  ('transfer',         '1950003', '1100011', 'GL Rekening KaataGo'),
-  ('income_aggregate', '1950010', '1100020', 'GL Pendapatan KaataGo'),
-  ('ppn',              '1960001', '1100070', 'GL PPN KaataGo'),
-  ('service',          '1960002', '1100071', 'GL Biaya Service KaataGo'),
-  ('petty_cash',       '1980001', '1100030', 'GL Petty Cash KaataGo'),
-  ('total_balance',    '1990001', '1100040', 'GL Total Saldo KaataGo'),
-  ('suspense',         '2100001', '1100050', 'GL Suspense KaataGo'),
-  ('suspense_petty',   '2100002', '1100051', 'GL Suspense Petty KaataGo'),
-  ('gateway_fee',      '2200001', '1100060', 'GL Biaya Gateway KaataGo'),
-  ('discount',         '2200002', '1100072', 'GL Diskon Lain KaataGo')
+  ('cash',             '1950001', '1100010', 'GL Kas Tunai MerchantPOS'),
+  ('qris',             '1950002', '1100012', 'GL Penerimaan QRIS MerchantPOS'),
+  ('transfer',         '1950003', '1100011', 'GL Rekening MerchantPOS'),
+  ('income_aggregate', '1950010', '1100020', 'GL Pendapatan MerchantPOS'),
+  ('ppn',              '1960001', '1100070', 'GL PPN MerchantPOS'),
+  ('service',          '1960002', '1100071', 'GL Biaya Service MerchantPOS'),
+  ('petty_cash',       '1980001', '1100030', 'GL Petty Cash MerchantPOS'),
+  ('total_balance',    '1990001', '1100040', 'GL Total Saldo MerchantPOS'),
+  ('suspense',         '2100001', '1100050', 'GL Suspense MerchantPOS'),
+  ('suspense_petty',   '2100002', '1100051', 'GL Suspense Petty MerchantPOS'),
+  ('gateway_fee',      '2200001', '1100060', 'GL Biaya Gateway MerchantPOS'),
+  ('discount',         '2200002', '1100072', 'GL Diskon Lain MerchantPOS')
 ) as p(payment_method, dari, ke, nama)
-where j.resto_id = 'kaatago'
+where j.resto_id = 'merchantpos'
   and j.gl_code = p.dari;
 
 update gl_accounts a
 set gl_code = p.ke,
     gl_name = p.nama
 from (values
-  ('cash',             '1950001', '1100010', 'GL Kas Tunai KaataGo'),
-  ('qris',             '1950002', '1100012', 'GL Penerimaan QRIS KaataGo'),
-  ('transfer',         '1950003', '1100011', 'GL Rekening KaataGo'),
-  ('income_aggregate', '1950010', '1100020', 'GL Pendapatan KaataGo'),
-  ('ppn',              '1960001', '1100070', 'GL PPN KaataGo'),
-  ('service',          '1960002', '1100071', 'GL Biaya Service KaataGo'),
-  ('petty_cash',       '1980001', '1100030', 'GL Petty Cash KaataGo'),
-  ('total_balance',    '1990001', '1100040', 'GL Total Saldo KaataGo'),
-  ('suspense',         '2100001', '1100050', 'GL Suspense KaataGo'),
-  ('suspense_petty',   '2100002', '1100051', 'GL Suspense Petty KaataGo'),
-  ('gateway_fee',      '2200001', '1100060', 'GL Biaya Gateway KaataGo'),
-  ('discount',         '2200002', '1100072', 'GL Diskon Lain KaataGo')
+  ('cash',             '1950001', '1100010', 'GL Kas Tunai MerchantPOS'),
+  ('qris',             '1950002', '1100012', 'GL Penerimaan QRIS MerchantPOS'),
+  ('transfer',         '1950003', '1100011', 'GL Rekening MerchantPOS'),
+  ('income_aggregate', '1950010', '1100020', 'GL Pendapatan MerchantPOS'),
+  ('ppn',              '1960001', '1100070', 'GL PPN MerchantPOS'),
+  ('service',          '1960002', '1100071', 'GL Biaya Service MerchantPOS'),
+  ('petty_cash',       '1980001', '1100030', 'GL Petty Cash MerchantPOS'),
+  ('total_balance',    '1990001', '1100040', 'GL Total Saldo MerchantPOS'),
+  ('suspense',         '2100001', '1100050', 'GL Suspense MerchantPOS'),
+  ('suspense_petty',   '2100002', '1100051', 'GL Suspense Petty MerchantPOS'),
+  ('gateway_fee',      '2200001', '1100060', 'GL Biaya Gateway MerchantPOS'),
+  ('discount',         '2200002', '1100072', 'GL Diskon Lain MerchantPOS')
 ) as p(payment_method, dari, ke, nama)
-where a.resto_id = 'kaatago'
+where a.resto_id = 'merchantpos'
   and a.payment_method = p.payment_method
   and a.gl_code = p.dari;
 
@@ -87,8 +87,8 @@ where a.resto_id = 'kaatago'
 -- langganan bukan salah satunya.
 insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values
-  ('kaatago', 'subscription',          '1100001', 'GL Pendapatan Langganan'),
-  ('kaatago', 'subscription_discount', '1100002', 'GL Diskon Langganan')
+  ('merchantpos', 'subscription',          '1100001', 'GL Pendapatan Langganan'),
+  ('merchantpos', 'subscription_discount', '1100002', 'GL Diskon Langganan')
 on conflict (resto_id, payment_method) do nothing;
 
 commit;

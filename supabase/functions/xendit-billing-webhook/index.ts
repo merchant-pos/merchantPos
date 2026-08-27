@@ -1,4 +1,4 @@
-// KaataGo — penerima kabar pembayaran tagihan langganan dari Xendit.
+// MerchantPOS — penerima kabar pembayaran tagihan langganan dari Xendit.
 //
 // Inilah satu-satunya hal yang boleh menyatakan sebuah tagihan
 // langganan lunas lewat Virtual Account. Tombol di aplikasi resto tidak,

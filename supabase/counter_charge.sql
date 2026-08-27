@@ -1,4 +1,4 @@
--- KaataGo — tagihan QRIS di meja kasir.
+-- MerchantPOS — tagihan QRIS di meja kasir.
 --
 -- Jalankan SETELAH payment_gateway.sql. Aman dijalankan berulang kali.
 --

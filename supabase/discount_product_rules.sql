@@ -1,4 +1,4 @@
--- KaataGo — syarat jumlah menempel di tiap menu, bukan di promonya.
+-- MerchantPOS — syarat jumlah menempel di tiap menu, bukan di promonya.
 --
 -- Jalankan SETELAH discounts.sql dan discount_min_qty.sql. Aman diulang.
 --

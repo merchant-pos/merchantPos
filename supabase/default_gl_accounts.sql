@@ -1,4 +1,4 @@
--- KaataGo — resto baru langsung punya bagan akun dan tarif pajaknya.
+-- MerchantPOS — resto baru langsung punya bagan akun dan tarif pajaknya.
 --
 -- Aman dijalankan berulang kali.
 --

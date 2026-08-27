@@ -1,10 +1,10 @@
--- KaataGo — voucher yang terbit langsung mengabari pelanggan.
+-- MerchantPOS — voucher yang terbit langsung mengabari pelanggan.
 --
 -- Jalankan SETELAH vouchers.sql, announcement_audience.sql, dan
 -- announcement_categories.sql. Aman dijalankan berulang kali.
 --
 -- Voucher yang diterbitkan tapi tidak diumumkan adalah uang yang sudah
--- keluar dari saldo KaataGo untuk sesuatu yang tidak ada yang tahu.
+-- keluar dari saldo MerchantPOS untuk sesuatu yang tidak ada yang tahu.
 -- Kuotanya habis oleh siapa pun yang kebetulan membuka layar Voucher
 -- Saya, dan sisanya hangus tanpa pernah dilihat orang.
 --
@@ -72,9 +72,9 @@ begin
   );
 
   -- Uang berpindah dari saldo bebas ke kantong voucher.
-  perform _jurnal_kaatago('total_balance', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('total_balance', v_id, v_amount * p_quantity,
     'debit', 'Terbit voucher ' || v_code || ' — ' || p_quantity || ' × ' || v_amount);
-  perform _jurnal_kaatago('voucher', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('voucher', v_id, v_amount * p_quantity,
     'credit', 'Alokasi voucher ' || v_code);
 
   -- Rp 100.000, bukan 100000. Angka telanjang di notifikasi terbaca
@@ -87,7 +87,7 @@ begin
   -- tanpa membuka aplikasi.
   insert into app_announcements (title, body, category, audience, created_by)
   values (
-    'Voucher ' || v_nilai || ' dari KaataGo',
+    'Voucher ' || v_nilai || ' dari MerchantPOS',
     'Buruan tebus, kuotanya cuma ' || p_quantity || ' dan siapa cepat dia dapat! ' ||
     'Kode voucher: ' || v_code || E'\n\n' ||
     'Tiap voucher bernilai ' || v_nilai ||

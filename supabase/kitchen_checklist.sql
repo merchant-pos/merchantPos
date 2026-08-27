@@ -1,4 +1,4 @@
--- KaataGo — checklist dapur per menu (run AFTER schema.sql).
+-- MerchantPOS — checklist dapur per menu (run AFTER schema.sql).
 --
 -- Sebelumnya menyelesaikan pesanan cuma satu tombol: dari "dimasak"
 -- langsung "selesai". Pada pesanan berisi lima menu, satu yang terlewat

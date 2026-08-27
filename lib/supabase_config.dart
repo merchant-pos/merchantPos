@@ -2,8 +2,8 @@
 /// ship in the client — it's designed for that, and every table is
 /// still gated by Row Level Security policies (see supabase/schema.sql).
 class SupabaseConfig {
-  static const url = 'https://xizpwtycczigjhzxegen.supabase.co';
-  static const anonKey = 'sb_publishable_uhDdS0WTVvW7L7RMkLwz4w_boNWr7ye';
+  static const url = 'https://pekjbgjmeayxdcaiwhsk.supabase.co';
+  static const anonKey = 'sb_publishable_6hengTSXtx6qhpbVngH22g_vU98MWmh';
 
   /// Web OAuth client id (reused from the earlier Firebase project setup)
   /// — required as GoogleSignIn's serverClientId so the id token it

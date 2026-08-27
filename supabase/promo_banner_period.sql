@@ -1,4 +1,4 @@
--- KaataGo — banner promo punya masa berlaku.
+-- MerchantPOS — banner promo punya masa berlaku.
 --
 -- Aman dijalankan berulang kali.
 --

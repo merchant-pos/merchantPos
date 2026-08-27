@@ -1,4 +1,4 @@
--- KaataGo — diskon: per menu (termasuk bundling) atau minimum belanja.
+-- MerchantPOS — diskon: per menu (termasuk bundling) atau minimum belanja.
 --
 -- Jalankan SETELAH gl_journal.sql dan orders_gl_code.sql. Aman diulang.
 --

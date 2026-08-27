@@ -1,4 +1,4 @@
--- KaataGo — mengajak pelanggan menilai, sejam sesudah membayar.
+-- MerchantPOS — mengajak pelanggan menilai, sejam sesudah membayar.
 --
 -- Jalankan SETELAH merchant_reviews.sql. Aman diulang.
 --
@@ -73,7 +73,7 @@ begin
         'resto_id', o.resto_id,
         'title', 'Gimana pesanan kamu di ' || o.merchant || '?',
         'body', 'Bikin nagih ga nih? Jangan lupa kasih ulasan untuk ' ||
-                o.merchant || ' di KaataGo.'
+                o.merchant || ' di MerchantPOS.'
       )
     );
 

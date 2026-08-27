@@ -1,4 +1,4 @@
--- KaataGo — tarif PPN & biaya service dipindah ke Finance
+-- MerchantPOS — tarif PPN & biaya service dipindah ke Finance
 -- (run AFTER tax_and_service.sql).
 --
 -- The rates sit on `restaurants`, but setting them is a Finance job, not

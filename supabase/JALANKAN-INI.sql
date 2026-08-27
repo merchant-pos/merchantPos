@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════════════════
--- KaataGo — seluruh migrasi yang tertunda, dalam satu berkas.
+-- MerchantPOS — seluruh migrasi yang tertunda, dalam satu berkas.
 --
 -- DIHASILKAN OLEH scripts/gabung_sql.sh — jangan disunting di sini.
 -- Suntingannya akan hilang saat berkas ini dibuat ulang; sunting berkas
@@ -20,7 +20,7 @@
 -- BAGIAN 1 dari 63 — employee_surrogate_key.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — email karyawan jadi bisa diubah.
+-- MerchantPOS — email karyawan jadi bisa diubah.
 --
 -- Jalankan SETELAH owner_multi_resto.sql. Aman dijalankan berulang kali.
 --
@@ -71,11 +71,11 @@ commit;
 -- BAGIAN 2 dari 63 — promo_banner.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — banner promo per resto.
+-- MerchantPOS — banner promo per resto.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman dijalankan berulang kali.
 --
--- Bannernya milik resto, bukan milik KaataGo: tiap resto memasang
+-- Bannernya milik resto, bukan milik MerchantPOS: tiap resto memasang
 -- promonya sendiri, dan customer hanya melihat banner resto yang sedang
 -- dia buka.
 
@@ -133,7 +133,7 @@ commit;
 -- BAGIAN 3 dari 63 — rilis_setor_petty_inbox.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — setoran & top up petty cash berjenjang, GL Suspense, dan
+-- MerchantPOS — setoran & top up petty cash berjenjang, GL Suspense, dan
 -- kotak masuk pengumuman.
 --
 -- SATU file untuk seluruh rilis ini; menggantikan deposit_approval.sql
@@ -618,7 +618,7 @@ commit;
 -- BAGIAN 4 dari 63 — customer_cash_payment.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pelanggan boleh memilih bayar tunai di kasir.
+-- MerchantPOS — pelanggan boleh memilih bayar tunai di kasir.
 --
 -- Jalankan SETELAH orders_gl_code.sql. Aman dijalankan berulang kali.
 --
@@ -688,7 +688,7 @@ commit;
 -- BAGIAN 5 dari 63 — push_notifications.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — notifikasi yang tetap sampai walau aplikasinya tertutup.
+-- MerchantPOS — notifikasi yang tetap sampai walau aplikasinya tertutup.
 --
 -- Jalankan SETELAH customer_cash_payment.sql. Aman dijalankan berulang
 -- kali.
@@ -1036,7 +1036,7 @@ commit;
 -- BAGIAN 6 dari 63 — announcement_categories.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pengumuman dibagi dua jenis, dan admin resto boleh mengirim.
+-- MerchantPOS — pengumuman dibagi dua jenis, dan admin resto boleh mengirim.
 --
 -- Jalankan SETELAH rilis_setor_petty_inbox.sql. Aman dijalankan
 -- berulang kali.
@@ -1125,7 +1125,7 @@ commit;
 -- BAGIAN 7 dari 63 — fix_device_tokens_rls.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pendaftaran token push lewat fungsi, bukan tulis langsung.
+-- MerchantPOS — pendaftaran token push lewat fungsi, bukan tulis langsung.
 --
 -- Jalankan SETELAH push_notifications.sql. Aman dijalankan berulang kali.
 --
@@ -1244,7 +1244,7 @@ commit;
 -- BAGIAN 8 dari 63 — push_trigger_pg_net.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — panggil Edge Function langsung dari database, tanpa webhook.
+-- MerchantPOS — panggil Edge Function langsung dari database, tanpa webhook.
 --
 -- Jalankan SETELAH fix_device_tokens_rls.sql. Aman dijalankan berulang
 -- kali.
@@ -1357,7 +1357,7 @@ commit;
 -- BAGIAN 9 dari 63 — payment_gateway.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — QRIS sungguhan lewat Xendit.
+-- MerchantPOS — QRIS sungguhan lewat Xendit.
 --
 -- Jalankan SETELAH customer_cash_payment.sql. Aman dijalankan berulang
 -- kali.
@@ -1511,7 +1511,7 @@ commit;
 -- BAGIAN 10 dari 63 — gateway_settlement.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pencairan dana dari payment gateway.
+-- MerchantPOS — pencairan dana dari payment gateway.
 --
 -- Jalankan SETELAH payment_gateway.sql. Aman dijalankan berulang kali.
 --
@@ -1604,7 +1604,7 @@ create policy "gateway_settlements: finance write" on gateway_settlements
 --   GL Biaya MDR    credit biaya   potongan penyedia, diakui sebagai beban
 --
 -- Debit = uang keluar dari akun, credit = uang masuk ke akun — konvensi
--- yang sama dengan seluruh jurnal KaataGo lainnya.
+-- yang sama dengan seluruh jurnal MerchantPOS lainnya.
 create or replace function log_gateway_settlement_journal()
 returns trigger
 language plpgsql
@@ -1692,19 +1692,19 @@ commit;
 -- BAGIAN 11 dari 63 — resto_payment_accounts.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pencairan langsung ke rekening masing-masing resto.
+-- MerchantPOS — pencairan langsung ke rekening masing-masing resto.
 --
 -- Jalankan SETELAH payment_gateway.sql. Aman dijalankan berulang kali.
 --
 -- Sampai sekarang seluruh pembayaran QRIS masuk ke satu akun penyedia:
 -- yang kuncinya terpasang di server. Untuk resto milik sendiri itu tidak
 -- masalah. Untuk resto milik orang lain, itu berarti uang mereka mampir
--- dulu ke rekening KaataGo — dan menampung lalu meneruskan dana milik
+-- dulu ke rekening MerchantPOS — dan menampung lalu meneruskan dana milik
 -- pihak lain bukan sekadar urusan pembukuan.
 --
 -- Jalan keluarnya sub-akun: tiap resto punya akunnya sendiri di
 -- penyedia, dan pembayarannya dibuat atas nama akun itu. Dananya cair
--- langsung ke rekening restonya, tanpa pernah lewat rekening KaataGo.
+-- langsung ke rekening restonya, tanpa pernah lewat rekening MerchantPOS.
 --
 -- Yang disimpan di sini hanya PENGENAL sub-akunnya, bukan kuncinya.
 -- Menyimpan secret key milik resto lain berarti satu kebocoran database
@@ -1757,7 +1757,7 @@ commit;
 -- Setelah menjalankan ini
 -- ─────────────────────────────────────────────────────────────────────
 --
--- 1. Aktifkan xenPlatform di akun Xendit KaataGo (butuh verifikasi
+-- 1. Aktifkan xenPlatform di akun Xendit MerchantPOS (butuh verifikasi
 --    badan usaha; di mode uji bisa langsung dicoba).
 --
 -- 2. Buat sub-akun untuk tiap resto — lewat Dashboard atau API:
@@ -1785,7 +1785,7 @@ commit;
 -- BAGIAN 12 dari 63 — counter_charge.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — tagihan QRIS di meja kasir.
+-- MerchantPOS — tagihan QRIS di meja kasir.
 --
 -- Jalankan SETELAH payment_gateway.sql. Aman dijalankan berulang kali.
 --
@@ -1822,7 +1822,7 @@ commit;
 -- BAGIAN 13 dari 63 — announcement_push.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pengumuman ikut membunyikan HP.
+-- MerchantPOS — pengumuman ikut membunyikan HP.
 --
 -- Selama ini pengumuman hanya duduk di Kotak Masuk. Kotak Masuk baru
 -- dilihat orang kalau dia membuka aplikasinya, dan orang membuka
@@ -1879,7 +1879,7 @@ commit;
 -- BAGIAN 14 dari 63 — cash_payment_expiry.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pesanan tunai yang tidak dilunasi di kasir hangus sendiri.
+-- MerchantPOS — pesanan tunai yang tidak dilunasi di kasir hangus sendiri.
 --
 -- Pelanggan yang memesan dari HP lalu memilih bayar tunai diarahkan ke
 -- meja kasir. Sebagian tidak pernah sampai ke sana: berubah pikiran,
@@ -1965,7 +1965,7 @@ commit;
 -- BAGIAN 15 dari 63 — level_groups.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — tiap resto menyusun sendiri kelompok levelnya.
+-- MerchantPOS — tiap resto menyusun sendiri kelompok levelnya.
 --
 -- Jalankan SETELAH product_level_groups.sql. Aman diulang.
 --
@@ -2091,7 +2091,7 @@ create trigger trg_seed_level_groups
 -- BAGIAN 16 dari 63 — resto_order_types.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — resto menentukan sendiri melayani Dine In, Take Away, atau
+-- MerchantPOS — resto menentukan sendiri melayani Dine In, Take Away, atau
 -- keduanya.
 --
 -- Aman dijalankan berulang kali.
@@ -2129,7 +2129,7 @@ commit;
 -- BAGIAN 17 dari 63 — product_out_of_stock.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — ketersediaan produk ditandai, bukan dihitung.
+-- MerchantPOS — ketersediaan produk ditandai, bukan dihitung.
 --
 -- Aman dijalankan berulang kali.
 --
@@ -2173,7 +2173,7 @@ commit;
 -- BAGIAN 18 dari 63 — discounts.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — diskon: per menu (termasuk bundling) atau minimum belanja.
+-- MerchantPOS — diskon: per menu (termasuk bundling) atau minimum belanja.
 --
 -- Jalankan SETELAH gl_journal.sql dan orders_gl_code.sql. Aman diulang.
 --
@@ -2380,7 +2380,7 @@ commit;
 -- BAGIAN 19 dari 63 — promo_banner_period.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — banner promo punya masa berlaku.
+-- MerchantPOS — banner promo punya masa berlaku.
 --
 -- Aman dijalankan berulang kali.
 --
@@ -2408,7 +2408,7 @@ commit;
 -- BAGIAN 20 dari 63 — default_gl_accounts.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — resto baru langsung punya bagan akun dan tarif pajaknya.
+-- MerchantPOS — resto baru langsung punya bagan akun dan tarif pajaknya.
 --
 -- Aman dijalankan berulang kali.
 --
@@ -2574,7 +2574,7 @@ commit;
 -- BAGIAN 21 dari 63 — gateway_account_super_admin.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pengenal sub-akun Xendit jadi urusan Super Admin saja.
+-- MerchantPOS — pengenal sub-akun Xendit jadi urusan Super Admin saja.
 --
 -- Jalankan SETELAH resto_payment_accounts.sql. Aman diulang.
 --
@@ -2582,7 +2582,7 @@ commit;
 -- Pengaturan Pembayaran. Itu keliru dari dua sisi.
 --
 -- Yang pertama: dia tidak punya cara mengetahui nilainya. Sub-akunnya
--- dibuat di akun Xendit milik KaataGo dan pengenalnya ditentukan
+-- dibuat di akun Xendit milik MerchantPOS dan pengenalnya ditentukan
 -- Xendit — bukan sesuatu yang bisa dicari orang resto di mana pun.
 -- Kolom isian yang jawabannya tidak dimiliki siapa pun yang melihatnya
 -- hanya mengundang tebakan.
@@ -2615,7 +2615,7 @@ commit;
 -- BAGIAN 22 dari 63 — announcement_audience.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pengumuman resto memilih sasarannya: karyawan, pelanggan,
+-- MerchantPOS — pengumuman resto memilih sasarannya: karyawan, pelanggan,
 -- atau keduanya.
 --
 -- Jalankan SETELAH announcement_categories.sql dan announcement_push.sql.
@@ -2688,7 +2688,7 @@ commit;
 -- BAGIAN 23 dari 63 — kasir_journal_read.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — kasir boleh melihat jurnal dari catatan yang dia buat.
+-- MerchantPOS — kasir boleh melihat jurnal dari catatan yang dia buat.
 --
 -- Aman dijalankan berulang kali.
 --
@@ -2724,7 +2724,7 @@ commit;
 -- BAGIAN 24 dari 63 — cancel_order.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pelanggan boleh membatalkan pesanannya sendiri selama
+-- MerchantPOS — pelanggan boleh membatalkan pesanannya sendiri selama
 -- pembayarannya belum diterima.
 --
 -- Jalankan SETELAH cash_payment_expiry.sql. Aman dijalankan berulang.
@@ -2816,7 +2816,7 @@ commit;
 -- BAGIAN 25 dari 63 — settled_at_counter.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — menandai pesanan mandiri yang uangnya diterima di meja
+-- MerchantPOS — menandai pesanan mandiri yang uangnya diterima di meja
 -- kasir, alih-alih menebaknya dari cara bayarnya.
 --
 -- Aman dijalankan berulang kali.
@@ -2858,7 +2858,7 @@ commit;
 -- BAGIAN 26 dari 63 — discount_min_qty.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — diskon dengan syarat jumlah pembelian.
+-- MerchantPOS — diskon dengan syarat jumlah pembelian.
 --
 -- Jalankan SETELAH discounts.sql. Aman diulang.
 --
@@ -2888,7 +2888,7 @@ commit;
 -- BAGIAN 27 dari 63 — discount_product_rules.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — syarat jumlah menempel di tiap menu, bukan di promonya.
+-- MerchantPOS — syarat jumlah menempel di tiap menu, bukan di promonya.
 --
 -- Jalankan SETELAH discounts.sql dan discount_min_qty.sql. Aman diulang.
 --
@@ -2941,7 +2941,7 @@ commit;
 -- BAGIAN 28 dari 63 — billing.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — langganan bulanan resto.
+-- MerchantPOS — langganan bulanan resto.
 --
 -- Jalankan SETELAH schema.sql, rls_hardening.sql, dan super_admin.sql.
 -- Aman dijalankan berulang. Butuh pg_cron.
@@ -3045,7 +3045,7 @@ create table if not exists billing_invoices (
   amount bigint not null check (amount >= 0),
 
   -- unpaid  → belum dibayar
-  -- review  → resto sudah mengunggah bukti, menunggu diperiksa KaataGo
+  -- review  → resto sudah mengunggah bukti, menunggu diperiksa MerchantPOS
   -- paid    → diterima
   -- waived  → dibebaskan (masa percobaan, kompensasi gangguan)
   status text not null default 'unpaid'
@@ -3324,7 +3324,7 @@ begin
 end;
 $$;
 
--- Hanya KaataGo yang menyatakan lunas. Itu satu-satunya cara membuka
+-- Hanya MerchantPOS yang menyatakan lunas. Itu satu-satunya cara membuka
 -- kunci, jadi wewenangnya tidak dibagi.
 create or replace function review_billing_payment(
   p_invoice_id text,
@@ -3357,7 +3357,7 @@ commit;
 -- BAGIAN 29 dari 63 — billing_va.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — tagihan langganan dibayar lewat Virtual Account Xendit.
+-- MerchantPOS — tagihan langganan dibayar lewat Virtual Account Xendit.
 --
 -- Jalankan SETELAH billing.sql. Aman diulang.
 --
@@ -3374,7 +3374,7 @@ commit;
 -- QRIS pesanan dibuat atas nama sub-akun restonya, supaya dananya cair
 -- ke rekening resto itu. VA langganan justru kebalikannya: dibuat atas
 -- nama akun platform, karena inilah satu-satunya aliran uang yang
--- tujuannya memang rekening KaataGo.
+-- tujuannya memang rekening MerchantPOS.
 --
 -- Salah memasang `for-user-id` di sini berarti resto membayar tagihan
 -- langganan ke rekeningnya sendiri — dan tidak ada satu pun galat yang
@@ -3527,13 +3527,13 @@ commit;
 -- BAGIAN 30 dari 63 — platform_finance.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — keuangan KaataGo sendiri, terpisah dari keuangan resto.
+-- MerchantPOS — keuangan MerchantPOS sendiri, terpisah dari keuangan resto.
 --
 -- Jalankan SETELAH billing.sql dan billing_va.sql. Aman diulang.
 --
 -- Sampai sekarang seluruh pembukuan di aplikasi ini milik resto: uang
 -- yang masuk ke mereka, pengeluaran mereka, kas kecil mereka. Pendapatan
--- KaataGo sendiri — biaya langganan yang dibayarkan resto — tidak
+-- MerchantPOS sendiri — biaya langganan yang dibayarkan resto — tidak
 -- tercatat di mana pun kecuali sebagai baris tagihan berstatus lunas.
 --
 -- ── Kenapa memakai "resto" sendiri, bukan tabel baru ─────────────────
@@ -3545,7 +3545,7 @@ commit;
 -- satu sisi tidak pernah ikut ke sisi lain, dan yang menemukannya
 -- adalah selisih angka berbulan-bulan kemudian.
 --
--- Jadi KaataGo diberi satu barisnya sendiri di tabel restaurants,
+-- Jadi MerchantPOS diberi satu barisnya sendiri di tabel restaurants,
 -- ditandai is_platform. Seluruh layar keuangan yang sudah ada langsung
 -- bekerja untuknya.
 --
@@ -3566,15 +3566,15 @@ alter table restaurants add column if not exists is_platform boolean not null de
 -- untuk menyaring di tempat yang tidak melihat `active` — daftar resto
 -- di Super Admin, dan daftar langganan.
 insert into restaurants (id, name, address, active, is_platform)
-values ('kaatago', 'KaataGo', 'Pembukuan internal KaataGo', false, true)
+values ('merchantpos', 'MerchantPOS', 'Pembukuan internal MerchantPOS', false, true)
 on conflict (id) do update set is_platform = true;
 
 -- Ia bukan pelanggan dirinya sendiri.
 update resto_billing set active = false, monthly_price = 0
-where resto_id = 'kaatago';
+where resto_id = 'merchantpos';
 
 -- ─────────────────────────────────────────────────────────────────────
--- Bagan akun KaataGo
+-- Bagan akun MerchantPOS
 -- ─────────────────────────────────────────────────────────────────────
 --
 -- Nomor 11xxxxx dipakai supaya berbeda jelas dari 19xxxxx milik resto.
@@ -3583,28 +3583,28 @@ where resto_id = 'kaatago';
 
 insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values
-  ('kaatago', 'subscription',          '1100001', 'GL Pendapatan Langganan'),
-  ('kaatago', 'subscription_discount', '1100002', 'GL Diskon Langganan'),
-  ('kaatago', 'cash',                  '1100010', 'GL Kas Tunai KaataGo'),
-  ('kaatago', 'transfer',              '1100011', 'GL Rekening KaataGo'),
-  ('kaatago', 'qris',                  '1100012', 'GL Penerimaan QRIS KaataGo'),
-  ('kaatago', 'income_aggregate',      '1100020', 'GL Pendapatan KaataGo'),
-  ('kaatago', 'petty_cash',            '1100030', 'GL Petty Cash KaataGo'),
-  ('kaatago', 'total_balance',         '1100040', 'GL Total Saldo KaataGo'),
-  ('kaatago', 'suspense',              '1100050', 'GL Suspense KaataGo'),
-  ('kaatago', 'suspense_petty',        '1100051', 'GL Suspense Petty KaataGo'),
-  ('kaatago', 'gateway_fee',           '1100060', 'GL Biaya Gateway KaataGo'),
-  ('kaatago', 'ppn',                   '1100070', 'GL PPN KaataGo'),
-  ('kaatago', 'service',               '1100071', 'GL Biaya Service KaataGo'),
-  ('kaatago', 'discount',              '1100072', 'GL Diskon Lain KaataGo')
+  ('merchantpos', 'subscription',          '1100001', 'GL Pendapatan Langganan'),
+  ('merchantpos', 'subscription_discount', '1100002', 'GL Diskon Langganan'),
+  ('merchantpos', 'cash',                  '1100010', 'GL Kas Tunai MerchantPOS'),
+  ('merchantpos', 'transfer',              '1100011', 'GL Rekening MerchantPOS'),
+  ('merchantpos', 'qris',                  '1100012', 'GL Penerimaan QRIS MerchantPOS'),
+  ('merchantpos', 'income_aggregate',      '1100020', 'GL Pendapatan MerchantPOS'),
+  ('merchantpos', 'petty_cash',            '1100030', 'GL Petty Cash MerchantPOS'),
+  ('merchantpos', 'total_balance',         '1100040', 'GL Total Saldo MerchantPOS'),
+  ('merchantpos', 'suspense',              '1100050', 'GL Suspense MerchantPOS'),
+  ('merchantpos', 'suspense_petty',        '1100051', 'GL Suspense Petty MerchantPOS'),
+  ('merchantpos', 'gateway_fee',           '1100060', 'GL Biaya Gateway MerchantPOS'),
+  ('merchantpos', 'ppn',                   '1100070', 'GL PPN MerchantPOS'),
+  ('merchantpos', 'service',               '1100071', 'GL Biaya Service MerchantPOS'),
+  ('merchantpos', 'discount',              '1100072', 'GL Diskon Lain MerchantPOS')
 on conflict (resto_id, payment_method) do nothing;
 
 insert into expense_gl_accounts (resto_id, gl_code, gl_name)
-select 'kaatago', d.gl_code, d.gl_name
+select 'merchantpos', d.gl_code, d.gl_name
 from _default_expense_gl_accounts() d
 where not exists (
   select 1 from expense_gl_accounts e
-  where e.resto_id = 'kaatago' and e.gl_code = d.gl_code
+  where e.resto_id = 'merchantpos' and e.gl_code = d.gl_code
 );
 
 -- ─────────────────────────────────────────────────────────────────────
@@ -3743,7 +3743,7 @@ $$;
 -- Jurnal pendapatan langganan
 -- ─────────────────────────────────────────────────────────────────────
 --
--- Dicatat di buku KaataGo, bukan di buku restonya. Bagi resto, biaya
+-- Dicatat di buku MerchantPOS, bukan di buku restonya. Bagi resto, biaya
 -- langganan adalah pengeluaran mereka — dan mereka mencatatnya sendiri
 -- lewat menu Pengeluaran kalau mau. Menuliskannya ke jurnal mereka dari
 -- sini berarti kami menulis di pembukuan orang lain.
@@ -3783,13 +3783,13 @@ begin
   select name into v_resto from restaurants where id = new.resto_id;
 
   -- Pendapatan: kredit, karena uang masuk.
-  select * into v_gl from _gl_account_for('kaatago', 'subscription');
+  select * into v_gl from _gl_account_for('merchantpos', 'subscription');
   if v_gl.gl_code is not null and v_gl.gl_code <> '' then
     insert into gl_journal_entries (
       resto_id, entry_date, entry_time, gl_code, gl_name,
       reference_type, reference_id, amount, entry_type, description
     ) values (
-      'kaatago',
+      'merchantpos',
       (v_now at time zone 'Asia/Jakarta')::date,
       (v_now at time zone 'Asia/Jakarta')::time,
       v_gl.gl_code, v_gl.gl_name,
@@ -3800,13 +3800,13 @@ begin
 
   -- Diskon: debit, karena pendapatan yang tidak jadi diterima.
   if coalesce(new.discount_amount, 0) > 0 then
-    select * into v_gl from _gl_account_for('kaatago', 'subscription_discount');
+    select * into v_gl from _gl_account_for('merchantpos', 'subscription_discount');
     if v_gl.gl_code is not null and v_gl.gl_code <> '' then
       insert into gl_journal_entries (
         resto_id, entry_date, entry_time, gl_code, gl_name,
         reference_type, reference_id, amount, entry_type, description
       ) values (
-        'kaatago',
+        'merchantpos',
         (v_now at time zone 'Asia/Jakarta')::date,
         (v_now at time zone 'Asia/Jakarta')::time,
         v_gl.gl_code, v_gl.gl_name,
@@ -3884,7 +3884,7 @@ commit;
 -- BAGIAN 31 dari 63 — resto_soft_delete.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — menghapus resto tanpa membuang datanya.
+-- MerchantPOS — menghapus resto tanpa membuang datanya.
 --
 -- Jalankan SETELAH platform_finance.sql. Aman diulang.
 --
@@ -4040,7 +4040,7 @@ begin
     raise exception 'Hanya Super Admin yang dapat menghapus merchant';
   end if;
 
-  if p_resto_id = 'kaatago' then
+  if p_resto_id = 'merchantpos' then
     raise exception 'Penyewa platform tidak dapat dihapus';
   end if;
 
@@ -4063,7 +4063,7 @@ commit;
 -- BAGIAN 32 dari 63 — billing_discount_apply.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — diskon ikut memotong tagihan yang sudah terbit.
+-- MerchantPOS — diskon ikut memotong tagihan yang sudah terbit.
 --
 -- Jalankan SETELAH resto_soft_delete.sql. Aman diulang.
 --
@@ -4230,7 +4230,7 @@ commit;
 -- BAGIAN 33 dari 63 — billing_journal_gross.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pendapatan langganan dicatat sebesar harga penuh.
+-- MerchantPOS — pendapatan langganan dicatat sebesar harga penuh.
 --
 -- Jalankan SETELAH billing_discount_apply.sql. Aman diulang.
 --
@@ -4295,13 +4295,13 @@ begin
   -- harga penuhnya.
   v_gross := coalesce(new.gross_amount, new.amount);
 
-  select * into v_gl from _gl_account_for('kaatago', 'subscription');
+  select * into v_gl from _gl_account_for('merchantpos', 'subscription');
   if v_gl.gl_code is not null and v_gl.gl_code <> '' then
     insert into gl_journal_entries (
       resto_id, entry_date, entry_time, gl_code, gl_name,
       reference_type, reference_id, amount, entry_type, description
     ) values (
-      'kaatago',
+      'merchantpos',
       (v_now at time zone 'Asia/Jakarta')::date,
       (v_now at time zone 'Asia/Jakarta')::time,
       v_gl.gl_code, v_gl.gl_name,
@@ -4311,13 +4311,13 @@ begin
   end if;
 
   if coalesce(new.discount_amount, 0) > 0 then
-    select * into v_gl from _gl_account_for('kaatago', 'subscription_discount');
+    select * into v_gl from _gl_account_for('merchantpos', 'subscription_discount');
     if v_gl.gl_code is not null and v_gl.gl_code <> '' then
       insert into gl_journal_entries (
         resto_id, entry_date, entry_time, gl_code, gl_name,
         reference_type, reference_id, amount, entry_type, description
       ) values (
-        'kaatago',
+        'merchantpos',
         (v_now at time zone 'Asia/Jakarta')::date,
         (v_now at time zone 'Asia/Jakarta')::time,
         v_gl.gl_code, v_gl.gl_name,
@@ -4351,7 +4351,7 @@ insert into gl_journal_entries (
   reference_type, reference_id, amount, entry_type, description
 )
 select
-  'kaatago',
+  'merchantpos',
   (now() at time zone 'Asia/Jakarta')::date,
   (now() at time zone 'Asia/Jakarta')::time,
   j.gl_code, j.gl_name,
@@ -4381,7 +4381,7 @@ commit;
 -- BAGIAN 34 dari 63 — gl_discount_backfill.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — GL Diskon terisi bawaannya di tiap resto.
+-- MerchantPOS — GL Diskon terisi bawaannya di tiap resto.
 --
 -- Jalankan SETELAH billing_journal_gross.sql. Aman diulang.
 --
@@ -4419,17 +4419,17 @@ where payment_method = 'discount'
   and coalesce(gl_code, '') = ''
   and resto_id in (select id from restaurants where is_platform = false);
 
--- KaataGo memakai golongan 11xxxxx untuk pembukuannya sendiri.
+-- MerchantPOS memakai golongan 11xxxxx untuk pembukuannya sendiri.
 insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values
-  ('kaatago', 'discount',              '1100072', 'GL Diskon Lain KaataGo'),
-  ('kaatago', 'subscription_discount', '1100002', 'GL Diskon Langganan')
+  ('merchantpos', 'discount',              '1100072', 'GL Diskon Lain MerchantPOS'),
+  ('merchantpos', 'subscription_discount', '1100002', 'GL Diskon Langganan')
 on conflict (resto_id, payment_method) do nothing;
 
 update gl_accounts
 set gl_code = '1100002',
     gl_name = coalesce(nullif(gl_name, ''), 'GL Diskon Langganan')
-where resto_id = 'kaatago'
+where resto_id = 'merchantpos'
   and payment_method = 'subscription_discount'
   and coalesce(gl_code, '') = '';
 
@@ -4443,13 +4443,13 @@ commit;
 -- BAGIAN 35 dari 63 — platform_gl_renumber.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — nomor akun penyewa platform dipindah ke golongan 11xxxxx.
+-- MerchantPOS — nomor akun penyewa platform dipindah ke golongan 11xxxxx.
 --
 -- Jalankan SETELAH gl_discount_backfill.sql. Aman diulang.
 --
 -- ── Kenapa nomornya tidak sesuai ─────────────────────────────────────
 --
--- Baris 'kaatago' dimasukkan ke tabel restaurants, dan pemicu
+-- Baris 'merchantpos' dimasukkan ke tabel restaurants, dan pemicu
 -- seed_gl_accounts_for_new_resto langsung menyemai bagan akun BAWAAN
 -- RESTO untuknya — 195xxxx, 196xxxx, 199xxxx, dan seterusnya. Nomor
 -- 11xxxxx yang dimaksudkan untuk platform baru disisipkan sesudah itu,
@@ -4457,7 +4457,7 @@ commit;
 --
 -- Akibatnya bukan sekadar angka yang berbeda dari dokumen. Janjinya
 -- adalah satu baris jurnal bisa dikenali pemiliknya hanya dari nomor
--- akunnya — dan dengan KaataGo memakai 199xxxx yang sama dengan resto,
+-- akunnya — dan dengan MerchantPOS memakai 199xxxx yang sama dengan resto,
 -- janji itu tidak berlaku. Orang yang membaca ekspor gabungan tidak
 -- punya cara membedakan mana pendapatan resto dan mana pendapatan kami.
 --
@@ -4490,40 +4490,40 @@ update gl_journal_entries j
 set gl_code = p.ke,
     gl_name = p.nama
 from (values
-  ('cash',             '1950001', '1100010', 'GL Kas Tunai KaataGo'),
-  ('qris',             '1950002', '1100012', 'GL Penerimaan QRIS KaataGo'),
-  ('transfer',         '1950003', '1100011', 'GL Rekening KaataGo'),
-  ('income_aggregate', '1950010', '1100020', 'GL Pendapatan KaataGo'),
-  ('ppn',              '1960001', '1100070', 'GL PPN KaataGo'),
-  ('service',          '1960002', '1100071', 'GL Biaya Service KaataGo'),
-  ('petty_cash',       '1980001', '1100030', 'GL Petty Cash KaataGo'),
-  ('total_balance',    '1990001', '1100040', 'GL Total Saldo KaataGo'),
-  ('suspense',         '2100001', '1100050', 'GL Suspense KaataGo'),
-  ('suspense_petty',   '2100002', '1100051', 'GL Suspense Petty KaataGo'),
-  ('gateway_fee',      '2200001', '1100060', 'GL Biaya Gateway KaataGo'),
-  ('discount',         '2200002', '1100072', 'GL Diskon Lain KaataGo')
+  ('cash',             '1950001', '1100010', 'GL Kas Tunai MerchantPOS'),
+  ('qris',             '1950002', '1100012', 'GL Penerimaan QRIS MerchantPOS'),
+  ('transfer',         '1950003', '1100011', 'GL Rekening MerchantPOS'),
+  ('income_aggregate', '1950010', '1100020', 'GL Pendapatan MerchantPOS'),
+  ('ppn',              '1960001', '1100070', 'GL PPN MerchantPOS'),
+  ('service',          '1960002', '1100071', 'GL Biaya Service MerchantPOS'),
+  ('petty_cash',       '1980001', '1100030', 'GL Petty Cash MerchantPOS'),
+  ('total_balance',    '1990001', '1100040', 'GL Total Saldo MerchantPOS'),
+  ('suspense',         '2100001', '1100050', 'GL Suspense MerchantPOS'),
+  ('suspense_petty',   '2100002', '1100051', 'GL Suspense Petty MerchantPOS'),
+  ('gateway_fee',      '2200001', '1100060', 'GL Biaya Gateway MerchantPOS'),
+  ('discount',         '2200002', '1100072', 'GL Diskon Lain MerchantPOS')
 ) as p(payment_method, dari, ke, nama)
-where j.resto_id = 'kaatago'
+where j.resto_id = 'merchantpos'
   and j.gl_code = p.dari;
 
 update gl_accounts a
 set gl_code = p.ke,
     gl_name = p.nama
 from (values
-  ('cash',             '1950001', '1100010', 'GL Kas Tunai KaataGo'),
-  ('qris',             '1950002', '1100012', 'GL Penerimaan QRIS KaataGo'),
-  ('transfer',         '1950003', '1100011', 'GL Rekening KaataGo'),
-  ('income_aggregate', '1950010', '1100020', 'GL Pendapatan KaataGo'),
-  ('ppn',              '1960001', '1100070', 'GL PPN KaataGo'),
-  ('service',          '1960002', '1100071', 'GL Biaya Service KaataGo'),
-  ('petty_cash',       '1980001', '1100030', 'GL Petty Cash KaataGo'),
-  ('total_balance',    '1990001', '1100040', 'GL Total Saldo KaataGo'),
-  ('suspense',         '2100001', '1100050', 'GL Suspense KaataGo'),
-  ('suspense_petty',   '2100002', '1100051', 'GL Suspense Petty KaataGo'),
-  ('gateway_fee',      '2200001', '1100060', 'GL Biaya Gateway KaataGo'),
-  ('discount',         '2200002', '1100072', 'GL Diskon Lain KaataGo')
+  ('cash',             '1950001', '1100010', 'GL Kas Tunai MerchantPOS'),
+  ('qris',             '1950002', '1100012', 'GL Penerimaan QRIS MerchantPOS'),
+  ('transfer',         '1950003', '1100011', 'GL Rekening MerchantPOS'),
+  ('income_aggregate', '1950010', '1100020', 'GL Pendapatan MerchantPOS'),
+  ('ppn',              '1960001', '1100070', 'GL PPN MerchantPOS'),
+  ('service',          '1960002', '1100071', 'GL Biaya Service MerchantPOS'),
+  ('petty_cash',       '1980001', '1100030', 'GL Petty Cash MerchantPOS'),
+  ('total_balance',    '1990001', '1100040', 'GL Total Saldo MerchantPOS'),
+  ('suspense',         '2100001', '1100050', 'GL Suspense MerchantPOS'),
+  ('suspense_petty',   '2100002', '1100051', 'GL Suspense Petty MerchantPOS'),
+  ('gateway_fee',      '2200001', '1100060', 'GL Biaya Gateway MerchantPOS'),
+  ('discount',         '2200002', '1100072', 'GL Diskon Lain MerchantPOS')
 ) as p(payment_method, dari, ke, nama)
-where a.resto_id = 'kaatago'
+where a.resto_id = 'merchantpos'
   and a.payment_method = p.payment_method
   and a.gl_code = p.dari;
 
@@ -4532,8 +4532,8 @@ where a.resto_id = 'kaatago'
 -- langganan bukan salah satunya.
 insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values
-  ('kaatago', 'subscription',          '1100001', 'GL Pendapatan Langganan'),
-  ('kaatago', 'subscription_discount', '1100002', 'GL Diskon Langganan')
+  ('merchantpos', 'subscription',          '1100001', 'GL Pendapatan Langganan'),
+  ('merchantpos', 'subscription_discount', '1100002', 'GL Diskon Langganan')
 on conflict (resto_id, payment_method) do nothing;
 
 commit;
@@ -4543,7 +4543,7 @@ commit;
 -- BAGIAN 36 dari 63 — product_toppings.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — topping per menu, berikut harga dan batas pilihnya.
+-- MerchantPOS — topping per menu, berikut harga dan batas pilihnya.
 --
 -- Jalankan SETELAH platform_gl_renumber.sql. Aman diulang.
 --
@@ -4585,7 +4585,7 @@ commit;
 -- BAGIAN 37 dari 63 — vouchers.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — voucher untuk pelanggan, dananya benar-benar berpindah.
+-- MerchantPOS — voucher untuk pelanggan, dananya benar-benar berpindah.
 --
 -- Jalankan SETELAH product_toppings.sql. Aman diulang.
 --
@@ -4627,15 +4627,15 @@ begin;
 
 insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values
-  ('kaatago', 'voucher',        '1100073', 'GL Voucher'),
-  ('kaatago', 'voucher_redeem', '1100074', 'GL Voucher Redeem')
+  ('merchantpos', 'voucher',        '1100073', 'GL Voucher'),
+  ('merchantpos', 'voucher_redeem', '1100074', 'GL Voucher Redeem')
 on conflict (resto_id, payment_method) do nothing;
 
 -- Nomor lama dari rancangan sebelumnya dipindahkan, bukan ditinggalkan
 -- jadi akun kembar yang tidak pernah dipakai lagi.
 update gl_accounts
 set gl_code = '1100073', gl_name = 'GL Voucher'
-where resto_id = 'kaatago' and payment_method = 'voucher'
+where resto_id = 'merchantpos' and payment_method = 'voucher'
   and gl_code = '1100080';
 
 -- ─────────────────────────────────────────────────────────────────────
@@ -4727,7 +4727,7 @@ alter table orders add column if not exists voucher_id text;
 -- Alat bantu jurnal
 -- ─────────────────────────────────────────────────────────────────────
 
-create or replace function _jurnal_kaatago(
+create or replace function _jurnal_merchantpos(
   p_method text,
   p_ref_id text,
   p_amount bigint,
@@ -4743,7 +4743,7 @@ declare
   v_gl record;
   v_now timestamptz := now();
 begin
-  select * into v_gl from _gl_account_for('kaatago', p_method);
+  select * into v_gl from _gl_account_for('merchantpos', p_method);
   if v_gl.gl_code is null or v_gl.gl_code = '' then
     return;
   end if;
@@ -4751,7 +4751,7 @@ begin
     resto_id, entry_date, entry_time, gl_code, gl_name,
     reference_type, reference_id, amount, entry_type, description
   ) values (
-    'kaatago',
+    'merchantpos',
     (v_now at time zone 'Asia/Jakarta')::date,
     (v_now at time zone 'Asia/Jakarta')::time,
     v_gl.gl_code, v_gl.gl_name,
@@ -4824,9 +4824,9 @@ begin
   );
 
   -- Uang berpindah dari saldo bebas ke kantong voucher.
-  perform _jurnal_kaatago('total_balance', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('total_balance', v_id, v_amount * p_quantity,
     'debit', 'Terbit voucher ' || v_code || ' — ' || p_quantity || ' × ' || v_amount);
-  perform _jurnal_kaatago('voucher', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('voucher', v_id, v_amount * p_quantity,
     'credit', 'Alokasi voucher ' || v_code);
 
   return v_id;
@@ -4895,9 +4895,9 @@ begin
   insert into voucher_claims (id, voucher_id, customer_label, amount)
   values (v_id, v.id, v_email, v.amount);
 
-  perform _jurnal_kaatago('voucher', v_id, v.amount,
+  perform _jurnal_merchantpos('voucher', v_id, v.amount,
     'debit', 'Ditebus ' || v.code || ' — ' || v_email);
-  perform _jurnal_kaatago('voucher_redeem', v_id, v.amount,
+  perform _jurnal_merchantpos('voucher_redeem', v_id, v.amount,
     'credit', 'Voucher ditebus ' || v.code);
 
   return query select v_id, v.amount, null::text;
@@ -4939,7 +4939,7 @@ begin
   where id = v_claim.id;
 
   -- Uangnya keluar dari kantong voucher yang sudah ditebus.
-  perform _jurnal_kaatago('voucher_redeem', v_claim.id, new.voucher_amount,
+  perform _jurnal_merchantpos('voucher_redeem', v_claim.id, new.voucher_amount,
     'debit', 'Voucher dipakai di pesanan #' || v_ref);
 
   -- Dan masuk ke resto: bagi mereka ini uang masuk, bukan pendapatan
@@ -4955,7 +4955,7 @@ begin
       (v_now at time zone 'Asia/Jakarta')::time,
       v_gl.gl_code, v_gl.gl_name,
       'voucher', v_claim.id, new.voucher_amount, 'credit',
-      'Voucher KaataGo ' || coalesce(new.voucher_code, '') ||
+      'Voucher MerchantPOS ' || coalesce(new.voucher_code, '') ||
         ' — pesanan #' || v_ref
     );
   end if;
@@ -4996,9 +4996,9 @@ begin
     set status = 'expired', expired_at = now()
     where id = c.id;
 
-    perform _jurnal_kaatago('voucher_redeem', c.id, c.amount,
+    perform _jurnal_merchantpos('voucher_redeem', c.id, c.amount,
       'debit', 'Voucher hangus tanpa dipakai');
-    perform _jurnal_kaatago('total_balance', c.id, c.amount,
+    perform _jurnal_merchantpos('total_balance', c.id, c.amount,
       'credit', 'Dana voucher hangus kembali ke saldo');
     v_count := v_count + 1;
   end loop;
@@ -5013,9 +5013,9 @@ begin
     from voucher_claims where voucher_id = v.id;
 
     if v_sisa > 0 then
-      perform _jurnal_kaatago('voucher', v.id, v_sisa,
+      perform _jurnal_merchantpos('voucher', v.id, v_sisa,
         'debit', 'Sisa voucher ' || v.code || ' tidak ditebus');
-      perform _jurnal_kaatago('total_balance', v.id, v_sisa,
+      perform _jurnal_merchantpos('total_balance', v.id, v_sisa,
         'credit', 'Sisa voucher ' || v.code || ' kembali ke saldo');
     end if;
 
@@ -5071,7 +5071,7 @@ commit;
 -- BAGIAN 38 dari 63 — voucher_payouts.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — voucher yang dipakai pelanggan dibayarkan sungguhan ke resto.
+-- MerchantPOS — voucher yang dipakai pelanggan dibayarkan sungguhan ke resto.
 --
 -- Jalankan SETELAH vouchers.sql dan resto_payment_accounts.sql.
 -- Aman dijalankan berulang kali.
@@ -5093,7 +5093,7 @@ commit;
 -- yang kita tampung adalah kerugian yang bukan milik kita tapi kita
 -- yang menyebabkannya kalau bocor.
 --
--- Transfer antar-akun memindahkan saldo dari akun KaataGo ke sub-akun
+-- Transfer antar-akun memindahkan saldo dari akun MerchantPOS ke sub-akun
 -- restonya di dalam xenPlatform. Tujuannya cukup disebut dengan
 -- pengenal sub-akun yang memang sudah kita simpan. Dari sana dananya
 -- ikut jadwal pencairan resto itu sendiri, ke rekening yang mereka
@@ -5196,7 +5196,7 @@ begin
   where id = v_claim.id;
 
   -- Uangnya keluar dari kantong voucher yang sudah ditebus.
-  perform _jurnal_kaatago('voucher_redeem', v_claim.id, new.voucher_amount,
+  perform _jurnal_merchantpos('voucher_redeem', v_claim.id, new.voucher_amount,
     'debit', 'Voucher dipakai di pesanan #' || v_ref);
 
   -- Dan masuk ke resto: bagi mereka ini uang masuk, bukan pendapatan
@@ -5212,7 +5212,7 @@ begin
       (v_now at time zone 'Asia/Jakarta')::time,
       v_gl.gl_code, v_gl.gl_name,
       'voucher', v_claim.id, new.voucher_amount, 'credit',
-      'Voucher KaataGo ' || coalesce(new.voucher_code, '') ||
+      'Voucher MerchantPOS ' || coalesce(new.voucher_code, '') ||
         ' — pesanan #' || v_ref
     );
   end if;
@@ -5376,7 +5376,7 @@ select cron.schedule('settle-voucher-payouts', '*/15 * * * *',
 --      supabase functions deploy settle-voucher-payouts \
 --        --project-ref xizpwtycczigjhzxegen
 --
--- 2. Isi secret pengenal akun KaataGo sendiri di Xendit — transfer
+-- 2. Isi secret pengenal akun MerchantPOS sendiri di Xendit — transfer
 --    butuh tahu dari akun mana uangnya diambil:
 --
 --      supabase secrets set XENDIT_ACCOUNT_ID=...
@@ -5414,13 +5414,13 @@ select cron.schedule('settle-voucher-payouts', '*/15 * * * *',
 -- BAGIAN 39 dari 63 — voucher_announcement.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — voucher yang terbit langsung mengabari pelanggan.
+-- MerchantPOS — voucher yang terbit langsung mengabari pelanggan.
 --
 -- Jalankan SETELAH vouchers.sql, announcement_audience.sql, dan
 -- announcement_categories.sql. Aman dijalankan berulang kali.
 --
 -- Voucher yang diterbitkan tapi tidak diumumkan adalah uang yang sudah
--- keluar dari saldo KaataGo untuk sesuatu yang tidak ada yang tahu.
+-- keluar dari saldo MerchantPOS untuk sesuatu yang tidak ada yang tahu.
 -- Kuotanya habis oleh siapa pun yang kebetulan membuka layar Voucher
 -- Saya, dan sisanya hangus tanpa pernah dilihat orang.
 --
@@ -5488,9 +5488,9 @@ begin
   );
 
   -- Uang berpindah dari saldo bebas ke kantong voucher.
-  perform _jurnal_kaatago('total_balance', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('total_balance', v_id, v_amount * p_quantity,
     'debit', 'Terbit voucher ' || v_code || ' — ' || p_quantity || ' × ' || v_amount);
-  perform _jurnal_kaatago('voucher', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('voucher', v_id, v_amount * p_quantity,
     'credit', 'Alokasi voucher ' || v_code);
 
   -- Rp 100.000, bukan 100000. Angka telanjang di notifikasi terbaca
@@ -5503,7 +5503,7 @@ begin
   -- tanpa membuka aplikasi.
   insert into app_announcements (title, body, category, audience, created_by)
   values (
-    'Voucher ' || v_nilai || ' dari KaataGo',
+    'Voucher ' || v_nilai || ' dari MerchantPOS',
     'Buruan tebus, kuotanya cuma ' || p_quantity || ' dan siapa cepat dia dapat! ' ||
     'Kode voucher: ' || v_code || E'\n\n' ||
     'Tiap voucher bernilai ' || v_nilai ||
@@ -5542,7 +5542,7 @@ commit;
 -- BAGIAN 40 dari 63 — voucher_manage.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — banner voucher, dan menghapus batch yang tidak jadi.
+-- MerchantPOS — banner voucher, dan menghapus batch yang tidak jadi.
 --
 -- Jalankan SETELAH voucher_announcement.sql. Aman dijalankan berulang.
 
@@ -5616,9 +5616,9 @@ begin
     auth.jwt() ->> 'email'
   );
 
-  perform _jurnal_kaatago('total_balance', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('total_balance', v_id, v_amount * p_quantity,
     'debit', 'Terbit voucher ' || v_code || ' — ' || p_quantity || ' × ' || v_amount);
-  perform _jurnal_kaatago('voucher', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('voucher', v_id, v_amount * p_quantity,
     'credit', 'Alokasi voucher ' || v_code);
 
   v_nilai := 'Rp ' || to_char(v_amount, 'FM999G999G999G999');
@@ -5626,7 +5626,7 @@ begin
   insert into app_announcements (
     title, body, category, audience, image_base64, created_by
   ) values (
-    'Voucher ' || v_nilai || ' dari KaataGo',
+    'Voucher ' || v_nilai || ' dari MerchantPOS',
     'Buruan tebus, kuotanya cuma ' || p_quantity || ' dan siapa cepat dia dapat! ' ||
     'Kode voucher: ' || v_code || E'\n\n' ||
     'Tiap voucher bernilai ' || v_nilai ||
@@ -5663,7 +5663,7 @@ $$;
 -- dari mana asalnya.
 --
 -- Dananya dikembalikan lebih dulu, bukan lenyap bersama barisnya. Batch
--- yang dihapus tanpa mengembalikan alokasinya adalah saldo KaataGo yang
+-- yang dihapus tanpa mengembalikan alokasinya adalah saldo MerchantPOS yang
 -- berkurang selamanya untuk voucher yang tidak pernah ada.
 
 create or replace function delete_voucher_batch(p_id text)
@@ -5697,9 +5697,9 @@ begin
   -- Alokasinya pulang ke saldo bebas, kecuali sudah pernah pulang lewat
   -- penjadwal kedaluwarsa.
   if v.settled_at is null then
-    perform _jurnal_kaatago('voucher', v.id, v.total_amount,
+    perform _jurnal_merchantpos('voucher', v.id, v.total_amount,
       'debit', 'Batal voucher ' || v.code);
-    perform _jurnal_kaatago('total_balance', v.id, v.total_amount,
+    perform _jurnal_merchantpos('total_balance', v.id, v.total_amount,
       'credit', 'Dana voucher ' || v.code || ' kembali — batch dihapus');
   end if;
 
@@ -5730,13 +5730,13 @@ revoke all on function delete_voucher_batch(text) from public, anon;
 -- BAGIAN 41 dari 63 — market_report.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — laporan pasar untuk Super Admin.
+-- MerchantPOS — laporan pasar untuk Super Admin.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
 -- Empat pertanyaan yang selama ini hanya bisa dijawab dengan membuka
 -- satu per satu resto: siapa pelanggan yang paling sering memakai
--- KaataGo, siapa yang mendaftar lalu tidak pernah memesan, resto mana
+-- MerchantPOS, siapa yang mendaftar lalu tidak pernah memesan, resto mana
 -- yang paling menghasilkan, dan resto mana yang belum menghasilkan
 -- sama sekali.
 --
@@ -5754,7 +5754,7 @@ revoke all on function delete_voucher_batch(text) from public, anon;
 -- memasukkannya membuat resto yang banyak pesanan batal terlihat lebih
 -- besar daripada resto yang benar-benar berjualan.
 --
--- Resto platform (KaataGo sendiri) dan resto yang sudah dihapus tidak
+-- Resto platform (MerchantPOS sendiri) dan resto yang sudah dihapus tidak
 -- ikut: keduanya bukan pasar.
 
 -- Layar ini menampilkan lima teratas, tapi fungsinya menerima batas
@@ -5879,7 +5879,7 @@ revoke all on function report_idle_restos(integer) from public, anon;
 -- ─────────────────────────────────────────────────────────────────────
 --
 -- Keempatnya SECURITY DEFINER, jadi `is_super_admin()` di klausa WHERE
--- bukan hiasan — tanpa itu fungsinya membocorkan seluruh pasar KaataGo
+-- bukan hiasan — tanpa itu fungsinya membocorkan seluruh pasar MerchantPOS
 -- ke siapa pun yang bisa memanggil RPC. Ditulis sebagai syarat WHERE,
 -- bukan RAISE, supaya yang bukan Super Admin menerima daftar kosong
 -- alih-alih pesan yang mengonfirmasi bahwa datanya ada.
@@ -5889,7 +5889,7 @@ revoke all on function report_idle_restos(integer) from public, anon;
 -- BAGIAN 42 dari 63 — billing_due_day.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — tanggal tagih 29, 30, 31, dan jatuh tempo berikutnya.
+-- MerchantPOS — tanggal tagih 29, 30, 31, dan jatuh tempo berikutnya.
 --
 -- Jalankan SETELAH billing.sql. Aman dijalankan berulang kali.
 --
@@ -6045,12 +6045,12 @@ $$;
 -- BAGIAN 43 dari 63 — balance_topup.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — setoran modal ke saldo utama.
+-- MerchantPOS — setoran modal ke saldo utama.
 --
 -- Jalankan SETELAH vouchers.sql dan platform_finance.sql. Aman diulang.
 --
 -- Ada satu jenis uang masuk yang selama ini tidak punya tempat: modal.
--- Investor menyetor ke KaataGo, atau pemilik resto menaruh uang awal
+-- Investor menyetor ke MerchantPOS, atau pemilik resto menaruh uang awal
 -- supaya kasnya tidak minus di hari pertama. Keduanya uang sungguhan
 -- yang benar-benar masuk, tapi bukan penjualan dan bukan langganan —
 -- jadi tidak ada pemicu yang menjurnalnya, dan saldonya berbunyi nol
@@ -6073,9 +6073,9 @@ alter table gl_accounts add constraint gl_accounts_payment_method_check
      'subscription', 'subscription_discount', 'voucher', 'voucher_redeem',
      'capital', 'cash_variance'));
 
--- Untuk KaataGo — sederet dengan akun platform lainnya.
+-- Untuk MerchantPOS — sederet dengan akun platform lainnya.
 insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
-values ('kaatago', 'capital', '1100003', 'GL Setoran Modal')
+values ('merchantpos', 'capital', '1100003', 'GL Setoran Modal')
 on conflict (resto_id, payment_method) do nothing;
 
 -- Untuk tiap resto.
@@ -6212,7 +6212,7 @@ create trigger trg_log_balance_topup
 -- BAGIAN 44 dari 63 — voucher_new_customer.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — voucher khusus pengguna baru.
+-- MerchantPOS — voucher khusus pengguna baru.
 --
 -- Jalankan SETELAH voucher_manage.sql. Aman dijalankan berulang kali.
 --
@@ -6234,10 +6234,10 @@ commit;
 -- Yang belum pernah punya pesanan **terbayar** di resto mana pun.
 --
 -- Pesanan batal tidak dihitung: orang yang memesan lalu membatalkannya
--- belum pernah benar-benar memakai KaataGo, dan menutup pintu untuknya
+-- belum pernah benar-benar memakai MerchantPOS, dan menutup pintu untuknya
 -- justru menutup pintu bagi orang yang paling ingin dibujuk kembali.
 --
--- Batasnya seluruh KaataGo, bukan per resto. Voucher ini promo KaataGo,
+-- Batasnya seluruh MerchantPOS, bukan per resto. Voucher ini promo MerchantPOS,
 -- dan orang yang sudah rutin memesan di resto sebelah bukan pengguna
 -- baru hanya karena belum pernah masuk resto ini.
 create or replace function _pelanggan_baru(p_email text)
@@ -6304,7 +6304,7 @@ begin
   -- alasan penolakannya harus yang sebenarnya, bukan "sudah habis".
   if v.new_customers_only and not _pelanggan_baru(v_email) then
     return query select null::text, 0::bigint,
-      'Voucher ini hanya untuk pengguna baru KaataGo';
+      'Voucher ini hanya untuk pengguna baru MerchantPOS';
     return;
   end if;
 
@@ -6325,9 +6325,9 @@ begin
   insert into voucher_claims (id, voucher_id, customer_label, amount)
   values (v_id, v.id, v_email, v.amount);
 
-  perform _jurnal_kaatago('voucher', v_id, v.amount,
+  perform _jurnal_merchantpos('voucher', v_id, v.amount,
     'debit', 'Ditebus ' || v.code || ' — ' || v_email);
-  perform _jurnal_kaatago('voucher_redeem', v_id, v.amount,
+  perform _jurnal_merchantpos('voucher_redeem', v_id, v.amount,
     'credit', 'Voucher ditebus ' || v.code);
 
   return query select v_id, v.amount, null::text;
@@ -6395,9 +6395,9 @@ begin
     auth.jwt() ->> 'email'
   );
 
-  perform _jurnal_kaatago('total_balance', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('total_balance', v_id, v_amount * p_quantity,
     'debit', 'Terbit voucher ' || v_code || ' — ' || p_quantity || ' × ' || v_amount);
-  perform _jurnal_kaatago('voucher', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('voucher', v_id, v_amount * p_quantity,
     'credit', 'Alokasi voucher ' || v_code);
 
   v_nilai := 'Rp ' || to_char(v_amount, 'FM999G999G999G999');
@@ -6407,13 +6407,13 @@ begin
   -- daripada tahu sejak awal bahwa ini bukan untuk dirinya.
   v_syarat := case
     when coalesce(p_new_customers_only, false)
-      then ' Khusus pengguna baru yang belum pernah memesan lewat KaataGo.'
+      then ' Khusus pengguna baru yang belum pernah memesan lewat MerchantPOS.'
     else '' end;
 
   insert into app_announcements (
     title, body, category, audience, image_base64, created_by
   ) values (
-    'Voucher ' || v_nilai || ' dari KaataGo',
+    'Voucher ' || v_nilai || ' dari MerchantPOS',
     'Buruan tebus, kuotanya cuma ' || p_quantity || ' dan siapa cepat dia dapat! ' ||
     'Kode voucher: ' || v_code || E'\n\n' ||
     'Tiap voucher bernilai ' || v_nilai ||
@@ -6447,7 +6447,7 @@ $$;
 -- BAGIAN 45 dari 63 — qris_receipt_fields.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — rincian kuitansi QRIS dari Xendit, jadi kolomnya sendiri.
+-- MerchantPOS — rincian kuitansi QRIS dari Xendit, jadi kolomnya sendiri.
 --
 -- Jalankan SETELAH payment_gateway.sql. Aman dijalankan berulang kali.
 --
@@ -6584,7 +6584,7 @@ where c.id = d.id;
 -- BAGIAN 46 dari 63 — order_number.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — nomor pesanan harian per resto.
+-- MerchantPOS — nomor pesanan harian per resto.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman dijalankan berulang.
 --
@@ -6733,7 +6733,7 @@ do update set last_no = greatest(order_counters.last_no, excluded.last_no);
 -- BAGIAN 47 dari 63 — customer_display.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — layar pelanggan di meja kasir.
+-- MerchantPOS — layar pelanggan di meja kasir.
 --
 -- Jalankan kapan saja setelah payment_gateway.sql. Aman diulang.
 --
@@ -6881,7 +6881,7 @@ end $$;
 -- BAGIAN 48 dari 63 — resto_facilities.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — fasilitas merchant.
+-- MerchantPOS — fasilitas merchant.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
@@ -6924,7 +6924,7 @@ commit;
 -- BAGIAN 49 dari 63 — merchant_reviews.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — penilaian merchant oleh pelanggan, dan jam bukanya.
+-- MerchantPOS — penilaian merchant oleh pelanggan, dan jam bukanya.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
@@ -7040,7 +7040,7 @@ $$;
 -- BAGIAN 50 dari 63 — review_prompt.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — mengajak pelanggan menilai, sejam sesudah membayar.
+-- MerchantPOS — mengajak pelanggan menilai, sejam sesudah membayar.
 --
 -- Jalankan SETELAH merchant_reviews.sql. Aman diulang.
 --
@@ -7115,7 +7115,7 @@ begin
         'resto_id', o.resto_id,
         'title', 'Gimana pesanan kamu di ' || o.merchant || '?',
         'body', 'Bikin nagih ga nih? Jangan lupa kasih ulasan untuk ' ||
-                o.merchant || ' di KaataGo.'
+                o.merchant || ' di MerchantPOS.'
       )
     );
 
@@ -7155,7 +7155,7 @@ select cron.schedule('review-prompts', '*/20 * * * *',
 -- BAGIAN 51 dari 63 — order_cancel_kitchen.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pesanan yang batal berhenti punya status dapur.
+-- MerchantPOS — pesanan yang batal berhenti punya status dapur.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
@@ -7237,7 +7237,7 @@ where payment_status in ('cancelled', 'expired')
 -- BAGIAN 52 dari 63 — product_badges_reviews.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — label menu, penilaian menu, dan angka terjualnya.
+-- MerchantPOS — label menu, penilaian menu, dan angka terjualnya.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
@@ -7395,7 +7395,7 @@ grant execute on function product_stats(text) to anon, authenticated;
 -- BAGIAN 53 dari 63 — cashier_shift.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — buka dan tutup shift kasir.
+-- MerchantPOS — buka dan tutup shift kasir.
 --
 -- Jalankan setelah cash_deposit.sql dan petty_cash.sql. Aman diulang.
 --
@@ -7675,7 +7675,7 @@ grant execute on function shift_expected_cash(uuid, timestamptz) to authenticate
 -- BAGIAN 54 dari 63 — product_review_per_order.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — penilaian menu menempel pada pesanannya, bukan pada menunya.
+-- MerchantPOS — penilaian menu menempel pada pesanannya, bukan pada menunya.
 --
 -- Jalankan SETELAH product_badges_reviews.sql. Aman diulang.
 --
@@ -7774,7 +7774,7 @@ commit;
 -- BAGIAN 55 dari 63 — cash_variance.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — GL Selisih Kasir, dan pelunasannya.
+-- MerchantPOS — GL Selisih Kasir, dan pelunasannya.
 --
 -- Jalankan SETELAH cashier_shift.sql dan default_gl_accounts.sql.
 -- Aman diulang.
@@ -7908,7 +7908,7 @@ commit;
 -- Lahirnya tagihan, dan jurnalnya
 -- ─────────────────────────────────────────────────────────────────────
 --
--- Ditulis pemicu, bukan oleh `close_shift`. Seluruh jurnal di KaataGo
+-- Ditulis pemicu, bukan oleh `close_shift`. Seluruh jurnal di MerchantPOS
 -- lahir dari pemicu supaya tidak pernah ada jalan menutup shift tanpa
 -- jurnalnya ikut tertulis — lihat catatan di gl_journal.sql.
 --
@@ -8078,7 +8078,7 @@ grant execute on function settle_cash_variance(uuid, text) to authenticated;
 -- BAGIAN 56 dari 63 — merchant_report.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — laporan penjualan untuk merchant sendiri.
+-- MerchantPOS — laporan penjualan untuk merchant sendiri.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
@@ -8299,7 +8299,7 @@ grant execute on function report_sales_summary(text, date, date) to authenticate
 -- BAGIAN 57 dari 63 — shift_opening_check.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — perkiraan modal awal saat shift dibuka.
+-- MerchantPOS — perkiraan modal awal saat shift dibuka.
 --
 -- Jalankan SETELAH cashier_shift.sql. Aman diulang.
 --
@@ -8394,12 +8394,12 @@ grant execute on function expected_opening_cash(text) to authenticated;
 -- BAGIAN 58 dari 63 — support_tickets.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pengaduan, tiket, dan percakapannya.
+-- MerchantPOS — pengaduan, tiket, dan percakapannya.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
 -- Selama ini satu-satunya jalan mengadu adalah WhatsApp ke nomor
--- KaataGo Admin. Itu bekerja saat merchantnya lima. Pada merchant
+-- MerchantPOS Admin. Itu bekerja saat merchantnya lima. Pada merchant
 -- kelima puluh, tidak ada yang tahu keluhan mana yang sudah dijawab,
 -- mana yang tenggelam di bawah percakapan lain, dan mana yang sebenarnya
 -- masalah yang sama muncul untuk ketiga kalinya.
@@ -8498,7 +8498,7 @@ create index if not exists support_messages_ticket_idx
 alter table support_tickets enable row level security;
 alter table support_messages enable row level security;
 
--- Pengadu melihat tiketnya sendiri; KaataGo Admin melihat semuanya.
+-- Pengadu melihat tiketnya sendiri; MerchantPOS Admin melihat semuanya.
 --
 -- Pegawai merchant lain TIDAK melihat pengaduan rekannya. Keluhan
 -- sering berisi hal yang tidak ingin dibaca seruangan — termasuk
@@ -8681,7 +8681,7 @@ begin
   end if;
 
   if not v_admin and p_status <> 'closed' then
-    raise exception 'Hanya KaataGo Admin yang bisa mengubah status ini.';
+    raise exception 'Hanya MerchantPOS Admin yang bisa mengubah status ini.';
   end if;
 
   if p_status not in ('open', 'on_progress', 'confirm_customer', 'closed') then
@@ -8751,7 +8751,7 @@ $$;
 --
 -- Hanya tiket yang sedang menunggu jawaban pengadunya, dan hanya kalau
 -- pesan terakhirnya memang dari admin. Tiket yang pesan terakhirnya dari
--- pengadu berarti bolanya ada di KaataGo — menutupnya karena "tidak ada
+-- pengadu berarti bolanya ada di MerchantPOS — menutupnya karena "tidak ada
 -- jawaban" akan menghukum orang yang justru sudah menjawab.
 create or replace function close_idle_support_tickets()
 returns integer
@@ -8822,7 +8822,7 @@ grant execute on function mark_support_read(uuid) to authenticated;
 -- BAGIAN 59 dari 63 — support_push.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — notifikasi untuk KaataGo Support.
+-- MerchantPOS — notifikasi untuk MerchantPOS Support.
 --
 -- Jalankan SETELAH support_tickets.sql dan push_notifications.sql.
 -- Aman diulang.
@@ -8830,7 +8830,7 @@ grant execute on function mark_support_read(uuid) to authenticated;
 -- Penanda di dalam aplikasi hanya terlihat oleh orang yang sedang
 -- membuka aplikasinya. Yang mengadu lalu menutup HP-nya — dan itulah
 -- yang dilakukan hampir semua orang setelah mengadu — tidak akan pernah
--- tahu keluhannya sudah dijawab sampai ia kebetulan membuka KaataGo
+-- tahu keluhannya sudah dijawab sampai ia kebetulan membuka MerchantPOS
 -- lagi. Balasan yang tidak sampai sama saja dengan tidak dibalas.
 
 -- Satu pemicu untuk kedua arah.
@@ -8867,7 +8867,7 @@ begin
         'audience', 'email',
         'email', t.reporter_email,
         'ticket_id', t.id::text,
-        'title', 'KaataGo Support — ' || t.subject,
+        'title', 'MerchantPOS Support — ' || t.subject,
         'body', v_cuplikan
       )
     );
@@ -8875,12 +8875,12 @@ begin
     v_nama := coalesce(nullif(btrim(coalesce(t.reporter_name, '')), ''),
                        split_part(t.reporter_email, '@', 1));
 
-    -- Ke KaataGo Admin, satu baris per orang, disasar lewat emailnya.
+    -- Ke MerchantPOS Admin, satu baris per orang, disasar lewat emailnya.
     --
     -- Sempat memakai audiens 'role' dengan peran super_admin, dan itu
     -- gagal dengan "tidak ada perangkat terdaftar": baris token hanya
     -- punya peran kalau perangkatnya mendaftar setelah orangnya masuk
-    -- sebagai KaataGo Admin. Satu perangkat yang pernah dipakai masuk
+    -- sebagai MerchantPOS Admin. Satu perangkat yang pernah dipakai masuk
     -- sebagai peran lain, atau yang barisnya ditulis versi lama, tidak
     -- akan pernah terjaring.
     --
@@ -8888,7 +8888,7 @@ begin
     -- apa pun peran yang sedang dipegang saat itu.
     --
     -- Konsekuensinya satu baris outbox per admin, bukan satu untuk
-    -- semuanya. Jumlah KaataGo Admin dihitung jari, dan kabar yang
+    -- semuanya. Jumlah MerchantPOS Admin dihitung jari, dan kabar yang
     -- sampai lebih berharga daripada satu baris yang rapi.
     for v_admin in
       select distinct e.email
@@ -8936,7 +8936,7 @@ create trigger trg_queue_push_support
 -- BAGIAN 60 dari 63 — support_auto_reply.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — sapaan otomatis, dan penanda belum dibaca yang tahan
+-- MerchantPOS — sapaan otomatis, dan penanda belum dibaca yang tahan
 -- terhadapnya.
 --
 -- Jalankan SETELAH support_tickets.sql. Aman diulang.
@@ -8947,7 +8947,7 @@ create trigger trg_queue_push_support
 -- memakai aplikasinya sama sekali.
 --
 -- Tapi sapaan itu tidak boleh membuat tiketnya terlihat sudah dijawab.
--- Di sisi KaataGo Admin ia harus tetap berdiri sebagai pengaduan yang
+-- Di sisi MerchantPOS Admin ia harus tetap berdiri sebagai pengaduan yang
 -- belum dibaca, karena memang belum ada manusia yang membacanya.
 
 begin;
@@ -9067,7 +9067,7 @@ begin
   -- Judulnya harus sama persis dengan `kSubjekChatUmum` di aplikasi;
   -- ada tes yang menjaga keduanya tidak berpisah.
   v_sebutan := case
-    when btrim(p_subject) = 'Chat dengan KaataGo Admin' then 'chat'
+    when btrim(p_subject) = 'Chat dengan MerchantPOS Admin' then 'chat'
     else 'pengaduan'
   end;
 
@@ -9083,7 +9083,7 @@ begin
     ticket_id, sender_email, sender_name, from_admin, body)
   values (
     v_row.id, 'system:greeting', null, true,
-    'Halo ' || v_nama || ', mohon bersabar KaataGo Admin akan meresponse '
+    'Halo ' || v_nama || ', mohon bersabar MerchantPOS Admin akan meresponse '
       || v_sebutan || ' secepatnya, terimakasih sudah berkenan menunggu.');
 
   select * into v_row from support_tickets where id = v_row.id;
@@ -9125,7 +9125,7 @@ begin
         'audience', 'email',
         'email', t.reporter_email,
         'ticket_id', t.id::text,
-        'title', 'KaataGo Support — ' || t.subject,
+        'title', 'MerchantPOS Support — ' || t.subject,
         'body', v_cuplikan
       )
     );
@@ -9177,7 +9177,7 @@ $$;
 -- BAGIAN 61 dari 63 — support_chat_rules.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — chat bebas bukan pengaduan, dan tiket kembar tidak lahir
+-- MerchantPOS — chat bebas bukan pengaduan, dan tiket kembar tidak lahir
 -- dua kali.
 --
 -- Jalankan SETELAH support_auto_reply.sql. Aman diulang.
@@ -9261,7 +9261,7 @@ begin
                      split_part(v_email, '@', 1));
 
   v_sebutan := case
-    when btrim(p_subject) = 'Chat dengan KaataGo Admin' then 'chat'
+    when btrim(p_subject) = 'Chat dengan MerchantPOS Admin' then 'chat'
     else 'pengaduan'
   end;
 
@@ -9269,7 +9269,7 @@ begin
     ticket_id, sender_email, sender_name, from_admin, body)
   values (
     v_row.id, 'system:greeting', null, true,
-    'Halo ' || v_nama || ', mohon bersabar KaataGo Admin akan meresponse '
+    'Halo ' || v_nama || ', mohon bersabar MerchantPOS Admin akan meresponse '
       || v_sebutan || ' secepatnya, terimakasih sudah berkenan menunggu.');
 
   select * into v_row from support_tickets where id = v_row.id;
@@ -9299,7 +9299,7 @@ begin
   for t in
     select id from support_tickets
     where status = 'confirm_customer'
-      and subject <> 'Chat dengan KaataGo Admin'
+      and subject <> 'Chat dengan MerchantPOS Admin'
       and last_message_from_admin = true
       and coalesce(last_message_at, updated_at) < now() - interval '24 hours'
   loop
@@ -9369,7 +9369,7 @@ where id in (select id from kembar where urutan > 1);
 -- BAGIAN 62 dari 63 — support_pesan_kembar.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — pesan kembar di dalam satu percakapan.
+-- MerchantPOS — pesan kembar di dalam satu percakapan.
 --
 -- Jalankan SETELAH support_chat_rules.sql. Aman diulang.
 --
@@ -9459,7 +9459,7 @@ commit;
 -- BAGIAN 63 dari 63 — support_push_wording.sql
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — judul notifikasi chat tidak menyebut "pengaduan".
+-- MerchantPOS — judul notifikasi chat tidak menyebut "pengaduan".
 --
 -- Jalankan SETELAH support_auto_reply.sql. Aman diulang.
 --
@@ -9490,7 +9490,7 @@ begin
   select * into t from support_tickets where id = new.ticket_id;
   if t is null then return new; end if;
 
-  v_chat := t.subject = 'Chat dengan KaataGo Admin';
+  v_chat := t.subject = 'Chat dengan MerchantPOS Admin';
 
   v_cuplikan := left(regexp_replace(new.body, E'[\n\r]+', ' ', 'g'), 90);
 
@@ -9502,8 +9502,8 @@ begin
         'email', t.reporter_email,
         'ticket_id', t.id::text,
         'title', case
-          when v_chat then 'Balasan KaataGo Admin'
-          else 'KaataGo Support — ' || t.subject
+          when v_chat then 'Balasan MerchantPOS Admin'
+          else 'MerchantPOS Support — ' || t.subject
         end,
         'body', v_cuplikan
       )
@@ -9547,7 +9547,7 @@ $$;
 --   from push_outbox where event = 'support_message'
 --   order by created_at desc limit 5;
 --
---   -- Siapa saja yang dianggap KaataGo Admin, dan sudah punya perangkat
+--   -- Siapa saja yang dianggap MerchantPOS Admin, dan sudah punya perangkat
 --   -- terdaftar atau belum:
 --   select e.email, d.token is not null as punya_perangkat, d.updated_at
 --   from employees e

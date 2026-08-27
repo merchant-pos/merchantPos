@@ -1,4 +1,4 @@
--- KaataGo — logo resto (run AFTER schema.sql).
+-- MerchantPOS — logo resto (run AFTER schema.sql).
 --
 -- Optional store logo, base64-encoded in the row itself — the same
 -- approach product photos, customer photos and expense receipts already

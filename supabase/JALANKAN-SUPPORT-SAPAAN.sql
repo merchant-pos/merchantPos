@@ -1,7 +1,7 @@
--- KaataGo — bagian 60: sapaan otomatis KaataGo Support.
+-- MerchantPOS — bagian 60: sapaan otomatis MerchantPOS Support.
 -- Jalankan SETELAH bagian 58 dan 59. Aman diulang.
 
--- KaataGo — sapaan otomatis, dan penanda belum dibaca yang tahan
+-- MerchantPOS — sapaan otomatis, dan penanda belum dibaca yang tahan
 -- terhadapnya.
 --
 -- Jalankan SETELAH support_tickets.sql. Aman diulang.
@@ -12,7 +12,7 @@
 -- memakai aplikasinya sama sekali.
 --
 -- Tapi sapaan itu tidak boleh membuat tiketnya terlihat sudah dijawab.
--- Di sisi KaataGo Admin ia harus tetap berdiri sebagai pengaduan yang
+-- Di sisi MerchantPOS Admin ia harus tetap berdiri sebagai pengaduan yang
 -- belum dibaca, karena memang belum ada manusia yang membacanya.
 
 begin;
@@ -132,7 +132,7 @@ begin
   -- Judulnya harus sama persis dengan `kSubjekChatUmum` di aplikasi;
   -- ada tes yang menjaga keduanya tidak berpisah.
   v_sebutan := case
-    when btrim(p_subject) = 'Chat dengan KaataGo Admin' then 'chat'
+    when btrim(p_subject) = 'Chat dengan MerchantPOS Admin' then 'chat'
     else 'pengaduan'
   end;
 
@@ -148,7 +148,7 @@ begin
     ticket_id, sender_email, sender_name, from_admin, body)
   values (
     v_row.id, 'system:greeting', null, true,
-    'Halo ' || v_nama || ', mohon bersabar KaataGo Admin akan meresponse '
+    'Halo ' || v_nama || ', mohon bersabar MerchantPOS Admin akan meresponse '
       || v_sebutan || ' secepatnya, terimakasih sudah berkenan menunggu.');
 
   select * into v_row from support_tickets where id = v_row.id;
@@ -190,7 +190,7 @@ begin
         'audience', 'email',
         'email', t.reporter_email,
         'ticket_id', t.id::text,
-        'title', 'KaataGo Support — ' || t.subject,
+        'title', 'MerchantPOS Support — ' || t.subject,
         'body', v_cuplikan
       )
     );

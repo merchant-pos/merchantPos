@@ -1,4 +1,4 @@
--- KaataGo — layar pelanggan di meja kasir.
+-- MerchantPOS — layar pelanggan di meja kasir.
 --
 -- Jalankan kapan saja setelah payment_gateway.sql. Aman diulang.
 --

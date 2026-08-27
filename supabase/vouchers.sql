@@ -1,4 +1,4 @@
--- KaataGo — voucher untuk pelanggan, dananya benar-benar berpindah.
+-- MerchantPOS — voucher untuk pelanggan, dananya benar-benar berpindah.
 --
 -- Jalankan SETELAH product_toppings.sql. Aman diulang.
 --
@@ -40,15 +40,15 @@ begin;
 
 insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values
-  ('kaatago', 'voucher',        '1100073', 'GL Voucher'),
-  ('kaatago', 'voucher_redeem', '1100074', 'GL Voucher Redeem')
+  ('merchantpos', 'voucher',        '1100073', 'GL Voucher'),
+  ('merchantpos', 'voucher_redeem', '1100074', 'GL Voucher Redeem')
 on conflict (resto_id, payment_method) do nothing;
 
 -- Nomor lama dari rancangan sebelumnya dipindahkan, bukan ditinggalkan
 -- jadi akun kembar yang tidak pernah dipakai lagi.
 update gl_accounts
 set gl_code = '1100073', gl_name = 'GL Voucher'
-where resto_id = 'kaatago' and payment_method = 'voucher'
+where resto_id = 'merchantpos' and payment_method = 'voucher'
   and gl_code = '1100080';
 
 -- ─────────────────────────────────────────────────────────────────────
@@ -140,7 +140,7 @@ alter table orders add column if not exists voucher_id text;
 -- Alat bantu jurnal
 -- ─────────────────────────────────────────────────────────────────────
 
-create or replace function _jurnal_kaatago(
+create or replace function _jurnal_merchantpos(
   p_method text,
   p_ref_id text,
   p_amount bigint,
@@ -156,7 +156,7 @@ declare
   v_gl record;
   v_now timestamptz := now();
 begin
-  select * into v_gl from _gl_account_for('kaatago', p_method);
+  select * into v_gl from _gl_account_for('merchantpos', p_method);
   if v_gl.gl_code is null or v_gl.gl_code = '' then
     return;
   end if;
@@ -164,7 +164,7 @@ begin
     resto_id, entry_date, entry_time, gl_code, gl_name,
     reference_type, reference_id, amount, entry_type, description
   ) values (
-    'kaatago',
+    'merchantpos',
     (v_now at time zone 'Asia/Jakarta')::date,
     (v_now at time zone 'Asia/Jakarta')::time,
     v_gl.gl_code, v_gl.gl_name,
@@ -237,9 +237,9 @@ begin
   );
 
   -- Uang berpindah dari saldo bebas ke kantong voucher.
-  perform _jurnal_kaatago('total_balance', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('total_balance', v_id, v_amount * p_quantity,
     'debit', 'Terbit voucher ' || v_code || ' — ' || p_quantity || ' × ' || v_amount);
-  perform _jurnal_kaatago('voucher', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('voucher', v_id, v_amount * p_quantity,
     'credit', 'Alokasi voucher ' || v_code);
 
   return v_id;
@@ -308,9 +308,9 @@ begin
   insert into voucher_claims (id, voucher_id, customer_label, amount)
   values (v_id, v.id, v_email, v.amount);
 
-  perform _jurnal_kaatago('voucher', v_id, v.amount,
+  perform _jurnal_merchantpos('voucher', v_id, v.amount,
     'debit', 'Ditebus ' || v.code || ' — ' || v_email);
-  perform _jurnal_kaatago('voucher_redeem', v_id, v.amount,
+  perform _jurnal_merchantpos('voucher_redeem', v_id, v.amount,
     'credit', 'Voucher ditebus ' || v.code);
 
   return query select v_id, v.amount, null::text;
@@ -352,7 +352,7 @@ begin
   where id = v_claim.id;
 
   -- Uangnya keluar dari kantong voucher yang sudah ditebus.
-  perform _jurnal_kaatago('voucher_redeem', v_claim.id, new.voucher_amount,
+  perform _jurnal_merchantpos('voucher_redeem', v_claim.id, new.voucher_amount,
     'debit', 'Voucher dipakai di pesanan #' || v_ref);
 
   -- Dan masuk ke resto: bagi mereka ini uang masuk, bukan pendapatan
@@ -368,7 +368,7 @@ begin
       (v_now at time zone 'Asia/Jakarta')::time,
       v_gl.gl_code, v_gl.gl_name,
       'voucher', v_claim.id, new.voucher_amount, 'credit',
-      'Voucher KaataGo ' || coalesce(new.voucher_code, '') ||
+      'Voucher MerchantPOS ' || coalesce(new.voucher_code, '') ||
         ' — pesanan #' || v_ref
     );
   end if;
@@ -409,9 +409,9 @@ begin
     set status = 'expired', expired_at = now()
     where id = c.id;
 
-    perform _jurnal_kaatago('voucher_redeem', c.id, c.amount,
+    perform _jurnal_merchantpos('voucher_redeem', c.id, c.amount,
       'debit', 'Voucher hangus tanpa dipakai');
-    perform _jurnal_kaatago('total_balance', c.id, c.amount,
+    perform _jurnal_merchantpos('total_balance', c.id, c.amount,
       'credit', 'Dana voucher hangus kembali ke saldo');
     v_count := v_count + 1;
   end loop;
@@ -426,9 +426,9 @@ begin
     from voucher_claims where voucher_id = v.id;
 
     if v_sisa > 0 then
-      perform _jurnal_kaatago('voucher', v.id, v_sisa,
+      perform _jurnal_merchantpos('voucher', v.id, v_sisa,
         'debit', 'Sisa voucher ' || v.code || ' tidak ditebus');
-      perform _jurnal_kaatago('total_balance', v.id, v_sisa,
+      perform _jurnal_merchantpos('total_balance', v.id, v_sisa,
         'credit', 'Sisa voucher ' || v.code || ' kembali ke saldo');
     end if;
 

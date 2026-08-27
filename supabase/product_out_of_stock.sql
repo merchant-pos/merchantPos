@@ -1,4 +1,4 @@
--- KaataGo — ketersediaan produk ditandai, bukan dihitung.
+-- MerchantPOS — ketersediaan produk ditandai, bukan dihitung.
 --
 -- Aman dijalankan berulang kali.
 --

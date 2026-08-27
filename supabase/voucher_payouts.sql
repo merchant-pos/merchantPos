@@ -1,4 +1,4 @@
--- KaataGo — voucher yang dipakai pelanggan dibayarkan sungguhan ke resto.
+-- MerchantPOS — voucher yang dipakai pelanggan dibayarkan sungguhan ke resto.
 --
 -- Jalankan SETELAH vouchers.sql dan resto_payment_accounts.sql.
 -- Aman dijalankan berulang kali.
@@ -20,7 +20,7 @@
 -- yang kita tampung adalah kerugian yang bukan milik kita tapi kita
 -- yang menyebabkannya kalau bocor.
 --
--- Transfer antar-akun memindahkan saldo dari akun KaataGo ke sub-akun
+-- Transfer antar-akun memindahkan saldo dari akun MerchantPOS ke sub-akun
 -- restonya di dalam xenPlatform. Tujuannya cukup disebut dengan
 -- pengenal sub-akun yang memang sudah kita simpan. Dari sana dananya
 -- ikut jadwal pencairan resto itu sendiri, ke rekening yang mereka
@@ -123,7 +123,7 @@ begin
   where id = v_claim.id;
 
   -- Uangnya keluar dari kantong voucher yang sudah ditebus.
-  perform _jurnal_kaatago('voucher_redeem', v_claim.id, new.voucher_amount,
+  perform _jurnal_merchantpos('voucher_redeem', v_claim.id, new.voucher_amount,
     'debit', 'Voucher dipakai di pesanan #' || v_ref);
 
   -- Dan masuk ke resto: bagi mereka ini uang masuk, bukan pendapatan
@@ -139,7 +139,7 @@ begin
       (v_now at time zone 'Asia/Jakarta')::time,
       v_gl.gl_code, v_gl.gl_name,
       'voucher', v_claim.id, new.voucher_amount, 'credit',
-      'Voucher KaataGo ' || coalesce(new.voucher_code, '') ||
+      'Voucher MerchantPOS ' || coalesce(new.voucher_code, '') ||
         ' — pesanan #' || v_ref
     );
   end if;
@@ -303,7 +303,7 @@ select cron.schedule('settle-voucher-payouts', '*/15 * * * *',
 --      supabase functions deploy settle-voucher-payouts \
 --        --project-ref xizpwtycczigjhzxegen
 --
--- 2. Isi secret pengenal akun KaataGo sendiri di Xendit — transfer
+-- 2. Isi secret pengenal akun MerchantPOS sendiri di Xendit — transfer
 --    butuh tahu dari akun mana uangnya diambil:
 --
 --      supabase secrets set XENDIT_ACCOUNT_ID=...

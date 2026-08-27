@@ -1,4 +1,4 @@
--- KaataGo — Finance role (run AFTER rls_hardening.sql and super_admin.sql).
+-- MerchantPOS — Finance role (run AFTER rls_hardening.sql and super_admin.sql).
 --
 -- Adds:
 --   - 'finance' as an allowed employees.role (scoped to one resto, like

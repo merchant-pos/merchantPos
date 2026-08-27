@@ -146,7 +146,7 @@ void main() {
           contains('bukaPenilaian(context)'));
     });
 
-    test('KaataGo Admin tidak diberi menunya', () {
+    test('MerchantPOS Admin tidak diberi menunya', () {
       // Tempatnya bukan miliknya, dan daftar keluhan yang tidak bisa
       // dia tindaklanjuti cuma menumpuk.
       final sa =

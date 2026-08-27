@@ -1,4 +1,4 @@
--- KaataGo — langganan bulanan resto.
+-- MerchantPOS — langganan bulanan resto.
 --
 -- Jalankan SETELAH schema.sql, rls_hardening.sql, dan super_admin.sql.
 -- Aman dijalankan berulang. Butuh pg_cron.
@@ -102,7 +102,7 @@ create table if not exists billing_invoices (
   amount bigint not null check (amount >= 0),
 
   -- unpaid  → belum dibayar
-  -- review  → resto sudah mengunggah bukti, menunggu diperiksa KaataGo
+  -- review  → resto sudah mengunggah bukti, menunggu diperiksa MerchantPOS
   -- paid    → diterima
   -- waived  → dibebaskan (masa percobaan, kompensasi gangguan)
   status text not null default 'unpaid'
@@ -381,7 +381,7 @@ begin
 end;
 $$;
 
--- Hanya KaataGo yang menyatakan lunas. Itu satu-satunya cara membuka
+-- Hanya MerchantPOS yang menyatakan lunas. Itu satu-satunya cara membuka
 -- kunci, jadi wewenangnya tidak dibagi.
 create or replace function review_billing_payment(
   p_invoice_id text,

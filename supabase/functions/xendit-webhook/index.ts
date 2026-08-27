@@ -1,4 +1,4 @@
-// KaataGo — penerima kabar pembayaran dari Xendit.
+// MerchantPOS — penerima kabar pembayaran dari Xendit.
 //
 // Inilah satu-satunya hal yang boleh menyatakan sebuah pesanan lunas
 // lewat QRIS. Tombol di HP pelanggan tidak, dan tidak akan pernah:

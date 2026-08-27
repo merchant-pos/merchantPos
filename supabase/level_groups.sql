@@ -1,4 +1,4 @@
--- KaataGo — tiap resto menyusun sendiri kelompok levelnya.
+-- MerchantPOS — tiap resto menyusun sendiri kelompok levelnya.
 --
 -- Jalankan SETELAH product_level_groups.sql. Aman diulang.
 --

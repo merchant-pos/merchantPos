@@ -1,6 +1,6 @@
-// KaataGo — membayarkan voucher yang sudah dipakai ke resto yang melayaninya.
+// MerchantPOS — membayarkan voucher yang sudah dipakai ke resto yang melayaninya.
 //
-// Voucher adalah promo KaataGo. Pelanggan membayar kurang, resto tetap
+// Voucher adalah promo MerchantPOS. Pelanggan membayar kurang, resto tetap
 // menyerahkan makanannya penuh, dan selisihnya kami yang tanggung.
 // Sampai fungsi ini berjalan, "kami tanggung" itu baru berupa jurnal.
 //
@@ -8,8 +8,8 @@
 //   supabase functions deploy settle-voucher-payouts --project-ref xizpwtycczigjhzxegen
 //
 // Secret yang dibutuhkan:
-//   XENDIT_SECRET_KEY   kunci rahasia Xendit milik KaataGo
-//   XENDIT_ACCOUNT_ID   pengenal akun KaataGo sendiri — sumber dananya
+//   XENDIT_SECRET_KEY   kunci rahasia Xendit milik MerchantPOS
+//   XENDIT_ACCOUNT_ID   pengenal akun MerchantPOS sendiri — sumber dananya
 //
 // ── Kenapa transfer, bukan disbursement ──────────────────────────────
 //

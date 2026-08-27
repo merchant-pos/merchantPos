@@ -1,4 +1,4 @@
--- KaataGo — pelanggan boleh memilih bayar tunai di kasir.
+-- MerchantPOS — pelanggan boleh memilih bayar tunai di kasir.
 --
 -- Jalankan SETELAH orders_gl_code.sql. Aman dijalankan berulang kali.
 --

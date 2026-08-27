@@ -1,4 +1,4 @@
--- KaataGo — pendaftaran token push lewat fungsi, bukan tulis langsung.
+-- MerchantPOS — pendaftaran token push lewat fungsi, bukan tulis langsung.
 --
 -- Jalankan SETELAH push_notifications.sql. Aman dijalankan berulang kali.
 --

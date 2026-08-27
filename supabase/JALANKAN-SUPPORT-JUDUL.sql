@@ -1,7 +1,7 @@
--- KaataGo — bagian 63: judul notifikasi chat.
+-- MerchantPOS — bagian 63: judul notifikasi chat.
 -- Jalankan SETELAH bagian 60. Aman diulang.
 
--- KaataGo — judul notifikasi chat tidak menyebut "pengaduan".
+-- MerchantPOS — judul notifikasi chat tidak menyebut "pengaduan".
 --
 -- Jalankan SETELAH support_auto_reply.sql. Aman diulang.
 --
@@ -32,7 +32,7 @@ begin
   select * into t from support_tickets where id = new.ticket_id;
   if t is null then return new; end if;
 
-  v_chat := t.subject = 'Chat dengan KaataGo Admin';
+  v_chat := t.subject = 'Chat dengan MerchantPOS Admin';
 
   v_cuplikan := left(regexp_replace(new.body, E'[\n\r]+', ' ', 'g'), 90);
 
@@ -44,8 +44,8 @@ begin
         'email', t.reporter_email,
         'ticket_id', t.id::text,
         'title', case
-          when v_chat then 'Balasan KaataGo Admin'
-          else 'KaataGo Support — ' || t.subject
+          when v_chat then 'Balasan MerchantPOS Admin'
+          else 'MerchantPOS Support — ' || t.subject
         end,
         'body', v_cuplikan
       )
@@ -89,7 +89,7 @@ $$;
 --   from push_outbox where event = 'support_message'
 --   order by created_at desc limit 5;
 --
---   -- Siapa saja yang dianggap KaataGo Admin, dan sudah punya perangkat
+--   -- Siapa saja yang dianggap MerchantPOS Admin, dan sudah punya perangkat
 --   -- terdaftar atau belum:
 --   select e.email, d.token is not null as punya_perangkat, d.updated_at
 --   from employees e

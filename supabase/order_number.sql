@@ -1,4 +1,4 @@
--- KaataGo — nomor pesanan harian per resto.
+-- MerchantPOS — nomor pesanan harian per resto.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman dijalankan berulang.
 --

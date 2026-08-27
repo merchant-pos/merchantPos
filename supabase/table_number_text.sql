@@ -1,4 +1,4 @@
--- KaataGo — nomor meja jadi teks (run AFTER customer_browse_resto.sql).
+-- MerchantPOS — nomor meja jadi teks (run AFTER customer_browse_resto.sql).
 --
 -- Table "numbers" aren't numbers in practice: restaurants label tables
 -- A01, B07, VIP-2 and so on. Storing them as integer silently made those

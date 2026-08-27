@@ -1,7 +1,7 @@
--- KaataGo — bagian 61: chat bebas bukan pengaduan, dan tiket kembar.
+-- MerchantPOS — bagian 61: chat bebas bukan pengaduan, dan tiket kembar.
 -- Jalankan SETELAH bagian 60. Aman diulang.
 
--- KaataGo — chat bebas bukan pengaduan, dan tiket kembar tidak lahir
+-- MerchantPOS — chat bebas bukan pengaduan, dan tiket kembar tidak lahir
 -- dua kali.
 --
 -- Jalankan SETELAH support_auto_reply.sql. Aman diulang.
@@ -85,7 +85,7 @@ begin
                      split_part(v_email, '@', 1));
 
   v_sebutan := case
-    when btrim(p_subject) = 'Chat dengan KaataGo Admin' then 'chat'
+    when btrim(p_subject) = 'Chat dengan MerchantPOS Admin' then 'chat'
     else 'pengaduan'
   end;
 
@@ -93,7 +93,7 @@ begin
     ticket_id, sender_email, sender_name, from_admin, body)
   values (
     v_row.id, 'system:greeting', null, true,
-    'Halo ' || v_nama || ', mohon bersabar KaataGo Admin akan meresponse '
+    'Halo ' || v_nama || ', mohon bersabar MerchantPOS Admin akan meresponse '
       || v_sebutan || ' secepatnya, terimakasih sudah berkenan menunggu.');
 
   select * into v_row from support_tickets where id = v_row.id;
@@ -123,7 +123,7 @@ begin
   for t in
     select id from support_tickets
     where status = 'confirm_customer'
-      and subject <> 'Chat dengan KaataGo Admin'
+      and subject <> 'Chat dengan MerchantPOS Admin'
       and last_message_from_admin = true
       and coalesce(last_message_at, updated_at) < now() - interval '24 hours'
   loop

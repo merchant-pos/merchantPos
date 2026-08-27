@@ -1,4 +1,4 @@
--- KaataGo — diskon dengan syarat jumlah pembelian.
+-- MerchantPOS — diskon dengan syarat jumlah pembelian.
 --
 -- Jalankan SETELAH discounts.sql. Aman diulang.
 --

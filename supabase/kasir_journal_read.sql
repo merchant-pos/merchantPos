@@ -1,4 +1,4 @@
--- KaataGo — kasir boleh melihat jurnal dari catatan yang dia buat.
+-- MerchantPOS — kasir boleh melihat jurnal dari catatan yang dia buat.
 --
 -- Aman dijalankan berulang kali.
 --

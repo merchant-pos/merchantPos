@@ -206,7 +206,7 @@ void main() {
 
   group('urutan daftar', () {
     // Daftar milik sendiri isinya beberapa baris, dan yang membukanya
-    // biasanya mencari yang barusan dia kirim. Daftar KaataGo Admin
+    // biasanya mencari yang barusan dia kirim. Daftar MerchantPOS Admin
     // kebalikannya: yang dicari memang yang paling baru menuntut jawaban.
     test('pengaduan sendiri urut menaik, yang terbaru di bawah', () {
       final repo = File('lib/db/support_repository.dart').readAsStringSync();
@@ -215,7 +215,7 @@ void main() {
           contains("order('created_at', ascending: true)"));
     });
 
-    test('daftar KaataGo Admin tetap yang terbaru di atas', () {
+    test('daftar MerchantPOS Admin tetap yang terbaru di atas', () {
       final repo = File('lib/db/support_repository.dart').readAsStringSync();
       expect(repo, contains('return wb.compareTo(wa);'));
     });
@@ -231,7 +231,7 @@ void main() {
 
     test('disapa begitu tiketnya dibuka', () {
       final fn = sql.substring(sql.indexOf('function open_support_ticket'));
-      expect(fn, contains('mohon bersabar KaataGo Admin akan meresponse'));
+      expect(fn, contains('mohon bersabar MerchantPOS Admin akan meresponse'));
       expect(fn, contains('terimakasih sudah berkenan menunggu'));
     });
 
@@ -304,7 +304,7 @@ void main() {
     // memaksa orangnya membuka percakapan baru untuk bertanya lagi.
     test('tidak pernah ditutup sendiri', () {
       final fn = sql.substring(sql.indexOf('function close_idle_support_tickets'));
-      expect(fn, contains("subject <> 'Chat dengan KaataGo Admin'"));
+      expect(fn, contains("subject <> 'Chat dengan MerchantPOS Admin'"));
     });
 
     test('tanpa tahapan di layar percakapannya', () {
@@ -480,7 +480,7 @@ void main() {
     // mengadu padahal cuma bertanya.
     test('chat tidak pernah disebut pengaduan', () {
       expect(sql, contains("when v_chat then 'Chat dari ' || v_nama"));
-      expect(sql, contains("when v_chat then 'Balasan KaataGo Admin'"));
+      expect(sql, contains("when v_chat then 'Balasan MerchantPOS Admin'"));
     });
 
     test('pengaduan tetap disebut pengaduan', () {
@@ -541,7 +541,7 @@ void main() {
       });
 
       // Tiket yang pesan terakhirnya dari pelapor berarti bolanya ada di
-      // KaataGo. Menutupnya karena "tidak ada jawaban" akan menghukum
+      // MerchantPOS. Menutupnya karena "tidak ada jawaban" akan menghukum
       // orang yang justru sudah menjawab.
       test('hanya kalau pesan terakhirnya dari admin', () {
         expect(fn, contains('last_message_from_admin = true'));
@@ -591,7 +591,7 @@ void main() {
     });
 
     // Baris token hanya punya peran kalau perangkatnya mendaftar setelah
-    // orangnya masuk sebagai KaataGo Admin. Menyasar lewat peran gagal
+    // orangnya masuk sebagai MerchantPOS Admin. Menyasar lewat peran gagal
     // dengan "tidak ada perangkat terdaftar" — persis yang terjadi.
     // Emailnya jauh lebih tahan: ia ditulis di setiap pendaftaran token.
     test('pengaduan baru disasar lewat email admin, bukan perannya', () {
@@ -601,7 +601,7 @@ void main() {
       expect(cabang, isNot(contains("'audience', 'role'")));
     });
 
-    // KaataGo Admin tidak terikat merchant mana pun; menyertakan
+    // MerchantPOS Admin tidak terikat merchant mana pun; menyertakan
     // resto_id akan membuat kabarnya tersaring habis.
     test('kabarnya tidak dibatasi merchant', () {
       final cabang = sql.substring(sql.indexOf('  else'));
@@ -656,7 +656,7 @@ void main() {
       }
     });
 
-    test('KaataGo Admin punya menu Customer Service', () {
+    test('MerchantPOS Admin punya menu Customer Service', () {
       final isi =
           File('lib/screens/super_admin_home_screen.dart').readAsStringSync();
       expect(isi, contains("title: 'Customer Service'"));
@@ -695,7 +695,7 @@ void main() {
       final model =
           File('lib/models/support_ticket.dart').readAsStringSync();
       expect(model,
-          contains("const kSubjekChatUmum = 'Chat dengan KaataGo Admin';"));
+          contains("const kSubjekChatUmum = 'Chat dengan MerchantPOS Admin';"));
       final repo = File('lib/db/support_repository.dart').readAsStringSync();
       expect(repo, contains("neq('status', 'closed')"));
     });
@@ -711,7 +711,7 @@ void main() {
 
     // Pengaduan tanpa akun tidak punya tempat untuk dibalas, dan
     // pengadu yang tidak pernah menerima jawabannya akan mengira
-    // KaataGo mendiamkannya.
+    // MerchantPOS mendiamkannya.
     test('tidak ditawarkan kepada yang belum masuk', () {
       final isi = File('lib/widgets/support_fab.dart').readAsStringSync();
       expect(isi, contains('if (!context.watch<AuthProvider>().isLoggedIn)'));

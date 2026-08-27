@@ -1,4 +1,4 @@
--- KaataGo — bukti pengeluaran (run AFTER finance.sql).
+-- MerchantPOS — bukti pengeluaran (run AFTER finance.sql).
 --
 -- Optional photo of the receipt/nota backing an expense, stored as a
 -- base64 string in the row itself — the same approach products already

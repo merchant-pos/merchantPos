@@ -1,4 +1,4 @@
--- KaataGo — pelanggan boleh membatalkan pesanannya sendiri selama
+-- MerchantPOS — pelanggan boleh membatalkan pesanannya sendiri selama
 -- pembayarannya belum diterima.
 --
 -- Jalankan SETELAH cash_payment_expiry.sql. Aman dijalankan berulang.

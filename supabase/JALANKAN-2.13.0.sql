@@ -1,4 +1,4 @@
--- KaataGo — bagian 55, 56, dan 57.
+-- MerchantPOS — bagian 55, 56, dan 57.
 -- Jalankan SETELAH bagian 53 (cashier_shift). Aman diulang.
 
 
@@ -6,7 +6,7 @@
 -- BAGIAN 55 — GL Selisih Kasir dan pelunasannya
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — GL Selisih Kasir, dan pelunasannya.
+-- MerchantPOS — GL Selisih Kasir, dan pelunasannya.
 --
 -- Jalankan SETELAH cashier_shift.sql dan default_gl_accounts.sql.
 -- Aman diulang.
@@ -140,7 +140,7 @@ commit;
 -- Lahirnya tagihan, dan jurnalnya
 -- ─────────────────────────────────────────────────────────────────────
 --
--- Ditulis pemicu, bukan oleh `close_shift`. Seluruh jurnal di KaataGo
+-- Ditulis pemicu, bukan oleh `close_shift`. Seluruh jurnal di MerchantPOS
 -- lahir dari pemicu supaya tidak pernah ada jalan menutup shift tanpa
 -- jurnalnya ikut tertulis — lihat catatan di gl_journal.sql.
 --
@@ -310,7 +310,7 @@ grant execute on function settle_cash_variance(uuid, text) to authenticated;
 -- BAGIAN 56 — laporan penjualan untuk merchant
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — laporan penjualan untuk merchant sendiri.
+-- MerchantPOS — laporan penjualan untuk merchant sendiri.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
@@ -531,7 +531,7 @@ grant execute on function report_sales_summary(text, date, date) to authenticate
 -- BAGIAN 57 — perkiraan modal awal saat shift dibuka
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — perkiraan modal awal saat shift dibuka.
+-- MerchantPOS — perkiraan modal awal saat shift dibuka.
 --
 -- Jalankan SETELAH cashier_shift.sql. Aman diulang.
 --

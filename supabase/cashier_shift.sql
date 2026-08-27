@@ -1,4 +1,4 @@
--- KaataGo — buka dan tutup shift kasir.
+-- MerchantPOS — buka dan tutup shift kasir.
 --
 -- Jalankan setelah cash_deposit.sql dan petty_cash.sql. Aman diulang.
 --

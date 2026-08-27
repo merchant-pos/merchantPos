@@ -1,4 +1,4 @@
--- KaataGo — Super Admin role (run AFTER rls_hardening.sql).
+-- MerchantPOS — Super Admin role (run AFTER rls_hardening.sql).
 --
 -- Adds a 'super_admin' role that isn't tied to any single restaurant —
 -- it can manage employees for ANY resto and create new restos from

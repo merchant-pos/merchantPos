@@ -1,4 +1,4 @@
--- KaataGo — penilaian menu menempel pada pesanannya, bukan pada menunya.
+-- MerchantPOS — penilaian menu menempel pada pesanannya, bukan pada menunya.
 --
 -- Jalankan SETELAH product_badges_reviews.sql. Aman diulang.
 --

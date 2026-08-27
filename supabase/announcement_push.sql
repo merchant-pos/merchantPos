@@ -1,4 +1,4 @@
--- KaataGo — pengumuman ikut membunyikan HP.
+-- MerchantPOS — pengumuman ikut membunyikan HP.
 --
 -- Selama ini pengumuman hanya duduk di Kotak Masuk. Kotak Masuk baru
 -- dilihat orang kalau dia membuka aplikasinya, dan orang membuka

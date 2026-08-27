@@ -1,4 +1,4 @@
--- KaataGo — nomor HP resto (run AFTER schema.sql).
+-- MerchantPOS — nomor HP resto (run AFTER schema.sql).
 --
 -- Printed on the receipt under the address, so a customer has a way to
 -- reach the shop about their order. Optional: a resto that hasn't set one

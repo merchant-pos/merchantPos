@@ -1,4 +1,4 @@
--- KaataGo — QRIS sungguhan lewat Xendit.
+-- MerchantPOS — QRIS sungguhan lewat Xendit.
 --
 -- Jalankan SETELAH customer_cash_payment.sql. Aman dijalankan berulang
 -- kali.

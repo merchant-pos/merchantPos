@@ -1,4 +1,4 @@
-// KaataGo — menerbitkan pengumuman versi baru dari skrip rilis.
+// MerchantPOS — menerbitkan pengumuman versi baru dari skrip rilis.
 //
 // Sebelumnya pengumuman versi harus dikirim manual lewat akun Super
 // Admin, setelah APK-nya terbit. Dua langkah terpisah yang harus
@@ -28,7 +28,7 @@ const admin = createClient(
 );
 
 const DOWNLOAD_URL =
-  "https://github.com/bujejuki-spec/KaataGo-LandingPage/releases/latest/download/KaataGo.apk";
+  "https://github.com/bujejuki-spec/MerchantPOS-LandingPage/releases/latest/download/MerchantPOS.apk";
 
 Deno.serve(async (req) => {
   const expected = Deno.env.get("RELEASE_HOOK_SECRET");
@@ -69,10 +69,10 @@ Deno.serve(async (req) => {
   // pembacanya — dan pengumuman yang tidak dimengerti akan berhenti
   // dibaca pada rilis berikutnya. Yang perlu diketahui pemakainya cuma
   // satu: ada yang baru, dan ini cara mengambilnya.
-  const title = String(body.title ?? `KaataGo ${version} sudah tersedia`);
+  const title = String(body.title ?? `MerchantPOS ${version} sudah tersedia`);
   const message = String(
     body.body ??
-      "Versi baru KaataGo sudah bisa diunduh. Perbarui aplikasimu untuk " +
+      "Versi baru MerchantPOS sudah bisa diunduh. Perbarui aplikasimu untuk " +
         "mendapat perbaikan dan fitur terbaru.",
   );
 

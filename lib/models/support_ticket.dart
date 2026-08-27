@@ -8,19 +8,14 @@ import 'package:flutter/material.dart';
 ///
 /// Ditaruh di berkas model supaya lapisan mana pun bisa membacanya
 /// tanpa memanggil repositori.
-/// JANGAN diganti jadi 'Chat dengan MerchantPOS Admin'.
+/// Judul tiket yang menandai percakapan bebas, bukan pengaduan.
 ///
-/// Teks ini disimpan sebagai `subject` tiketnya, dan pemicu di Postgres
-/// memakainya untuk membedakan chat dari pengaduan
-/// (`btrim(p_subject) = 'Chat dengan KaataGo Admin'`). Databasenya
-/// dipakai bersama KaataGo, jadi mengubahnya di sini membuat chat yang
-/// dibuat lewat aplikasi ini tercatat sebagai pengaduan — lengkap
-/// dengan status dan penutupan otomatis 24 jam yang justru sengaja
-/// tidak berlaku untuk chat.
-///
-/// Yang dilihat orang bukan nilai ini melainkan judul di layarnya, dan
-/// itu sudah berganti nama sendiri.
-const kSubjekChatUmum = 'Chat dengan KaataGo Admin';
+/// Dicocokkan apa adanya oleh pemicu di Postgres untuk memisahkan chat
+/// dari pengaduan — chat tidak punya status dan tidak ikut ditutup
+/// sendiri setelah 24 jam. Mengubah teks ini berarti mengubah
+/// pemicunya juga, berbarengan; kalau tidak, chat berikutnya tercatat
+/// sebagai pengaduan tanpa satu pun galat yang menyebutkannya.
+const kSubjekChatUmum = 'Chat dengan MerchantPOS Admin';
 
 /// Tahap sebuah pengaduan.
 ///

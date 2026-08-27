@@ -1,4 +1,4 @@
--- KaataGo — laporan penjualan untuk merchant sendiri.
+-- MerchantPOS — laporan penjualan untuk merchant sendiri.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --

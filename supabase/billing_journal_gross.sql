@@ -1,4 +1,4 @@
--- KaataGo — pendapatan langganan dicatat sebesar harga penuh.
+-- MerchantPOS — pendapatan langganan dicatat sebesar harga penuh.
 --
 -- Jalankan SETELAH billing_discount_apply.sql. Aman diulang.
 --
@@ -63,13 +63,13 @@ begin
   -- harga penuhnya.
   v_gross := coalesce(new.gross_amount, new.amount);
 
-  select * into v_gl from _gl_account_for('kaatago', 'subscription');
+  select * into v_gl from _gl_account_for('merchantpos', 'subscription');
   if v_gl.gl_code is not null and v_gl.gl_code <> '' then
     insert into gl_journal_entries (
       resto_id, entry_date, entry_time, gl_code, gl_name,
       reference_type, reference_id, amount, entry_type, description
     ) values (
-      'kaatago',
+      'merchantpos',
       (v_now at time zone 'Asia/Jakarta')::date,
       (v_now at time zone 'Asia/Jakarta')::time,
       v_gl.gl_code, v_gl.gl_name,
@@ -79,13 +79,13 @@ begin
   end if;
 
   if coalesce(new.discount_amount, 0) > 0 then
-    select * into v_gl from _gl_account_for('kaatago', 'subscription_discount');
+    select * into v_gl from _gl_account_for('merchantpos', 'subscription_discount');
     if v_gl.gl_code is not null and v_gl.gl_code <> '' then
       insert into gl_journal_entries (
         resto_id, entry_date, entry_time, gl_code, gl_name,
         reference_type, reference_id, amount, entry_type, description
       ) values (
-        'kaatago',
+        'merchantpos',
         (v_now at time zone 'Asia/Jakarta')::date,
         (v_now at time zone 'Asia/Jakarta')::time,
         v_gl.gl_code, v_gl.gl_name,
@@ -119,7 +119,7 @@ insert into gl_journal_entries (
   reference_type, reference_id, amount, entry_type, description
 )
 select
-  'kaatago',
+  'merchantpos',
   (now() at time zone 'Asia/Jakarta')::date,
   (now() at time zone 'Asia/Jakarta')::time,
   j.gl_code, j.gl_name,

@@ -1,4 +1,4 @@
--- KaataGo — menghapus resto tanpa membuang datanya.
+-- MerchantPOS — menghapus resto tanpa membuang datanya.
 --
 -- Jalankan SETELAH platform_finance.sql. Aman diulang.
 --
@@ -154,7 +154,7 @@ begin
     raise exception 'Hanya Super Admin yang dapat menghapus merchant';
   end if;
 
-  if p_resto_id = 'kaatago' then
+  if p_resto_id = 'merchantpos' then
     raise exception 'Penyewa platform tidak dapat dihapus';
   end if;
 

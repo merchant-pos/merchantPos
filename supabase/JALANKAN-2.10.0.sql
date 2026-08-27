@@ -1,4 +1,4 @@
--- KaataGo — dua bagian baru untuk 2.10.0.
+-- MerchantPOS — dua bagian baru untuk 2.10.0.
 -- Salin seluruhnya ke SQL Editor Supabase, jalankan. Aman diulang.
 
 
@@ -6,7 +6,7 @@
 -- BAGIAN 52 — label menu, penilaian menu, angka terjual
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — label menu, penilaian menu, dan angka terjualnya.
+-- MerchantPOS — label menu, penilaian menu, dan angka terjualnya.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
@@ -164,7 +164,7 @@ grant execute on function product_stats(text) to anon, authenticated;
 -- BAGIAN 53 — buka dan tutup shift kasir
 -- ═══════════════════════════════════════════════════════════════════
 
--- KaataGo — buka dan tutup shift kasir.
+-- MerchantPOS — buka dan tutup shift kasir.
 --
 -- Jalankan setelah cash_deposit.sql dan petty_cash.sql. Aman diulang.
 --

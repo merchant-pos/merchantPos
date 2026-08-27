@@ -1,4 +1,4 @@
--- KaataGo — fasilitas merchant.
+-- MerchantPOS — fasilitas merchant.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --

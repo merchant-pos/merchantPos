@@ -1,4 +1,4 @@
--- KaataGo — Petty Cash journal mapping (run AFTER petty_cash.sql and
+-- MerchantPOS — Petty Cash journal mapping (run AFTER petty_cash.sql and
 -- gl_journal.sql).
 --
 -- Adds the two GL codes needed to journal Petty Cash movements, reusing

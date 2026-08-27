@@ -1,10 +1,10 @@
--- KaataGo — laporan pasar untuk Super Admin.
+-- MerchantPOS — laporan pasar untuk Super Admin.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
 -- Empat pertanyaan yang selama ini hanya bisa dijawab dengan membuka
 -- satu per satu resto: siapa pelanggan yang paling sering memakai
--- KaataGo, siapa yang mendaftar lalu tidak pernah memesan, resto mana
+-- MerchantPOS, siapa yang mendaftar lalu tidak pernah memesan, resto mana
 -- yang paling menghasilkan, dan resto mana yang belum menghasilkan
 -- sama sekali.
 --
@@ -22,7 +22,7 @@
 -- memasukkannya membuat resto yang banyak pesanan batal terlihat lebih
 -- besar daripada resto yang benar-benar berjualan.
 --
--- Resto platform (KaataGo sendiri) dan resto yang sudah dihapus tidak
+-- Resto platform (MerchantPOS sendiri) dan resto yang sudah dihapus tidak
 -- ikut: keduanya bukan pasar.
 
 -- Layar ini menampilkan lima teratas, tapi fungsinya menerima batas
@@ -147,7 +147,7 @@ revoke all on function report_idle_restos(integer) from public, anon;
 -- ─────────────────────────────────────────────────────────────────────
 --
 -- Keempatnya SECURITY DEFINER, jadi `is_super_admin()` di klausa WHERE
--- bukan hiasan — tanpa itu fungsinya membocorkan seluruh pasar KaataGo
+-- bukan hiasan — tanpa itu fungsinya membocorkan seluruh pasar MerchantPOS
 -- ke siapa pun yang bisa memanggil RPC. Ditulis sebagai syarat WHERE,
 -- bukan RAISE, supaya yang bukan Super Admin menerima daftar kosong
 -- alih-alih pesan yang mengonfirmasi bahwa datanya ada.

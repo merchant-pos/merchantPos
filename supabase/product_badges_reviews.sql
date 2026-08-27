@@ -1,4 +1,4 @@
--- KaataGo — label menu, penilaian menu, dan angka terjualnya.
+-- MerchantPOS — label menu, penilaian menu, dan angka terjualnya.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --

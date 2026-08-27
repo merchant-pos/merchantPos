@@ -16,7 +16,7 @@ void main() {
   group('siapa yang boleh membacanya', () {
     test('keempatnya menuntut Super Admin', () {
       // SECURITY DEFINER tanpa penjaga ini membocorkan seluruh pasar
-      // KaataGo ke siapa pun yang bisa memanggil RPC.
+      // MerchantPOS ke siapa pun yang bisa memanggil RPC.
       expect('is_super_admin()'.allMatches(sql).length, greaterThanOrEqualTo(4));
     });
 

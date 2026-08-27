@@ -1,4 +1,4 @@
--- KaataGo — Jurnal ulang (run AFTER journal_integrity.sql).
+-- MerchantPOS — Jurnal ulang (run AFTER journal_integrity.sql).
 --
 -- Rebuilds gl_journal_entries from scratch so every row follows the
 -- current rules. Needed because two corrections landed after some

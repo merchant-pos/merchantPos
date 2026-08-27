@@ -219,7 +219,7 @@ void main() {
       expect(layar, contains("title: 'GL Voucher',"));
     });
 
-    test('hanya muncul di pembukuan KaataGo', () {
+    test('hanya muncul di pembukuan MerchantPOS', () {
       // Resto tidak menerbitkan voucher; menghitungnya untuk mereka
       // membuat penanda "belum dipetakan" berbunyi selamanya.
       expect(layar, contains('_platformOnlyMethods'));
@@ -228,8 +228,8 @@ void main() {
 
     test('nomornya disemai saat SQL-nya dijalankan', () {
       final vc = File('supabase/vouchers.sql').readAsStringSync();
-      expect(vc, contains("('kaatago', 'voucher',        '1100073'"));
-      expect(vc, contains("('kaatago', 'voucher_redeem', '1100074'"));
+      expect(vc, contains("('merchantpos', 'voucher',        '1100073'"));
+      expect(vc, contains("('merchantpos', 'voucher_redeem', '1100074'"));
     });
   });
 
@@ -262,9 +262,9 @@ void main() {
 
     test('dananya pulang sebelum barisnya dibuang', () {
       // Batch yang dihapus tanpa mengembalikan alokasinya adalah saldo
-      // KaataGo yang berkurang selamanya untuk voucher yang tak ada.
+      // MerchantPOS yang berkurang selamanya untuk voucher yang tak ada.
       final blok = sql.substring(sql.indexOf('function delete_voucher_batch'));
-      expect(blok.indexOf("_jurnal_kaatago('total_balance'"),
+      expect(blok.indexOf("_jurnal_merchantpos('total_balance'"),
           lessThan(blok.indexOf('delete from vouchers')));
       expect(blok, contains('if v.settled_at is null then'));
     });
@@ -424,7 +424,7 @@ void main() {
 
     test('pengguna baru berarti belum pernah punya pesanan terbayar', () {
       // Pesanan batal tidak dihitung: orang yang memesan lalu
-      // membatalkannya belum pernah benar-benar memakai KaataGo, dan
+      // membatalkannya belum pernah benar-benar memakai MerchantPOS, dan
       // menutup pintu untuknya justru menutup pintu bagi orang yang
       // paling ingin dibujuk kembali.
       expect(sql, contains('function _pelanggan_baru'));
@@ -432,7 +432,7 @@ void main() {
       expect(sql, contains('select not exists ('));
     });
 
-    test('batasnya seluruh KaataGo, bukan per merchant', () {
+    test('batasnya seluruh MerchantPOS, bukan per merchant', () {
       // Orang yang sudah rutin memesan di resto sebelah bukan pengguna
       // baru hanya karena belum pernah masuk resto ini.
       final fn = sql.substring(sql.indexOf('function _pelanggan_baru'),
@@ -446,7 +446,7 @@ void main() {
 
     test('alasan penolakannya menyebut sebab yang sebenarnya', () {
       expect(sql,
-          contains('Voucher ini hanya untuk pengguna baru KaataGo'));
+          contains('Voucher ini hanya untuk pengguna baru MerchantPOS'));
     });
 
     test('diperiksa sebelum kuota', () {
@@ -522,16 +522,16 @@ void main() {
 
     test('yang sudah ditebus tapi tidak dipakai dikembalikan', () {
       expect(fn, contains("cl.status = 'claimed' and vc.expires_on < current_date"));
-      expect(fn, contains("_jurnal_kaatago('voucher_redeem'"));
+      expect(fn, contains("_jurnal_merchantpos('voucher_redeem'"));
     });
 
     test('yang tidak pernah ditebus juga dikembalikan', () {
       expect(fn, contains('v.amount * (v.quantity - count(*))'));
-      expect(fn, contains("_jurnal_kaatago('voucher', v.id, v_sisa"));
+      expect(fn, contains("_jurnal_merchantpos('voucher', v.id, v_sisa"));
     });
 
     test('keduanya mendarat di GL Total Saldo', () {
-      expect("_jurnal_kaatago('total_balance'".allMatches(fn).length, 2);
+      expect("_jurnal_merchantpos('total_balance'".allMatches(fn).length, 2);
     });
 
     test('tidak dikembalikan dua kali', () {
@@ -548,26 +548,26 @@ void main() {
     final sql = File('supabase/vouchers.sql').readAsStringSync();
 
     test('terbit: saldo bebas keluar, kantong voucher terisi', () {
-      expect(sql, contains("perform _jurnal_kaatago('total_balance'"));
-      expect(sql, contains("perform _jurnal_kaatago('voucher', v_id"));
+      expect(sql, contains("perform _jurnal_merchantpos('total_balance'"));
+      expect(sql, contains("perform _jurnal_merchantpos('voucher', v_id"));
     });
 
     test('ditebus: pindah dari GL Voucher ke GL Voucher Redeem', () {
       final blok = sql.substring(sql.indexOf('function claim_voucher'));
-      expect(blok, contains("_jurnal_kaatago('voucher', v_id, v.amount,\n    'debit'"));
-      expect(blok, contains("_jurnal_kaatago('voucher_redeem'"));
+      expect(blok, contains("_jurnal_merchantpos('voucher', v_id, v.amount,\n    'debit'"));
+      expect(blok, contains("_jurnal_merchantpos('voucher_redeem'"));
     });
 
     test('dipakai: keluar dari Redeem, masuk ke GL merchant', () {
       final blok = sql.substring(sql.indexOf('function log_voucher_use'));
-      expect(blok, contains("_jurnal_kaatago('voucher_redeem'"));
+      expect(blok, contains("_jurnal_merchantpos('voucher_redeem'"));
       expect(blok, contains("_gl_account_for(new.resto_id, 'transfer')"));
       expect(blok, contains("'credit'"));
     });
 
     test('hangus: dananya pulang ke GL Total Saldo', () {
       final blok = sql.substring(sql.indexOf('function expire_vouchers'));
-      expect(blok, contains("_jurnal_kaatago('total_balance'"));
+      expect(blok, contains("_jurnal_merchantpos('total_balance'"));
       expect(blok, contains("'credit'"));
     });
 

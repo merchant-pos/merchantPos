@@ -5,18 +5,16 @@
 /// seluruh layar keuangan yang sudah ada langsung bekerja untuknya.
 /// Konsekuensinya harus dijaga di sisi lain: baris itu tidak boleh
 /// muncul di daftar resto mana pun.
-/// JANGAN diganti jadi 'merchantpos'.
+/// Penyewa semu untuk pembukuan MerchantPOS sendiri.
 ///
-/// Nilainya bukan tulisan yang dibaca orang — ia kunci baris di
-/// database yang dipakai bersama KaataGo. Puluhan fungsi dan kebijakan
-/// RLS di Postgres mencocokkannya apa adanya (`where resto_id =
-/// 'kaatago'`), dan tidak satu pun ikut berubah saat nama aplikasi ini
-/// berganti.
+/// Bukan merchant sungguhan: barisnya ada di tabel yang sama supaya
+/// pembukuan platform memakai jalur yang sama persis dengan pembukuan
+/// merchant — satu set fungsi, satu set kebijakan RLS, bukan dua yang
+/// harus dijaga tetap sama.
 ///
-/// Menggantinya membuat seluruh pembukuan platform — saldo, jurnal,
-/// mapping GL — menunjuk resto yang tidak pernah ada. Layarnya tetap
-/// terbuka dan angkanya tetap tampil; yang tampil cuma nol semua.
-const kPlatformRestoId = 'kaatago';
+/// Nilainya dicocokkan apa adanya oleh puluhan fungsi di Postgres, jadi
+/// mengubahnya berarti mengubah SQL-nya juga, berbarengan.
+const kPlatformRestoId = 'merchantpos';
 
 /// Keadaan tagihan sebuah tagihan langganan.
 enum InvoiceStatus {

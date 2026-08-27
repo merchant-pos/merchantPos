@@ -1,4 +1,4 @@
--- KaataGo — voucher khusus pengguna baru.
+-- MerchantPOS — voucher khusus pengguna baru.
 --
 -- Jalankan SETELAH voucher_manage.sql. Aman dijalankan berulang kali.
 --
@@ -20,10 +20,10 @@ commit;
 -- Yang belum pernah punya pesanan **terbayar** di resto mana pun.
 --
 -- Pesanan batal tidak dihitung: orang yang memesan lalu membatalkannya
--- belum pernah benar-benar memakai KaataGo, dan menutup pintu untuknya
+-- belum pernah benar-benar memakai MerchantPOS, dan menutup pintu untuknya
 -- justru menutup pintu bagi orang yang paling ingin dibujuk kembali.
 --
--- Batasnya seluruh KaataGo, bukan per resto. Voucher ini promo KaataGo,
+-- Batasnya seluruh MerchantPOS, bukan per resto. Voucher ini promo MerchantPOS,
 -- dan orang yang sudah rutin memesan di resto sebelah bukan pengguna
 -- baru hanya karena belum pernah masuk resto ini.
 create or replace function _pelanggan_baru(p_email text)
@@ -90,7 +90,7 @@ begin
   -- alasan penolakannya harus yang sebenarnya, bukan "sudah habis".
   if v.new_customers_only and not _pelanggan_baru(v_email) then
     return query select null::text, 0::bigint,
-      'Voucher ini hanya untuk pengguna baru KaataGo';
+      'Voucher ini hanya untuk pengguna baru MerchantPOS';
     return;
   end if;
 
@@ -111,9 +111,9 @@ begin
   insert into voucher_claims (id, voucher_id, customer_label, amount)
   values (v_id, v.id, v_email, v.amount);
 
-  perform _jurnal_kaatago('voucher', v_id, v.amount,
+  perform _jurnal_merchantpos('voucher', v_id, v.amount,
     'debit', 'Ditebus ' || v.code || ' — ' || v_email);
-  perform _jurnal_kaatago('voucher_redeem', v_id, v.amount,
+  perform _jurnal_merchantpos('voucher_redeem', v_id, v.amount,
     'credit', 'Voucher ditebus ' || v.code);
 
   return query select v_id, v.amount, null::text;
@@ -181,9 +181,9 @@ begin
     auth.jwt() ->> 'email'
   );
 
-  perform _jurnal_kaatago('total_balance', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('total_balance', v_id, v_amount * p_quantity,
     'debit', 'Terbit voucher ' || v_code || ' — ' || p_quantity || ' × ' || v_amount);
-  perform _jurnal_kaatago('voucher', v_id, v_amount * p_quantity,
+  perform _jurnal_merchantpos('voucher', v_id, v_amount * p_quantity,
     'credit', 'Alokasi voucher ' || v_code);
 
   v_nilai := 'Rp ' || to_char(v_amount, 'FM999G999G999G999');
@@ -193,13 +193,13 @@ begin
   -- daripada tahu sejak awal bahwa ini bukan untuk dirinya.
   v_syarat := case
     when coalesce(p_new_customers_only, false)
-      then ' Khusus pengguna baru yang belum pernah memesan lewat KaataGo.'
+      then ' Khusus pengguna baru yang belum pernah memesan lewat MerchantPOS.'
     else '' end;
 
   insert into app_announcements (
     title, body, category, audience, image_base64, created_by
   ) values (
-    'Voucher ' || v_nilai || ' dari KaataGo',
+    'Voucher ' || v_nilai || ' dari MerchantPOS',
     'Buruan tebus, kuotanya cuma ' || p_quantity || ' dan siapa cepat dia dapat! ' ||
     'Kode voucher: ' || v_code || E'\n\n' ||
     'Tiap voucher bernilai ' || v_nilai ||

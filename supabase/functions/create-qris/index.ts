@@ -1,4 +1,4 @@
-// KaataGo — membuat tagihan QRIS di Xendit.
+// MerchantPOS — membuat tagihan QRIS di Xendit.
 //
 // Dipanggil aplikasi pelanggan sambil menyebut nomor pesanannya saja.
 // Nominalnya **tidak** ikut dikirim: fungsi ini membacanya sendiri dari
@@ -130,7 +130,7 @@ async function createCharge(
     //
     // Inilah yang menentukan dananya cair ke rekening siapa. Tanpa ini,
     // pembayaran dibuat atas nama akun platform — dan uang milik resto
-    // orang lain mendarat di rekening KaataGo, yang justru ingin
+    // orang lain mendarat di rekening MerchantPOS, yang justru ingin
     // dihindari.
     const { data: account } = await admin
       .from("resto_payment_accounts")
@@ -176,7 +176,7 @@ async function createCharge(
     // Pengenal kita sendiri, bukan nomor pesanannya mentah-mentah: satu
     // pesanan bisa butuh QR kedua setelah yang pertama kedaluwarsa, dan
     // keduanya harus bisa dibedakan saat webhooknya datang.
-    const referenceId = `kaatago-${orderId ?? "counter"}-${Date.now()}`;
+    const referenceId = `merchantpos-${orderId ?? "counter"}-${Date.now()}`;
     const expiresAt = new Date(Date.now() + EXPIRY_MINUTES * 60_000);
 
     const res = await fetch("https://api.xendit.co/qr_codes", {

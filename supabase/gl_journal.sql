@@ -1,4 +1,4 @@
--- KaataGo — GL Journal (run AFTER finance.sql; petty_cash.sql not required).
+-- MerchantPOS — GL Journal (run AFTER finance.sql; petty_cash.sql not required).
 --
 -- One table capturing every real money movement, written automatically
 -- by triggers rather than the app deciding when to log it — so it stays

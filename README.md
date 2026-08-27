@@ -1,40 +1,56 @@
 # MerchantPOS
 
 Aplikasi POS + pesan-sendiri untuk merchant, dibangun dengan Flutter.
+Berasal dari salinan KaataGo, tapi sejak commit pemisahan ia berdiri
+sendiri: proyek Supabase-nya sendiri, datanya sendiri, dan tidak ada
+lagi konstanta yang terikat merek lain.
 
-Salinan dari KaataGo, dengan satu keputusan penting yang perlu diingat
-oleh siapa pun yang menyentuh kode ini:
+## Backend
 
-## Backend-nya dipakai bersama KaataGo
+Supabase: `pekjbgjmeayxdcaiwhsk`.
 
-Supabase dan Firebase-nya sama persis dengan yang dipakai KaataGo. Yang
-berbeda cuma merek dan aplikasinya. Konsekuensinya:
+Seluruh skema, fungsi, kebijakan RLS, dan pemicunya ada di `supabase/`,
+dan digabung jadi satu berkas siap jalan oleh:
 
-- **Datanya satu.** Merchant, menu, pesanan, pelanggan, voucher, dan
-  pembukuan yang muncul di aplikasi ini adalah yang sama dengan yang di
-  KaataGo. Tidak ada penyaring yang memisahkannya.
-- **Perubahan SQL berlaku untuk keduanya.** Berkas di `supabase/`
-  sengaja tidak ikut diganti namanya — isinya milik backend bersama,
-  dan menjalankan versi yang sudah "dirapikan" akan merusak KaataGo.
-- **Dua konstanta sengaja tetap bernama KaataGo**, karena nilainya
-  dicocokkan apa adanya oleh Postgres. Keduanya diberi penjelasan
-  panjang di tempatnya: `kPlatformRestoId` (`lib/models/billing.dart`)
-  dan `kSubjekChatUmum` (`lib/models/support_ticket.dart`). Jangan
-  diganti.
-- **Teks yang dibuat database masih menyebut KaataGo** — misalnya pesan
-  penolakan voucher pengguna baru. Itu tidak bisa dibedakan per aplikasi
-  selama backend-nya satu.
+```
+bash scripts/gabung_sql.sh      # → supabase/JALANKAN-INI.sql
+```
 
-Kalau suatu hari kedua produk ini harus benar-benar terpisah,
-memisahkannya jauh lebih mahal setelah ada data sungguhan.
+Berkas itu aman dijalankan berulang kali.
+
+**Jangan pernah menjalankannya di proyek KaataGo.** Isinya
+mendefinisikan ulang fungsi dan pemicu dengan nama merek dan penyewa
+platform yang berbeda — yang di KaataGo akan membuat chat tercatat
+sebagai pengaduan dan pembukuan platformnya menunjuk penyewa yang tidak
+ada, keduanya tanpa satu pun galat yang menyebutkannya.
+
+### Dua nilai yang harus berubah berbarengan
+
+Nilainya ada di Dart dan dicocokkan apa adanya oleh Postgres. Mengubah
+salah satu saja tidak pernah menghasilkan galat — hanya layar yang
+angkanya nol, atau chat yang diam-diam jadi pengaduan.
+
+| Dart | Nilai | Dipakai SQL |
+|---|---|---|
+| `kPlatformRestoId` (`lib/models/billing.dart`) | `merchantpos` | 42 tempat |
+| `kSubjekChatUmum` (`lib/models/support_ticket.dart`) | `Chat dengan MerchantPOS Admin` | 4 tempat |
 
 ## Yang belum diisi
 
+- **SQL-nya belum dijalankan** di proyek Supabase baru — tanpa itu
+  aplikasinya terbuka tapi tidak menemukan tabel apa pun
+- **8 edge function** belum di-deploy, berikut 9 rahasianya:
+  `FCM_SERVICE_ACCOUNT`, `PUSH_HOOK_SECRET`, `RELEASE_HOOK_SECRET`,
+  `RESEND_API_KEY`, `XENDIT_SECRET_KEY`, `XENDIT_CALLBACK_TOKEN`,
+  `XENDIT_ACCOUNT_ID`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`
+- **Firebase** masih memakai proyek `kaata-pos`. Push notif baru jalan
+  setelah `com.gamskahfi.merchantpos` didaftarkan sebagai aplikasi
+  Android di sana (atau di proyek Firebase sendiri), berikut
+  `google-services.json`-nya
+- **Login Google**: SHA-1 kunci rilis harus terdaftar untuk package
+  barunya — lihat `android/BACA-DULU-KUNCI-RILIS.md`
 - `lib/utils/tautan_meja.dart` → `kAlamatWeb` masih menunjuk situs
   KaataGo
 - `.github/workflows/web.yml` → `REPO_SITUS`, dan pemicu push-nya masih
-  dimatikan
+  dimatikan supaya tidak menimpa situs KaataGo
 - `scripts/release.sh` → repo rilis dan landing page
-- `android/BACA-DULU-KUNCI-RILIS.md` → kunci penandatangan rilis
-- Firebase: aplikasi Android baru untuk `com.gamskahfi.merchantpos`,
-  berikut `google-services.json`-nya dan sidik jari SHA-1-nya

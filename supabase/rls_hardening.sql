@@ -1,4 +1,4 @@
--- KaataGo — RLS hardening (run in Supabase SQL Editor AFTER schema.sql,
+-- MerchantPOS — RLS hardening (run in Supabase SQL Editor AFTER schema.sql,
 -- functions.sql, categories.sql, and the other supabase/*.sql files).
 --
 -- Replaces the permissive `using (true) with check (true)` policies with

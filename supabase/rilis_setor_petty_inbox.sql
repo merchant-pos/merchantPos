@@ -1,4 +1,4 @@
--- KaataGo — setoran & top up petty cash berjenjang, GL Suspense, dan
+-- MerchantPOS — setoran & top up petty cash berjenjang, GL Suspense, dan
 -- kotak masuk pengumuman.
 --
 -- SATU file untuk seluruh rilis ini; menggantikan deposit_approval.sql

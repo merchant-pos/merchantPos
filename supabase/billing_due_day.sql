@@ -1,4 +1,4 @@
--- KaataGo — tanggal tagih 29, 30, 31, dan jatuh tempo berikutnya.
+-- MerchantPOS — tanggal tagih 29, 30, 31, dan jatuh tempo berikutnya.
 --
 -- Jalankan SETELAH billing.sql. Aman dijalankan berulang kali.
 --

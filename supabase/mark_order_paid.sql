@@ -1,4 +1,4 @@
--- KaataGo — fixes customer QRIS "Simulasikan: Sudah Dibayar" silently
+-- MerchantPOS — fixes customer QRIS "Simulasikan: Sudah Dibayar" silently
 -- failing after rls_hardening.sql restricted orders UPDATE to employees
 -- only. This RPC lets a guest (no auth session) flip THEIR OWN pending
 -- self-order to paid, without reopening the door rls_hardening.sql
