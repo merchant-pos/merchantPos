@@ -5,9 +5,13 @@ class SupabaseConfig {
   static const url = 'https://pekjbgjmeayxdcaiwhsk.supabase.co';
   static const anonKey = 'sb_publishable_6hengTSXtx6qhpbVngH22g_vU98MWmh';
 
-  /// Web OAuth client id (reused from the earlier Firebase project setup)
-  /// — required as GoogleSignIn's serverClientId so the id token it
-  /// returns has the right audience for Supabase to verify.
+  /// OAuth client milik proyek Google "Merchant-POS" sendiri.
+  ///
+  /// Tidak dipakai jalur web — di sana login lewat pengalihan Supabase,
+  /// dan yang memegang client id-nya Supabase, bukan aplikasi ini.
+  /// Ditulis di sini supaya nilainya tidak lagi menunjuk client KaataGo:
+  /// nilai warisan yang kebetulan tidak terpakai adalah yang paling
+  /// lama bertahan salah, karena tidak pernah ada yang gagal karenanya.
   static const googleWebClientId =
-      '1015088896093-5k1bi18rhsifjd67bduvu58hhd9s7sv3.apps.googleusercontent.com';
+      '511761298857-9drjm9q4umsd64jee05sip4m3ftj496s.apps.googleusercontent.com';
 }
