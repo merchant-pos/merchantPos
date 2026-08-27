@@ -48,12 +48,12 @@ FILES=(
   mark_order_paid.sql
   order_customer_name.sql
   settings_finance_access.sql
-  backfill_journal.sql
   claim_guest_orders.sql
   expense_receipt.sql
   gl_journal.sql
   petty_cash.sql
   journal_integrity.sql
+  backfill_journal.sql
   kasir_balance_access.sql
   order_cashier_name.sql
   orders_gl_code.sql
@@ -161,5 +161,15 @@ for f in "${FILES[@]}"; do
     echo ""
   } >> "$KELUARAN"
 done
+
+# Diperiksa di sini, bukan diserahkan ke orang yang menempelnya.
+#
+# Kesalahan urutan tidak terlihat sama sekali di berkasnya — baru
+# muncul sebagai galat di tengah 12.000 baris, setelah separuh
+# skemanya terlanjur dibuat.
+python3 "$AKAR/scripts/periksa_urutan_sql.py" "$KELUARAN" || {
+  echo "urutan berkasnya masih salah — perbaiki FILES di atas" >&2
+  exit 1
+}
 
 echo "dibuat: $KELUARAN ($(wc -l < "$KELUARAN" | tr -d ' ') baris, $n berkas)"
