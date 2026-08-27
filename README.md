@@ -9,14 +9,26 @@ lagi konstanta yang terikat merek lain.
 
 Supabase: `pekjbgjmeayxdcaiwhsk`.
 
-Seluruh skema, fungsi, kebijakan RLS, dan pemicunya ada di `supabase/`,
-dan digabung jadi satu berkas siap jalan oleh:
+Seluruh skema, fungsi, kebijakan RLS, dan pemicunya ada di `supabase/`.
+Ada dua penggabung, dan memilih yang salah adalah kesalahan pertama
+yang akan dibuat orang di sini:
 
 ```
-bash scripts/gabung_sql.sh      # → supabase/JALANKAN-INI.sql
+bash scripts/gabung_sql_lengkap.sh   # → JALANKAN-SEMUA.sql  (101 berkas)
+bash scripts/gabung_sql.sh           # → JALANKAN-INI.sql    (63 berkas)
 ```
 
-Berkas itu aman dijalankan berulang kali.
+**Database kosong pakai yang lengkap.** Yang pendek hanya memuat
+tambalan sejak database KaataGo sudah berdiri, jadi ia mengandaikan
+tabel dasarnya ada — dijalankan di proyek baru, ia berhenti di baris
+pertama yang menyentuh `employees`, tabel yang tidak pernah ia buat.
+
+Urutan di dalamnya bukan abjad melainkan urutan berkas-berkas itu dulu
+benar-benar dijalankan, dibaca dari riwayat git. Keduanya aman
+dijalankan berulang kali.
+
+Butuh tiga ekstensi, dan ketiganya dibuat sendiri oleh bundelnya:
+`pgcrypto`, `pg_cron`, `pg_net`.
 
 **Jangan pernah menjalankannya di proyek KaataGo.** Isinya
 mendefinisikan ulang fungsi dan pemicu dengan nama merek dan penyewa
@@ -38,7 +50,8 @@ angkanya nol, atau chat yang diam-diam jadi pengaduan.
 ## Yang belum diisi
 
 - **SQL-nya belum dijalankan** di proyek Supabase baru — tanpa itu
-  aplikasinya terbuka tapi tidak menemukan tabel apa pun
+  aplikasinya terbuka tapi tidak menemukan tabel apa pun. Pakai
+  `JALANKAN-SEMUA.sql`
 - **8 edge function** belum di-deploy, berikut 9 rahasianya:
   `FCM_SERVICE_ACCOUNT`, `PUSH_HOOK_SECRET`, `RELEASE_HOOK_SECRET`,
   `RESEND_API_KEY`, `XENDIT_SECRET_KEY`, `XENDIT_CALLBACK_TOKEN`,
