@@ -312,6 +312,42 @@ void main() {
   // Hub bertingkat masuk akal di ponsel yang sempit. Di sidebar yang
   // memang memuat semuanya, kartu hub cuma jadi ketukan tambahan
   // menuju daftar yang seharusnya sudah terlihat sejak awal.
+  // Menu yang tidak ditampilkan bukan hak yang dicabut: RLS-nya tidak
+  // disentuh, dan peran admin tetap berhak atas semuanya di mata
+  // database. Yang dijaga di sini cuma daftarnya, supaya tidak
+  // pelan-pelan bertambah lagi tanpa ada yang memutuskannya.
+  group('sidebar Admin dibatasi', () {
+    final blok = menu.substring(menu.indexOf('const _admin = <MenuWeb>['));
+    final admin = blok.substring(0, blok.indexOf('\n];'));
+
+    test('berisi sepuluh menu yang disepakati, tidak lebih', () {
+      const diminta = [
+        'Pesanan Masuk', 'Laporan Penjualan', 'Saldo & Pengeluaran',
+        'Setor Saldo Cash', 'Kelola Produk', 'Kategori', 'Level',
+        'Info Merchant', 'QR Meja', 'Info Pembayaran',
+      ];
+      final ada = RegExp(r"judul: '([^']+)'")
+          .allMatches(admin)
+          .map((m) => m.group(1)!)
+          .toList();
+      expect(ada, diminta);
+    });
+
+    test('yang disembunyikan benar-benar tidak ada di sidebarnya', () {
+      for (final m in [
+        'Shift Kasir', 'Pending Payment', 'Riwayat Kasir',
+        'Diskon', 'Banner Promo', 'Kirim Pengumuman', 'Kotak Masuk',
+      ]) {
+        expect(admin, isNot(contains("judul: '\$m'")), reason: m);
+      }
+    });
+
+    // Beranda ditambahkan kerangka webnya, bukan daftar perannya.
+    test('Beranda tetap ada, dari kerangkanya', () {
+      expect(shell, contains('if (tujuan.isNotEmpty) menuBerandaWeb'));
+    });
+  });
+
   group('hub tidak bersarang lagi di sidebar', () {
     final blok = menu.substring(menu.indexOf('const _superAdmin'));
     final superAdmin = blok.substring(0, blok.indexOf('\n];'));
@@ -448,7 +484,6 @@ void main() {
       final blokAdmin = menu.substring(menu.indexOf('const _admin'));
       final admin = blokAdmin.substring(0, blokAdmin.indexOf('\n];'));
       expect(admin, contains("judul: 'Laporan Penjualan'"));
-      expect(admin, contains("judul: 'Kirim Pengumuman'"));
       expect(admin, contains("judul: 'Info Pembayaran'"));
     });
 

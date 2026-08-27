@@ -357,27 +357,24 @@ const _owner = <MenuWeb>[
   ),
 ];
 
+// Admin di Merchant-POS memegang menu yang lebih sedikit.
+//
+// Yang tidak ditampilkan — Shift Kasir, Pending Payment, Riwayat
+// Kasir, Diskon, Banner Promo, Kirim Pengumuman, Kotak Masuk —
+// dihilangkan dari sidebar saja. Layanannya di belakang tetap
+// berjalan apa adanya, dan RLS-nya tidak disentuh: peran admin tetap
+// berhak atas semuanya di mata database.
+//
+// Jadi ini keputusan tampilan, bukan pembatasan hak. Kalau suatu saat
+// yang diinginkan benar-benar mencabut haknya, tempatnya di kebijakan
+// RLS — menyembunyikan menu tidak menghalangi siapa pun yang tahu
+// jalan lain menuju layar yang sama.
 const _admin = <MenuWeb>[
   MenuWeb(
     kelompok: 'Penjualan',
-    ikon: Icons.point_of_sale,
-    judul: 'Shift Kasir',
-    layar: CashierShiftScreen.new,
-  ),
-  MenuWeb(
     ikon: Icons.list_alt,
     judul: 'Pesanan Masuk',
     layar: EmployeeOrdersScreen.new,
-  ),
-  MenuWeb(
-    ikon: Icons.hourglass_bottom,
-    judul: 'Pending Payment',
-    layar: PendingPaymentScreen.new,
-  ),
-  MenuWeb(
-    ikon: Icons.history,
-    judul: 'Riwayat Kasir',
-    layar: TransactionHistoryScreen.new,
   ),
   MenuWeb(
     ikon: Icons.insights_outlined,
@@ -412,16 +409,6 @@ const _admin = <MenuWeb>[
     layar: _level,
   ),
   MenuWeb(
-    ikon: Icons.local_offer_outlined,
-    judul: 'Diskon',
-    layar: DiscountScreen.new,
-  ),
-  MenuWeb(
-    ikon: Icons.image_outlined,
-    judul: 'Banner Promo',
-    layar: PromoBannerScreen.new,
-  ),
-  MenuWeb(
     kelompok: 'Pengaturan',
     ikon: Icons.storefront_outlined,
     judul: 'Info Merchant',
@@ -432,25 +419,13 @@ const _admin = <MenuWeb>[
     judul: 'QR Meja',
     layar: TableQrGeneratorScreen.new,
   ),
-  // Baca-saja, sama seperti di HP. Rekening tujuan dan ID merchant
-  // menentukan ke mana uang merchant mengalir; yang boleh mengubahnya
-  // adalah yang menanggung akibatnya kalau salah.
   MenuWeb(
     ikon: Icons.payments_outlined,
     judul: 'Info Pembayaran',
     layar: PaymentInfoScreen.new,
   ),
-  MenuWeb(
-    ikon: Icons.campaign_outlined,
-    judul: 'Kirim Pengumuman',
-    layar: PublishAnnouncementScreen.new,
-  ),
-  MenuWeb(
-    ikon: Icons.inbox_outlined,
-    judul: 'Kotak Masuk',
-    layar: InboxScreen.new,
-  ),
 ];
+
 
 const _finance = <MenuWeb>[
   MenuWeb(
