@@ -73,13 +73,13 @@ const _gatewayFeeMethod = 'gateway_fee';
 // kecil, dan selisihnya muncul sebagai kas yang hilang tanpa sebab.
 const _discountMethod = 'discount';
 
-// Dua akun berikut hanya dipakai pembukuan MerchantPOS sendiri — resto tidak
+// Dua akun berikut hanya dipakai pembukuan Merchant-POS sendiri — resto tidak
 // menagih siapa pun. Ditampilkan hanya saat layar ini dibuka untuk
 // penyewa platform.
 const _subscriptionMethod = 'subscription';
 const _subscriptionDiscountMethod = 'subscription_discount';
 
-// Dua kantong voucher, juga milik MerchantPOS sendiri. Dipisah karena
+// Dua kantong voucher, juga milik Merchant-POS sendiri. Dipisah karena
 // keduanya menjawab pertanyaan yang berbeda: 'voucher' menahan dana yang
 // sudah diumumkan tapi belum ada yang menebus, 'voucher_redeem' menahan
 // yang sudah menggantung di tangan pelanggan. Menyatukannya membuat
@@ -93,7 +93,7 @@ const _voucherRedeemMethod = 'voucher_redeem';
 // memuat uang yang tidak pernah dijual — tanpa itu, resto yang menyetor
 // modal besar akan terlihat seperti resto yang laris.
 //
-// Berlaku untuk resto maupun MerchantPOS: keduanya bisa menerima setoran
+// Berlaku untuk resto maupun Merchant-POS: keduanya bisa menerima setoran
 // modal, dan keduanya perlu membedakannya dari pendapatan.
 const _capitalMethod = 'capital';
 
@@ -134,7 +134,7 @@ const _allMethods = [
   _cashVarianceMethod,
 ];
 
-/// Akun yang hanya ada di pembukuan MerchantPOS sendiri.
+/// Akun yang hanya ada di pembukuan Merchant-POS sendiri.
 ///
 /// Resto tidak menagih langganan dan tidak menerbitkan voucher, jadi
 /// menghitungnya untuk mereka membuat penanda "belum dipetakan"
@@ -173,7 +173,7 @@ const _expenseColor = Color(0xFFEF4444);
 class FinanceGlMappingScreen extends StatefulWidget {
   /// Resto yang dibukukan. Kosong berarti resto tempat orangnya bekerja.
   ///
-  /// Diisi hanya oleh menu Finance Super Admin, yang membukukan MerchantPOS
+  /// Diisi hanya oleh menu Finance Super Admin, yang membukukan Merchant-POS
   /// sendiri — penyewa platform yang memakai mesin pembukuan yang sama
   /// persis dengan resto.
   final String? restoId;
@@ -214,7 +214,7 @@ class _FinanceGlMappingScreenState extends State<FinanceGlMappingScreen> {
   String get _restoId =>
       widget.restoId ?? context.read<AuthProvider>().restoId!;
 
-  /// Layar ini dibuka untuk pembukuan MerchantPOS sendiri.
+  /// Layar ini dibuka untuk pembukuan Merchant-POS sendiri.
   ///
   /// Dua akun langganan hanya berarti di sana — resto tidak menagih
   /// siapa pun, dan menampilkan kolom yang tidak akan pernah dipakai
@@ -281,7 +281,7 @@ class _FinanceGlMappingScreenState extends State<FinanceGlMappingScreen> {
 
   /// Akun yang benar-benar berlaku di layar ini.
   ///
-  /// Akun langganan dan voucher hanya ada di pembukuan MerchantPOS — lihat
+  /// Akun langganan dan voucher hanya ada di pembukuan Merchant-POS — lihat
   /// [_platformOnlyMethods].
   List<String> get _metodeLayarIni => _untukPlatform
       ? _allMethods
@@ -699,7 +699,7 @@ class _FinanceGlMappingScreenState extends State<FinanceGlMappingScreen> {
                           icon: Icons.workspace_premium_outlined,
                           color: const Color(0xFF6366F1),
                           title: 'GL Langganan',
-                          subtitle: 'Pendapatan MerchantPOS dari biaya langganan merchant',
+                          subtitle: 'Pendapatan Merchant-POS dari biaya langganan merchant',
                           children: [
                             _GlAccountRow(
                               icon: Icons.trending_up,
@@ -730,7 +730,7 @@ class _FinanceGlMappingScreenState extends State<FinanceGlMappingScreen> {
                           icon: Icons.card_giftcard_outlined,
                           color: const Color(0xFFF59E0B),
                           title: 'GL Voucher',
-                          subtitle: 'Promo MerchantPOS — dananya keluar sejak '
+                          subtitle: 'Promo Merchant-POS — dananya keluar sejak '
                               'vouchernya diterbitkan',
                           children: [
                             _GlAccountRow(

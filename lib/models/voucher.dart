@@ -6,7 +6,7 @@ enum VoucherClaimStatus {
   /// Sudah dipakai membayar.
   used,
 
-  /// Kedaluwarsa tanpa dipakai; dananya sudah kembali ke saldo MerchantPOS.
+  /// Kedaluwarsa tanpa dipakai; dananya sudah kembali ke saldo Merchant-POS.
   expired,
 }
 
@@ -58,14 +58,14 @@ class Voucher {
   /// Gambar 16:9 yang ikut tampil di kotak masuk pelanggan.
   final String? bannerBase64;
 
-  /// Hanya untuk yang belum pernah memesan lewat MerchantPOS.
+  /// Hanya untuk yang belum pernah memesan lewat Merchant-POS.
   ///
   /// Voucher promosi paling mahal adalah yang ditebus orang yang memang
   /// sudah pasti memesan. Batasan ini membuat anggarannya jatuh ke
   /// orang yang belum pernah mencoba sama sekali.
   final bool newCustomersOnly;
 
-  /// Sudah ditebus berapa — hanya terisi di layar MerchantPOS Admin.
+  /// Sudah ditebus berapa — hanya terisi di layar Merchant-POS Admin.
   ///
   /// Menghitung seluruh penebusan, termasuk yang sudah dipakai maupun
   /// hangus. Inilah yang menentukan kuotanya: jatah yang sudah

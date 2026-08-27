@@ -1,4 +1,4 @@
--- MerchantPOS — perkiraan modal awal saat shift dibuka.
+-- Merchant-POS — perkiraan modal awal saat shift dibuka.
 --
 -- Jalankan SETELAH cashier_shift.sql. Aman diulang.
 --

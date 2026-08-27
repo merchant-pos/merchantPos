@@ -1,4 +1,4 @@
--- MerchantPOS — pelanggan boleh membatalkan pesanannya sendiri selama
+-- Merchant-POS — pelanggan boleh membatalkan pesanannya sendiri selama
 -- pembayarannya belum diterima.
 --
 -- Jalankan SETELAH cash_payment_expiry.sql. Aman dijalankan berulang.

@@ -78,7 +78,7 @@ class _AnnouncementForm extends StatefulWidget {
 class _AnnouncementFormState extends State<_AnnouncementForm>
     with AutomaticKeepAliveClientMixin {
   static const _downloadUrl =
-      'https://github.com/bujejuki-spec/MerchantPOS-LandingPage/releases/latest/download/MerchantPOS.apk';
+      'https://github.com/bujejuki-spec/Merchant-POS-LandingPage/releases/latest/download/Merchant-POS.apk';
 
   final _formKey = GlobalKey<FormState>();
   final _titleCtrl = TextEditingController();
@@ -115,8 +115,8 @@ class _AnnouncementFormState extends State<_AnnouncementForm>
       if (!mounted) return;
       setState(() {
         _versionCtrl.text = info.version;
-        _titleCtrl.text = 'MerchantPOS ${info.version} sudah tersedia';
-        _bodyCtrl.text = 'Versi baru MerchantPOS sudah bisa diunduh. '
+        _titleCtrl.text = 'Merchant-POS ${info.version} sudah tersedia';
+        _bodyCtrl.text = 'Versi baru Merchant-POS sudah bisa diunduh. '
             'Perbarui aplikasimu untuk mendapat perbaikan dan fitur terbaru.';
       });
     });
@@ -186,7 +186,7 @@ class _AnnouncementFormState extends State<_AnnouncementForm>
         restoId: _isUpdate ? null : restoId,
         imageBase64: _isUpdate ? null : _imageBase64,
         audience: restoId == null ? AnnouncementAudience.all : _audience,
-        createdBy: auth.user?.email ?? 'MerchantPOS',
+        createdBy: auth.user?.email ?? 'Merchant-POS',
       );
       toast.show(restoId == null
           ? 'Pengumuman terkirim ke semua kotak masuk.'

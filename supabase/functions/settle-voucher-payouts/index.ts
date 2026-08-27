@@ -1,6 +1,6 @@
-// MerchantPOS — membayarkan voucher yang sudah dipakai ke resto yang melayaninya.
+// Merchant-POS — membayarkan voucher yang sudah dipakai ke resto yang melayaninya.
 //
-// Voucher adalah promo MerchantPOS. Pelanggan membayar kurang, resto tetap
+// Voucher adalah promo Merchant-POS. Pelanggan membayar kurang, resto tetap
 // menyerahkan makanannya penuh, dan selisihnya kami yang tanggung.
 // Sampai fungsi ini berjalan, "kami tanggung" itu baru berupa jurnal.
 //
@@ -8,8 +8,8 @@
 //   supabase functions deploy settle-voucher-payouts --project-ref xizpwtycczigjhzxegen
 //
 // Secret yang dibutuhkan:
-//   XENDIT_SECRET_KEY   kunci rahasia Xendit milik MerchantPOS
-//   XENDIT_ACCOUNT_ID   pengenal akun MerchantPOS sendiri — sumber dananya
+//   XENDIT_SECRET_KEY   kunci rahasia Xendit milik Merchant-POS
+//   XENDIT_ACCOUNT_ID   pengenal akun Merchant-POS sendiri — sumber dananya
 //
 // ── Kenapa transfer, bukan disbursement ──────────────────────────────
 //

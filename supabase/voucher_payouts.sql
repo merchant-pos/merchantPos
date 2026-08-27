@@ -1,4 +1,4 @@
--- MerchantPOS — voucher yang dipakai pelanggan dibayarkan sungguhan ke resto.
+-- Merchant-POS — voucher yang dipakai pelanggan dibayarkan sungguhan ke resto.
 --
 -- Jalankan SETELAH vouchers.sql dan resto_payment_accounts.sql.
 -- Aman dijalankan berulang kali.
@@ -20,7 +20,7 @@
 -- yang kita tampung adalah kerugian yang bukan milik kita tapi kita
 -- yang menyebabkannya kalau bocor.
 --
--- Transfer antar-akun memindahkan saldo dari akun MerchantPOS ke sub-akun
+-- Transfer antar-akun memindahkan saldo dari akun Merchant-POS ke sub-akun
 -- restonya di dalam xenPlatform. Tujuannya cukup disebut dengan
 -- pengenal sub-akun yang memang sudah kita simpan. Dari sana dananya
 -- ikut jadwal pencairan resto itu sendiri, ke rekening yang mereka
@@ -139,7 +139,7 @@ begin
       (v_now at time zone 'Asia/Jakarta')::time,
       v_gl.gl_code, v_gl.gl_name,
       'voucher', v_claim.id, new.voucher_amount, 'credit',
-      'Voucher MerchantPOS ' || coalesce(new.voucher_code, '') ||
+      'Voucher Merchant-POS ' || coalesce(new.voucher_code, '') ||
         ' — pesanan #' || v_ref
     );
   end if;
@@ -303,7 +303,7 @@ select cron.schedule('settle-voucher-payouts', '*/15 * * * *',
 --      supabase functions deploy settle-voucher-payouts \
 --        --project-ref xizpwtycczigjhzxegen
 --
--- 2. Isi secret pengenal akun MerchantPOS sendiri di Xendit — transfer
+-- 2. Isi secret pengenal akun Merchant-POS sendiri di Xendit — transfer
 --    butuh tahu dari akun mana uangnya diambil:
 --
 --      supabase secrets set XENDIT_ACCOUNT_ID=...

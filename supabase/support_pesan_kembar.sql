@@ -1,4 +1,4 @@
--- MerchantPOS — pesan kembar di dalam satu percakapan.
+-- Merchant-POS — pesan kembar di dalam satu percakapan.
 --
 -- Jalankan SETELAH support_chat_rules.sql. Aman diulang.
 --

@@ -1,4 +1,4 @@
--- MerchantPOS — GL account chart for EXPENSES (run AFTER finance.sql).
+-- Merchant-POS — GL account chart for EXPENSES (run AFTER finance.sql).
 --
 -- Separate from `gl_accounts` (which maps each of the 3 fixed payment
 -- methods — cash/qris/transfer — to exactly one GL code each, for

@@ -1,11 +1,11 @@
-/// Penyewa platform — MerchantPOS membukukan dirinya sendiri lewat mesin
+/// Penyewa platform — Merchant-POS membukukan dirinya sendiri lewat mesin
 /// pembukuan yang sama persis dengan resto.
 ///
 /// Barisnya ada di tabel `restaurants` dan ditandai `is_platform`, jadi
 /// seluruh layar keuangan yang sudah ada langsung bekerja untuknya.
 /// Konsekuensinya harus dijaga di sisi lain: baris itu tidak boleh
 /// muncul di daftar resto mana pun.
-/// Penyewa semu untuk pembukuan MerchantPOS sendiri.
+/// Penyewa semu untuk pembukuan Merchant-POS sendiri.
 ///
 /// Bukan merchant sungguhan: barisnya ada di tabel yang sama supaya
 /// pembukuan platform memakai jalur yang sama persis dengan pembukuan
@@ -21,7 +21,7 @@ enum InvoiceStatus {
   /// Belum dibayar.
   unpaid,
 
-  /// Bukti bayar sudah diunggah, menunggu diperiksa MerchantPOS.
+  /// Bukti bayar sudah diunggah, menunggu diperiksa Merchant-POS.
   review,
 
   /// Diterima.

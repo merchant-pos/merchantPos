@@ -30,7 +30,7 @@ GlJournalEntry _baris({
     );
 
 void main() {
-  group('saldo MerchantPOS', () {
+  group('saldo Merchant-POS', () {
     test('kredit menambah, debit mengurangi', () {
       final j = [
         _baris(glCode: _total, amount: 230000, type: JournalEntryType.credit),
@@ -60,7 +60,7 @@ void main() {
     });
 
     test('data sungguhan yang dulu berbunyi minus', () {
-      // Persis isi buku MerchantPOS saat saldonya salah tampil −100:
+      // Persis isi buku Merchant-POS saat saldonya salah tampil −100:
       // satu-satunya baris di GL Total Saldo adalah debit voucher.
       final j = [
         _baris(glCode: '1100001', amount: 230000, type: JournalEntryType.credit),
@@ -118,7 +118,7 @@ void main() {
     });
 
     test('voucher yang benar-benar dipakai mengurangi saldo', () {
-      // Saat dipakai, sisi MerchantPOS cuma didebit — kreditnya jatuh ke
+      // Saat dipakai, sisi Merchant-POS cuma didebit — kreditnya jatuh ke
       // buku restonya, yang bukan bagian dari buku ini.
       final j = [
         _baris(glCode: '1100001', amount: 230000, type: JournalEntryType.credit),

@@ -1,4 +1,4 @@
--- MerchantPOS — pendapatan langganan dicatat sebesar harga penuh.
+-- Merchant-POS — pendapatan langganan dicatat sebesar harga penuh.
 --
 -- Jalankan SETELAH billing_discount_apply.sql. Aman diulang.
 --

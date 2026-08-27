@@ -155,7 +155,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
   String? _profileName;
 
   /// Foto profil mereka, kalau sudah diunggah — dipakai menggantikan
-  /// logo MerchantPOS di header, supaya hub-nya terasa milik mereka sendiri.
+  /// logo Merchant-POS di header, supaya hub-nya terasa milik mereka sendiri.
   String? _profilePhoto;
 
   @override
@@ -590,7 +590,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     // No name saved yet (or still loading) — a warm stand-in reads far
     // better here than the email's local part, which is often something
     // like "abdul.p92" and makes the greeting feel machine-generated.
-    return 'Sahabat MerchantPOS';
+    return 'Sahabat Merchant-POS';
   }
 
   Widget _hubView(BuildContext context) {
@@ -807,7 +807,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                     onPressed: () => setState(() => _showChooser = false),
                   )
                 : null,
-            title: Text(loggedInAsCustomer ? 'Mau Pesan Di Mana?' : 'MerchantPOS (Customer)'),
+            title: Text(loggedInAsCustomer ? 'Mau Pesan Di Mana?' : 'Merchant-POS (Customer)'),
             actions: loggedInAsCustomer ? null : _customerAppBarActions(context),
           ),
           body: Column(
@@ -920,7 +920,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                   onPressed: () => _backToChooser(context),
                 ),
           title: Text(
-            session.tableNumber != null ? 'Meja ${session.tableNumber}' : 'MerchantPOS (Customer)',
+            session.tableNumber != null ? 'Meja ${session.tableNumber}' : 'Merchant-POS (Customer)',
           ),
           actions: [
             if (!session.enteredViaQr)
@@ -1052,7 +1052,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
   }
 }
 
-/// Foto profil customer di header hub, dengan logo MerchantPOS sebagai
+/// Foto profil customer di header hub, dengan logo Merchant-POS sebagai
 /// penggantinya selama belum ada foto — termasuk kalau data fotonya
 /// ternyata rusak, karena gagal menggambar di sini akan mengosongkan
 /// seluruh header.

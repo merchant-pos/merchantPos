@@ -1,4 +1,4 @@
-# Catatan Rilis MerchantPOS
+# Catatan Rilis Merchant-POS
 
 Yang dibacakan ke kotak masuk tiap rilis. Ditulis tangan, bukan
 dibangkitkan dari daftar commit — daftar yang ditulis mesin berisi hal
@@ -40,8 +40,8 @@ hanya pengumumannya memakai kalimat umum.
 
 ## 1.0.0
 
-- Rilis pertama MerchantPOS
+- Rilis pertama Merchant-POS
 - Kasir, dapur, dan pesan-sendiri dari meja lewat QR
 - Pembukuan merchant: pemasukan, saldo, setoran, jurnal GL, dan laporan
-- Konsol web untuk Owner, Admin, Finance, dan MerchantPOS Admin
+- Konsol web untuk Owner, Admin, Finance, dan Merchant-POS Admin
 - Perbaikan bug dan penyempurnaan tampilan

@@ -2,7 +2,7 @@
   "Customer-NonLogin": {
     "light": {
       "215645": "Halaman awal — pilih peran, pemilih tema, nomor versi",
-      "215651": "Tentang MerchantPOS — tautan situs dan ringkasan fitur tiap peran",
+      "215651": "Tentang Merchant-POS — tautan situs dan ringkasan fitur tiap peran",
       "215655": "Ajakan login; tamu memilih Lewati, Pesan Tanpa Login",
       "215700": "Layar pembuka tamu — Scan QR Meja, Pilih Resto, dan Riwayat Pesanan Saya",
       "215705": "Pilih Resto sebelum izin lokasi diberikan — hanya bagian Semua Resto",
@@ -29,14 +29,14 @@
   },
   "Kasir": {
     "light": {
-      "215927": "Halaman awal — masuk sebagai MerchantPOS Merchant",
+      "215927": "Halaman awal — masuk sebagai Merchant-POS Merchant",
       "215931": "Memilih akun Google karyawan",
       "215939": "Menu kasir — Input Pesanan, Pending Payment (2 menunggu), Riwayat Kasir, Saldo, Setor, Kotak Masuk, Diskon",
       "215946": "Input Pesanan — kategori Makanan terbuka; angka di pojok kartu adalah sisa stok",
       "215949": "Kategori Minuman ikut terbuka",
       "215957": "Checkout — tombol bayar mati sampai nomor meja diisi; diskon sudah terhitung dan menurunkan nominal DIBAYAR",
       "220007": "Nomor meja dan nama pelanggan terisi — ketiga tombol pembayaran menyala",
-      "220014": "Bayar dengan QRIS di meja kasir — QR berbingkai MerchantPOS dan tombol Cetak QR untuk Customer",
+      "220014": "Bayar dengan QRIS di meja kasir — QR berbingkai Merchant-POS dan tombol Cetak QR untuk Customer",
       "220021": "Pembayaran berhasil — struk lengkap berikut nama kasirnya, siap dicetak",
       "220026": "Pending Payment — dua pesanan menunggu, masing-masing dengan sisa waktu bayarnya",
       "220037": "Memilih cara terima pembayaran: Tunai, QRIS, atau Transfer",
@@ -155,7 +155,7 @@
   },
   "Finance": {
     "light": {
-      "220502": "Halaman awal — masuk sebagai MerchantPOS Merchant",
+      "220502": "Halaman awal — masuk sebagai Merchant-POS Merchant",
       "220510": "Menyiapkan data resto setelah masuk",
       "220515": "Pemasukan — total semua waktu, dirinci per hari dengan pecahan Tunai/QRIS",
       "220518": "Menu Finance dengan pemilih resto: semua angka mengikuti resto yang dipilih",
@@ -188,7 +188,7 @@
   },
   "Owner": {
     "light": {
-      "220640": "Halaman awal — masuk sebagai MerchantPOS Merchant",
+      "220640": "Halaman awal — masuk sebagai Merchant-POS Merchant",
       "220647": "Menyiapkan data resto setelah masuk",
       "220652": "Pemilih resto — Owner dengan lebih dari satu resto berpindah dari sini",
       "220657": "Menu Owner, kelompok PENJUALAN — Kasir, Pesanan Masuk, Layar Dapur, Pending Payment, Riwayat Kasir",
@@ -226,7 +226,7 @@
     },
     "dark": {
       "212736": "Halaman awal dalam mode gelap",
-      "212742": "Tentang MerchantPOS — tautan situs dan penjelasan fitur per peran",
+      "212742": "Tentang Merchant-POS — tautan situs dan penjelasan fitur per peran",
       "212748": "Ajakan login Gmail dalam mode gelap",
       "212800_Google Play services": "Menyiapkan data setelah login",
       "212808_Google Play services": "Menyiapkan data (lanjutan)",
@@ -238,7 +238,7 @@
       "212902": "Kategori Makanan terbuka",
       "212907": "Kategori Minuman terbuka",
       "212935": "Keranjang berisi dua item, lengkap dengan pilihan level per item",
-      "212946": "Bayar dengan QRIS — QR berbingkai MerchantPOS, hitung mundur, simpan ke galeri",
+      "212946": "Bayar dengan QRIS — QR berbingkai Merchant-POS, hitung mundur, simpan ke galeri",
       "212955": "Pembayaran Berhasil — pesanan diteruskan ke kasir",
       "213006": "Struk Pembayaran — rincian item, biaya service, PPN, metode; bisa disimpan atau dibagikan",
       "213013": "Pesanan Saya — status dapur dan status bayar terpisah, termasuk yang dibatalkan",

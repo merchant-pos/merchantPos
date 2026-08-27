@@ -16,7 +16,7 @@ import '../utils/tautan_meja.dart';
 /// an Admin can only ever generate codes for their own restaurant — so
 /// the only thing to fill in is the table number.
 ///
-/// The encoded payload is a MerchantPOS web link carrying resto and table —
+/// The encoded payload is a Merchant-POS web link carrying resto and table —
 /// see [tautanMeja]. Bentuk lamanya `RESTO:<restoId>|TABLE:<n>`, which is exactly
 /// what [ScanTableScreen]'s parser expects; changing the format here
 /// would silently break scanning.

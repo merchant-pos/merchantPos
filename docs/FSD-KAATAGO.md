@@ -1,4 +1,4 @@
-# MerchantPOS — Functional Specification Document
+# Merchant-POS — Functional Specification Document
 
 **Versi Aplikasi:** 2.16.0 (build 122)
 **Versi Dokumen:** 3.1
@@ -6,7 +6,7 @@
 **Status:** Rilis
 **Jenis Dokumen:** FSD — sisi fungsional
 
-Dokumen ini menjelaskan **apa** yang dilakukan MerchantPOS: siapa memakainya,
+Dokumen ini menjelaskan **apa** yang dilakukan Merchant-POS: siapa memakainya,
 proses apa yang dijalankan, aturan apa yang berlaku, dan hasil apa yang
 diharapkan. Sisi teknisnya — arsitektur, tabel, kebijakan keamanan baris
 — ada di dokumen terpisah (`TSD-KAATAGO`).
@@ -35,7 +35,7 @@ dilaporkan.
 
 ## 1. Ruang Lingkup
 
-MerchantPOS adalah aplikasi kasir sekaligus pemesanan mandiri untuk rumah
+Merchant-POS adalah aplikasi kasir sekaligus pemesanan mandiri untuk rumah
 makan di Indonesia. Satu aplikasi melayani dua kelompok yang sangat
 berbeda: **pelanggan**, yang memesan dari HP sendiri, dan **karyawan
 resto** — kasir, dapur, admin, keuangan, pemilik — yang masing-masing
@@ -98,7 +98,7 @@ terdaftar. Pelanggan boleh memesan **tanpa akun sama sekali**.
 | Laporan Transaksi | – | ✔ | – | – | – | ✔ | – |
 | Tagihan Langganan | ✔ | ✔ | – | – | – | – | – |
 | Billing Resto (semua) | ✔ | – | – | – | – | – | – |
-| Finance MerchantPOS | ✔ | – | – | – | – | – | – |
+| Finance Merchant-POS | ✔ | – | – | – | – | – | – |
 | Voucher Pelanggan | ✔ | – | – | – | – | – | – |
 | Jurnal GL semua resto | ✔ | – | – | – | – | – | – |
 | Kelola Produk | – | ✔ | ✔ | – | – | – | – |
@@ -301,7 +301,7 @@ kasir **tidak boleh** muncul di daftar ini.
 | F-QR-02 | Membuat banyak meja sekaligus: **isi jumlah mejanya**, misal 10 → 10 QR bernomor 1–10. Maksimal **100** |
 | F-QR-03 | Awalan opsional; diisi "A" menghasilkan A1, A2, A3, … |
 | F-QR-07 | Nomor meja ditulis polos (`7`, bukan `07`) supaya sama dengan mode satu meja; urutan berkas di galeri dijaga lewat nama berkasnya |
-| F-QR-04 | Kartunya bergaya MerchantPOS, memuat nama resto dan nomor meja |
+| F-QR-04 | Kartunya bergaya Merchant-POS, memuat nama resto dan nomor meja |
 | F-QR-05 | Menyimpan ke galeri satuan maupun **seluruhnya sekaligus**, dengan penghitung kemajuan |
 | F-QR-06 | Membagikan dan mencetak, satu meja satu halaman |
 
@@ -394,7 +394,7 @@ membacanya.
 | F-PG-07 | Dengan penyedia aktif, tombol konfirmasi manual **dihilangkan** dari layar kasir |
 | F-PG-11 | Pembayaran QRIS menyimpan rincian kuitansinya: ID Transaksi, ID Referensi, ID Product, Mitra, ID QR, Customer PAN, ID Kuitansi Mitra, Sumber, ID Pengakuisisi, Partner |
 | F-PG-12 | Rinciannya disimpan untuk **semua** keadaan — menunggu, gagal, maupun sukses |
-| F-PG-13 | Status penyedia disimpan terpisah dari status pembayaran MerchantPOS, berikut sebab kegagalannya |
+| F-PG-13 | Status penyedia disimpan terpisah dari status pembayaran Merchant-POS, berikut sebab kegagalannya |
 | F-PG-14 | Transaksi yang menunggu **berubah jadi lunas** saat kabar suksesnya datang; yang gagal tidak menutup pesanannya |
 
 ### 4.12 Pembatalan Pesanan
@@ -476,7 +476,7 @@ membuat akun, riwayatnya tidak boleh hilang.
 
 ### 4.16 Pembaruan Aplikasi
 
-MerchantPOS dibagikan sebagai APK, bukan lewat toko aplikasi. Tidak ada yang
+Merchant-POS dibagikan sebagai APK, bukan lewat toko aplikasi. Tidak ada yang
 memperbarui aplikasinya diam-diam di latar belakang — jadi seluruh
 alurnya harus ada di dalam aplikasi itu sendiri.
 
@@ -492,7 +492,7 @@ alurnya harus ada di dalam aplikasi itu sendiri.
 
 ### 4.17 Langganan & Tagihan Resto
 
-Resto membayar biaya langganan bulanan kepada MerchantPOS. Ini satu-satunya
+Resto membayar biaya langganan bulanan kepada Merchant-POS. Ini satu-satunya
 bagian aplikasi tempat **resto menjadi pelanggan**, bukan penjual — dan
 karena itu sengaja dipisah dari seluruh menu keuangan resto, yang
 mencatat uang masuk ke resto, bukan uang keluar dari resto ke kami.
@@ -509,7 +509,7 @@ mencatat uang masuk ke resto, bukan uang keluar dari resto ke kami.
 | F-BL-08 | Satu tagihan per resto per periode — tidak pernah ganda |
 | F-BL-09 | Mulai **H-3**, pita pengingat tampil di layar utama tiap peran resto |
 | F-BL-10 | Pengingat tetap tampil sesudah lewat jatuh tempo selama belum lunas |
-| F-BL-11 | Pembayaran lewat **Virtual Account Xendit** ke rekening MerchantPOS |
+| F-BL-11 | Pembayaran lewat **Virtual Account Xendit** ke rekening Merchant-POS |
 | F-BL-19 | Resto memilih banknya: BCA, BNI, BRI, Mandiri, Permata, BSI, atau CIMB |
 | F-BL-20 | Nomor VA **tertutup di nominal tagihan** — kurang bayar tidak melunasi |
 | F-BL-21 | Nomor VA **sekali pakai**, dan berlaku sampai 7 hari sesudah jatuh tempo |
@@ -578,9 +578,9 @@ mencatat uang masuk ke resto, bukan uang keluar dari resto ke kami.
 > satu-satunya jalan membayar berarti resto yang sudah mentransfer tidak
 > punya cara memberi tahu siapa pun.
 
-### 4.18 Finance MerchantPOS (Super Admin)
+### 4.18 Finance Merchant-POS (Super Admin)
 
-Pembukuan MerchantPOS sendiri, terpisah dari pembukuan resto. Ini bagian
+Pembukuan Merchant-POS sendiri, terpisah dari pembukuan resto. Ini bagian
 yang mencatat **uang masuk ke kami** — kebalikan arah dari seluruh menu
 keuangan lain di aplikasi ini.
 
@@ -592,11 +592,11 @@ keuangan lain di aplikasi ini.
 | F-PF-04 | Diskon punya masa berlaku dan dapat dinonaktifkan tanpa dihapus |
 | F-PF-05 | Diskon dipakai saat tagihan **berikutnya** terbit; tagihan yang sudah terbit tidak berubah |
 | F-PF-06 | Diskon punya **GL sendiri** sebagai pengurang pendapatan |
-| F-PF-07 | Pendapatan langganan masuk **Jurnal GL MerchantPOS** secara otomatis saat tagihan lunas |
+| F-PF-07 | Pendapatan langganan masuk **Jurnal GL Merchant-POS** secara otomatis saat tagihan lunas |
 | F-PF-13 | Pendapatan dicatat sebesar **harga daftar**; diskon jadi baris pengurang tersendiri |
-| F-PF-08 | MerchantPOS punya **bagan akun sendiri** — pendapatan, diskon, kas, petty cash, suspense, pengeluaran |
-| F-PF-09 | Saldo MerchantPOS dihitung dari **total kredit − total debit seluruh buku**, sumber yang sama dengan Jurnal GL |
-| F-PF-10 | Layar Saldo MerchantPOS tidak menampilkan Saldo Cash/Non Cash — MerchantPOS tidak punya laci kasir |
+| F-PF-08 | Merchant-POS punya **bagan akun sendiri** — pendapatan, diskon, kas, petty cash, suspense, pengeluaran |
+| F-PF-09 | Saldo Merchant-POS dihitung dari **total kredit − total debit seluruh buku**, sumber yang sama dengan Jurnal GL |
+| F-PF-10 | Layar Saldo Merchant-POS tidak menampilkan Saldo Cash/Non Cash — Merchant-POS tidak punya laci kasir |
 | F-CB-01 | Daftar **Terdekat** hanya memuat resto dalam radius **5 km** dari titik pelanggan |
 | F-CB-02 | Resto di luar radius tetap tersedia di daftar **Semua Resto** |
 | F-TB-01 | Di layar lebar, keranjang tampil sebagai **panel tetap di kanan** — untuk Kasir maupun Pelanggan |
@@ -613,10 +613,10 @@ keuangan lain di aplikasi ini.
 | F-TU-04 | Kasir dapat melihat riwayat setoran, tapi **tidak dapat menambah** |
 | F-TU-05 | Setoran tercatat otomatis di Jurnal GL — kredit Total Saldo, debit Setoran Modal |
 | F-TU-06 | Setoran tidak dapat diubah maupun dihapus; koreksinya berupa setoran baru |
-| F-PF-09 | Petty cash dan pengeluaran MerchantPOS dikelola seperti di resto |
-| F-PF-10 | **Tidak ada Setor Saldo Cash** di sisi MerchantPOS |
+| F-PF-09 | Petty cash dan pengeluaran Merchant-POS dikelola seperti di resto |
+| F-PF-10 | **Tidak ada Setor Saldo Cash** di sisi Merchant-POS |
 | F-PF-11 | Super Admin dapat melihat **Jurnal GL seluruh resto klien**, dengan saringan per resto |
-| F-PF-21 | Pembukuan MerchantPOS **tidak ikut** di layar itu — ia punya Jurnal GL MerchantPOS sendiri |
+| F-PF-21 | Pembukuan Merchant-POS **tidak ikut** di layar itu — ia punya Jurnal GL Merchant-POS sendiri |
 | F-PF-12 | Jurnal lintas resto **hanya bisa dilihat** — tidak ada satu pun cara mengubahnya |
 | F-PF-14 | Total debit/kredit **tidak menghitung baris pembatalan**, sama seperti jurnal per resto |
 | F-PF-15 | Baris pembatalan tetap **ditampilkan** dan ditandai, demi jejak audit |
@@ -627,7 +627,7 @@ keuangan lain di aplikasi ini.
 | F-PF-20 | Baris jurnal diskon menyebut **nama promonya**, bukan sekadar kata "Diskon" |
 
 > **Kenapa tidak ada Setor Saldo Cash.** Menyetor tunai ke rekening
-> adalah pekerjaan resto yang uangnya menumpuk di laci kasir. MerchantPOS
+> adalah pekerjaan resto yang uangnya menumpuk di laci kasir. Merchant-POS
 > tidak punya laci — seluruh pendapatannya masuk lewat Virtual Account,
 > langsung ke rekening.
 
@@ -639,9 +639,9 @@ keuangan lain di aplikasi ini.
 
 ### 4.19 Voucher Pelanggan
 
-Promo MerchantPOS, bukan promo resto. Bedanya bukan sekadar siapa yang
-membuat: **yang menanggung potongannya juga MerchantPOS** — dananya diambil
-dari saldo MerchantPOS di muka, bukan ditagihkan belakangan.
+Promo Merchant-POS, bukan promo resto. Bedanya bukan sekadar siapa yang
+membuat: **yang menanggung potongannya juga Merchant-POS** — dananya diambil
+dari saldo Merchant-POS di muka, bukan ditagihkan belakangan.
 
 Voucher diterbitkan **per batch**. Super Admin mengalokasikan sejumlah
 uang lalu memecahnya jadi beberapa voucher bernilai sama: Rp 1.000.000
@@ -653,7 +653,7 @@ berbeda per orang tidak bisa diumumkan.
 hilang begitu saja; ia berpindah antar-kantong dan selalu ada di salah
 satunya.
 
-| Tahap | Yang terjadi | Jurnal GL MerchantPOS |
+| Tahap | Yang terjadi | Jurnal GL Merchant-POS |
 |---|---|---|
 | 1. Terbit | Super Admin menerbitkan batch | Debit **Total Saldo** (1100040) → Kredit **Voucher** (1100073) |
 | 2. Ditebus | Pelanggan memasukkan kode, kuotanya berkurang | Debit **Voucher** → Kredit **Voucher Redeem** (1100074) |
@@ -688,18 +688,18 @@ satunya.
 | F-VC-24 | Batch dapat **dihapus** hanya bila sudah **ditutup** dan **belum ada penebusnya**; dananya kembali ke saldo dan pengumumannya dicabut |
 | F-VC-25 | Super Admin dapat melihat **daftar penebus**: email, tanggal tebus, tanggal pakai, dan statusnya |
 | F-VC-26 | Batch dapat ditandai **khusus pengguna baru** — hanya bisa ditebus yang belum pernah punya pesanan terbayar di resto mana pun |
-| F-VC-27 | Penolakannya menyebut sebabnya: "Voucher ini hanya untuk pengguna baru MerchantPOS" |
+| F-VC-27 | Penolakannya menyebut sebabnya: "Voucher ini hanya untuk pengguna baru Merchant-POS" |
 | F-VC-28 | Syarat itu ikut disebut di pengumuman kotak masuknya |
 | F-VC-29 | Pelanggan **tamu** tidak melihat menu Voucher Saya maupun **Pakai Voucher** di keranjang |
 
 > **Kenapa nominalnya exact, bukan persentase.** Anggaran promo yang
 > ditetapkan di muka bisa dihitung sampai habis. "Diskon 20%" pada
-> tagihan sejuta rupiah adalah dua ratus ribu dari saldo MerchantPOS untuk
+> tagihan sejuta rupiah adalah dua ratus ribu dari saldo Merchant-POS untuk
 > satu transaksi — anggaran sebulan bisa habis oleh satu orang.
 
 > **Kenapa dananya keluar saat terbit, bukan saat dipakai.** Voucher
 > yang sudah diumumkan adalah kewajiban, apa pun yang terjadi
-> setelahnya. Mencatatnya baru saat dipakai membuat saldo MerchantPOS
+> setelahnya. Mencatatnya baru saat dipakai membuat saldo Merchant-POS
 > terlihat lebih besar dari yang benar-benar bebas dipakai.
 
 > **Kenapa kuotanya ditegakkan server.** Menghitungnya di aplikasi
@@ -717,7 +717,7 @@ satunya.
 
 > **Kenapa pengumumannya terbit bersama vouchernya, bukan langkah
 > terpisah.** Voucher yang diterbitkan tapi tidak diumumkan adalah uang
-> yang sudah keluar dari saldo MerchantPOS untuk sesuatu yang tidak ada yang
+> yang sudah keluar dari saldo Merchant-POS untuk sesuatu yang tidak ada yang
 > tahu — kuotanya habis oleh siapa pun yang kebetulan membuka layarnya,
 > sisanya hangus tanpa pernah dilihat orang. Dua langkah yang harus
 > diingat berurutan berarti suatu saat yang kedua terlewat.
@@ -766,14 +766,14 @@ satunya.
 > email. Daftar yang dibuka tamu selalu kosong — dan yang menekannya
 > akan mengira vouchernya hilang, padahal ia memang belum pernah punya.
 
-> **Kenapa "pengguna baru" dihitung se-MerchantPOS, bukan per resto.**
-> Voucher ini promo MerchantPOS. Orang yang sudah rutin memesan di resto
+> **Kenapa "pengguna baru" dihitung se-Merchant-POS, bukan per resto.**
+> Voucher ini promo Merchant-POS. Orang yang sudah rutin memesan di resto
 > sebelah bukan pengguna baru hanya karena belum pernah masuk resto
 > ini.
 
 > **Kenapa pesanan batal tidak menghilangkan status pengguna baru.**
 > Orang yang memesan lalu membatalkannya belum pernah benar-benar
-> memakai MerchantPOS — dan menutup pintu untuknya justru menutup pintu
+> memakai Merchant-POS — dan menutup pintu untuknya justru menutup pintu
 > bagi orang yang paling ingin dibujuk kembali.
 
 > **Kenapa syaratnya diperiksa sebelum kuota.** Orang yang tidak berhak
@@ -804,7 +804,7 @@ satunya.
 > pelanggan yang sudah antre di kasir menanggung akibat gangguan pihak
 > ketiga. Antreannya boleh gagal dan boleh diulang; pesanannya tidak.
 
-> **Keadaan saat rilis ini.** xenPlatform di akun Xendit MerchantPOS belum
+> **Keadaan saat rilis ini.** xenPlatform di akun Xendit Merchant-POS belum
 > aktif, jadi belum ada satu pun sub-akun resto. Seluruh pencairan
 > voucher tertahan sebagai antrean `pending` — tercatat penuh, belum
 > dibayar. Begitu xenPlatform disetujui dan sub-akunnya terpasang,
@@ -816,12 +816,12 @@ satunya.
 
 > **Kenapa resto tanpa sub-akun tidak dilewati diam-diam.** Utangnya
 > tetap tercatat sebagai antrean tertunda. Menandainya selesai karena
-> tidak ada tujuan pengiriman berarti MerchantPOS berhenti berutang dengan
+> tidak ada tujuan pengiriman berarti Merchant-POS berhenti berutang dengan
 > cara tidak membayar.
 
-> **Kenapa resto tetap menerima penuh.** Voucher adalah promo MerchantPOS.
+> **Kenapa resto tetap menerima penuh.** Voucher adalah promo Merchant-POS.
 > Resto menagih pelanggan sesuai harga menunya; selisihnya dibayar
-> MerchantPOS lewat perpindahan tahap 3 ke GL Transfer restonya, bukan
+> Merchant-POS lewat perpindahan tahap 3 ke GL Transfer restonya, bukan
 > ditanggung restonya — dan sejak §4.19 ini, pembayarannya bukan lagi
 > dilakukan di luar aplikasi.
 
@@ -894,8 +894,8 @@ Perangkat kedua yang menghadap pelanggan di meja kasir.
 |---|---|
 | F-LP-01 | Perangkat kedua menampilkan nama merchant, logonya, QR pembayaran, dan nominal yang harus dibayar |
 | F-LP-02 | Isinya berubah **seketika** mengikuti apa yang sedang dikerjakan kasir |
-| F-LP-03 | Merchant tanpa logo memakai logo MerchantPOS |
-| F-LP-04 | Ada tulisan **powered by MerchantPOS** di bawahnya |
+| F-LP-03 | Merchant tanpa logo memakai logo Merchant-POS |
+| F-LP-04 | Ada tulisan **powered by Merchant-POS** di bawahnya |
 | F-LP-05 | Saat tidak ada transaksi, layarnya kembali ke keadaan menunggu |
 
 > **Kenapa yang dikirim bukan penunjuk ke pesanannya.** Baris pesanan
@@ -932,7 +932,7 @@ Perangkat kedua yang menghadap pelanggan di meja kasir.
 | F-PM-03 | Satu orang satu penilaian per merchant; yang berubah pikiran **mengubah** tulisannya |
 | F-PM-04 | Rata-rata bintang dan jumlah penilai tampil di daftar pilih merchant |
 | F-PM-05 | Foto ulasan dapat dibuka selayar penuh |
-| F-PM-06 | Seluruh peran pegawai merchant dapat membacanya, kecuali MerchantPOS Admin |
+| F-PM-06 | Seluruh peran pegawai merchant dapat membacanya, kecuali Merchant-POS Admin |
 | F-PM-07 | Yang menilai tempatnya sendiri tidak ditawari tombol menilai |
 | F-PM-08 | 1–3 jam setelah pembayaran, pelanggan menerima ajakan menilai lewat notifikasi |
 | F-PM-09 | Ajakan itu, saat diketuk, langsung membuka formulir penilaian merchant tersebut |
@@ -941,7 +941,7 @@ Perangkat kedua yang menghadap pelanggan di meja kasir.
 > Yang dinilai di sini tempatnya — dan tempat tidak berubah tiap
 > kunjungan. Masakan berubah.
 
-> **Kenapa MerchantPOS Admin tidak diberi akses.** Tempatnya bukan miliknya,
+> **Kenapa Merchant-POS Admin tidak diberi akses.** Tempatnya bukan miliknya,
 > dan daftar keluhan yang tidak bisa dia tindaklanjuti cuma menumpuk.
 
 ---
@@ -1101,28 +1101,28 @@ beredar di antara semua orang yang memegang HP.
 
 ---
 
-### 4.29 MerchantPOS Support
+### 4.29 Merchant-POS Support
 
 | ID | Kebutuhan |
 |---|---|
-| F-SP-01 | Tombol mengambang **MerchantPOS Support** di beranda pelanggan dan pegawai merchant |
-| F-SP-02 | Tiga pilihan: **Buat Pengaduan Baru**, **Chat MerchantPOS Admin**, **Lihat Status Pengaduan** |
+| F-SP-01 | Tombol mengambang **Merchant-POS Support** di beranda pelanggan dan pegawai merchant |
+| F-SP-02 | Tiga pilihan: **Buat Pengaduan Baru**, **Chat Merchant-POS Admin**, **Lihat Status Pengaduan** |
 | F-SP-03 | Pengaduan berisi judul, cerita, dan satu foto opsional |
 | F-SP-04 | Chat bebas tidak meminta judul, dan memakai percakapan yang masih terbuka kalau ada |
 | F-SP-05 | Status tiket: **Open**, **On Progress**, **Confirm Customer**, **Close** |
-| F-SP-06 | Hanya MerchantPOS Admin yang mengubah status; pelapor hanya boleh **menutup** |
+| F-SP-06 | Hanya Merchant-POS Admin yang mengubah status; pelapor hanya boleh **menutup** |
 | F-SP-07 | Tiap perubahan status ikut jadi pesan di percakapannya |
 | F-SP-08 | Tiket **Confirm Customer** yang didiamkan 24 jam ditutup sendiri |
 | F-SP-09 | Penutupan otomatis hanya berlaku kalau pesan terakhirnya dari admin |
 | F-SP-10 | Balasan pelapor mengembalikan status ke **On Progress** |
 | F-SP-11 | Tiket tertutup tidak bisa dibalas, tapi percakapannya tetap terbaca |
-| F-SP-12 | Menu **Customer Service** untuk MerchantPOS Admin, berbentuk daftar percakapan |
+| F-SP-12 | Menu **Customer Service** untuk Merchant-POS Admin, berbentuk daftar percakapan |
 | F-SP-13 | Daftarnya bisa dicari, dan menyembunyikan yang sudah ditutup secara bawaan |
-| F-SP-14 | Penanda belum dibaca di tombol mengambang dan di beranda MerchantPOS Admin |
+| F-SP-14 | Penanda belum dibaca di tombol mengambang dan di beranda Merchant-POS Admin |
 | F-SP-15 | Notifikasi saat pengaduan masuk, dibalas, atau statusnya bergerak |
 | F-SP-16 | Notifikasi diketuk membuka percakapannya, bukan sekadar aplikasinya |
-| F-SP-17 | Balasan admin menyebut **nama penjawabnya** — "MerchantPOS Admin - Gamal" |
-| F-SP-18 | MerchantPOS Admin melihat pelapor ini **pelanggan** atau **merchant mana** |
+| F-SP-17 | Balasan admin menyebut **nama penjawabnya** — "Merchant-POS Admin - Gamal" |
+| F-SP-18 | Merchant-POS Admin melihat pelapor ini **pelanggan** atau **merchant mana** |
 | F-SP-19 | Pelapor hanya melihat tiketnya sendiri, bukan tiket rekan sekantornya |
 | F-SP-20 | Tidak ditawarkan kepada yang belum masuk |
 
@@ -1132,7 +1132,7 @@ beredar di antara semua orang yang memegang HP.
 
 > **Kenapa penutupan otomatis memeriksa siapa yang bicara terakhir.**
 > Tiket yang pesan terakhirnya dari pelapor berarti bolanya ada di
-> MerchantPOS. Menutupnya karena "tidak ada jawaban" akan menghukum orang
+> Merchant-POS. Menutupnya karena "tidak ada jawaban" akan menghukum orang
 > yang justru sudah menjawab.
 
 > **Kenapa pelapor tidak melihat tiket rekannya.** Keluhan sering
@@ -1354,7 +1354,7 @@ saja dia buat.
 | Lima jenis terpisah | Status Pesanan, Pesanan Baru, Hasil Pengajuan, Pengumuman, Unduhan Pembaruan — masing-masing bisa dibisukan sendiri lewat Setelan Android |
 | Pengumuman tetap berbunyi saat aplikasi terbuka | Berbeda dari kabar pesanan, yang sudah dibunyikan aliran langsungnya |
 | Unduhan tidak berbunyi | Baris kemajuannya menemani, bukan memanggil |
-| Nada dering khas | Nada MerchantPOS, bukan nada bawaan |
+| Nada dering khas | Nada Merchant-POS, bukan nada bawaan |
 | Tidak menumpuk | Kabar baru untuk kejadian yang sama menimpa kabar lama — kecuali pengumuman, yang tiap kabarnya berdiri sendiri |
 | Tidak membanjir saat dibuka | Membuka aplikasi setelah lama tertutup tidak memunculkan notifikasi beruntun untuk kejadian lama |
 
@@ -1409,7 +1409,7 @@ dilaporkan sebagai temuan.
 | **Titik lokasi memakai layanan gratis** | Pengambilan lokasi beruntun dalam waktu singkat bisa ditolak sementara |
 | **Selisih lebih tidak ditagihkan** | Dijurnal, tapi berhenti di situ. Yang perlu dilakukan menelusuri penjualan yang belum diinput — bukan menagih kasir |
 | **Chat bebas dibedakan lewat judulnya** | Bukan lewat kolom tersendiri. Percakapan bebas yang judulnya diubah manual di basis data akan berhenti dikenali sebagai chat bebas |
-| **Notifikasi support tidak mengikuti peran perangkat** | Disasar lewat email MerchantPOS Admin. HP yang sama dipakai sebagai pelanggan tetap menerima kabar pengaduan — orangnya memang sama |
+| **Notifikasi support tidak mengikuti peran perangkat** | Disasar lewat email Merchant-POS Admin. HP yang sama dipakai sebagai pelanggan tetap menerima kabar pengaduan — orangnya memang sama |
 | **Rata-rata bintang menu bukan satu-orang-satu-suara** | Penilaian menempel pada pesanan, jadi yang memesan sepuluh kali menyumbang sepuluh penilaian. Disengaja: tiap kunjungan adalah masakan yang berbeda |
 | **Pesanan kasir tidak bisa dinilai pelanggannya** | Barisnya tersimpan atas nama kasir, bukan email pelanggan, jadi tidak ada kaitan ke akun siapa pun. Hanya pesanan dari HP dengan akun yang bisa dinilai |
 | **Penilaian menu tidak berfoto** | Berbeda dari penilaian merchant. Satu pesanan bisa berisi lima menu, dan lima ulasan berfoto untuk satu kunjungan membuat barisnya jauh lebih berat daripada seluruh katalognya |
@@ -1438,14 +1438,14 @@ aplikasinya kalau dihapus.
 
 | Layar | Yang bisa dilakukan di sana |
 |---|---|
-| **Halaman awal** | Memilih masuk sebagai Pelanggan atau MerchantPOS Merchant; mengatur tema; membuka Tentang MerchantPOS |
+| **Halaman awal** | Memilih masuk sebagai Pelanggan atau Merchant-POS Merchant; mengatur tema; membuka Tentang Merchant-POS |
 | **Ajakan login** | Melewatinya lewat "Lewati, Pesan Tanpa Login" dan langsung memesan |
 | **Layar pembuka tamu** | Tiga pintu saja: Scan QR Meja, Pilih Resto, dan Riwayat Pesanan Saya |
 | **Pilih Resto** | Mencari resto; melihat yang terdekat berikut jaraknya begitu izin lokasi diberikan — sebelum itu hanya bagian Semua Resto yang tampil |
 | **Menu resto** | Melihat banner promo, membuka kategori, menambah menu ke keranjang |
 | **Dialog menu** | Memilih level/varian — minuman bisa punya tiga kelompok sekaligus (Gula, Es, Ukuran) — menulis catatan, mengatur jumlah |
 | **Keranjang** | Memilih Dine In atau Take Away; Take Away tidak meminta nomor meja, tapi nama pemesan tetap wajib; memilih QRIS atau Tunai |
-| **Bayar dengan QRIS** | Memindai QR berbingkai MerchantPOS, melihat masa berlakunya, menyimpannya ke galeri |
+| **Bayar dengan QRIS** | Memindai QR berbingkai Merchant-POS, melihat masa berlakunya, menyimpannya ke galeri |
 | **Pesanan diterima** | Membaca nomor pesanan untuk disebutkan di kasir, dan hitung mundur 30 menit sebelum pesanannya hangus |
 | **Pesanan Saya** | Memantau status dapur dan pembayaran untuk sesi meja yang sedang berjalan |
 | **Riwayat Saya** | Melihat pesanan sebelumnya — disertai peringatan bahwa riwayatnya hanya ada di HP ini |
@@ -1454,7 +1454,7 @@ aplikasinya kalau dihapus.
 **Mode Terang** — 13 tangkapan
 
 !!ss[Halaman awal — pilih peran, pemilih tema, nomor versi](gambar/capture/Lightmode/Customer-NonLogin/Screenshot_20260816-215645.jpg)
-!!ss[Tentang MerchantPOS — tautan situs dan ringkasan fitur tiap peran](gambar/capture/Lightmode/Customer-NonLogin/Screenshot_20260816-215651.jpg)
+!!ss[Tentang Merchant-POS — tautan situs dan ringkasan fitur tiap peran](gambar/capture/Lightmode/Customer-NonLogin/Screenshot_20260816-215651.jpg)
 !!ss[Ajakan login; tamu memilih Lewati, Pesan Tanpa Login](gambar/capture/Lightmode/Customer-NonLogin/Screenshot_20260816-215655.jpg)
 !!ss[Layar pembuka tamu — Scan QR Meja, Pilih Resto, dan Riwayat Pesanan Saya](gambar/capture/Lightmode/Customer-NonLogin/Screenshot_20260816-215700.jpg)
 !!ss[Pilih Resto sebelum izin lokasi diberikan — hanya bagian Semua Resto](gambar/capture/Lightmode/Customer-NonLogin/Screenshot_20260816-215705.jpg)
@@ -1489,7 +1489,7 @@ dan riwayatnya.
 
 | Layar | Yang bisa dilakukan di sana |
 |---|---|
-| **Halaman awal** | Memilih masuk sebagai Pelanggan atau MerchantPOS Merchant; mengatur tema sebelum masuk; membuka Tentang MerchantPOS |
+| **Halaman awal** | Memilih masuk sebagai Pelanggan atau Merchant-POS Merchant; mengatur tema sebelum masuk; membuka Tentang Merchant-POS |
 | **Ajakan login** | Masuk dengan Gmail, atau melewatinya dan tetap memesan sebagai tamu |
 | **Menu utama** | Tujuh pintu: Pesan, Profil, Riwayat, Kotak Masuk (berikut penanda belum dibaca), Tampilan, Tes Notifikasi, Keluar |
 | **Mau Pesan Di Mana?** | Scan QR meja, atau memilih resto dari daftar |
@@ -1497,7 +1497,7 @@ dan riwayatnya.
 | **Menu resto** | Melihat banner promo, membuka kategori, menambah menu ke keranjang; banner ikut tergulir bersama menunya |
 | **Dialog menu** | Memilih level/varian, menulis catatan, mengatur jumlah, melihat subtotalnya berubah |
 | **Keranjang** | Memilih Dine In atau Take Away, mengisi nomor meja dan nama, melihat rincian biaya service dan PPN, memilih QRIS atau Tunai |
-| **Bayar dengan QRIS** | Memindai QR berbingkai MerchantPOS, melihat masa berlakunya, menyimpan QR ke galeri |
+| **Bayar dengan QRIS** | Memindai QR berbingkai Merchant-POS, melihat masa berlakunya, menyimpan QR ke galeri |
 | **Pesanan diterima (tunai)** | Membaca nomor pesanan yang disebutkan di kasir, dan hitung mundur 30 menit sebelum pesanannya hangus |
 | **Struk** | Melihat rincian menu, biaya, dan cara bayar; menyimpan atau membagikannya |
 | **Pesanan Saya** | Memantau status dapur dan pembayaran; membatalkan pesanan yang belum dibayar |
@@ -1532,7 +1532,7 @@ dan riwayatnya.
 **Mode Gelap** — 22 tangkapan
 
 !!ss[Halaman awal dalam mode gelap](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-212736.jpg)
-!!ss[Tentang MerchantPOS — tautan situs dan penjelasan fitur per peran](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-212742.jpg)
+!!ss[Tentang Merchant-POS — tautan situs dan penjelasan fitur per peran](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-212742.jpg)
 !!ss[Ajakan login Gmail dalam mode gelap](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-212748.jpg)
 !!ss[Menyiapkan data setelah login](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-212800_Google Play services.jpg)
 !!ss[Menyiapkan data (lanjutan)](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-212808_Google Play services.jpg)
@@ -1544,7 +1544,7 @@ dan riwayatnya.
 !!ss[Kategori Makanan terbuka](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-212902.jpg)
 !!ss[Kategori Minuman terbuka](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-212907.jpg)
 !!ss[Keranjang berisi dua item, lengkap dengan pilihan level per item](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-212935.jpg)
-!!ss[Bayar dengan QRIS — QR berbingkai MerchantPOS, hitung mundur, simpan ke galeri](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-212946.jpg)
+!!ss[Bayar dengan QRIS — QR berbingkai Merchant-POS, hitung mundur, simpan ke galeri](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-212946.jpg)
 !!ss[Pembayaran Berhasil — pesanan diteruskan ke kasir](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-212955.jpg)
 !!ss[Struk Pembayaran — rincian item, biaya service, PPN, metode; bisa disimpan atau dibagikan](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-213006.jpg)
 !!ss[Pesanan Saya — status dapur dan status bayar terpisah, termasuk yang dibatalkan](gambar/capture/Darkmode/Customer-Login/Screenshot_20260816-213013.jpg)
@@ -1567,7 +1567,7 @@ bayar tunai. Keduanya bertemu di layar yang sama.
 | **Input Pesanan** | Memilih menu per kategori; sisa stok tampil di pojok kartu — angka yang tidak pernah dilihat pelanggan |
 | **Dialog menu** | Memilih level/varian, menulis catatan, mengatur jumlah; deskripsi dan sisa stok ikut terlihat |
 | **Checkout** | Memilih Dine In atau Take Away; Dine In meminta nomor meja, Take Away meminta nama pelanggan; tombol pembayaran mati sampai yang wajib terisi; diskon sudah terhitung dan menurunkan nominal DIBAYAR |
-| **Bayar QRIS di kasir** | Menampilkan QR berbingkai MerchantPOS, dan mencetak QR itu untuk diserahkan ke pelanggan |
+| **Bayar QRIS di kasir** | Menampilkan QR berbingkai Merchant-POS, dan mencetak QR itu untuk diserahkan ke pelanggan |
 | **Dialog pembayaran tunai** | Memakai pilihan nominal cepat atau papan angka; kembalian dihitung sendiri; tombol terima mati selama uangnya kurang |
 | **Struk** | Mencetak struk lengkap berikut nama kasir, uang bayar, dan kembaliannya |
 | **Pending Payment** | Melihat pesanan pelanggan yang menunggu dibayar berikut sisa waktunya; membuka rinciannya; memilih cara terima pembayaran — Tunai, QRIS, atau Transfer — walau pelanggannya tadi memilih tunai |
@@ -1579,14 +1579,14 @@ bayar tunai. Keduanya bertemu di layar yang sama.
 
 **Mode Terang** — 18 tangkapan
 
-!!ss[Halaman awal — masuk sebagai MerchantPOS Merchant](gambar/capture/Lightmode/Kasir/Screenshot_20260816-215927.jpg)
+!!ss[Halaman awal — masuk sebagai Merchant-POS Merchant](gambar/capture/Lightmode/Kasir/Screenshot_20260816-215927.jpg)
 !!ss[Memilih akun Google karyawan](gambar/capture/Lightmode/Kasir/Screenshot_20260816-215931_Google Play services.jpg)
 !!ss[Menu kasir — Input Pesanan, Pending Payment (2 menunggu), Riwayat Kasir, Saldo, Setor, Kotak Masuk, Diskon](gambar/capture/Lightmode/Kasir/Screenshot_20260816-215939.jpg)
 !!ss[Input Pesanan — kategori Makanan terbuka; angka di pojok kartu adalah sisa stok](gambar/capture/Lightmode/Kasir/Screenshot_20260816-215946.jpg)
 !!ss[Kategori Minuman ikut terbuka](gambar/capture/Lightmode/Kasir/Screenshot_20260816-215949.jpg)
 !!ss[Checkout — tombol bayar mati sampai nomor meja diisi; diskon sudah terhitung dan menurunkan nominal DIBAYAR](gambar/capture/Lightmode/Kasir/Screenshot_20260816-215957.jpg)
 !!ss[Nomor meja dan nama pelanggan terisi — ketiga tombol pembayaran menyala](gambar/capture/Lightmode/Kasir/Screenshot_20260816-220007.jpg)
-!!ss[Bayar dengan QRIS di meja kasir — QR berbingkai MerchantPOS dan tombol Cetak QR untuk Customer](gambar/capture/Lightmode/Kasir/Screenshot_20260816-220014.jpg)
+!!ss[Bayar dengan QRIS di meja kasir — QR berbingkai Merchant-POS dan tombol Cetak QR untuk Customer](gambar/capture/Lightmode/Kasir/Screenshot_20260816-220014.jpg)
 !!ss[Pembayaran berhasil — struk lengkap berikut nama kasirnya, siap dicetak](gambar/capture/Lightmode/Kasir/Screenshot_20260816-220021.jpg)
 !!ss[Pending Payment — dua pesanan menunggu, masing-masing dengan sisa waktu bayarnya](gambar/capture/Lightmode/Kasir/Screenshot_20260816-220026.jpg)
 !!ss[Memilih cara terima pembayaran: Tunai, QRIS, atau Transfer](gambar/capture/Lightmode/Kasir/Screenshot_20260816-220037.jpg)
@@ -1773,7 +1773,7 @@ laci, tapi belum diakui masuk.
 
 **Mode Terang** — 10 tangkapan
 
-!!ss[Halaman awal — masuk sebagai MerchantPOS Merchant](gambar/capture/Lightmode/Finance/Screenshot_20260816-220502.jpg)
+!!ss[Halaman awal — masuk sebagai Merchant-POS Merchant](gambar/capture/Lightmode/Finance/Screenshot_20260816-220502.jpg)
 !!ss[Menyiapkan data resto setelah masuk](gambar/capture/Lightmode/Finance/Screenshot_20260816-220510.jpg)
 !!ss[Pemasukan — total semua waktu, dirinci per hari dengan pecahan Tunai/QRIS](gambar/capture/Lightmode/Finance/Screenshot_20260816-220515.jpg)
 !!ss[Menu Finance dengan pemilih resto: semua angka mengikuti resto yang dipilih](gambar/capture/Lightmode/Finance/Screenshot_20260816-220518.jpg)
@@ -1824,7 +1824,7 @@ tampilannya dari peran lain.
 
 **Mode Terang** — 6 tangkapan
 
-!!ss[Halaman awal — masuk sebagai MerchantPOS Merchant](gambar/capture/Lightmode/Owner/Screenshot_20260816-220640.jpg)
+!!ss[Halaman awal — masuk sebagai Merchant-POS Merchant](gambar/capture/Lightmode/Owner/Screenshot_20260816-220640.jpg)
 !!ss[Menyiapkan data resto setelah masuk](gambar/capture/Lightmode/Owner/Screenshot_20260816-220647.jpg)
 !!ss[Pemilih resto — Owner dengan lebih dari satu resto berpindah dari sini](gambar/capture/Lightmode/Owner/Screenshot_20260816-220652.jpg)
 !!ss[Menu Owner, kelompok PENJUALAN — Kasir, Pesanan Masuk, Layar Dapur, Pending Payment, Riwayat Kasir](gambar/capture/Lightmode/Owner/Screenshot_20260816-220657.jpg)

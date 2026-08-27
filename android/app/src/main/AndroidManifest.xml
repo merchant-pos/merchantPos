@@ -26,7 +26,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
-        android:label="MerchantPOS"
+        android:label="Merchant-POS"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <!--
@@ -36,7 +36,7 @@
           dengan task mana pun — termasuk task-nya sendiri. Apa pun yang
           membukanya dengan FLAG_ACTIVITY_NEW_TASK, dan notifikasi
           selalu begitu, membuat Android menaruhnya di task baru alih-alih
-          memakai yang sudah ada. Hasilnya dua MerchantPOS berjajar di
+          memakai yang sudah ada. Hasilnya dua Merchant-POS berjajar di
           Recent Apps, masing-masing dengan keadaannya sendiri.
 
           singleTop saja tidak cukup: ia hanya mencegah tumpukan ganda di

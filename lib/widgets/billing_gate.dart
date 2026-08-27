@@ -116,7 +116,7 @@ class _PitaPengingat extends StatelessWidget {
     final mendesak = sisa < 0;
 
     final pesan = state.menungguVerifikasi
-        ? 'Bukti bayar sedang diperiksa MerchantPOS.'
+        ? 'Bukti bayar sedang diperiksa Merchant-POS.'
         : mendesak
             ? 'Tagihan lewat ${-sisa} hari. Merchant terkunci kalau belum '
                 'dibayar.'
@@ -218,7 +218,7 @@ class _LayarTerkunci extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Tagihan langganan MerchantPOS belum lunas. Merchant ini bisa '
+                  'Tagihan langganan Merchant-POS belum lunas. Merchant ini bisa '
                   'dipakai lagi begitu pembayarannya diterima.',
                   textAlign: TextAlign.center,
                   style: TextStyle(

@@ -1,4 +1,4 @@
--- MerchantPOS — banner voucher, dan menghapus batch yang tidak jadi.
+-- Merchant-POS — banner voucher, dan menghapus batch yang tidak jadi.
 --
 -- Jalankan SETELAH voucher_announcement.sql. Aman dijalankan berulang.
 
@@ -82,7 +82,7 @@ begin
   insert into app_announcements (
     title, body, category, audience, image_base64, created_by
   ) values (
-    'Voucher ' || v_nilai || ' dari MerchantPOS',
+    'Voucher ' || v_nilai || ' dari Merchant-POS',
     'Buruan tebus, kuotanya cuma ' || p_quantity || ' dan siapa cepat dia dapat! ' ||
     'Kode voucher: ' || v_code || E'\n\n' ||
     'Tiap voucher bernilai ' || v_nilai ||
@@ -119,7 +119,7 @@ $$;
 -- dari mana asalnya.
 --
 -- Dananya dikembalikan lebih dulu, bukan lenyap bersama barisnya. Batch
--- yang dihapus tanpa mengembalikan alokasinya adalah saldo MerchantPOS yang
+-- yang dihapus tanpa mengembalikan alokasinya adalah saldo Merchant-POS yang
 -- berkurang selamanya untuk voucher yang tidak pernah ada.
 
 create or replace function delete_voucher_batch(p_id text)

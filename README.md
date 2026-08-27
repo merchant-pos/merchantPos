@@ -1,4 +1,4 @@
-# MerchantPOS
+# Merchant-POS
 
 Aplikasi POS + pesan-sendiri untuk merchant, dibangun dengan Flutter.
 
@@ -54,7 +54,7 @@ angkanya nol, atau chat yang diam-diam jadi pengaduan.
 | Dart | Nilai | Dipakai SQL |
 |---|---|---|
 | `kPlatformRestoId` (`lib/models/billing.dart`) | `merchantpos` | 42 tempat |
-| `kSubjekChatUmum` (`lib/models/support_ticket.dart`) | `Chat dengan MerchantPOS Admin` | 4 tempat |
+| `kSubjekChatUmum` (`lib/models/support_ticket.dart`) | `Chat dengan Merchant-POS Admin` | 4 tempat |
 
 ## Yang belum diisi
 

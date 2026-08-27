@@ -74,7 +74,7 @@ class _SupportNewTicketScreenState extends State<SupportNewTicketScreen> {
       final auth = context.read<AuthProvider>();
       final email = auth.user?.email;
       // Nama pegawai sudah ada di sesi; nama pelanggan diambil dari
-      // profilnya. Tanpa nama, daftar di sisi MerchantPOS Admin cuma berisi
+      // profilnya. Tanpa nama, daftar di sisi Merchant-POS Admin cuma berisi
       // deretan alamat surel — dan yang menjawabnya tidak tahu sedang
       // bicara dengan siapa.
       var nama = auth.employeeName;
@@ -113,7 +113,7 @@ class _SupportNewTicketScreenState extends State<SupportNewTicketScreen> {
       appBar: AppBar(
           title: Text(widget.subjekTetap == null
               ? 'Pengaduan Baru'
-              : 'Chat MerchantPOS Admin')),
+              : 'Chat Merchant-POS Admin')),
       body: Form(
         key: _formKey,
         child: ResponsiveCenter(

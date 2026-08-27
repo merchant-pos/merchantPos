@@ -9,7 +9,7 @@ import '../widgets/responsive.dart';
 final _rupiah =
     NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
 
-/// Analisa pasar MerchantPOS — hanya Super Admin.
+/// Analisa pasar Merchant-POS — hanya Super Admin.
 ///
 /// Empat pertanyaan yang selama ini cuma bisa dijawab dengan membuka
 /// satu per satu resto. Dua di antaranya sengaja tentang yang **belum**

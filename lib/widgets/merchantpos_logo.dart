@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../theme.dart';
 
-/// Lambang MerchantPOS: huruf K yang lengan bawahnya melaju jadi anak panah.
+/// Lambang Merchant-POS: huruf M dengan anak panah yang melaju di
+/// bawahnya.
 ///
 /// Digambar sebagai bentuk vektor, bukan gambar — jadi tetap tajam di
 /// ukuran berapa pun dan bisa dipakai ulang untuk badge splash, app bar,
@@ -50,43 +51,57 @@ class MerchantPosLogo extends StatelessWidget {
 }
 
 class _MerchantPosLogoPainter extends CustomPainter {
-  /// Warna anak panah — amber aksen MerchantPOS.
+  /// Warna anak panah — amber aksen Merchant-POS.
   static const _amber = Color(0xFFF59E0B);
 
   @override
   void paint(Canvas canvas, Size size) {
-    // Koordinatnya disalin apa adanya dari kanvas 512x512 milik berkas
-    // SVG-nya, lalu diskalakan. Menuliskannya ulang dalam pecahan
-    // membuat kedua bentuk pelan-pelan melenceng satu sama lain setiap
-    // kali salah satunya disentuh.
+    // Koordinatnya di kanvas 512x512, lalu diskalakan — sama seperti
+    // berkas SVG-nya, supaya kedua bentuk tidak pelan-pelan melenceng
+    // setiap kali salah satunya disentuh.
     final k = size.width / 512;
     Offset p(double x, double y) => Offset(x * k, y * k);
 
-    final white = Paint()..color = Colors.white;
-    final amber = Paint()..color = _amber;
+    // Huruf M digambar sebagai satu goresan, bukan empat bangun yang
+    // disusun berdampingan. Sambungannya jadi menyatu dengan
+    // sendirinya; disusun terpisah, tiap sudutnya harus dihitung
+    // supaya tidak menyisakan celah setipis rambut yang baru terlihat
+    // pada ukuran besar.
+    final goresan = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 52 * k
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
 
-    // Batang tegak huruf K
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(132 * k, 140 * k, 54 * k, 232 * k),
-        Radius.circular(14 * k),
-      ),
-      white,
+    canvas.drawPath(
+      Path()
+        ..moveTo(126 * k, 310 * k)
+        ..lineTo(126 * k, 112 * k)
+        ..lineTo(256 * k, 270 * k)
+        ..lineTo(386 * k, 112 * k)
+        ..lineTo(386 * k, 310 * k),
+      goresan,
     );
 
-    void polygon(List<Offset> points, Paint paint) {
-      final path = Path()..moveTo(points.first.dx, points.first.dy);
-      for (final point in points.skip(1)) {
-        path.lineTo(point.dx, point.dy);
-      }
-      canvas.drawPath(path..close(), paint);
-    }
+    final amber = Paint()..color = _amber;
 
-    // Lengan atas
-    polygon([p(200, 256), p(318, 141), p(402, 141), p(284, 256)], white);
-    // Lengan bawah, diteruskan jadi anak panah
-    polygon([p(200, 256), p(284, 256), p(402, 371), p(318, 371)], amber);
-    polygon([p(362, 300), p(436, 256), p(436, 344)], amber);
+    // Batang panah
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(126 * k, 340 * k, 214 * k, 40 * k),
+        Radius.circular(20 * k),
+      ),
+      amber,
+    );
+
+    // Mata panah
+    final path = Path()
+      ..moveTo(p(330, 318).dx, p(330, 318).dy)
+      ..lineTo(p(404, 360).dx, p(404, 360).dy)
+      ..lineTo(p(330, 402).dx, p(330, 402).dy)
+      ..close();
+    canvas.drawPath(path, amber);
   }
 
   @override

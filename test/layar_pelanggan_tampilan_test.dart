@@ -28,26 +28,26 @@ void main() {
     });
   });
 
-  group('logo dan tanda MerchantPOS', () {
+  group('logo dan tanda Merchant-POS', () {
     test('logo merchant tampil di layar menganggur', () {
       expect(layar, contains('_LogoMerchant(merchant: merchant'));
     });
 
-    test('yang belum punya logo memakai logo MerchantPOS', () {
+    test('yang belum punya logo memakai logo Merchant-POS', () {
       // Ruang kosong di puncak layar yang menghadap pelanggan terbaca
       // seperti gambar yang gagal dimuat.
       expect(layar, contains('if (logo == null || logo.isEmpty)'));
       expect(layar, contains('return MerchantPosLogo(size: ukuran);'));
     });
 
-    test('logo rusak jatuh ke logo MerchantPOS juga', () {
+    test('logo rusak jatuh ke logo Merchant-POS juga', () {
       expect(layar,
           contains('errorBuilder: (_, __, ___) => MerchantPosLogo(size: ukuran)'));
     });
 
     test('tanda powered by ada di dasar layar, semua keadaan', () {
       // Satu-satunya layar yang dilihat orang yang belum tentu memakai
-      // MerchantPOS.
+      // Merchant-POS.
       expect(layar, contains('_PoweredBy()'));
       final blok = layar.substring(layar.indexOf('body: SafeArea('));
       expect(blok.indexOf('_PoweredBy()'),
@@ -91,7 +91,7 @@ void main() {
   });
 
   group('QR-nya', () {
-    test('memakai kartu MerchantPOS, bukan kotak putih polos', () {
+    test('memakai kartu Merchant-POS, bukan kotak putih polos', () {
       // Bingkai, logo, dan tulisannya sudah dirancang untuk dipindai
       // dari seberang meja.
       expect(layar, contains('MerchantPosQrCard('));

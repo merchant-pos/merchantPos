@@ -1,4 +1,4 @@
--- MerchantPOS — voucher untuk pelanggan, dananya benar-benar berpindah.
+-- Merchant-POS — voucher untuk pelanggan, dananya benar-benar berpindah.
 --
 -- Jalankan SETELAH product_toppings.sql. Aman diulang.
 --
@@ -368,7 +368,7 @@ begin
       (v_now at time zone 'Asia/Jakarta')::time,
       v_gl.gl_code, v_gl.gl_name,
       'voucher', v_claim.id, new.voucher_amount, 'credit',
-      'Voucher MerchantPOS ' || coalesce(new.voucher_code, '') ||
+      'Voucher Merchant-POS ' || coalesce(new.voucher_code, '') ||
         ' — pesanan #' || v_ref
     );
   end if;

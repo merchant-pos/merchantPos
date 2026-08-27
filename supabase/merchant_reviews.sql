@@ -1,4 +1,4 @@
--- MerchantPOS — penilaian merchant oleh pelanggan, dan jam bukanya.
+-- Merchant-POS — penilaian merchant oleh pelanggan, dan jam bukanya.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --

@@ -5,7 +5,7 @@ import 'package:gal/gal.dart';
 import '../widgets/app_toast.dart';
 
 /// Drops [bytes] (a PNG) into the device's photo gallery, under a
-/// "MerchantPOS" album, handling the permission prompt Android 9 and below
+/// "Merchant-POS" album, handling the permission prompt Android 9 and below
 /// still need.
 ///
 /// Returns true only if the image actually landed. Failures — including
@@ -52,7 +52,7 @@ Future<bool> ensureGalleryAccess(BuildContext context) async {
   }
 }
 
-/// Menaruh satu PNG di album MerchantPOS. Melempar kalau gagal — pemanggilnya
+/// Menaruh satu PNG di album Merchant-POS. Melempar kalau gagal — pemanggilnya
 /// yang memutuskan cara melaporkannya.
 Future<void> putPngInGallery(Uint8List bytes) =>
-    Gal.putImageBytes(bytes, album: 'MerchantPOS');
+    Gal.putImageBytes(bytes, album: 'Merchant-POS');

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
-/// Dua MerchantPOS berjajar di Recent Apps.
+/// Dua Merchant-POS berjajar di Recent Apps.
 ///
 /// taskAffinity kosong berarti activity-nya tidak berkerabat dengan task
 /// mana pun — termasuk task-nya sendiri. Apa pun yang membukanya dengan

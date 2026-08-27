@@ -1,4 +1,4 @@
--- MerchantPOS — topping per menu, berikut harga dan batas pilihnya.
+-- Merchant-POS — topping per menu, berikut harga dan batas pilihnya.
 --
 -- Jalankan SETELAH platform_gl_renumber.sql. Aman diulang.
 --

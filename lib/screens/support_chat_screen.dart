@@ -20,14 +20,14 @@ import '../widgets/penampil_foto.dart';
 /// Percakapan satu tiket.
 ///
 /// Satu layar untuk kedua sisi. Menyalinnya jadi dua — satu untuk
-/// pelapor, satu untuk MerchantPOS Admin — berarti dua tempat yang harus
+/// pelapor, satu untuk Merchant-POS Admin — berarti dua tempat yang harus
 /// selalu sepakat soal bentuk gelembung, urutan pesan, dan kapan
 /// tombolnya boleh ditekan. Yang kedua akan tertinggal saat yang pertama
 /// diperbaiki, dan yang menemukannya adalah orang yang sedang mengadu.
 class SupportChatScreen extends StatefulWidget {
   final String ticketId;
 
-  /// Layar ini dibuka oleh MerchantPOS Admin, bukan oleh pelapornya.
+  /// Layar ini dibuka oleh Merchant-POS Admin, bukan oleh pelapornya.
   final bool sebagaiAdmin;
 
   /// Nama yang disematkan pada pesan yang dikirim dari layar ini.
@@ -96,7 +96,7 @@ class _SupportChatScreenState extends State<SupportChatScreen> {
     super.dispose();
   }
 
-  /// Nama merchant pelapor, hanya untuk sisi MerchantPOS Admin.
+  /// Nama merchant pelapor, hanya untuk sisi Merchant-POS Admin.
   ///
   /// Diambil sekali. Pelapornya tidak berpindah merchant di tengah
   /// percakapan, dan mengambilnya tiap kali tiketnya bergerak berarti
@@ -210,7 +210,7 @@ class _SupportChatScreenState extends State<SupportChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(t?.subject ?? 'MerchantPOS Support',
+            Text(t?.subject ?? 'Merchant-POS Support',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(fontSize: 15.5)),
@@ -292,7 +292,7 @@ class _SupportChatScreenState extends State<SupportChatScreen> {
                             milikSaya: m.fromAdmin == widget.sebagaiAdmin,
                             jam: _jam.format(m.createdAt.toWib()),
                             // Nama penjawabnya disebut, bukan cuma
-                            // "MerchantPOS". Yang mengadu berhak tahu
+                            // "Merchant-POS". Yang mengadu berhak tahu
                             // sedang bicara dengan siapa — dan yang
                             // menjawab jadi ikut bertanggung jawab atas
                             // kalimatnya.
@@ -325,7 +325,7 @@ class _SupportChatScreenState extends State<SupportChatScreen> {
 
   static String _labelAdmin(SupportMessage m) {
     final n = (m.senderName ?? '').trim();
-    return n.isEmpty ? 'MerchantPOS Admin' : 'MerchantPOS Admin - $n';
+    return n.isEmpty ? 'Merchant-POS Admin' : 'Merchant-POS Admin - $n';
   }
 
   static bool _hariSama(DateTime a, DateTime b) {
@@ -355,8 +355,8 @@ class _KepalaStatus extends StatelessWidget {
             child: Text(
               switch (tiket.status) {
                 SupportStatus.open =>
-                  'Pengaduan sudah masuk. MerchantPOS Admin akan menanggapinya.',
-                SupportStatus.onProgress => 'Sedang ditangani MerchantPOS Admin.',
+                  'Pengaduan sudah masuk. Merchant-POS Admin akan menanggapinya.',
+                SupportStatus.onProgress => 'Sedang ditangani Merchant-POS Admin.',
                 SupportStatus.confirmCustomer =>
                   'Menunggu tanggapanmu. Tanpa jawaban dalam 24 jam, '
                       'pengaduan ini ditutup sendiri.',

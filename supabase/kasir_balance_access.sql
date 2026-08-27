@@ -1,4 +1,4 @@
--- MerchantPOS — Kasir bisa lihat saldo & catat pengeluaran
+-- Merchant-POS — Kasir bisa lihat saldo & catat pengeluaran
 -- (run AFTER petty_cash.sql).
 --
 -- The Kasir holds the physical petty cash, so paying for small things

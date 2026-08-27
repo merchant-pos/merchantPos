@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-/// Notifikasi MerchantPOS: banner di layar HP lengkap dengan nada dering
+/// Notifikasi Merchant-POS: banner di layar HP lengkap dengan nada dering
 /// sendiri, seperti pesan masuk yang lain.
 ///
 /// Nada deringnya dibuat khusus (`res/raw/merchantpos_notif.wav`) — tiga nada
@@ -226,7 +226,7 @@ class NotificationService {
     try {
       await _plugin.show(
         _downloadId,
-        'Mengunduh pembaruan MerchantPOS',
+        'Mengunduh pembaruan Merchant-POS',
         percent == null ? 'Sedang berjalan…' : '$percent%',
         NotificationDetails(
           android: AndroidNotificationDetails(
@@ -272,7 +272,7 @@ class NotificationService {
       await _plugin.show(
         _downloadId,
         'Pembaruan siap dipasang',
-        'Ketuk untuk memasang versi terbaru MerchantPOS',
+        'Ketuk untuk memasang versi terbaru Merchant-POS',
         NotificationDetails(
           android: AndroidNotificationDetails(
             'kaata_download',
@@ -369,22 +369,22 @@ class NotificationService {
 
     if (!granted) {
       return 'Izin notifikasi belum diberikan. Aktifkan lewat Setelan HP > '
-          'Aplikasi > MerchantPOS > Notifikasi.';
+          'Aplikasi > Merchant-POS > Notifikasi.';
     }
 
     lastError = null;
     await showNewOrder(
       id: 999999,
-      title: 'Tes Notifikasi MerchantPOS',
+      title: 'Tes Notifikasi Merchant-POS',
       body: 'Kalau kamu melihat dan mendengar ini, notifikasi sudah aktif.',
     );
 
     if (lastError != null) return 'Gagal menampilkan notifikasi: $lastError';
     if (!_customSoundWorks) {
       return 'Notifikasi terkirim, tapi memakai nada bawaan HP — nada khas '
-          'MerchantPOS ditolak perangkat ini.';
+          'Merchant-POS ditolak perangkat ini.';
     }
     return 'Notifikasi terkirim. Cek layar HP kamu — kalau tidak muncul, '
-        'periksa Setelan HP > Aplikasi > MerchantPOS > Notifikasi.';
+        'periksa Setelan HP > Aplikasi > Merchant-POS > Notifikasi.';
   }
 }

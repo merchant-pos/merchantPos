@@ -37,7 +37,7 @@ Future<void> showNotificationTest(BuildContext context) async {
         .timeout(const Duration(seconds: 12));
   } on TimeoutException {
     message = 'Tidak ada jawaban dari sistem notifikasi dalam 12 detik. '
-        'Coba buka Setelan HP > Aplikasi > MerchantPOS > Notifikasi dan pastikan '
+        'Coba buka Setelan HP > Aplikasi > Merchant-POS > Notifikasi dan pastikan '
         'izinnya menyala.';
   } catch (e) {
     message = 'Notifikasi gagal dijalankan: $e';

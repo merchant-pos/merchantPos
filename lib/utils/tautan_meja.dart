@@ -1,4 +1,4 @@
-/// Alamat konsol web MerchantPOS.
+/// Alamat konsol web Merchant-POS.
 ///
 /// Dipakai sebagai isi QR meja, jadi mengubahnya membuat seluruh stiker
 /// yang sudah tercetak menunjuk ke tempat yang salah. Kalau alamatnya
@@ -9,7 +9,7 @@ const kAlamatWeb = 'https://merchant-pos.github.io/';
 /// Isi QR meja: tautan, bukan teks biasa.
 ///
 /// Bentuk lamanya `RESTO:<id>|TABLE:<n>` hanya berarti sesuatu bagi
-/// pemindai di dalam aplikasi MerchantPOS. Dipindai kamera bawaan HP — yang
+/// pemindai di dalam aplikasi Merchant-POS. Dipindai kamera bawaan HP — yang
 /// dipakai hampir semua orang yang belum memasang aplikasinya — hasilnya
 /// cuma sebaris teks aneh tanpa satu pun tombol untuk melanjutkan.
 ///

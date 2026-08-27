@@ -1,4 +1,4 @@
--- MerchantPOS — menghapus resto tanpa membuang datanya.
+-- Merchant-POS — menghapus resto tanpa membuang datanya.
 --
 -- Jalankan SETELAH platform_finance.sql. Aman diulang.
 --

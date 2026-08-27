@@ -1,4 +1,4 @@
--- MerchantPOS — nama kasir/admin pada pesanan (run AFTER schema.sql).
+-- Merchant-POS — nama kasir/admin pada pesanan (run AFTER schema.sql).
 --
 -- Records who entered an order placed through the Kasir/Admin screen, so
 -- a receipt and Riwayat Transaksi can name the person on shift.

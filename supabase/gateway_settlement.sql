@@ -1,4 +1,4 @@
--- MerchantPOS — pencairan dana dari payment gateway.
+-- Merchant-POS — pencairan dana dari payment gateway.
 --
 -- Jalankan SETELAH payment_gateway.sql. Aman dijalankan berulang kali.
 --
@@ -91,7 +91,7 @@ create policy "gateway_settlements: finance write" on gateway_settlements
 --   GL Biaya MDR    credit biaya   potongan penyedia, diakui sebagai beban
 --
 -- Debit = uang keluar dari akun, credit = uang masuk ke akun — konvensi
--- yang sama dengan seluruh jurnal MerchantPOS lainnya.
+-- yang sama dengan seluruh jurnal Merchant-POS lainnya.
 create or replace function log_gateway_settlement_journal()
 returns trigger
 language plpgsql

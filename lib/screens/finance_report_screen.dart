@@ -176,7 +176,7 @@ class _FinanceReportScreenState extends State<FinanceReportScreen> {
         header: (context) => pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            pw.Text('MerchantPOS — Laporan Transaksi',
+            pw.Text('Merchant-POS — Laporan Transaksi',
                 style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold)),
             pw.SizedBox(height: 2),
             pw.Text(_restoName, style: const pw.TextStyle(fontSize: 13)),

@@ -1,10 +1,10 @@
--- MerchantPOS — mengalihkan riwayat pesanan tamu ke email yang baru login
+-- Merchant-POS — mengalihkan riwayat pesanan tamu ke email yang baru login
 -- (run AFTER rls_hardening.sql).
 --
 -- A guest's orders are labelled 'Tamu' and only tracked by ids saved on
 -- their own device (see lib/db/guest_order_store.dart). When that person
 -- later signs in, those orders should follow them — but only when the
--- email is genuinely new to MerchantPOS. If the email already has history,
+-- email is genuinely new to Merchant-POS. If the email already has history,
 -- the two are left completely separate: the account keeps its own
 -- orders, and the guest list stays on the device so it's still there
 -- after logging out again.

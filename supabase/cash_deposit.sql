@@ -1,4 +1,4 @@
--- MerchantPOS — Setoran Saldo Cash + pemisahan Cash / Non Cash
+-- Merchant-POS — Setoran Saldo Cash + pemisahan Cash / Non Cash
 -- (run AFTER journal_integrity.sql dan tax_and_service.sql).
 --
 -- Sampai sekarang semua pemasukan dianggap satu kantong. Padahal uang

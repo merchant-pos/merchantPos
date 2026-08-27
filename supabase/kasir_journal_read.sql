@@ -1,4 +1,4 @@
--- MerchantPOS — kasir boleh melihat jurnal dari catatan yang dia buat.
+-- Merchant-POS — kasir boleh melihat jurnal dari catatan yang dia buat.
 --
 -- Aman dijalankan berulang kali.
 --

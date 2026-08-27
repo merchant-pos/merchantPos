@@ -1,4 +1,4 @@
--- MerchantPOS — fasilitas merchant.
+-- Merchant-POS — fasilitas merchant.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --

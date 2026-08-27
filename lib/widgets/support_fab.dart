@@ -13,7 +13,7 @@ import '../screens/support_new_ticket_screen.dart';
 import '../theme.dart';
 import '../utils/id_time.dart';
 
-/// Tombol mengambang MerchantPOS Support.
+/// Tombol mengambang Merchant-POS Support.
 ///
 /// Satu widget untuk pelanggan maupun pegawai merchant. Keduanya
 /// mengadu ke tempat yang sama, dan memisahkannya jadi dua tombol
@@ -22,7 +22,7 @@ import '../utils/id_time.dart';
 ///
 /// Tidak tampil untuk yang belum masuk. Pengaduan tanpa akun tidak punya
 /// tempat untuk dibalas — dan pengadu yang tidak pernah menerima
-/// jawabannya akan mengira MerchantPOS mendiamkannya.
+/// jawabannya akan mengira Merchant-POS mendiamkannya.
 class SupportFab extends StatefulWidget {
   const SupportFab({super.key});
 
@@ -70,7 +70,7 @@ class _SupportFabState extends State<SupportFab> {
       SupportRepository.belumDibaca(_tiket, sebagaiAdmin: false);
 
 
-  /// Badan menu MerchantPOS Support — satu untuk kedua bentuknya.
+  /// Badan menu Merchant-POS Support — satu untuk kedua bentuknya.
   ///
   /// Lembar bawah di ponsel dan popup menempel di web menampilkan
   /// pilihan yang sama persis. Menyalinnya jadi dua berarti perubahan
@@ -93,7 +93,7 @@ class _SupportFabState extends State<SupportFab> {
           children: [
             const Padding(
               padding: EdgeInsets.fromLTRB(20, 18, 20, 4),
-              child: Text('MerchantPOS Support',
+              child: Text('Merchant-POS Support',
                   style:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             ),
@@ -116,7 +116,7 @@ class _SupportFabState extends State<SupportFab> {
             ListTile(
               leading: const Icon(Icons.chat_bubble_outline,
                   color: MerchantPosTheme.brand),
-              title: const Text('Chat MerchantPOS Admin'),
+              title: const Text('Chat Merchant-POS Admin'),
               subtitle: Text(
                 belumDibacaChat > 0
                     ? 'Ada balasan baru'
@@ -283,7 +283,7 @@ class _SupportFabState extends State<SupportFab> {
         FloatingActionButton(
           heroTag: 'merchantpos-support',
           onPressed: _buka,
-          tooltip: 'MerchantPOS Support',
+          tooltip: 'Merchant-POS Support',
           mini: true,
           child: const Icon(Icons.support_agent),
         ),

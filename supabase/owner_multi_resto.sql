@@ -1,4 +1,4 @@
--- MerchantPOS — peran Owner + satu orang mengelola banyak resto
+-- Merchant-POS — peran Owner + satu orang mengelola banyak resto
 -- (jalankan SETELAH semua migrasi sebelumnya; ini satu-satunya yang
 -- perlu dijalankan untuk rilis ini).
 --

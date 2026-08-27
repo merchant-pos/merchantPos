@@ -1,4 +1,4 @@
-# MerchantPOS 1.34.0 — Bayar Tunai di Kasir, Penanda Pengajuan, Logo Baru
+# Merchant-POS 1.34.0 — Bayar Tunai di Kasir, Penanda Pengajuan, Logo Baru
 
 ## Yang harus kamu lakukan lebih dulu
 
@@ -65,11 +65,11 @@ catatan. Kanalnya sendiri (*Hasil Pengajuan*), jadi kasir yang
 membisukan notifikasi pesanan tetap mendengar kabar soal uang yang dia
 pertanggungjawabkan.
 
-## QR Meja: berbingkai MerchantPOS, bisa disimpan, bisa borongan
+## QR Meja: berbingkai Merchant-POS, bisa disimpan, bisa borongan
 
-- Kartunya kini bergaya MerchantPOS: bidang ungu bergradasi, siku amber di
+- Kartunya kini bergaya Merchant-POS: bidang ungu bergradasi, siku amber di
   keempat pojok, nama resto, QR-nya, dan nomor meja di pil amber.
-- **Simpan ke galeri** (album MerchantPOS), bagikan, atau cetak.
+- **Simpan ke galeri** (album Merchant-POS), bagikan, atau cetak.
 - **Mode Banyak Meja** — isi awalan opsional (`A`, `VIP-`) plus rentang
   nomor, maksimal 100 sekali jalan, lalu **Download Semua**. Nomornya
   otomatis diberi nol di depan (`08`…`12`) supaya urutannya benar di

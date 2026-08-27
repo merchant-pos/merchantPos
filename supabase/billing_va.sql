@@ -1,4 +1,4 @@
--- MerchantPOS — tagihan langganan dibayar lewat Virtual Account Xendit.
+-- Merchant-POS — tagihan langganan dibayar lewat Virtual Account Xendit.
 --
 -- Jalankan SETELAH billing.sql. Aman diulang.
 --
@@ -15,7 +15,7 @@
 -- QRIS pesanan dibuat atas nama sub-akun restonya, supaya dananya cair
 -- ke rekening resto itu. VA langganan justru kebalikannya: dibuat atas
 -- nama akun platform, karena inilah satu-satunya aliran uang yang
--- tujuannya memang rekening MerchantPOS.
+-- tujuannya memang rekening Merchant-POS.
 --
 -- Salah memasang `for-user-id` di sini berarti resto membayar tagihan
 -- langganan ke rekeningnya sendiri — dan tidak ada satu pun galat yang

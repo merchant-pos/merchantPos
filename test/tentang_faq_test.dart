@@ -13,11 +13,11 @@ void main() {
   //
   // Dilewati, bukan dihapus: begitu repo-nya ada di sebelah, tesnya
   // hidup lagi sendiri tanpa ada yang perlu ingat menyalakannya.
-  final berkasWeb = File('../MerchantPOS Web/index.html');
+  final berkasWeb = File('../Merchant-POS Web/index.html');
   final adaLandingPage = berkasWeb.existsSync();
   final web = adaLandingPage ? berkasWeb.readAsStringSync() : '';
   final lewatiLandingPage =
-      adaLandingPage ? null : 'landing page MerchantPOS belum dibuat';
+      adaLandingPage ? null : 'landing page Merchant-POS belum dibuat';
 
   group('alamat surel', () {
     // Alasannya sama dengan nomor WhatsApp: dua alamat terpisah akan
@@ -38,7 +38,7 @@ void main() {
       expect(fungsi, contains('Tidak ada aplikasi surel yang terpasang.'));
     });
 
-    test('tampil di layar Tentang MerchantPOS', () {
+    test('tampil di layar Tentang Merchant-POS', () {
       expect(tentang, contains('bukaEmailMerchantPOS(context)'));
       expect(tentang, contains('kEmailMerchantPOS'));
     });
@@ -71,7 +71,7 @@ void main() {
     });
 
     test('tombolnya ada di FAQ maupun Tentang', () {
-      expect(faq, contains('Chat MerchantPOS Admin'));
+      expect(faq, contains('Chat Merchant-POS Admin'));
       expect(tentang, contains('bukaWhatsAppMerchantPOS(context)'));
     });
   });
@@ -80,9 +80,9 @@ void main() {
     test('pertanyaannya sama dengan landing page', () {
       for (final t in [
         'Apakah customer perlu install aplikasi juga?',
-        'Kenapa customer perlu install MerchantPOS?',
+        'Kenapa customer perlu install Merchant-POS?',
         'Bagaimana kalau internet mati?',
-        'Apakah pembayaran QRIS diproses oleh MerchantPOS?',
+        'Apakah pembayaran QRIS diproses oleh Merchant-POS?',
         'Tarif PPN dan biaya service bisa diatur?',
         'Berapa biaya langganan per bulannya?',
       ]) {
@@ -104,7 +104,7 @@ void main() {
     });
   });
 
-  group('Tentang MerchantPOS', () {
+  group('Tentang Merchant-POS', () {
     test('punya tombol FAQ mengambang', () {
       expect(tentang, contains('floatingActionButton: FloatingActionButton.extended'));
       expect(tentang, contains('const FaqScreen()'));
@@ -116,7 +116,7 @@ void main() {
 
     test('fitur barunya ikut disebut', () {
       for (final f in [
-        'Voucher MerchantPOS',
+        'Voucher Merchant-POS',
         'Nomor pesanan',
         'Merchant terdekat',
         'Layar pelanggan',
@@ -132,9 +132,9 @@ void main() {
   });
 
   group('nama peran', () {
-    test('Super Admin sudah jadi MerchantPOS Admin di teks', () {
+    test('Super Admin sudah jadi Merchant-POS Admin di teks', () {
       final auth = File('lib/providers/auth_provider.dart').readAsStringSync();
-      expect(auth, contains("EmployeeRole.superAdmin: 'MerchantPOS Admin'"));
+      expect(auth, contains("EmployeeRole.superAdmin: 'Merchant-POS Admin'"));
     });
 
     test('nilai di basis data tidak ikut berubah', () {

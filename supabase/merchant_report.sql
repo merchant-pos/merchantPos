@@ -1,4 +1,4 @@
--- MerchantPOS — laporan penjualan untuk merchant sendiri.
+-- Merchant-POS — laporan penjualan untuk merchant sendiri.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --

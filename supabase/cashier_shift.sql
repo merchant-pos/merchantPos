@@ -1,4 +1,4 @@
--- MerchantPOS — buka dan tutup shift kasir.
+-- Merchant-POS — buka dan tutup shift kasir.
 --
 -- Jalankan setelah cash_deposit.sql dan petty_cash.sql. Aman diulang.
 --

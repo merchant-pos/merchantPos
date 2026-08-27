@@ -1,4 +1,4 @@
--- MerchantPOS — orders.gl_code (run AFTER gl_journal.sql — reuses its
+-- Merchant-POS — orders.gl_code (run AFTER gl_journal.sql — reuses its
 -- _normalize_payment_method() helper).
 --
 -- Adds a `gl_code` column directly on `orders`, kept in sync by trigger

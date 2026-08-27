@@ -109,7 +109,7 @@ class HubMenuLayout extends StatelessWidget {
     this.header = const [],
     // Ruang di bawah untuk tombol mengambang.
     //
-    // Tanpa itu tombol MerchantPOS Support duduk tepat di atas tombol menu
+    // Tanpa itu tombol Merchant-POS Support duduk tepat di atas tombol menu
     // terakhir — dan yang tertutup justru menu yang paling jarang
     // digulir sampai ke sana, jadi tidak ada yang menyadarinya sampai
     // ada yang mencarinya.

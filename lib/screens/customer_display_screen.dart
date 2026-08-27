@@ -154,12 +154,12 @@ class _Menganggur extends StatelessWidget {
   }
 }
 
-/// Logo merchant, dengan logo MerchantPOS sebagai penggantinya.
+/// Logo merchant, dengan logo Merchant-POS sebagai penggantinya.
 ///
 /// Merchant yang belum memasang logo tetap butuh sesuatu di sana —
 /// ruang kosong di puncak layar yang menghadap pelanggan terbaca seperti
-/// gambar yang gagal dimuat. Logo MerchantPOS mengisinya, dan itu memang
-/// benar: yang mereka pakai memang MerchantPOS.
+/// gambar yang gagal dimuat. Logo Merchant-POS mengisinya, dan itu memang
+/// benar: yang mereka pakai memang Merchant-POS.
 class _LogoMerchant extends StatelessWidget {
   final Restaurant? merchant;
   final double ukuran;
@@ -180,7 +180,7 @@ class _LogoMerchant extends StatelessWidget {
         height: ukuran,
         fit: BoxFit.cover,
         // Logo yang rusak jangan mengosongkan puncak layarnya; jatuhkan
-        // ke logo MerchantPOS, sama seperti merchant yang belum memasangnya.
+        // ke logo Merchant-POS, sama seperti merchant yang belum memasangnya.
         errorBuilder: (_, __, ___) => MerchantPosLogo(size: ukuran),
       ),
     );
@@ -191,7 +191,7 @@ class _LogoMerchant extends StatelessWidget {
 ///
 /// Layar ini menghadap pelanggan sepanjang jam buka — satu-satunya
 /// tempat di seluruh aplikasi yang dilihat orang yang belum tentu
-/// memakai MerchantPOS.
+/// memakai Merchant-POS.
 class _PoweredBy extends StatelessWidget {
   const _PoweredBy();
 
@@ -206,7 +206,7 @@ class _PoweredBy extends StatelessWidget {
         const SizedBox(width: 6),
         const MerchantPosLogo(size: 18, showBadgeBackground: false),
         const SizedBox(width: 5),
-        Text('MerchantPOS',
+        Text('Merchant-POS',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
@@ -253,7 +253,7 @@ class _Menunggu extends StatelessWidget {
           ),
           const SizedBox(height: 22),
           if (tampilan.adaQr) ...[
-            // Kartu QR MerchantPOS yang sama dengan di layar kasir dan QR
+            // Kartu QR Merchant-POS yang sama dengan di layar kasir dan QR
             // meja — bingkai, logo, dan tulisannya sudah dirancang
             // untuk dipindai dari seberang meja. Kotak putih polos
             // tanpa bingkai terbaca seperti gambar yang belum selesai

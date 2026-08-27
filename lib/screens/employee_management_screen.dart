@@ -13,7 +13,7 @@ import '../widgets/responsive.dart';
 import '../widgets/required_label.dart';
 
 const _roleLabels = {
-  'super_admin': 'MerchantPOS Admin',
+  'super_admin': 'Merchant-POS Admin',
   'owner': 'Owner',
   'admin': 'Admin',
   'kasir': 'Kasir',
@@ -153,13 +153,13 @@ class _EmployeeManagementScreenState extends State<EmployeeManagementScreen> {
   Map<String, List<Employee>> _groupByResto() {
     final byResto = <String, List<Employee>>{};
     for (final e in _employees) {
-      final key = e.restoId == null ? 'MerchantPOS Admin' : _restoName(e.restoId);
+      final key = e.restoId == null ? 'Merchant-POS Admin' : _restoName(e.restoId);
       byResto.putIfAbsent(key, () => []).add(e);
     }
     final sortedKeys = byResto.keys.toList()
       ..sort((a, b) {
-        if (a == 'MerchantPOS Admin') return -1;
-        if (b == 'MerchantPOS Admin') return 1;
+        if (a == 'Merchant-POS Admin') return -1;
+        if (b == 'Merchant-POS Admin') return 1;
         return a.compareTo(b);
       });
     return {for (final k in sortedKeys) k: byResto[k]!};

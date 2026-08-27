@@ -11,7 +11,7 @@ import '../widgets/app_toast.dart';
 
 /// Saves the payment QR a customer is looking at as a PNG in their photo
 /// gallery, so they can pay from their banking app — which means leaving
-/// MerchantPOS, and losing sight of the code — or come back to it later.
+/// Merchant-POS, and losing sight of the code — or come back to it later.
 ///
 /// Ordering without a cashier is exactly when this matters: there's
 /// nobody holding a terminal to show the code again.
@@ -45,7 +45,7 @@ Future<bool> saveQrisToGallery(
   return savePngToGallery(
     context,
     bytes,
-    successMessage: 'QR pembayaran tersimpan di galeri (album MerchantPOS).',
+    successMessage: 'QR pembayaran tersimpan di galeri (album Merchant-POS).',
     failurePrefix: 'Gagal menyimpan QR',
   );
 }
@@ -88,7 +88,7 @@ Future<Uint8List> _renderQrisPng({
         child: pw.Column(
           mainAxisAlignment: pw.MainAxisAlignment.center,
           children: [
-            pw.Text('MerchantPOS',
+            pw.Text('Merchant-POS',
                 style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold)),
             pw.SizedBox(height: 2),
             pw.Text('QR Pembayaran',

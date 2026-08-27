@@ -15,7 +15,7 @@ import 'merchantpos_logo.dart';
 Future<T> withLoadingOverlay<T>(
   BuildContext context,
   Future<T> Function() action, {
-  String message = 'Menyiapkan MerchantPOS...',
+  String message = 'Menyiapkan Merchant-POS...',
 }) async {
   final navigator = Navigator.of(context, rootNavigator: true);
 

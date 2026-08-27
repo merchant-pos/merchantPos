@@ -273,7 +273,7 @@ alter table restaurants add column if not exists category text;
 -- 8. rls_hardening.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — RLS hardening (run in Supabase SQL Editor AFTER schema.sql,
+-- Merchant-POS — RLS hardening (run in Supabase SQL Editor AFTER schema.sql,
 -- functions.sql, categories.sql, and the other supabase/*.sql files).
 --
 -- Replaces the permissive `using (true) with check (true)` policies with
@@ -428,7 +428,7 @@ create policy "mail_requests: public insert" on mail_requests
 -- 9. super_admin.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — Super Admin role (run AFTER rls_hardening.sql).
+-- Merchant-POS — Super Admin role (run AFTER rls_hardening.sql).
 --
 -- Adds a 'super_admin' role that isn't tied to any single restaurant —
 -- it can manage employees for ANY resto and create new restos from
@@ -512,7 +512,7 @@ create policy "restaurants: admin or super_admin update" on restaurants
 -- 10. finance.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — Finance role (run AFTER rls_hardening.sql and super_admin.sql).
+-- Merchant-POS — Finance role (run AFTER rls_hardening.sql and super_admin.sql).
 --
 -- Adds:
 --   - 'finance' as an allowed employees.role (scoped to one resto, like
@@ -576,7 +576,7 @@ create policy "expenses: finance/admin delete" on expenses
 -- 11. customer_browse_resto.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — lets a customer browse a resto's menu by picking it from a
+-- Merchant-POS — lets a customer browse a resto's menu by picking it from a
 -- list (instead of only via table QR scan). No table is known yet in
 -- that case, so `sessions.table_number` must be nullable — it gets
 -- filled in later, mandatorily, at checkout.
@@ -587,7 +587,7 @@ alter table sessions alter column table_number drop not null;
 -- 12. expense_gl_accounts.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — GL account chart for EXPENSES (run AFTER finance.sql).
+-- Merchant-POS — GL account chart for EXPENSES (run AFTER finance.sql).
 --
 -- Separate from `gl_accounts` (which maps each of the 3 fixed payment
 -- methods — cash/qris/transfer — to exactly one GL code each, for
@@ -617,7 +617,7 @@ create policy "expense_gl_accounts: finance/admin delete" on expense_gl_accounts
 -- 13. order_type.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — adds Dine In / Take Away to orders, chosen at checkout by
+-- Merchant-POS — adds Dine In / Take Away to orders, chosen at checkout by
 -- both the customer app and the Kasir.
 alter table orders add column if not exists order_type text not null default 'dine_in'
   check (order_type in ('dine_in', 'take_away'));
@@ -627,7 +627,7 @@ alter table orders add column if not exists order_type text not null default 'di
 -- 14. employee_name_nip.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — adds Nama (name) and NIP (employee ID number) to employees.
+-- Merchant-POS — adds Nama (name) and NIP (employee ID number) to employees.
 alter table employees add column if not exists name text;
 alter table employees add column if not exists nip text;
 
@@ -636,7 +636,7 @@ alter table employees add column if not exists nip text;
 -- 15. restaurant_active.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — lets Super Admin activate/deactivate a restaurant.
+-- Merchant-POS — lets Super Admin activate/deactivate a restaurant.
 -- Inactive restos: hidden from the customer's "Pilih Resto" list, and
 -- their employees are blocked from logging in (see AuthProvider).
 alter table restaurants add column if not exists active boolean not null default true;
@@ -646,7 +646,7 @@ alter table restaurants add column if not exists active boolean not null default
 -- 16. mark_order_paid.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — fixes customer QRIS "Simulasikan: Sudah Dibayar" silently
+-- Merchant-POS — fixes customer QRIS "Simulasikan: Sudah Dibayar" silently
 -- failing after rls_hardening.sql restricted orders UPDATE to employees
 -- only. This RPC lets a guest (no auth session) flip THEIR OWN pending
 -- self-order to paid, without reopening the door rls_hardening.sql
@@ -673,7 +673,7 @@ $$;
 -- 17. order_customer_name.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — customer name for pickup, required for Take Away orders
+-- Merchant-POS — customer name for pickup, required for Take Away orders
 -- (dine-in doesn't need it — the table number identifies them instead).
 alter table orders add column if not exists customer_name text;
 
@@ -682,7 +682,7 @@ alter table orders add column if not exists customer_name text;
 -- 18. settings_finance_access.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — lets Finance edit payment settings too (previously admin-only).
+-- Merchant-POS — lets Finance edit payment settings too (previously admin-only).
 -- Admin's own "Pengaturan Pembayaran" screen is now view-only in the
 -- app; Finance is the one who actually edits it.
 drop policy if exists "settings: admin insert" on settings;
@@ -699,13 +699,13 @@ create policy "settings: admin or finance update" on settings
 -- 19. claim_guest_orders.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — mengalihkan riwayat pesanan tamu ke email yang baru login
+-- Merchant-POS — mengalihkan riwayat pesanan tamu ke email yang baru login
 -- (run AFTER rls_hardening.sql).
 --
 -- A guest's orders are labelled 'Tamu' and only tracked by ids saved on
 -- their own device (see lib/db/guest_order_store.dart). When that person
 -- later signs in, those orders should follow them — but only when the
--- email is genuinely new to MerchantPOS. If the email already has history,
+-- email is genuinely new to Merchant-POS. If the email already has history,
 -- the two are left completely separate: the account keeps its own
 -- orders, and the guest list stays on the device so it's still there
 -- after logging out again.
@@ -763,7 +763,7 @@ $$;
 -- 20. expense_receipt.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — bukti pengeluaran (run AFTER finance.sql).
+-- Merchant-POS — bukti pengeluaran (run AFTER finance.sql).
 --
 -- Optional photo of the receipt/nota backing an expense, stored as a
 -- base64 string in the row itself — the same approach products already
@@ -781,7 +781,7 @@ alter table expenses add column if not exists receipt_base64 text;
 -- 21. gl_journal.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — GL Journal (run AFTER finance.sql; petty_cash.sql not required).
+-- Merchant-POS — GL Journal (run AFTER finance.sql; petty_cash.sql not required).
 --
 -- One table capturing every real money movement, written automatically
 -- by triggers rather than the app deciding when to log it — so it stays
@@ -920,7 +920,7 @@ create trigger trg_log_expense_journal
 -- 22. petty_cash.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — Petty Cash ledger (run AFTER finance.sql).
+-- Merchant-POS — Petty Cash ledger (run AFTER finance.sql).
 --
 -- Splits the Finance "Saldo & Pengeluaran" screen's single balance into
 -- three named balances that sum to the total:
@@ -960,7 +960,7 @@ create policy "petty_cash_entries: finance/admin delete" on petty_cash_entries
 -- 23. journal_integrity.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — Journal integrity (run AFTER orders_gl_code.sql and
+-- Merchant-POS — Journal integrity (run AFTER orders_gl_code.sql and
 -- petty_cash_journal.sql — this is the last finance migration).
 --
 -- Closes five gaps that made the GL journal untrustworthy:
@@ -1316,7 +1316,7 @@ where j.gl_name is null
 -- 24. backfill_journal.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — Backfill jurnal untuk transaksi yang sudah ada
+-- Merchant-POS — Backfill jurnal untuk transaksi yang sudah ada
 -- (run AFTER journal_integrity.sql).
 --
 -- The journal triggers only fire on new activity, so everything recorded
@@ -1491,7 +1491,7 @@ order by reference_type, entry_type;
 -- 25. kasir_balance_access.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — Kasir bisa lihat saldo & catat pengeluaran
+-- Merchant-POS — Kasir bisa lihat saldo & catat pengeluaran
 -- (run AFTER petty_cash.sql).
 --
 -- The Kasir holds the physical petty cash, so paying for small things
@@ -1533,7 +1533,7 @@ create policy "petty_cash_entries: finance/admin/kasir read" on petty_cash_entri
 -- 26. order_cashier_name.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — nama kasir/admin pada pesanan (run AFTER schema.sql).
+-- Merchant-POS — nama kasir/admin pada pesanan (run AFTER schema.sql).
 --
 -- Records who entered an order placed through the Kasir/Admin screen, so
 -- a receipt and Riwayat Transaksi can name the person on shift.
@@ -1550,7 +1550,7 @@ alter table orders add column if not exists cashier_name text;
 -- 27. orders_gl_code.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — orders.gl_code (run AFTER gl_journal.sql — reuses its
+-- Merchant-POS — orders.gl_code (run AFTER gl_journal.sql — reuses its
 -- _normalize_payment_method() helper).
 --
 -- Adds a `gl_code` column directly on `orders`, kept in sync by trigger
@@ -1636,7 +1636,7 @@ where o.gl_code is null;
 -- 28. petty_cash_journal.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — Petty Cash journal mapping (run AFTER petty_cash.sql and
+-- Merchant-POS — Petty Cash journal mapping (run AFTER petty_cash.sql and
 -- gl_journal.sql).
 --
 -- Adds the two GL codes needed to journal Petty Cash movements, reusing
@@ -1739,7 +1739,7 @@ create trigger trg_log_petty_cash_journal
 -- 29. rejournal.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — Jurnal ulang (run AFTER journal_integrity.sql).
+-- Merchant-POS — Jurnal ulang (run AFTER journal_integrity.sql).
 --
 -- Rebuilds gl_journal_entries from scratch so every row follows the
 -- current rules. Needed because two corrections landed after some
@@ -1930,7 +1930,7 @@ order by reference_type, entry_type;
 -- 30. restaurant_logo.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — logo resto (run AFTER schema.sql).
+-- Merchant-POS — logo resto (run AFTER schema.sql).
 --
 -- Optional store logo, base64-encoded in the row itself — the same
 -- approach product photos, customer photos and expense receipts already
@@ -1946,7 +1946,7 @@ alter table restaurants add column if not exists logo_base64 text;
 -- 31. restaurant_phone.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — nomor HP resto (run AFTER schema.sql).
+-- Merchant-POS — nomor HP resto (run AFTER schema.sql).
 --
 -- Printed on the receipt under the address, so a customer has a way to
 -- reach the shop about their order. Optional: a resto that hasn't set one
@@ -1958,7 +1958,7 @@ alter table restaurants add column if not exists phone text;
 -- 32. table_number_text.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — nomor meja jadi teks (run AFTER customer_browse_resto.sql).
+-- Merchant-POS — nomor meja jadi teks (run AFTER customer_browse_resto.sql).
 --
 -- Table "numbers" aren't numbers in practice: restaurants label tables
 -- A01, B07, VIP-2 and so on. Storing them as integer silently made those
@@ -1976,7 +1976,7 @@ alter table sessions alter column table_number type text using table_number::tex
 -- 33. tax_and_service.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — PPN & biaya service (run AFTER restaurant_phone.sql and
+-- Merchant-POS — PPN & biaya service (run AFTER restaurant_phone.sql and
 -- orders_gl_code.sql).
 --
 -- Products store their ORIGINAL (pre-tax) price. The bill is built up
@@ -2105,7 +2105,7 @@ $$;
 -- 34. tax_rates_finance.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — tarif PPN & biaya service dipindah ke Finance
+-- Merchant-POS — tarif PPN & biaya service dipindah ke Finance
 -- (run AFTER tax_and_service.sql).
 --
 -- The rates sit on `restaurants`, but setting them is a Finance job, not
@@ -2160,7 +2160,7 @@ grant execute on function set_tax_rates(text, numeric, numeric) to authenticated
 -- 35. cash_deposit.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — Setoran Saldo Cash + pemisahan Cash / Non Cash
+-- Merchant-POS — Setoran Saldo Cash + pemisahan Cash / Non Cash
 -- (run AFTER journal_integrity.sql dan tax_and_service.sql).
 --
 -- Sampai sekarang semua pemasukan dianggap satu kantong. Padahal uang
@@ -2363,7 +2363,7 @@ $$;
 -- 36. kitchen_checklist.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — checklist dapur per menu (run AFTER schema.sql).
+-- Merchant-POS — checklist dapur per menu (run AFTER schema.sql).
 --
 -- Sebelumnya menyelesaikan pesanan cuma satu tombol: dari "dimasak"
 -- langsung "selesai". Pada pesanan berisi lima menu, satu yang terlewat
@@ -2386,7 +2386,7 @@ alter table orders add column if not exists items_done jsonb not null default '[
 -- 37. owner_multi_resto.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — peran Owner + satu orang mengelola banyak resto
+-- Merchant-POS — peran Owner + satu orang mengelola banyak resto
 -- (jalankan SETELAH semua migrasi sebelumnya; ini satu-satunya yang
 -- perlu dijalankan untuk rilis ini).
 --
@@ -2480,7 +2480,7 @@ commit;
 -- 38. rilis_setor_petty_inbox.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — setoran & top up petty cash berjenjang, GL Suspense, dan
+-- Merchant-POS — setoran & top up petty cash berjenjang, GL Suspense, dan
 -- kotak masuk pengumuman.
 --
 -- SATU file untuk seluruh rilis ini; menggantikan deposit_approval.sql
@@ -2965,7 +2965,7 @@ commit;
 -- 39. employee_surrogate_key.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — email karyawan jadi bisa diubah.
+-- Merchant-POS — email karyawan jadi bisa diubah.
 --
 -- Jalankan SETELAH owner_multi_resto.sql. Aman dijalankan berulang kali.
 --
@@ -3016,11 +3016,11 @@ commit;
 -- 40. promo_banner.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — banner promo per resto.
+-- Merchant-POS — banner promo per resto.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman dijalankan berulang kali.
 --
--- Bannernya milik resto, bukan milik MerchantPOS: tiap resto memasang
+-- Bannernya milik resto, bukan milik Merchant-POS: tiap resto memasang
 -- promonya sendiri, dan customer hanya melihat banner resto yang sedang
 -- dia buka.
 
@@ -3078,7 +3078,7 @@ commit;
 -- 41. customer_cash_payment.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pelanggan boleh memilih bayar tunai di kasir.
+-- Merchant-POS — pelanggan boleh memilih bayar tunai di kasir.
 --
 -- Jalankan SETELAH orders_gl_code.sql. Aman dijalankan berulang kali.
 --
@@ -3148,7 +3148,7 @@ commit;
 -- 42. push_notifications.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — notifikasi yang tetap sampai walau aplikasinya tertutup.
+-- Merchant-POS — notifikasi yang tetap sampai walau aplikasinya tertutup.
 --
 -- Jalankan SETELAH customer_cash_payment.sql. Aman dijalankan berulang
 -- kali.
@@ -3496,7 +3496,7 @@ commit;
 -- 43. announcement_categories.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pengumuman dibagi dua jenis, dan admin resto boleh mengirim.
+-- Merchant-POS — pengumuman dibagi dua jenis, dan admin resto boleh mengirim.
 --
 -- Jalankan SETELAH rilis_setor_petty_inbox.sql. Aman dijalankan
 -- berulang kali.
@@ -3585,7 +3585,7 @@ commit;
 -- 44. fix_device_tokens_rls.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pendaftaran token push lewat fungsi, bukan tulis langsung.
+-- Merchant-POS — pendaftaran token push lewat fungsi, bukan tulis langsung.
 --
 -- Jalankan SETELAH push_notifications.sql. Aman dijalankan berulang kali.
 --
@@ -3704,7 +3704,7 @@ commit;
 -- 45. push_trigger_pg_net.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — panggil Edge Function langsung dari database, tanpa webhook.
+-- Merchant-POS — panggil Edge Function langsung dari database, tanpa webhook.
 --
 -- Jalankan SETELAH fix_device_tokens_rls.sql. Aman dijalankan berulang
 -- kali.
@@ -3817,7 +3817,7 @@ commit;
 -- 46. payment_gateway.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — QRIS sungguhan lewat Xendit.
+-- Merchant-POS — QRIS sungguhan lewat Xendit.
 --
 -- Jalankan SETELAH customer_cash_payment.sql. Aman dijalankan berulang
 -- kali.
@@ -3971,7 +3971,7 @@ commit;
 -- 47. gateway_settlement.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pencairan dana dari payment gateway.
+-- Merchant-POS — pencairan dana dari payment gateway.
 --
 -- Jalankan SETELAH payment_gateway.sql. Aman dijalankan berulang kali.
 --
@@ -4064,7 +4064,7 @@ create policy "gateway_settlements: finance write" on gateway_settlements
 --   GL Biaya MDR    credit biaya   potongan penyedia, diakui sebagai beban
 --
 -- Debit = uang keluar dari akun, credit = uang masuk ke akun — konvensi
--- yang sama dengan seluruh jurnal MerchantPOS lainnya.
+-- yang sama dengan seluruh jurnal Merchant-POS lainnya.
 create or replace function log_gateway_settlement_journal()
 returns trigger
 language plpgsql
@@ -4152,19 +4152,19 @@ commit;
 -- 48. resto_payment_accounts.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pencairan langsung ke rekening masing-masing resto.
+-- Merchant-POS — pencairan langsung ke rekening masing-masing resto.
 --
 -- Jalankan SETELAH payment_gateway.sql. Aman dijalankan berulang kali.
 --
 -- Sampai sekarang seluruh pembayaran QRIS masuk ke satu akun penyedia:
 -- yang kuncinya terpasang di server. Untuk resto milik sendiri itu tidak
 -- masalah. Untuk resto milik orang lain, itu berarti uang mereka mampir
--- dulu ke rekening MerchantPOS — dan menampung lalu meneruskan dana milik
+-- dulu ke rekening Merchant-POS — dan menampung lalu meneruskan dana milik
 -- pihak lain bukan sekadar urusan pembukuan.
 --
 -- Jalan keluarnya sub-akun: tiap resto punya akunnya sendiri di
 -- penyedia, dan pembayarannya dibuat atas nama akun itu. Dananya cair
--- langsung ke rekening restonya, tanpa pernah lewat rekening MerchantPOS.
+-- langsung ke rekening restonya, tanpa pernah lewat rekening Merchant-POS.
 --
 -- Yang disimpan di sini hanya PENGENAL sub-akunnya, bukan kuncinya.
 -- Menyimpan secret key milik resto lain berarti satu kebocoran database
@@ -4217,7 +4217,7 @@ commit;
 -- Setelah menjalankan ini
 -- ─────────────────────────────────────────────────────────────────────
 --
--- 1. Aktifkan xenPlatform di akun Xendit MerchantPOS (butuh verifikasi
+-- 1. Aktifkan xenPlatform di akun Xendit Merchant-POS (butuh verifikasi
 --    badan usaha; di mode uji bisa langsung dicoba).
 --
 -- 2. Buat sub-akun untuk tiap resto — lewat Dashboard atau API:
@@ -4245,7 +4245,7 @@ commit;
 -- 49. announcement_push.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pengumuman ikut membunyikan HP.
+-- Merchant-POS — pengumuman ikut membunyikan HP.
 --
 -- Selama ini pengumuman hanya duduk di Kotak Masuk. Kotak Masuk baru
 -- dilihat orang kalau dia membuka aplikasinya, dan orang membuka
@@ -4302,7 +4302,7 @@ commit;
 -- 50. cash_payment_expiry.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pesanan tunai yang tidak dilunasi di kasir hangus sendiri.
+-- Merchant-POS — pesanan tunai yang tidak dilunasi di kasir hangus sendiri.
 --
 -- Pelanggan yang memesan dari HP lalu memilih bayar tunai diarahkan ke
 -- meja kasir. Sebagian tidak pernah sampai ke sana: berubah pikiran,
@@ -4388,7 +4388,7 @@ commit;
 -- 51. counter_charge.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — tagihan QRIS di meja kasir.
+-- Merchant-POS — tagihan QRIS di meja kasir.
 --
 -- Jalankan SETELAH payment_gateway.sql. Aman dijalankan berulang kali.
 --
@@ -4425,7 +4425,7 @@ commit;
 -- 52. gateway_account_super_admin.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pengenal sub-akun Xendit jadi urusan Super Admin saja.
+-- Merchant-POS — pengenal sub-akun Xendit jadi urusan Super Admin saja.
 --
 -- Jalankan SETELAH resto_payment_accounts.sql. Aman diulang.
 --
@@ -4433,7 +4433,7 @@ commit;
 -- Pengaturan Pembayaran. Itu keliru dari dua sisi.
 --
 -- Yang pertama: dia tidak punya cara mengetahui nilainya. Sub-akunnya
--- dibuat di akun Xendit milik MerchantPOS dan pengenalnya ditentukan
+-- dibuat di akun Xendit milik Merchant-POS dan pengenalnya ditentukan
 -- Xendit — bukan sesuatu yang bisa dicari orang resto di mana pun.
 -- Kolom isian yang jawabannya tidak dimiliki siapa pun yang melihatnya
 -- hanya mengundang tebakan.
@@ -4466,7 +4466,7 @@ commit;
 -- 53. level_groups.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — tiap resto menyusun sendiri kelompok levelnya.
+-- Merchant-POS — tiap resto menyusun sendiri kelompok levelnya.
 --
 -- Jalankan SETELAH product_level_groups.sql. Aman diulang.
 --
@@ -4592,7 +4592,7 @@ create trigger trg_seed_level_groups
 -- 54. product_out_of_stock.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — ketersediaan produk ditandai, bukan dihitung.
+-- Merchant-POS — ketersediaan produk ditandai, bukan dihitung.
 --
 -- Aman dijalankan berulang kali.
 --
@@ -4636,7 +4636,7 @@ commit;
 -- 55. resto_order_types.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — resto menentukan sendiri melayani Dine In, Take Away, atau
+-- Merchant-POS — resto menentukan sendiri melayani Dine In, Take Away, atau
 -- keduanya.
 --
 -- Aman dijalankan berulang kali.
@@ -4674,7 +4674,7 @@ commit;
 -- 56. default_gl_accounts.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — resto baru langsung punya bagan akun dan tarif pajaknya.
+-- Merchant-POS — resto baru langsung punya bagan akun dan tarif pajaknya.
 --
 -- Aman dijalankan berulang kali.
 --
@@ -4840,7 +4840,7 @@ commit;
 -- 57. discounts.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — diskon: per menu (termasuk bundling) atau minimum belanja.
+-- Merchant-POS — diskon: per menu (termasuk bundling) atau minimum belanja.
 --
 -- Jalankan SETELAH gl_journal.sql dan orders_gl_code.sql. Aman diulang.
 --
@@ -5047,7 +5047,7 @@ commit;
 -- 58. promo_banner_period.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — banner promo punya masa berlaku.
+-- Merchant-POS — banner promo punya masa berlaku.
 --
 -- Aman dijalankan berulang kali.
 --
@@ -5075,7 +5075,7 @@ commit;
 -- 59. announcement_audience.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pengumuman resto memilih sasarannya: karyawan, pelanggan,
+-- Merchant-POS — pengumuman resto memilih sasarannya: karyawan, pelanggan,
 -- atau keduanya.
 --
 -- Jalankan SETELAH announcement_categories.sql dan announcement_push.sql.
@@ -5148,7 +5148,7 @@ commit;
 -- 60. kasir_journal_read.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — kasir boleh melihat jurnal dari catatan yang dia buat.
+-- Merchant-POS — kasir boleh melihat jurnal dari catatan yang dia buat.
 --
 -- Aman dijalankan berulang kali.
 --
@@ -5184,7 +5184,7 @@ commit;
 -- 61. cancel_order.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pelanggan boleh membatalkan pesanannya sendiri selama
+-- Merchant-POS — pelanggan boleh membatalkan pesanannya sendiri selama
 -- pembayarannya belum diterima.
 --
 -- Jalankan SETELAH cash_payment_expiry.sql. Aman dijalankan berulang.
@@ -5276,7 +5276,7 @@ commit;
 -- 62. settled_at_counter.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — menandai pesanan mandiri yang uangnya diterima di meja
+-- Merchant-POS — menandai pesanan mandiri yang uangnya diterima di meja
 -- kasir, alih-alih menebaknya dari cara bayarnya.
 --
 -- Aman dijalankan berulang kali.
@@ -5318,7 +5318,7 @@ commit;
 -- 63. discount_min_qty.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — diskon dengan syarat jumlah pembelian.
+-- Merchant-POS — diskon dengan syarat jumlah pembelian.
 --
 -- Jalankan SETELAH discounts.sql. Aman diulang.
 --
@@ -5348,7 +5348,7 @@ commit;
 -- 64. discount_product_rules.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — syarat jumlah menempel di tiap menu, bukan di promonya.
+-- Merchant-POS — syarat jumlah menempel di tiap menu, bukan di promonya.
 --
 -- Jalankan SETELAH discounts.sql dan discount_min_qty.sql. Aman diulang.
 --
@@ -5401,7 +5401,7 @@ commit;
 -- 65. billing.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — langganan bulanan resto.
+-- Merchant-POS — langganan bulanan resto.
 --
 -- Jalankan SETELAH schema.sql, rls_hardening.sql, dan super_admin.sql.
 -- Aman dijalankan berulang. Butuh pg_cron.
@@ -5505,7 +5505,7 @@ create table if not exists billing_invoices (
   amount bigint not null check (amount >= 0),
 
   -- unpaid  → belum dibayar
-  -- review  → resto sudah mengunggah bukti, menunggu diperiksa MerchantPOS
+  -- review  → resto sudah mengunggah bukti, menunggu diperiksa Merchant-POS
   -- paid    → diterima
   -- waived  → dibebaskan (masa percobaan, kompensasi gangguan)
   status text not null default 'unpaid'
@@ -5784,7 +5784,7 @@ begin
 end;
 $$;
 
--- Hanya MerchantPOS yang menyatakan lunas. Itu satu-satunya cara membuka
+-- Hanya Merchant-POS yang menyatakan lunas. Itu satu-satunya cara membuka
 -- kunci, jadi wewenangnya tidak dibagi.
 create or replace function review_billing_payment(
   p_invoice_id text,
@@ -5817,7 +5817,7 @@ commit;
 -- 66. billing_va.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — tagihan langganan dibayar lewat Virtual Account Xendit.
+-- Merchant-POS — tagihan langganan dibayar lewat Virtual Account Xendit.
 --
 -- Jalankan SETELAH billing.sql. Aman diulang.
 --
@@ -5834,7 +5834,7 @@ commit;
 -- QRIS pesanan dibuat atas nama sub-akun restonya, supaya dananya cair
 -- ke rekening resto itu. VA langganan justru kebalikannya: dibuat atas
 -- nama akun platform, karena inilah satu-satunya aliran uang yang
--- tujuannya memang rekening MerchantPOS.
+-- tujuannya memang rekening Merchant-POS.
 --
 -- Salah memasang `for-user-id` di sini berarti resto membayar tagihan
 -- langganan ke rekeningnya sendiri — dan tidak ada satu pun galat yang
@@ -5987,13 +5987,13 @@ commit;
 -- 67. platform_finance.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — keuangan MerchantPOS sendiri, terpisah dari keuangan resto.
+-- Merchant-POS — keuangan Merchant-POS sendiri, terpisah dari keuangan resto.
 --
 -- Jalankan SETELAH billing.sql dan billing_va.sql. Aman diulang.
 --
 -- Sampai sekarang seluruh pembukuan di aplikasi ini milik resto: uang
 -- yang masuk ke mereka, pengeluaran mereka, kas kecil mereka. Pendapatan
--- MerchantPOS sendiri — biaya langganan yang dibayarkan resto — tidak
+-- Merchant-POS sendiri — biaya langganan yang dibayarkan resto — tidak
 -- tercatat di mana pun kecuali sebagai baris tagihan berstatus lunas.
 --
 -- ── Kenapa memakai "resto" sendiri, bukan tabel baru ─────────────────
@@ -6005,7 +6005,7 @@ commit;
 -- satu sisi tidak pernah ikut ke sisi lain, dan yang menemukannya
 -- adalah selisih angka berbulan-bulan kemudian.
 --
--- Jadi MerchantPOS diberi satu barisnya sendiri di tabel restaurants,
+-- Jadi Merchant-POS diberi satu barisnya sendiri di tabel restaurants,
 -- ditandai is_platform. Seluruh layar keuangan yang sudah ada langsung
 -- bekerja untuknya.
 --
@@ -6026,7 +6026,7 @@ alter table restaurants add column if not exists is_platform boolean not null de
 -- untuk menyaring di tempat yang tidak melihat `active` — daftar resto
 -- di Super Admin, dan daftar langganan.
 insert into restaurants (id, name, address, active, is_platform)
-values ('merchantpos', 'MerchantPOS', 'Pembukuan internal MerchantPOS', false, true)
+values ('merchantpos', 'Merchant-POS', 'Pembukuan internal Merchant-POS', false, true)
 on conflict (id) do update set is_platform = true;
 
 -- Ia bukan pelanggan dirinya sendiri.
@@ -6034,7 +6034,7 @@ update resto_billing set active = false, monthly_price = 0
 where resto_id = 'merchantpos';
 
 -- ─────────────────────────────────────────────────────────────────────
--- Bagan akun MerchantPOS
+-- Bagan akun Merchant-POS
 -- ─────────────────────────────────────────────────────────────────────
 --
 -- Nomor 11xxxxx dipakai supaya berbeda jelas dari 19xxxxx milik resto.
@@ -6045,18 +6045,18 @@ insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values
   ('merchantpos', 'subscription',          '1100001', 'GL Pendapatan Langganan'),
   ('merchantpos', 'subscription_discount', '1100002', 'GL Diskon Langganan'),
-  ('merchantpos', 'cash',                  '1100010', 'GL Kas Tunai MerchantPOS'),
-  ('merchantpos', 'transfer',              '1100011', 'GL Rekening MerchantPOS'),
-  ('merchantpos', 'qris',                  '1100012', 'GL Penerimaan QRIS MerchantPOS'),
-  ('merchantpos', 'income_aggregate',      '1100020', 'GL Pendapatan MerchantPOS'),
-  ('merchantpos', 'petty_cash',            '1100030', 'GL Petty Cash MerchantPOS'),
-  ('merchantpos', 'total_balance',         '1100040', 'GL Total Saldo MerchantPOS'),
-  ('merchantpos', 'suspense',              '1100050', 'GL Suspense MerchantPOS'),
-  ('merchantpos', 'suspense_petty',        '1100051', 'GL Suspense Petty MerchantPOS'),
-  ('merchantpos', 'gateway_fee',           '1100060', 'GL Biaya Gateway MerchantPOS'),
-  ('merchantpos', 'ppn',                   '1100070', 'GL PPN MerchantPOS'),
-  ('merchantpos', 'service',               '1100071', 'GL Biaya Service MerchantPOS'),
-  ('merchantpos', 'discount',              '1100072', 'GL Diskon Lain MerchantPOS')
+  ('merchantpos', 'cash',                  '1100010', 'GL Kas Tunai Merchant-POS'),
+  ('merchantpos', 'transfer',              '1100011', 'GL Rekening Merchant-POS'),
+  ('merchantpos', 'qris',                  '1100012', 'GL Penerimaan QRIS Merchant-POS'),
+  ('merchantpos', 'income_aggregate',      '1100020', 'GL Pendapatan Merchant-POS'),
+  ('merchantpos', 'petty_cash',            '1100030', 'GL Petty Cash Merchant-POS'),
+  ('merchantpos', 'total_balance',         '1100040', 'GL Total Saldo Merchant-POS'),
+  ('merchantpos', 'suspense',              '1100050', 'GL Suspense Merchant-POS'),
+  ('merchantpos', 'suspense_petty',        '1100051', 'GL Suspense Petty Merchant-POS'),
+  ('merchantpos', 'gateway_fee',           '1100060', 'GL Biaya Gateway Merchant-POS'),
+  ('merchantpos', 'ppn',                   '1100070', 'GL PPN Merchant-POS'),
+  ('merchantpos', 'service',               '1100071', 'GL Biaya Service Merchant-POS'),
+  ('merchantpos', 'discount',              '1100072', 'GL Diskon Lain Merchant-POS')
 on conflict (resto_id, payment_method) do nothing;
 
 insert into expense_gl_accounts (resto_id, gl_code, gl_name)
@@ -6203,7 +6203,7 @@ $$;
 -- Jurnal pendapatan langganan
 -- ─────────────────────────────────────────────────────────────────────
 --
--- Dicatat di buku MerchantPOS, bukan di buku restonya. Bagi resto, biaya
+-- Dicatat di buku Merchant-POS, bukan di buku restonya. Bagi resto, biaya
 -- langganan adalah pengeluaran mereka — dan mereka mencatatnya sendiri
 -- lewat menu Pengeluaran kalau mau. Menuliskannya ke jurnal mereka dari
 -- sini berarti kami menulis di pembukuan orang lain.
@@ -6344,7 +6344,7 @@ commit;
 -- 68. resto_soft_delete.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — menghapus resto tanpa membuang datanya.
+-- Merchant-POS — menghapus resto tanpa membuang datanya.
 --
 -- Jalankan SETELAH platform_finance.sql. Aman diulang.
 --
@@ -6523,7 +6523,7 @@ commit;
 -- 69. billing_discount_apply.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — diskon ikut memotong tagihan yang sudah terbit.
+-- Merchant-POS — diskon ikut memotong tagihan yang sudah terbit.
 --
 -- Jalankan SETELAH resto_soft_delete.sql. Aman diulang.
 --
@@ -6690,7 +6690,7 @@ commit;
 -- 70. billing_journal_gross.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pendapatan langganan dicatat sebesar harga penuh.
+-- Merchant-POS — pendapatan langganan dicatat sebesar harga penuh.
 --
 -- Jalankan SETELAH billing_discount_apply.sql. Aman diulang.
 --
@@ -6841,7 +6841,7 @@ commit;
 -- 71. gl_discount_backfill.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — GL Diskon terisi bawaannya di tiap resto.
+-- Merchant-POS — GL Diskon terisi bawaannya di tiap resto.
 --
 -- Jalankan SETELAH billing_journal_gross.sql. Aman diulang.
 --
@@ -6879,10 +6879,10 @@ where payment_method = 'discount'
   and coalesce(gl_code, '') = ''
   and resto_id in (select id from restaurants where is_platform = false);
 
--- MerchantPOS memakai golongan 11xxxxx untuk pembukuannya sendiri.
+-- Merchant-POS memakai golongan 11xxxxx untuk pembukuannya sendiri.
 insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values
-  ('merchantpos', 'discount',              '1100072', 'GL Diskon Lain MerchantPOS'),
+  ('merchantpos', 'discount',              '1100072', 'GL Diskon Lain Merchant-POS'),
   ('merchantpos', 'subscription_discount', '1100002', 'GL Diskon Langganan')
 on conflict (resto_id, payment_method) do nothing;
 
@@ -6903,7 +6903,7 @@ commit;
 -- 72. platform_gl_renumber.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — nomor akun penyewa platform dipindah ke golongan 11xxxxx.
+-- Merchant-POS — nomor akun penyewa platform dipindah ke golongan 11xxxxx.
 --
 -- Jalankan SETELAH gl_discount_backfill.sql. Aman diulang.
 --
@@ -6917,7 +6917,7 @@ commit;
 --
 -- Akibatnya bukan sekadar angka yang berbeda dari dokumen. Janjinya
 -- adalah satu baris jurnal bisa dikenali pemiliknya hanya dari nomor
--- akunnya — dan dengan MerchantPOS memakai 199xxxx yang sama dengan resto,
+-- akunnya — dan dengan Merchant-POS memakai 199xxxx yang sama dengan resto,
 -- janji itu tidak berlaku. Orang yang membaca ekspor gabungan tidak
 -- punya cara membedakan mana pendapatan resto dan mana pendapatan kami.
 --
@@ -6950,18 +6950,18 @@ update gl_journal_entries j
 set gl_code = p.ke,
     gl_name = p.nama
 from (values
-  ('cash',             '1950001', '1100010', 'GL Kas Tunai MerchantPOS'),
-  ('qris',             '1950002', '1100012', 'GL Penerimaan QRIS MerchantPOS'),
-  ('transfer',         '1950003', '1100011', 'GL Rekening MerchantPOS'),
-  ('income_aggregate', '1950010', '1100020', 'GL Pendapatan MerchantPOS'),
-  ('ppn',              '1960001', '1100070', 'GL PPN MerchantPOS'),
-  ('service',          '1960002', '1100071', 'GL Biaya Service MerchantPOS'),
-  ('petty_cash',       '1980001', '1100030', 'GL Petty Cash MerchantPOS'),
-  ('total_balance',    '1990001', '1100040', 'GL Total Saldo MerchantPOS'),
-  ('suspense',         '2100001', '1100050', 'GL Suspense MerchantPOS'),
-  ('suspense_petty',   '2100002', '1100051', 'GL Suspense Petty MerchantPOS'),
-  ('gateway_fee',      '2200001', '1100060', 'GL Biaya Gateway MerchantPOS'),
-  ('discount',         '2200002', '1100072', 'GL Diskon Lain MerchantPOS')
+  ('cash',             '1950001', '1100010', 'GL Kas Tunai Merchant-POS'),
+  ('qris',             '1950002', '1100012', 'GL Penerimaan QRIS Merchant-POS'),
+  ('transfer',         '1950003', '1100011', 'GL Rekening Merchant-POS'),
+  ('income_aggregate', '1950010', '1100020', 'GL Pendapatan Merchant-POS'),
+  ('ppn',              '1960001', '1100070', 'GL PPN Merchant-POS'),
+  ('service',          '1960002', '1100071', 'GL Biaya Service Merchant-POS'),
+  ('petty_cash',       '1980001', '1100030', 'GL Petty Cash Merchant-POS'),
+  ('total_balance',    '1990001', '1100040', 'GL Total Saldo Merchant-POS'),
+  ('suspense',         '2100001', '1100050', 'GL Suspense Merchant-POS'),
+  ('suspense_petty',   '2100002', '1100051', 'GL Suspense Petty Merchant-POS'),
+  ('gateway_fee',      '2200001', '1100060', 'GL Biaya Gateway Merchant-POS'),
+  ('discount',         '2200002', '1100072', 'GL Diskon Lain Merchant-POS')
 ) as p(payment_method, dari, ke, nama)
 where j.resto_id = 'merchantpos'
   and j.gl_code = p.dari;
@@ -6970,18 +6970,18 @@ update gl_accounts a
 set gl_code = p.ke,
     gl_name = p.nama
 from (values
-  ('cash',             '1950001', '1100010', 'GL Kas Tunai MerchantPOS'),
-  ('qris',             '1950002', '1100012', 'GL Penerimaan QRIS MerchantPOS'),
-  ('transfer',         '1950003', '1100011', 'GL Rekening MerchantPOS'),
-  ('income_aggregate', '1950010', '1100020', 'GL Pendapatan MerchantPOS'),
-  ('ppn',              '1960001', '1100070', 'GL PPN MerchantPOS'),
-  ('service',          '1960002', '1100071', 'GL Biaya Service MerchantPOS'),
-  ('petty_cash',       '1980001', '1100030', 'GL Petty Cash MerchantPOS'),
-  ('total_balance',    '1990001', '1100040', 'GL Total Saldo MerchantPOS'),
-  ('suspense',         '2100001', '1100050', 'GL Suspense MerchantPOS'),
-  ('suspense_petty',   '2100002', '1100051', 'GL Suspense Petty MerchantPOS'),
-  ('gateway_fee',      '2200001', '1100060', 'GL Biaya Gateway MerchantPOS'),
-  ('discount',         '2200002', '1100072', 'GL Diskon Lain MerchantPOS')
+  ('cash',             '1950001', '1100010', 'GL Kas Tunai Merchant-POS'),
+  ('qris',             '1950002', '1100012', 'GL Penerimaan QRIS Merchant-POS'),
+  ('transfer',         '1950003', '1100011', 'GL Rekening Merchant-POS'),
+  ('income_aggregate', '1950010', '1100020', 'GL Pendapatan Merchant-POS'),
+  ('ppn',              '1960001', '1100070', 'GL PPN Merchant-POS'),
+  ('service',          '1960002', '1100071', 'GL Biaya Service Merchant-POS'),
+  ('petty_cash',       '1980001', '1100030', 'GL Petty Cash Merchant-POS'),
+  ('total_balance',    '1990001', '1100040', 'GL Total Saldo Merchant-POS'),
+  ('suspense',         '2100001', '1100050', 'GL Suspense Merchant-POS'),
+  ('suspense_petty',   '2100002', '1100051', 'GL Suspense Petty Merchant-POS'),
+  ('gateway_fee',      '2200001', '1100060', 'GL Biaya Gateway Merchant-POS'),
+  ('discount',         '2200002', '1100072', 'GL Diskon Lain Merchant-POS')
 ) as p(payment_method, dari, ke, nama)
 where a.resto_id = 'merchantpos'
   and a.payment_method = p.payment_method
@@ -7003,7 +7003,7 @@ commit;
 -- 73. product_toppings.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — topping per menu, berikut harga dan batas pilihnya.
+-- Merchant-POS — topping per menu, berikut harga dan batas pilihnya.
 --
 -- Jalankan SETELAH platform_gl_renumber.sql. Aman diulang.
 --
@@ -7045,7 +7045,7 @@ commit;
 -- 74. vouchers.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — voucher untuk pelanggan, dananya benar-benar berpindah.
+-- Merchant-POS — voucher untuk pelanggan, dananya benar-benar berpindah.
 --
 -- Jalankan SETELAH product_toppings.sql. Aman diulang.
 --
@@ -7415,7 +7415,7 @@ begin
       (v_now at time zone 'Asia/Jakarta')::time,
       v_gl.gl_code, v_gl.gl_name,
       'voucher', v_claim.id, new.voucher_amount, 'credit',
-      'Voucher MerchantPOS ' || coalesce(new.voucher_code, '') ||
+      'Voucher Merchant-POS ' || coalesce(new.voucher_code, '') ||
         ' — pesanan #' || v_ref
     );
   end if;
@@ -7531,7 +7531,7 @@ commit;
 -- 75. voucher_payouts.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — voucher yang dipakai pelanggan dibayarkan sungguhan ke resto.
+-- Merchant-POS — voucher yang dipakai pelanggan dibayarkan sungguhan ke resto.
 --
 -- Jalankan SETELAH vouchers.sql dan resto_payment_accounts.sql.
 -- Aman dijalankan berulang kali.
@@ -7553,7 +7553,7 @@ commit;
 -- yang kita tampung adalah kerugian yang bukan milik kita tapi kita
 -- yang menyebabkannya kalau bocor.
 --
--- Transfer antar-akun memindahkan saldo dari akun MerchantPOS ke sub-akun
+-- Transfer antar-akun memindahkan saldo dari akun Merchant-POS ke sub-akun
 -- restonya di dalam xenPlatform. Tujuannya cukup disebut dengan
 -- pengenal sub-akun yang memang sudah kita simpan. Dari sana dananya
 -- ikut jadwal pencairan resto itu sendiri, ke rekening yang mereka
@@ -7672,7 +7672,7 @@ begin
       (v_now at time zone 'Asia/Jakarta')::time,
       v_gl.gl_code, v_gl.gl_name,
       'voucher', v_claim.id, new.voucher_amount, 'credit',
-      'Voucher MerchantPOS ' || coalesce(new.voucher_code, '') ||
+      'Voucher Merchant-POS ' || coalesce(new.voucher_code, '') ||
         ' — pesanan #' || v_ref
     );
   end if;
@@ -7836,7 +7836,7 @@ select cron.schedule('settle-voucher-payouts', '*/15 * * * *',
 --      supabase functions deploy settle-voucher-payouts \
 --        --project-ref xizpwtycczigjhzxegen
 --
--- 2. Isi secret pengenal akun MerchantPOS sendiri di Xendit — transfer
+-- 2. Isi secret pengenal akun Merchant-POS sendiri di Xendit — transfer
 --    butuh tahu dari akun mana uangnya diambil:
 --
 --      supabase secrets set XENDIT_ACCOUNT_ID=...
@@ -7874,7 +7874,7 @@ select cron.schedule('settle-voucher-payouts', '*/15 * * * *',
 -- 76. billing_due_day.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — tanggal tagih 29, 30, 31, dan jatuh tempo berikutnya.
+-- Merchant-POS — tanggal tagih 29, 30, 31, dan jatuh tempo berikutnya.
 --
 -- Jalankan SETELAH billing.sql. Aman dijalankan berulang kali.
 --
@@ -8030,13 +8030,13 @@ $$;
 -- 77. market_report.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — laporan pasar untuk Super Admin.
+-- Merchant-POS — laporan pasar untuk Super Admin.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
 -- Empat pertanyaan yang selama ini hanya bisa dijawab dengan membuka
 -- satu per satu resto: siapa pelanggan yang paling sering memakai
--- MerchantPOS, siapa yang mendaftar lalu tidak pernah memesan, resto mana
+-- Merchant-POS, siapa yang mendaftar lalu tidak pernah memesan, resto mana
 -- yang paling menghasilkan, dan resto mana yang belum menghasilkan
 -- sama sekali.
 --
@@ -8054,7 +8054,7 @@ $$;
 -- memasukkannya membuat resto yang banyak pesanan batal terlihat lebih
 -- besar daripada resto yang benar-benar berjualan.
 --
--- Resto platform (MerchantPOS sendiri) dan resto yang sudah dihapus tidak
+-- Resto platform (Merchant-POS sendiri) dan resto yang sudah dihapus tidak
 -- ikut: keduanya bukan pasar.
 
 -- Layar ini menampilkan lima teratas, tapi fungsinya menerima batas
@@ -8179,7 +8179,7 @@ revoke all on function report_idle_restos(integer) from public, anon;
 -- ─────────────────────────────────────────────────────────────────────
 --
 -- Keempatnya SECURITY DEFINER, jadi `is_super_admin()` di klausa WHERE
--- bukan hiasan — tanpa itu fungsinya membocorkan seluruh pasar MerchantPOS
+-- bukan hiasan — tanpa itu fungsinya membocorkan seluruh pasar Merchant-POS
 -- ke siapa pun yang bisa memanggil RPC. Ditulis sebagai syarat WHERE,
 -- bukan RAISE, supaya yang bukan Super Admin menerima daftar kosong
 -- alih-alih pesan yang mengonfirmasi bahwa datanya ada.
@@ -8189,13 +8189,13 @@ revoke all on function report_idle_restos(integer) from public, anon;
 -- 78. voucher_announcement.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — voucher yang terbit langsung mengabari pelanggan.
+-- Merchant-POS — voucher yang terbit langsung mengabari pelanggan.
 --
 -- Jalankan SETELAH vouchers.sql, announcement_audience.sql, dan
 -- announcement_categories.sql. Aman dijalankan berulang kali.
 --
 -- Voucher yang diterbitkan tapi tidak diumumkan adalah uang yang sudah
--- keluar dari saldo MerchantPOS untuk sesuatu yang tidak ada yang tahu.
+-- keluar dari saldo Merchant-POS untuk sesuatu yang tidak ada yang tahu.
 -- Kuotanya habis oleh siapa pun yang kebetulan membuka layar Voucher
 -- Saya, dan sisanya hangus tanpa pernah dilihat orang.
 --
@@ -8278,7 +8278,7 @@ begin
   -- tanpa membuka aplikasi.
   insert into app_announcements (title, body, category, audience, created_by)
   values (
-    'Voucher ' || v_nilai || ' dari MerchantPOS',
+    'Voucher ' || v_nilai || ' dari Merchant-POS',
     'Buruan tebus, kuotanya cuma ' || p_quantity || ' dan siapa cepat dia dapat! ' ||
     'Kode voucher: ' || v_code || E'\n\n' ||
     'Tiap voucher bernilai ' || v_nilai ||
@@ -8317,7 +8317,7 @@ commit;
 -- 79. voucher_manage.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — banner voucher, dan menghapus batch yang tidak jadi.
+-- Merchant-POS — banner voucher, dan menghapus batch yang tidak jadi.
 --
 -- Jalankan SETELAH voucher_announcement.sql. Aman dijalankan berulang.
 
@@ -8401,7 +8401,7 @@ begin
   insert into app_announcements (
     title, body, category, audience, image_base64, created_by
   ) values (
-    'Voucher ' || v_nilai || ' dari MerchantPOS',
+    'Voucher ' || v_nilai || ' dari Merchant-POS',
     'Buruan tebus, kuotanya cuma ' || p_quantity || ' dan siapa cepat dia dapat! ' ||
     'Kode voucher: ' || v_code || E'\n\n' ||
     'Tiap voucher bernilai ' || v_nilai ||
@@ -8438,7 +8438,7 @@ $$;
 -- dari mana asalnya.
 --
 -- Dananya dikembalikan lebih dulu, bukan lenyap bersama barisnya. Batch
--- yang dihapus tanpa mengembalikan alokasinya adalah saldo MerchantPOS yang
+-- yang dihapus tanpa mengembalikan alokasinya adalah saldo Merchant-POS yang
 -- berkurang selamanya untuk voucher yang tidak pernah ada.
 
 create or replace function delete_voucher_batch(p_id text)
@@ -8505,12 +8505,12 @@ revoke all on function delete_voucher_batch(text) from public, anon;
 -- 80. balance_topup.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — setoran modal ke saldo utama.
+-- Merchant-POS — setoran modal ke saldo utama.
 --
 -- Jalankan SETELAH vouchers.sql dan platform_finance.sql. Aman diulang.
 --
 -- Ada satu jenis uang masuk yang selama ini tidak punya tempat: modal.
--- Investor menyetor ke MerchantPOS, atau pemilik resto menaruh uang awal
+-- Investor menyetor ke Merchant-POS, atau pemilik resto menaruh uang awal
 -- supaya kasnya tidak minus di hari pertama. Keduanya uang sungguhan
 -- yang benar-benar masuk, tapi bukan penjualan dan bukan langganan —
 -- jadi tidak ada pemicu yang menjurnalnya, dan saldonya berbunyi nol
@@ -8533,7 +8533,7 @@ alter table gl_accounts add constraint gl_accounts_payment_method_check
      'subscription', 'subscription_discount', 'voucher', 'voucher_redeem',
      'capital', 'cash_variance'));
 
--- Untuk MerchantPOS — sederet dengan akun platform lainnya.
+-- Untuk Merchant-POS — sederet dengan akun platform lainnya.
 insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values ('merchantpos', 'capital', '1100003', 'GL Setoran Modal')
 on conflict (resto_id, payment_method) do nothing;
@@ -8672,7 +8672,7 @@ create trigger trg_log_balance_topup
 -- 81. voucher_new_customer.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — voucher khusus pengguna baru.
+-- Merchant-POS — voucher khusus pengguna baru.
 --
 -- Jalankan SETELAH voucher_manage.sql. Aman dijalankan berulang kali.
 --
@@ -8694,10 +8694,10 @@ commit;
 -- Yang belum pernah punya pesanan **terbayar** di resto mana pun.
 --
 -- Pesanan batal tidak dihitung: orang yang memesan lalu membatalkannya
--- belum pernah benar-benar memakai MerchantPOS, dan menutup pintu untuknya
+-- belum pernah benar-benar memakai Merchant-POS, dan menutup pintu untuknya
 -- justru menutup pintu bagi orang yang paling ingin dibujuk kembali.
 --
--- Batasnya seluruh MerchantPOS, bukan per resto. Voucher ini promo MerchantPOS,
+-- Batasnya seluruh Merchant-POS, bukan per resto. Voucher ini promo Merchant-POS,
 -- dan orang yang sudah rutin memesan di resto sebelah bukan pengguna
 -- baru hanya karena belum pernah masuk resto ini.
 create or replace function _pelanggan_baru(p_email text)
@@ -8764,7 +8764,7 @@ begin
   -- alasan penolakannya harus yang sebenarnya, bukan "sudah habis".
   if v.new_customers_only and not _pelanggan_baru(v_email) then
     return query select null::text, 0::bigint,
-      'Voucher ini hanya untuk pengguna baru MerchantPOS';
+      'Voucher ini hanya untuk pengguna baru Merchant-POS';
     return;
   end if;
 
@@ -8867,13 +8867,13 @@ begin
   -- daripada tahu sejak awal bahwa ini bukan untuk dirinya.
   v_syarat := case
     when coalesce(p_new_customers_only, false)
-      then ' Khusus pengguna baru yang belum pernah memesan lewat MerchantPOS.'
+      then ' Khusus pengguna baru yang belum pernah memesan lewat Merchant-POS.'
     else '' end;
 
   insert into app_announcements (
     title, body, category, audience, image_base64, created_by
   ) values (
-    'Voucher ' || v_nilai || ' dari MerchantPOS',
+    'Voucher ' || v_nilai || ' dari Merchant-POS',
     'Buruan tebus, kuotanya cuma ' || p_quantity || ' dan siapa cepat dia dapat! ' ||
     'Kode voucher: ' || v_code || E'\n\n' ||
     'Tiap voucher bernilai ' || v_nilai ||
@@ -8907,7 +8907,7 @@ $$;
 -- 82. qris_receipt_fields.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — rincian kuitansi QRIS dari Xendit, jadi kolomnya sendiri.
+-- Merchant-POS — rincian kuitansi QRIS dari Xendit, jadi kolomnya sendiri.
 --
 -- Jalankan SETELAH payment_gateway.sql. Aman dijalankan berulang kali.
 --
@@ -9044,7 +9044,7 @@ where c.id = d.id;
 -- 83. customer_display.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — layar pelanggan di meja kasir.
+-- Merchant-POS — layar pelanggan di meja kasir.
 --
 -- Jalankan kapan saja setelah payment_gateway.sql. Aman diulang.
 --
@@ -9192,7 +9192,7 @@ end $$;
 -- 84. order_number.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — nomor pesanan harian per resto.
+-- Merchant-POS — nomor pesanan harian per resto.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman dijalankan berulang.
 --
@@ -9341,7 +9341,7 @@ do update set last_no = greatest(order_counters.last_no, excluded.last_no);
 -- 85. resto_facilities.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — fasilitas merchant.
+-- Merchant-POS — fasilitas merchant.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
@@ -9384,7 +9384,7 @@ commit;
 -- 86. merchant_reviews.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — penilaian merchant oleh pelanggan, dan jam bukanya.
+-- Merchant-POS — penilaian merchant oleh pelanggan, dan jam bukanya.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
@@ -9500,7 +9500,7 @@ $$;
 -- 87. review_prompt.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — mengajak pelanggan menilai, sejam sesudah membayar.
+-- Merchant-POS — mengajak pelanggan menilai, sejam sesudah membayar.
 --
 -- Jalankan SETELAH merchant_reviews.sql. Aman diulang.
 --
@@ -9575,7 +9575,7 @@ begin
         'resto_id', o.resto_id,
         'title', 'Gimana pesanan kamu di ' || o.merchant || '?',
         'body', 'Bikin nagih ga nih? Jangan lupa kasih ulasan untuk ' ||
-                o.merchant || ' di MerchantPOS.'
+                o.merchant || ' di Merchant-POS.'
       )
     );
 
@@ -9615,7 +9615,7 @@ select cron.schedule('review-prompts', '*/20 * * * *',
 -- 88. order_cancel_kitchen.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pesanan yang batal berhenti punya status dapur.
+-- Merchant-POS — pesanan yang batal berhenti punya status dapur.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
@@ -9697,7 +9697,7 @@ where payment_status in ('cancelled', 'expired')
 -- 89. cashier_shift.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — buka dan tutup shift kasir.
+-- Merchant-POS — buka dan tutup shift kasir.
 --
 -- Jalankan setelah cash_deposit.sql dan petty_cash.sql. Aman diulang.
 --
@@ -9977,7 +9977,7 @@ grant execute on function shift_expected_cash(uuid, timestamptz) to authenticate
 -- 90. product_badges_reviews.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — label menu, penilaian menu, dan angka terjualnya.
+-- Merchant-POS — label menu, penilaian menu, dan angka terjualnya.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
@@ -10135,7 +10135,7 @@ grant execute on function product_stats(text) to anon, authenticated;
 -- 91. product_review_per_order.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — penilaian menu menempel pada pesanannya, bukan pada menunya.
+-- Merchant-POS — penilaian menu menempel pada pesanannya, bukan pada menunya.
 --
 -- Jalankan SETELAH product_badges_reviews.sql. Aman diulang.
 --
@@ -10234,7 +10234,7 @@ commit;
 -- 92. cash_variance.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — GL Selisih Kasir, dan pelunasannya.
+-- Merchant-POS — GL Selisih Kasir, dan pelunasannya.
 --
 -- Jalankan SETELAH cashier_shift.sql dan default_gl_accounts.sql.
 -- Aman diulang.
@@ -10368,7 +10368,7 @@ commit;
 -- Lahirnya tagihan, dan jurnalnya
 -- ─────────────────────────────────────────────────────────────────────
 --
--- Ditulis pemicu, bukan oleh `close_shift`. Seluruh jurnal di MerchantPOS
+-- Ditulis pemicu, bukan oleh `close_shift`. Seluruh jurnal di Merchant-POS
 -- lahir dari pemicu supaya tidak pernah ada jalan menutup shift tanpa
 -- jurnalnya ikut tertulis — lihat catatan di gl_journal.sql.
 --
@@ -10538,7 +10538,7 @@ grant execute on function settle_cash_variance(uuid, text) to authenticated;
 -- 93. merchant_report.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — laporan penjualan untuk merchant sendiri.
+-- Merchant-POS — laporan penjualan untuk merchant sendiri.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
@@ -10759,7 +10759,7 @@ grant execute on function report_sales_summary(text, date, date) to authenticate
 -- 94. shift_opening_check.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — perkiraan modal awal saat shift dibuka.
+-- Merchant-POS — perkiraan modal awal saat shift dibuka.
 --
 -- Jalankan SETELAH cashier_shift.sql. Aman diulang.
 --
@@ -10854,12 +10854,12 @@ grant execute on function expected_opening_cash(text) to authenticated;
 -- 95. support_tickets.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pengaduan, tiket, dan percakapannya.
+-- Merchant-POS — pengaduan, tiket, dan percakapannya.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
 -- Selama ini satu-satunya jalan mengadu adalah WhatsApp ke nomor
--- MerchantPOS Admin. Itu bekerja saat merchantnya lima. Pada merchant
+-- Merchant-POS Admin. Itu bekerja saat merchantnya lima. Pada merchant
 -- kelima puluh, tidak ada yang tahu keluhan mana yang sudah dijawab,
 -- mana yang tenggelam di bawah percakapan lain, dan mana yang sebenarnya
 -- masalah yang sama muncul untuk ketiga kalinya.
@@ -10958,7 +10958,7 @@ create index if not exists support_messages_ticket_idx
 alter table support_tickets enable row level security;
 alter table support_messages enable row level security;
 
--- Pengadu melihat tiketnya sendiri; MerchantPOS Admin melihat semuanya.
+-- Pengadu melihat tiketnya sendiri; Merchant-POS Admin melihat semuanya.
 --
 -- Pegawai merchant lain TIDAK melihat pengaduan rekannya. Keluhan
 -- sering berisi hal yang tidak ingin dibaca seruangan — termasuk
@@ -11141,7 +11141,7 @@ begin
   end if;
 
   if not v_admin and p_status <> 'closed' then
-    raise exception 'Hanya MerchantPOS Admin yang bisa mengubah status ini.';
+    raise exception 'Hanya Merchant-POS Admin yang bisa mengubah status ini.';
   end if;
 
   if p_status not in ('open', 'on_progress', 'confirm_customer', 'closed') then
@@ -11211,7 +11211,7 @@ $$;
 --
 -- Hanya tiket yang sedang menunggu jawaban pengadunya, dan hanya kalau
 -- pesan terakhirnya memang dari admin. Tiket yang pesan terakhirnya dari
--- pengadu berarti bolanya ada di MerchantPOS — menutupnya karena "tidak ada
+-- pengadu berarti bolanya ada di Merchant-POS — menutupnya karena "tidak ada
 -- jawaban" akan menghukum orang yang justru sudah menjawab.
 create or replace function close_idle_support_tickets()
 returns integer
@@ -11282,7 +11282,7 @@ grant execute on function mark_support_read(uuid) to authenticated;
 -- 96. support_push.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — notifikasi untuk MerchantPOS Support.
+-- Merchant-POS — notifikasi untuk Merchant-POS Support.
 --
 -- Jalankan SETELAH support_tickets.sql dan push_notifications.sql.
 -- Aman diulang.
@@ -11290,7 +11290,7 @@ grant execute on function mark_support_read(uuid) to authenticated;
 -- Penanda di dalam aplikasi hanya terlihat oleh orang yang sedang
 -- membuka aplikasinya. Yang mengadu lalu menutup HP-nya — dan itulah
 -- yang dilakukan hampir semua orang setelah mengadu — tidak akan pernah
--- tahu keluhannya sudah dijawab sampai ia kebetulan membuka MerchantPOS
+-- tahu keluhannya sudah dijawab sampai ia kebetulan membuka Merchant-POS
 -- lagi. Balasan yang tidak sampai sama saja dengan tidak dibalas.
 
 -- Satu pemicu untuk kedua arah.
@@ -11327,7 +11327,7 @@ begin
         'audience', 'email',
         'email', t.reporter_email,
         'ticket_id', t.id::text,
-        'title', 'MerchantPOS Support — ' || t.subject,
+        'title', 'Merchant-POS Support — ' || t.subject,
         'body', v_cuplikan
       )
     );
@@ -11335,12 +11335,12 @@ begin
     v_nama := coalesce(nullif(btrim(coalesce(t.reporter_name, '')), ''),
                        split_part(t.reporter_email, '@', 1));
 
-    -- Ke MerchantPOS Admin, satu baris per orang, disasar lewat emailnya.
+    -- Ke Merchant-POS Admin, satu baris per orang, disasar lewat emailnya.
     --
     -- Sempat memakai audiens 'role' dengan peran super_admin, dan itu
     -- gagal dengan "tidak ada perangkat terdaftar": baris token hanya
     -- punya peran kalau perangkatnya mendaftar setelah orangnya masuk
-    -- sebagai MerchantPOS Admin. Satu perangkat yang pernah dipakai masuk
+    -- sebagai Merchant-POS Admin. Satu perangkat yang pernah dipakai masuk
     -- sebagai peran lain, atau yang barisnya ditulis versi lama, tidak
     -- akan pernah terjaring.
     --
@@ -11348,7 +11348,7 @@ begin
     -- apa pun peran yang sedang dipegang saat itu.
     --
     -- Konsekuensinya satu baris outbox per admin, bukan satu untuk
-    -- semuanya. Jumlah MerchantPOS Admin dihitung jari, dan kabar yang
+    -- semuanya. Jumlah Merchant-POS Admin dihitung jari, dan kabar yang
     -- sampai lebih berharga daripada satu baris yang rapi.
     for v_admin in
       select distinct e.email
@@ -11396,7 +11396,7 @@ create trigger trg_queue_push_support
 -- 97. support_auto_reply.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — sapaan otomatis, dan penanda belum dibaca yang tahan
+-- Merchant-POS — sapaan otomatis, dan penanda belum dibaca yang tahan
 -- terhadapnya.
 --
 -- Jalankan SETELAH support_tickets.sql. Aman diulang.
@@ -11407,7 +11407,7 @@ create trigger trg_queue_push_support
 -- memakai aplikasinya sama sekali.
 --
 -- Tapi sapaan itu tidak boleh membuat tiketnya terlihat sudah dijawab.
--- Di sisi MerchantPOS Admin ia harus tetap berdiri sebagai pengaduan yang
+-- Di sisi Merchant-POS Admin ia harus tetap berdiri sebagai pengaduan yang
 -- belum dibaca, karena memang belum ada manusia yang membacanya.
 
 begin;
@@ -11527,7 +11527,7 @@ begin
   -- Judulnya harus sama persis dengan `kSubjekChatUmum` di aplikasi;
   -- ada tes yang menjaga keduanya tidak berpisah.
   v_sebutan := case
-    when btrim(p_subject) = 'Chat dengan MerchantPOS Admin' then 'chat'
+    when btrim(p_subject) = 'Chat dengan Merchant-POS Admin' then 'chat'
     else 'pengaduan'
   end;
 
@@ -11543,7 +11543,7 @@ begin
     ticket_id, sender_email, sender_name, from_admin, body)
   values (
     v_row.id, 'system:greeting', null, true,
-    'Halo ' || v_nama || ', mohon bersabar MerchantPOS Admin akan meresponse '
+    'Halo ' || v_nama || ', mohon bersabar Merchant-POS Admin akan meresponse '
       || v_sebutan || ' secepatnya, terimakasih sudah berkenan menunggu.');
 
   select * into v_row from support_tickets where id = v_row.id;
@@ -11585,7 +11585,7 @@ begin
         'audience', 'email',
         'email', t.reporter_email,
         'ticket_id', t.id::text,
-        'title', 'MerchantPOS Support — ' || t.subject,
+        'title', 'Merchant-POS Support — ' || t.subject,
         'body', v_cuplikan
       )
     );
@@ -11637,7 +11637,7 @@ $$;
 -- 98. support_chat_rules.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — chat bebas bukan pengaduan, dan tiket kembar tidak lahir
+-- Merchant-POS — chat bebas bukan pengaduan, dan tiket kembar tidak lahir
 -- dua kali.
 --
 -- Jalankan SETELAH support_auto_reply.sql. Aman diulang.
@@ -11721,7 +11721,7 @@ begin
                      split_part(v_email, '@', 1));
 
   v_sebutan := case
-    when btrim(p_subject) = 'Chat dengan MerchantPOS Admin' then 'chat'
+    when btrim(p_subject) = 'Chat dengan Merchant-POS Admin' then 'chat'
     else 'pengaduan'
   end;
 
@@ -11729,7 +11729,7 @@ begin
     ticket_id, sender_email, sender_name, from_admin, body)
   values (
     v_row.id, 'system:greeting', null, true,
-    'Halo ' || v_nama || ', mohon bersabar MerchantPOS Admin akan meresponse '
+    'Halo ' || v_nama || ', mohon bersabar Merchant-POS Admin akan meresponse '
       || v_sebutan || ' secepatnya, terimakasih sudah berkenan menunggu.');
 
   select * into v_row from support_tickets where id = v_row.id;
@@ -11759,7 +11759,7 @@ begin
   for t in
     select id from support_tickets
     where status = 'confirm_customer'
-      and subject <> 'Chat dengan MerchantPOS Admin'
+      and subject <> 'Chat dengan Merchant-POS Admin'
       and last_message_from_admin = true
       and coalesce(last_message_at, updated_at) < now() - interval '24 hours'
   loop
@@ -11829,7 +11829,7 @@ where id in (select id from kembar where urutan > 1);
 -- 99. support_pesan_kembar.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — pesan kembar di dalam satu percakapan.
+-- Merchant-POS — pesan kembar di dalam satu percakapan.
 --
 -- Jalankan SETELAH support_chat_rules.sql. Aman diulang.
 --
@@ -11919,7 +11919,7 @@ commit;
 -- 100. support_push_wording.sql
 -- ═══════════════════════════════════════════════════════════
 
--- MerchantPOS — judul notifikasi chat tidak menyebut "pengaduan".
+-- Merchant-POS — judul notifikasi chat tidak menyebut "pengaduan".
 --
 -- Jalankan SETELAH support_auto_reply.sql. Aman diulang.
 --
@@ -11950,7 +11950,7 @@ begin
   select * into t from support_tickets where id = new.ticket_id;
   if t is null then return new; end if;
 
-  v_chat := t.subject = 'Chat dengan MerchantPOS Admin';
+  v_chat := t.subject = 'Chat dengan Merchant-POS Admin';
 
   v_cuplikan := left(regexp_replace(new.body, E'[\n\r]+', ' ', 'g'), 90);
 
@@ -11962,8 +11962,8 @@ begin
         'email', t.reporter_email,
         'ticket_id', t.id::text,
         'title', case
-          when v_chat then 'Balasan MerchantPOS Admin'
-          else 'MerchantPOS Support — ' || t.subject
+          when v_chat then 'Balasan Merchant-POS Admin'
+          else 'Merchant-POS Support — ' || t.subject
         end,
         'body', v_cuplikan
       )
@@ -12007,7 +12007,7 @@ $$;
 --   from push_outbox where event = 'support_message'
 --   order by created_at desc limit 5;
 --
---   -- Siapa saja yang dianggap MerchantPOS Admin, dan sudah punya perangkat
+--   -- Siapa saja yang dianggap Merchant-POS Admin, dan sudah punya perangkat
 --   -- terdaftar atau belum:
 --   select e.email, d.token is not null as punya_perangkat, d.updated_at
 --   from employees e

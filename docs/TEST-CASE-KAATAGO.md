@@ -1,4 +1,4 @@
-# MerchantPOS — Test Case
+# Merchant-POS — Test Case
 
 **Versi Aplikasi:** 2.12.0 (build 118)
 **Versi Dokumen:** 1.8
@@ -58,7 +58,7 @@ Kolom **P** adalah prioritas:
 18. Super Admin
 19. Pembaruan Aplikasi
 19b. Langganan & Tagihan Resto
-19c. Finance MerchantPOS (Super Admin)
+19c. Finance Merchant-POS (Super Admin)
 19d. Voucher Pelanggan
 19e. Analisa Pasar
 19f. Nomor Pesanan Harian
@@ -191,7 +191,7 @@ tidak pernah dilatih memakainya.
 | TC-KS-10 | P2 | Buka Riwayat Kasir → pilih transaksi lama → cetak ulang | Struk lama tampil apa adanya, termasuk diskon yang berlaku saat itu | F-KS-06, F-DS-08 |
 | TC-KS-11 | P1 | Riwayat Kasir hari ini | Dikelompokkan per hari; rincian per metode bayar berjumlah sama dengan totalnya | F-KS-07, A-03 |
 | TC-KS-12 | P1 | Bayar QRIS di kasir, periksa nominal di layar QR | Nominalnya **sudah termasuk** service dan PPN, dan sudah dikurangi diskon | F-KS-09, F-KS-11 |
-| TC-KS-13 | P2 | Ketuk **Cetak QR untuk Customer** | QR berbingkai MerchantPOS tercetak, bisa dipindai | F-KS-10 |
+| TC-KS-13 | P2 | Ketuk **Cetak QR untuk Customer** | QR berbingkai Merchant-POS tercetak, bisa dipindai | F-KS-10 |
 | TC-KS-14 | P1 | Isi keranjang → tandai salah satu menu habis dari perangkat lain → terima pembayaran | Ditolak sebelum uang diterima | F-KS-12 |
 | TC-KS-15 | P2 | Saldo & Pengeluaran → buka salah satu baris | Rincian jurnal GL di baliknya terbuka, isinya sama dengan yang dilihat Finance | F-KS-13 |
 | TC-KS-16 | P2 | Buka Diskon dari hub Kasir → Ubah Diskon | Daftar menu termuat; **tidak** tertulis "Belum ada produk di resto ini" | F-DS-01 |
@@ -497,7 +497,7 @@ dibaca. Tiap kasus di bawah menguji satu perbedaan yang halus.
 | TC-SA-12 | P1 | Periksa tagihan lama resto terhapus | Masih ada dan bisa ditelusuri | F-SA-11 |
 | TC-SA-13 | P2 | Nyalakan saklar **Tampilkan yang dihapus** | Resto terhapus muncul, hanya dengan tombol Kembalikan | F-SA-09 |
 | TC-SA-14 | P1 | Ketuk **Kembalikan** | Kembali ke daftar, tapi **belum aktif** — harus dinyalakan sendiri | F-SA-08 |
-| TC-SA-15 | P1 | Coba hapus penyewa platform (MerchantPOS) | Ditolak | TSD §7.4 |
+| TC-SA-15 | P1 | Coba hapus penyewa platform (Merchant-POS) | Ditolak | TSD §7.4 |
 | TC-SA-16 | P1 | Coba `set_resto_deleted` sebagai Owner resto | Ditolak — hanya Super Admin | F-SA-07 |
 | TC-SA-17 | P2 | Periksa baris resto terhapus di database | `deleted_by` dan `deleted_at` terisi | F-SA-12 |
 
@@ -545,7 +545,7 @@ sudah membayar berhenti berjualan.
 | TC-BL-14c | P1 | Transfer **tepat** sesuai nominal ke VA itu | Tagihan lunas sendiri dalam hitungan detik; kunci terbuka tanpa mengirim bukti | F-BL-22 |
 | TC-BL-14d | P1 | Transfer **kurang** dari nominal | Tidak melunasi; tagihan tetap terbuka | F-BL-20 |
 | TC-BL-14e | P2 | Ketuk **Ganti Bank** → pilih BNI | Nomor VA baru untuk bank itu | F-BL-19 |
-| TC-BL-14f | P1 | Periksa rekening tujuan dana VA di Dashboard Xendit | Masuk ke akun **MerchantPOS**, bukan sub-akun resto | F-BL-11, TSD §7.3 |
+| TC-BL-14f | P1 | Periksa rekening tujuan dana VA di Dashboard Xendit | Masuk ke akun **Merchant-POS**, bukan sub-akun resto | F-BL-11, TSD §7.3 |
 | TC-BL-14g | P1 | Kirim callback palsu ke `xendit-billing-webhook` tanpa token | Ditolak 401; tagihan tidak berubah | TSD §7.3 |
 | TC-BL-14h | P2 | Xendit mengirim callback yang sama dua kali | Tagihan tetap lunas sekali; catatan pelunasnya tidak berubah | TSD §7.3 |
 | TC-BL-14i | P2 | Unggah bukti transfer manual lewat jalur cadangan | Status jadi **Menunggu Verifikasi**; aplikasi **terbuka lagi** | F-BL-24, F-BL-12 |
@@ -594,13 +594,13 @@ sudah membayar berhenti berjualan.
 7. Transfer tepat sesuai nominal ke nomor VA itu
 8. Tanpa menyentuh aplikasi lagi → status jadi **Lunas** sendiri
 9. Buka aplikasi → **tidak lagi terkunci**, pita hilang
-10. Periksa Dashboard Xendit → dana masuk ke akun MerchantPOS, bukan sub-akun resto
+10. Periksa Dashboard Xendit → dana masuk ke akun Merchant-POS, bukan sub-akun resto
 
 **Rujukan:** F-BL-07 … F-BL-18, TSD §7.3
 
 ---
 
-## 19c. Finance MerchantPOS (Super Admin)
+## 19c. Finance Merchant-POS (Super Admin)
 
 | ID | P | Skenario | Hasil yang diharapkan | Rujukan |
 |---|---|---|---|---|
@@ -611,17 +611,17 @@ sudah membayar berhenti berjualan.
 | TC-PF-05 | P2 | Buat diskon rupiah lebih besar daripada harga langganan | Potongannya berhenti di harga; tagihan tidak pernah negatif | F-PF-03 |
 | TC-PF-06 | P2 | Nonaktifkan diskon, terbitkan tagihan berikutnya | Tidak memotong; diskonnya tetap ada di daftar | F-PF-04 |
 | TC-PF-07 | P1 | Hapus diskon setelah tagihan terbit | Tagihan yang sudah terbit tetap menyebut potongannya | F-PF-05 |
-| TC-PF-08 | P1 | Bayar tagihan berdiskon → buka Jurnal GL MerchantPOS | Dua baris: pendapatan **kredit**, diskon **debit** | F-PF-06, F-PF-07 |
+| TC-PF-08 | P1 | Bayar tagihan berdiskon → buka Jurnal GL Merchant-POS | Dua baris: pendapatan **kredit**, diskon **debit** | F-PF-06, F-PF-07 |
 | TC-PF-09 | P1 | Tagihan ditolak lalu diterima lagi | Jurnalnya tetap satu set — pendapatan tidak tercatat dua kali | F-PF-07 |
 | TC-PF-10 | P1 | Buka Jurnal GL resto yang membayar | **Tidak** ada baris pendapatan langganan di sana | F-PF-07 |
-| TC-PF-11 | P2 | Buka Mapping GL Account MerchantPOS | Bagan akun 11xxxxx lengkap, berbeda dari 19xxxxx milik resto | F-PF-08 |
-| TC-PF-12 | P2 | Catat pengeluaran dan top up petty cash MerchantPOS | Bekerja sama seperti di resto | F-PF-09 |
-| TC-PF-13 | P1 | Telusuri menu Finance MerchantPOS | **Tidak ada** Setor Saldo Cash | F-PF-10 |
+| TC-PF-11 | P2 | Buka Mapping GL Account Merchant-POS | Bagan akun 11xxxxx lengkap, berbeda dari 19xxxxx milik resto | F-PF-08 |
+| TC-PF-12 | P2 | Catat pengeluaran dan top up petty cash Merchant-POS | Bekerja sama seperti di resto | F-PF-09 |
+| TC-PF-13 | P1 | Telusuri menu Finance Merchant-POS | **Tidak ada** Setor Saldo Cash | F-PF-10 |
 | TC-PF-14 | P1 | Buka Jurnal GL Semua Resto | Jurnal seluruh resto tampil, bisa disaring per resto | F-PF-11 |
 | TC-PF-15 | P1 | Cari cara mengubah baris di Jurnal GL Semua Resto | Tidak ada satu pun — hanya bisa dilihat | F-PF-12 |
 | TC-PF-16 | P1 | Coba `UPDATE gl_journal_entries` sebagai Super Admin lewat API | Ditolak | F-PF-12, TSD §7.4 |
-| TC-PF-17 | P1 | Buka Pilih Resto sebagai pelanggan | **MerchantPOS tidak muncul** di daftar mana pun | TSD §7.4 |
-| TC-PF-18 | P1 | Buka List Resto dan Billing Resto sebagai Super Admin | MerchantPOS tidak muncul sebagai resto yang bisa ditagih | TSD §7.4 |
+| TC-PF-17 | P1 | Buka Pilih Resto sebagai pelanggan | **Merchant-POS tidak muncul** di daftar mana pun | TSD §7.4 |
+| TC-PF-18 | P1 | Buka List Resto dan Billing Resto sebagai Super Admin | Merchant-POS tidak muncul sebagai resto yang bisa ditagih | TSD §7.4 |
 | TC-PF-19 | P2 | Buka Diskon Langganan sebagai Owner resto | Hanya diskon yang mengenai restonya yang terbaca | F-PF-03 |
 | TC-PF-20 | P1 | Bandingkan total debit/kredit Jurnal Semua Resto dengan Jurnal GL resto itu (saring ke resto yang sama) | **Angkanya sama persis** | F-PF-14 |
 | TC-PF-21 | P1 | Batalkan sebuah pengeluaran, lihat kedua layar jurnal | Total tidak naik; keterangan "N pembatalan tidak dihitung" muncul | F-PF-14 |
@@ -632,16 +632,16 @@ sudah membayar berhenti berjualan.
 | TC-PF-26 | P2 | Buka daftar saringan | Resto yang belum punya jurnal ditandai "Belum ada jurnal" | F-PF-17 |
 | TC-PF-27 | P2 | Perhatikan pengelompokan | Per tanggal, bisa dilipat; tanggal terbaru terbuka, sisanya tertutup | F-PF-18 |
 | TC-PF-28 | P1 | Buka Mapping GL Account resto mana pun | **GL Diskon** punya bagiannya dan nomornya sudah terisi | F-PF-19, F-DS-09 |
-| TC-PF-29 | P2 | Buka Mapping GL Account MerchantPOS | Ada bagian **GL Langganan**; penghitung akun tidak pernah menyisakan yang mustahil terisi | F-PF-19 |
+| TC-PF-29 | P2 | Buka Mapping GL Account Merchant-POS | Ada bagian **GL Langganan**; penghitung akun tidak pernah menyisakan yang mustahil terisi | F-PF-19 |
 | TC-PF-30 | P1 | Pesan menu berpromo, bayar, buka Jurnal GL | Baris GL Diskon menyebut **nama promonya** | F-PF-20, F-DS-13 |
 | TC-PF-31 | P1 | Buka Jurnal GL Semua Resto sesudah ada tagihan langganan lunas | Baris pendapatan langganan **tidak muncul** di sana | F-PF-21 |
-| TC-PF-32 | P1 | Buka daftar saringan resto | **MerchantPOS tidak ada** di daftarnya | F-PF-21 |
-| TC-PF-33 | P1 | Buka Jurnal GL MerchantPOS | Pendapatan langganan ada di sana, dan **Saldo Total tidak nol** | F-PF-07 |
-| TC-PF-34 | P2 | Periksa nomor akun di Jurnal GL MerchantPOS | Golongan **11xxxxx**, berbeda dari 19xxxxx milik resto | F-PF-08 |
-| TC-PF-35 | P1 | Bandingkan Saldo Total di Saldo & Pengeluaran dengan Jurnal GL MerchantPOS | Angkanya sama persis | F-PF-09 |
+| TC-PF-32 | P1 | Buka daftar saringan resto | **Merchant-POS tidak ada** di daftarnya | F-PF-21 |
+| TC-PF-33 | P1 | Buka Jurnal GL Merchant-POS | Pendapatan langganan ada di sana, dan **Saldo Total tidak nol** | F-PF-07 |
+| TC-PF-34 | P2 | Periksa nomor akun di Jurnal GL Merchant-POS | Golongan **11xxxxx**, berbeda dari 19xxxxx milik resto | F-PF-08 |
+| TC-PF-35 | P1 | Bandingkan Saldo Total di Saldo & Pengeluaran dengan Jurnal GL Merchant-POS | Angkanya sama persis | F-PF-09 |
 | TC-PF-36 | P1 | Terbitkan voucher, muat ulang kedua layar | Saldo Total **tidak** berubah — uangnya pindah kantong, bukan hilang | F-PF-09 |
-| TC-PF-36b | P1 | Voucher dipakai pelanggan di resto | Saldo MerchantPOS berkurang sebesar nilai vouchernya | F-PF-09 |
-| TC-PF-37 | P2 | Buka Saldo & Pengeluaran untuk MerchantPOS | Tidak ada kartu Saldo Cash / Non Cash | F-PF-10 |
+| TC-PF-36b | P1 | Voucher dipakai pelanggan di resto | Saldo Merchant-POS berkurang sebesar nilai vouchernya | F-PF-09 |
+| TC-PF-37 | P2 | Buka Saldo & Pengeluaran untuk Merchant-POS | Tidak ada kartu Saldo Cash / Non Cash | F-PF-10 |
 | TC-PF-38 | P2 | Buka layar yang sama untuk resto biasa | Kartu Cash/Non Cash tetap ada | F-PF-10 |
 | TC-CB-01 | P1 | Izinkan lokasi, lihat daftar Terdekat | Hanya resto ≤ 5 km yang muncul | F-CB-01 |
 | TC-CB-02 | P1 | Resto berjarak 7 km | Tidak di Terdekat, tapi ada di Semua Resto | F-CB-01, F-CB-02 |
@@ -666,20 +666,20 @@ sudah membayar berhenti berjualan.
 | TC-TB-17 | P2 | Pasang banner potret ekstrem | Dijepit — tidak mengambil alih halaman menu | F-TB-07 |
 | TC-TB-18 | P1 | Buka Info Resto lalu gulir | "Nama Resto" tidak terpotong di tepi atas | F-TB-08 |
 | TC-TB-19 | P1 | Simpan Info Resto | Nama restonya tidak berubah dan tidak kosong | F-TB-08 |
-| TC-TB-20 | P2 | Baca keterangan di bawah nama resto | Menyebut MerchantPOS Admin dan cara menghubunginya | F-TB-08 |
+| TC-TB-20 | P2 | Baca keterangan di bawah nama resto | Menyebut Merchant-POS Admin dan cara menghubunginya | F-TB-08 |
 | TC-TU-01 | P1 | Owner → Saldo & Pengeluaran → Top Up Saldo | Tersimpan; Saldo Total naik sebesar nominalnya | F-TU-01, F-TU-02 |
-| TC-TU-01b | P1 | Super Admin top up, periksa Saldo Total MerchantPOS | Naik sebesar nominalnya — bukan tetap | F-TU-02, F-TU-05 |
+| TC-TU-01b | P1 | Super Admin top up, periksa Saldo Total Merchant-POS | Naik sebesar nominalnya — bukan tetap | F-TU-02, F-TU-05 |
 | TC-TU-02 | P1 | Periksa Jurnal GL sesudahnya | Satu baris kredit ke GL Setoran Modal | F-TU-05 |
 | TC-TU-03 | P1 | Periksa Laporan Transaksi / Pemasukan | Setoran **tidak** muncul sebagai penjualan | F-TU-02 |
 | TC-TU-04 | P1 | Simpan tanpa mengisi Dari | Ditolak — "Sebutkan penyetornya" | F-TU-03 |
 | TC-TU-05 | P2 | Simpan tanpa bukti | Tetap tersimpan — buktinya opsional | F-TU-03 |
 | TC-TU-06 | P1 | Masuk sebagai Kasir, buka layar yang sama | Riwayat terlihat, tombol Top Up Saldo tidak ada | F-TU-04 |
 | TC-TU-07 | P1 | Kasir memanggil insert `balance_topups` lewat API | Ditolak RLS | F-TU-04 |
-| TC-TU-08 | P1 | Super Admin → Finance → Saldo & Pengeluaran → Top Up | Saldo MerchantPOS naik; Jurnal GL MerchantPOS mencatatnya | F-TU-01, F-TU-05 |
+| TC-TU-08 | P1 | Super Admin → Finance → Saldo & Pengeluaran → Top Up | Saldo Merchant-POS naik; Jurnal GL Merchant-POS mencatatnya | F-TU-01, F-TU-05 |
 | TC-TU-09 | P1 | Coba ubah atau hapus baris `balance_topups` | Ditolak — tidak ada kebijakannya | F-TU-06 |
 | TC-TU-10 | P2 | Periksa kartu Cash / Non Cash sesudah top up | Non Cash naik; keduanya tetap berjumlah sama dengan Penghasilan | F-TU-02 |
 | TC-TU-11 | P2 | Buka Pemetaan GL sebagai Finance resto | Ada bagian **GL Modal** | F-TU-02 |
-| TC-TU-12 | P2 | Buka halaman awal aplikasi | Tombolnya bertuliskan **MerchantPOS Merchant** | — |
+| TC-TU-12 | P2 | Buka halaman awal aplikasi | Tombolnya bertuliskan **Merchant-POS Merchant** | — |
 
 ---
 
@@ -690,11 +690,11 @@ sudah membayar berhenti berjualan.
 | TC-VC-01 | P1 | Super Admin → Voucher → terbitkan Rp 1.000.000 jadi 10 | 10 voucher @Rp 100.000; nominalnya tampil hidup di formulir | F-VC-01, F-VC-02 |
 | TC-VC-02 | P1 | Terbitkan Rp 1.000.000 jadi 3 | @Rp 333.333, sisa Rp 1 disebutkan dan **tidak** ikut dijurnal | F-VC-02 |
 | TC-VC-03 | P2 | Terbitkan dengan kode yang sudah dipakai | Ditolak — kodenya sudah ada | F-VC-01 |
-| TC-VC-04 | P1 | Periksa Jurnal GL MerchantPOS sesudah terbit | Debit **Total Saldo 1100040**, kredit **Voucher 1100073** | F-VC-13 |
+| TC-VC-04 | P1 | Periksa Jurnal GL Merchant-POS sesudah terbit | Debit **Total Saldo 1100040**, kredit **Voucher 1100073** | F-VC-13 |
 | TC-VC-05 | P1 | Pelanggan menebus kode di **Voucher Saya** | Berhasil; voucher masuk daftar "Siap Dipakai" | F-VC-07 |
 | TC-VC-06 | P2 | Ketik kodenya dengan huruf kecil | Tetap diterima | F-VC-07 |
 | TC-VC-07 | P2 | Ketik kode yang tidak ada | "Kode voucher tidak ditemukan" | F-VC-10 |
-| TC-VC-08 | P1 | Periksa Jurnal GL MerchantPOS sesudah ditebus | Debit **Voucher**, kredit **Voucher Redeem 1100074** | F-VC-13 |
+| TC-VC-08 | P1 | Periksa Jurnal GL Merchant-POS sesudah ditebus | Debit **Voucher**, kredit **Voucher Redeem 1100074** | F-VC-13 |
 | TC-VC-09 | P1 | Orang yang sama menebus kode itu lagi | Ditolak — "Voucher ini sudah kamu tebus" | F-VC-08, F-VC-10 |
 | TC-VC-10 | P1 | Batch berisi 10, orang ke-11 menebus | Ditolak — "Voucher ini sudah habis" | F-VC-09, F-VC-10 |
 | TC-VC-11 | P1 | Dua orang menebus voucher terakhir bersamaan | Hanya satu lolos; yang lain ditolak kuota habis | F-VC-09 |
@@ -706,7 +706,7 @@ sudah membayar berhenti berjualan.
 | TC-VC-17 | P1 | Voucher Rp 100.000 pada tagihan Rp 60.000 | Yang dibayar Rp 0; sisa Rp 40.000 **tidak** dikembalikan | F-VC-12 |
 | TC-VC-18 | P1 | Pasang voucher lalu selesaikan pesanan | Yang dibayar sudah dipotong; nominal QRIS-nya juga | F-VC-11 |
 | TC-VC-19 | P1 | Ketuk **Lepas** setelah voucher terpasang | Tagihan kembali ke nominal semula | F-VC-11 |
-| TC-VC-20 | P1 | Periksa Jurnal GL MerchantPOS sesudah dipakai | Debit **Voucher Redeem**, kredit GL **Transfer** restonya | F-VC-13 |
+| TC-VC-20 | P1 | Periksa Jurnal GL Merchant-POS sesudah dipakai | Debit **Voucher Redeem**, kredit GL **Transfer** restonya | F-VC-13 |
 | TC-VC-21 | P1 | Periksa Jurnal GL restonya | Ada baris masuk sebesar nilai vouchernya | F-VC-13 |
 | TC-VC-22 | P2 | Voucher yang sudah dipakai dibuka lagi di keranjang | Tidak muncul di daftar pilihan | F-VC-11 |
 | TC-VC-23 | P1 | Jalankan `expire_vouchers()` — ada klaim tak terpakai | Debit **Voucher Redeem**, kredit **Total Saldo** | F-VC-14 |
@@ -757,9 +757,9 @@ sudah membayar berhenti berjualan.
 | TC-VC-68 | P1 | Lewati tanggal kedaluwarsa sebelum penjadwal berjalan | Statusnya sudah **Hangus**, bukan Belum Dipakai | F-VC-25 |
 | TC-VC-69 | P1 | Terbitkan batch dengan ceklis **Khusus pengguna baru** | Tersimpan; kartunya menyebut "khusus pengguna baru" | F-VC-26 |
 | TC-VC-70 | P1 | Akun yang belum pernah memesan menebusnya | Berhasil | F-VC-26 |
-| TC-VC-71 | P1 | Akun yang pernah punya pesanan terbayar menebusnya | Ditolak — "hanya untuk pengguna baru MerchantPOS" | F-VC-26, F-VC-27 |
+| TC-VC-71 | P1 | Akun yang pernah punya pesanan terbayar menebusnya | Ditolak — "hanya untuk pengguna baru Merchant-POS" | F-VC-26, F-VC-27 |
 | TC-VC-72 | P1 | Akun yang pesanannya semua **batal** menebusnya | Berhasil — batal tidak menghilangkan status pengguna baru | F-VC-26 |
-| TC-VC-73 | P1 | Akun yang pernah memesan di resto lain saja | Ditolak — batasnya seluruh MerchantPOS | F-VC-26 |
+| TC-VC-73 | P1 | Akun yang pernah memesan di resto lain saja | Ditolak — batasnya seluruh Merchant-POS | F-VC-26 |
 | TC-VC-74 | P1 | Batch khusus pengguna baru berkuota 1, ditebus akun lama lalu akun baru | Akun lama ditolak dengan sebab yang benar; kuotanya tidak berkurang | F-VC-26, F-VC-27 |
 | TC-VC-75 | P2 | Periksa pengumuman kotak masuknya | Menyebut "Khusus pengguna baru" | F-VC-28 |
 | TC-VC-76 | P2 | Terbitkan batch tanpa ceklis itu | Siapa pun bisa menebus; kalimat syaratnya tidak muncul | F-VC-26, F-VC-28 |
@@ -783,7 +783,7 @@ sudah membayar berhenti berjualan.
 | TC-MR-06 | P1 | Bandingkan Top 5 Resto dengan Jurnal GL resto bersangkutan | Nominalnya sejalan | F-MR-03 |
 | TC-MR-07 | P1 | Resto yang seluruh pesanannya batal | Muncul di Belum Ada Penghasilan, jumlah pesanan **0** | F-MR-04 |
 | TC-MR-08 | P2 | Resto baru tanpa pesanan sama sekali | Muncul dengan "Belum ada pesanan" | F-MR-04 |
-| TC-MR-09 | P1 | Periksa apakah resto MerchantPOS ikut terhitung | Tidak — resto platform dikecualikan | F-MR-06 |
+| TC-MR-09 | P1 | Periksa apakah resto Merchant-POS ikut terhitung | Tidak — resto platform dikecualikan | F-MR-06 |
 | TC-MR-10 | P1 | Hapus lunak sebuah resto, muat ulang | Hilang dari keempat daftar | F-MR-06 |
 | TC-MR-11 | P1 | Panggil `report_top_customers` sebagai Owner resto | Daftar kosong, bukan pesan galat | F-MR-07 |
 | TC-MR-12 | P2 | Panggil salah satu RPC dengan `p_limit` 99999 | Dijepit ke batas atasnya | F-MR-07 |
@@ -814,8 +814,8 @@ sudah membayar berhenti berjualan.
 | TC-LP-01 | P2 | Buka Layar Pelanggan di perangkat kedua | Nama merchant, logonya, dan keadaan menunggu | F-LP-01, F-LP-05 |
 | TC-LP-02 | P1 | Kasir menekan Bayar QRIS | QR dan nominalnya muncul di perangkat kedua tanpa disegarkan | F-LP-02 |
 | TC-LP-03 | P1 | Bandingkan nominal di kedua layar | Sama persis | F-LP-01 |
-| TC-LP-04 | P2 | Merchant tanpa logo | Memakai logo MerchantPOS, bukan kotak kosong | F-LP-03 |
-| TC-LP-05 | P3 | Periksa bagian bawah layar | Ada tulisan powered by MerchantPOS | F-LP-04 |
+| TC-LP-04 | P2 | Merchant tanpa logo | Memakai logo Merchant-POS, bukan kotak kosong | F-LP-03 |
+| TC-LP-05 | P3 | Periksa bagian bawah layar | Ada tulisan powered by Merchant-POS | F-LP-04 |
 | TC-LP-06 | P2 | Pembayaran selesai | Kembali ke keadaan menunggu | F-LP-05 |
 | TC-LP-07 | P2 | Tutup lalu buka lagi Layar Pelanggan saat transaksi berjalan | Keadaannya termuat, bukan layar kosong | F-LP-02 |
 
@@ -846,7 +846,7 @@ sudah membayar berhenti berjualan.
 | TC-PM-04 | P2 | Buka daftar pilih merchant | Rata-rata bintang dan jumlah penilainya tampil | F-PM-04 |
 | TC-PM-05 | P2 | Ketuk foto di ulasan | Terbuka selayar penuh | F-PM-05 |
 | TC-PM-06 | P2 | Masuk sebagai Kasir → Penilaian Pelanggan | Ulasannya terbaca | F-PM-06 |
-| TC-PM-07 | P2 | Masuk sebagai MerchantPOS Admin | Menu Penilaian Pelanggan tidak ada | F-PM-06 |
+| TC-PM-07 | P2 | Masuk sebagai Merchant-POS Admin | Menu Penilaian Pelanggan tidak ada | F-PM-06 |
 | TC-PM-08 | P2 | Pegawai membuka Info Merchant tempatnya sendiri | Tombol Beri Penilaian tidak muncul | F-PM-07 |
 | TC-PM-09 | P2 | Tunggu 1–3 jam setelah membayar | Notifikasi ajakan menilai masuk | F-PM-08 |
 | TC-PM-10 | P2 | Ketuk notifikasi itu | Langsung membuka formulir merchant tersebut | F-PM-09 |
@@ -1097,7 +1097,7 @@ lima kelompok hilang sama sekali dari daftar.
 | Super Admin (SA) | 17 | TC-SA-01…17 |
 | Pembaruan (UP) | 9 | TC-UP-01…09 |
 | Langganan (BL) | 55 | TC-BL-01…47 (+8 sisipan) |
-| Finance MerchantPOS (PF) | 39 | TC-PF-01…38 (+1 sisipan) |
+| Finance Merchant-POS (PF) | 39 | TC-PF-01…38 (+1 sisipan) |
 | Pilih Resto (CB) | 4 | TC-CB-01…04 |
 | Tata Letak Tablet (TB) | 20 | TC-TB-01…20 |
 | Setoran Modal (TU) | 13 | TC-TU-01…12 (+1 sisipan) |

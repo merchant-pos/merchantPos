@@ -19,7 +19,7 @@ extension AnnouncementCategoryDb on AnnouncementCategory {
       value == 'general' ? AnnouncementCategory.general : AnnouncementCategory.update;
 }
 
-/// Pengumuman dari MerchantPOS — pemberitahuan versi baru, atau kabar umum
+/// Pengumuman dari Merchant-POS — pemberitahuan versi baru, atau kabar umum
 /// dari resto sendiri.
 ///
 /// Disimpan sekali, bukan disalin ke tiap penerima. Menyalin berarti

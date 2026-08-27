@@ -1,4 +1,4 @@
--- MerchantPOS — banner promo punya masa berlaku.
+-- Merchant-POS — banner promo punya masa berlaku.
 --
 -- Aman dijalankan berulang kali.
 --

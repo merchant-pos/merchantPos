@@ -4,7 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../theme.dart';
 import '../widgets/app_toast.dart';
 
-/// Nomor WhatsApp MerchantPOS Admin.
+/// Nomor WhatsApp Merchant-POS Admin.
 ///
 /// Sama dengan yang tertulis di landing page. Ditulis sekali di sini
 /// dan dipakai bersama — dua nomor terpisah akan berpisah suatu saat,
@@ -12,7 +12,7 @@ import '../widgets/app_toast.dart';
 /// sudah tidak dipakai.
 const kWhatsAppMerchantPOS = '6281316090867';
 
-/// Alamat surel MerchantPOS.
+/// Alamat surel Merchant-POS.
 ///
 /// Ditulis sekali di sini karena alasan yang sama dengan nomor WhatsApp
 /// di atas — dan karena sebagian orang memang lebih memilih menulis
@@ -20,12 +20,12 @@ const kWhatsAppMerchantPOS = '6281316090867';
 /// jejak yang bisa dibuka lagi bulan depan, bukan gulungan obrolan.
 const kEmailMerchantPOS = 'merchantpos.app@gmail.com';
 
-/// Membuka aplikasi surel dengan alamat MerchantPOS terisi.
+/// Membuka aplikasi surel dengan alamat Merchant-POS terisi.
 Future<void> bukaEmailMerchantPOS(BuildContext context, {String? subjek}) async {
   final url = Uri(
     scheme: 'mailto',
     path: kEmailMerchantPOS,
-    query: 'subject=${Uri.encodeComponent(subjek ?? 'Pertanyaan soal MerchantPOS')}',
+    query: 'subject=${Uri.encodeComponent(subjek ?? 'Pertanyaan soal Merchant-POS')}',
   );
   final ok = await launchUrl(url, mode: LaunchMode.externalApplication);
   if (!ok && context.mounted) {
@@ -34,10 +34,10 @@ Future<void> bukaEmailMerchantPOS(BuildContext context, {String? subjek}) async 
   }
 }
 
-/// Membuka percakapan WhatsApp dengan MerchantPOS Admin.
+/// Membuka percakapan WhatsApp dengan Merchant-POS Admin.
 Future<void> bukaWhatsAppMerchantPOS(BuildContext context, {String? pesan}) async {
   final teks = Uri.encodeComponent(
-    pesan ?? 'Halo MerchantPOS, saya mau bertanya soal aplikasinya.',
+    pesan ?? 'Halo Merchant-POS, saya mau bertanya soal aplikasinya.',
   );
   final url = Uri.parse('https://wa.me/$kWhatsAppMerchantPOS?text=$teks');
   final ok = await launchUrl(url, mode: LaunchMode.externalApplication);
@@ -55,14 +55,14 @@ const _faq = <(String, String)>[
   (
     'Apakah customer perlu install aplikasi juga?',
     'Tidak wajib. Customer bisa langsung memesan ke kasir yang sudah '
-        'menggunakan MerchantPOS.',
+        'menggunakan Merchant-POS.',
   ),
   (
-    'Kenapa customer perlu install MerchantPOS?',
+    'Kenapa customer perlu install Merchant-POS?',
     'Karena bisa dapat info promo menarik dari merchant yang sudah '
-        'bekerja sama dengan MerchantPOS — langsung masuk ke kotak masuk di '
+        'bekerja sama dengan Merchant-POS — langsung masuk ke kotak masuk di '
         'HP-nya, lengkap dengan nama merchantnya — dan bahkan bisa dapat '
-        'voucher menarik juga dari MerchantPOS. Riwayat pesanannya juga '
+        'voucher menarik juga dari Merchant-POS. Riwayat pesanannya juga '
         'tersimpan dan ikut terbawa saat ganti HP.',
   ),
   (
@@ -71,11 +71,11 @@ const _faq = <(String, String)>[
         'bisa jalan. Begitu koneksi kembali, datanya menyusul ke server.',
   ),
   (
-    'Apakah pembayaran QRIS diproses oleh MerchantPOS?',
+    'Apakah pembayaran QRIS diproses oleh Merchant-POS?',
     'Tidak. QRIS-nya diproses Xendit, penyedia pembayaran berizin Bank '
         'Indonesia. Tiap merchant punya sub-akun sendiri di sana, jadi '
         'dananya cair langsung ke rekening merchant masing-masing — tidak '
-        'pernah lewat rekening MerchantPOS. Yang MerchantPOS lakukan cuma '
+        'pernah lewat rekening Merchant-POS. Yang Merchant-POS lakukan cuma '
         'menerbitkan QR-nya dan menandai pesanan lunas begitu Xendit '
         'mengabarkan pembayarannya masuk.',
   ),
@@ -150,7 +150,7 @@ class FaqScreen extends StatelessWidget {
             ),
           const SizedBox(height: 8),
           Text(
-            'Masih ada yang belum terjawab? Tanya langsung ke MerchantPOS Admin.',
+            'Masih ada yang belum terjawab? Tanya langsung ke Merchant-POS Admin.',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 12.5, color: MerchantPosTheme.mutedOf(context)),
           ),
@@ -161,7 +161,7 @@ class FaqScreen extends StatelessWidget {
         foregroundColor: Colors.white,
         onPressed: () => bukaWhatsAppMerchantPOS(context),
         icon: const Icon(Icons.chat),
-        label: const Text('Chat MerchantPOS Admin'),
+        label: const Text('Chat Merchant-POS Admin'),
       ),
     );
   }

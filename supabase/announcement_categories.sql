@@ -1,4 +1,4 @@
--- MerchantPOS — pengumuman dibagi dua jenis, dan admin resto boleh mengirim.
+-- Merchant-POS — pengumuman dibagi dua jenis, dan admin resto boleh mengirim.
 --
 -- Jalankan SETELAH rilis_setor_petty_inbox.sql. Aman dijalankan
 -- berulang kali.

@@ -1,4 +1,4 @@
--- MerchantPOS — ketersediaan produk ditandai, bukan dihitung.
+-- Merchant-POS — ketersediaan produk ditandai, bukan dihitung.
 --
 -- Aman dijalankan berulang kali.
 --

@@ -1,9 +1,9 @@
--- MerchantPOS — bagian 54 untuk 2.12.x.
+-- Merchant-POS — bagian 54 untuk 2.12.x.
 -- Jalankan SETELAH bagian 52 (product_badges_reviews).
 -- Aman diulang. Jalankan lagi kalau sudah pernah dijalankan sebelum
 -- 22 Agustus 2026 — indeks uniknya diperbaiki.
 
--- MerchantPOS — penilaian menu menempel pada pesanannya, bukan pada menunya.
+-- Merchant-POS — penilaian menu menempel pada pesanannya, bukan pada menunya.
 --
 -- Jalankan SETELAH product_badges_reviews.sql. Aman diulang.
 --

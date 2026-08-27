@@ -136,7 +136,7 @@ class CustomerOrder {
   final String? discountId;
   final String? discountName;
 
-  /// Voucher MerchantPOS yang dipakai. Potongannya ditanggung MerchantPOS, bukan
+  /// Voucher Merchant-POS yang dipakai. Potongannya ditanggung Merchant-POS, bukan
   /// restonya — karena itu disimpan terpisah dari discount_amount, yang
   /// milik promo resto sendiri. Menyatukan keduanya membuat "berapa yang
   /// kami tanggung bulan ini" tidak punya jawaban.

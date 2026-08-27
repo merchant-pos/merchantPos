@@ -1,4 +1,4 @@
--- MerchantPOS — Petty Cash ledger (run AFTER finance.sql).
+-- Merchant-POS — Petty Cash ledger (run AFTER finance.sql).
 --
 -- Splits the Finance "Saldo & Pengeluaran" screen's single balance into
 -- three named balances that sum to the total:

@@ -12,7 +12,7 @@ import 'hub_menu_tile.dart';
 /// lima tempat yang harus diingat berbarengan tiap kali cara membukanya
 /// berubah — dan yang kelima selalu ketinggalan.
 ///
-/// MerchantPOS Admin tidak memakainya: tempatnya bukan miliknya, dan daftar
+/// Merchant-POS Admin tidak memakainya: tempatnya bukan miliknya, dan daftar
 /// keluhan yang tidak bisa dia tindaklanjuti cuma menumpuk.
 /// Membuka layar penilaian untuk merchant tempat orang ini bekerja.
 ///

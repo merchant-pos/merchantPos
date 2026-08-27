@@ -15,7 +15,7 @@ import '../widgets/responsive.dart';
 import '../widgets/app_toast.dart';
 import '../widgets/count_badge.dart';
 
-/// Kotak masuk pengumuman MerchantPOS, untuk semua peran yang login.
+/// Kotak masuk pengumuman Merchant-POS, untuk semua peran yang login.
 ///
 /// Isinya sama untuk semua orang; yang per orang hanyalah sudah dibaca
 /// atau sudah dihapus. Menghapus di sini menyembunyikannya dari inbox

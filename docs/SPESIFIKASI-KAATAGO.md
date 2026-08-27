@@ -1,4 +1,4 @@
-# MerchantPOS — Specification Document (FSD + TSD)
+# Merchant-POS — Specification Document (FSD + TSD)
 
 **Versi aplikasi:** 1.34.0 (build 72)
 **Tanggal:** 14 Agustus 2026
@@ -32,7 +32,7 @@ dokumen ini dan aplikasi, itu temuan yang layak dilaporkan.
 
 ## 1. Ringkasan Sistem
 
-MerchantPOS adalah aplikasi kasir (POS) sekaligus self-order untuk rumah
+Merchant-POS adalah aplikasi kasir (POS) sekaligus self-order untuk rumah
 makan di Indonesia. Satu aplikasi dipakai dua kelompok orang yang sangat
 berbeda:
 
@@ -63,7 +63,7 @@ tanpa akun (tamu).
 
 | Peran | Nilai DB | Lingkup |
 |---|---|---|
-| Super Admin | `super_admin` | Seluruh resto di MerchantPOS |
+| Super Admin | `super_admin` | Seluruh resto di Merchant-POS |
 | Owner | `owner` | Semua resto miliknya |
 | Admin | `admin` | Satu resto (atau beberapa, bila didaftarkan) |
 | Kasir | `kasir` | Satu resto |
@@ -244,7 +244,7 @@ Notifikasi berbunyi di HP pelanggan saat masuk **Diproses** dan
 | F-QR-02 | Mode Banyak Meja | Awalan opsional + rentang dari–sampai; maksimal **100** sekali jalan |
 | F-QR-03 | Nol di depan | Rentang 8–12 menghasilkan `08`…`12`, mengikuti panjang nomor terbesar |
 | F-QR-04 | Pratinjau borongan | Hanya meja pertama digambar penuh; sisanya sebagai daftar nomor |
-| F-QR-05 | Simpan ke galeri | Masuk album **MerchantPOS**; label tombol "Simpan ke Galeri" (satu) / "Download Semua (N)" |
+| F-QR-05 | Simpan ke galeri | Masuk album **Merchant-POS**; label tombol "Simpan ke Galeri" (satu) / "Download Semua (N)" |
 | F-QR-06 | Penghitung proses | Tombol berubah jadi "Menyimpan 12/30…" selama proses borongan |
 | F-QR-07 | Bagikan & Cetak | Share sheet dan dialog cetak, satu meja satu halaman |
 | F-QR-08 | Isi payload | Tetap `RESTO:<restoId>|TABLE:<n>` — **tidak boleh berubah**, pemindai pelanggan bergantung padanya |
@@ -538,10 +538,10 @@ aman dijalankan berulang kali.
 
 | Berkas | Isi |
 |---|---|
-| `docs/gambar/logo-merchantpos.png` | Lambang MerchantPOS 1.34.0 — monogram K berpanah |
+| `docs/gambar/logo-merchantpos.png` | Lambang Merchant-POS 1.34.0 — monogram K berpanah |
 | `docs/gambar/qr-meja-kartu.png` | Kartu QR Meja hasil render sebenarnya (bukan mockup) |
 
-![Logo MerchantPOS](gambar/logo-merchantpos.png)
+![Logo Merchant-POS](gambar/logo-merchantpos.png)
 
 ![Kartu QR Meja](gambar/qr-meja-kartu.png)
 

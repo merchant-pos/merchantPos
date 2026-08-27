@@ -12,7 +12,7 @@ class SupportRepository {
   /// Urutannya menaik, seperti percakapan: pengaduan terbaru ada di
   /// bawah. Daftar milik sendiri isinya beberapa baris saja, dan yang
   /// membukanya biasanya mencari yang barusan dia kirim — bukan
-  /// menelusuri arsip. Daftar MerchantPOS Admin urutannya kebalikannya,
+  /// menelusuri arsip. Daftar Merchant-POS Admin urutannya kebalikannya,
   /// karena di sana yang dicari memang yang paling baru menuntut
   /// jawaban.
   Future<List<SupportTicket>> milikSaya() async {
@@ -42,7 +42,7 @@ class SupportRepository {
     return rows.isEmpty ? null : SupportTicket.fromMap(rows.first);
   }
 
-  /// Seluruh tiket — hanya terbaca MerchantPOS Admin, ditegakkan RLS.
+  /// Seluruh tiket — hanya terbaca Merchant-POS Admin, ditegakkan RLS.
   ///
   /// Yang terbuka lebih dulu, lalu yang pesannya paling baru. Daftar yang
   /// diurutkan waktu saja akan menenggelamkan tiket yang belum dijawab di
@@ -181,7 +181,7 @@ class SupportRepository {
     await _client.rpc('mark_support_read', params: {'p_id': id});
   }
 
-  /// Berapa tiket yang menunggu dibaca MerchantPOS Admin.
+  /// Berapa tiket yang menunggu dibaca Merchant-POS Admin.
   ///
   /// Sekali ambil, untuk penanda merah di beranda. Aliran realtime cuma
   /// untuk layar yang sedang dibuka — penanda di beranda tidak perlu

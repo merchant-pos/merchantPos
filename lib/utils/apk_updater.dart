@@ -81,7 +81,7 @@ class ApkUpdater {
       final status = await Permission.requestInstallPackages.request();
       if (!status.isGranted) {
         return 'Izin memasang aplikasi belum diberikan. Aktifkan di Setelan '
-            'HP → Aplikasi → MerchantPOS.';
+            'HP → Aplikasi → Merchant-POS.';
       }
     }
 
@@ -129,7 +129,7 @@ class ApkUpdater {
       // membingungkan orangnya berbulan-bulan kemudian, sementara yang
       // di sini ikut terhapus saat aplikasinya dicopot.
       final dir = await getApplicationSupportDirectory();
-      final file = File('${dir.path}/MerchantPOS-update.apk');
+      final file = File('${dir.path}/Merchant-POS-update.apk');
 
       // Berkas separuh dari jeda sebelumnya dilanjutkan, bukan diulang.
       //

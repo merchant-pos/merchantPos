@@ -69,7 +69,7 @@ class _InboxTileState extends State<InboxTile> {
           ? '$_unread pesan belum dibaca'
           : widget.forCustomer
               ? 'Promo merchant & info versi terbaru'
-              : 'Pengumuman & info versi terbaru MerchantPOS',
+              : 'Pengumuman & info versi terbaru Merchant-POS',
       color: const Color(0xFF0EA5E9),
       // Angkanya pindah dari judul ke penanda merah. Sebagai tulisan
       // "(3 baru)" ia terbaca sebagai bagian dari nama menunya dan ikut

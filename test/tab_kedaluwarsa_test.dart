@@ -15,7 +15,7 @@ void main() {
   final punyaku =
       File('lib/screens/my_vouchers_screen.dart').readAsStringSync();
 
-  group('voucher pelanggan (MerchantPOS Admin)', () {
+  group('voucher pelanggan (Merchant-POS Admin)', () {
     test('punya dua tab', () {
       expect(voucher, contains('TabController(length: 2'));
       expect(voucher, contains("Tab(text: 'Berjalan (\${_aktif.length})')"));

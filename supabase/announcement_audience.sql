@@ -1,4 +1,4 @@
--- MerchantPOS — pengumuman resto memilih sasarannya: karyawan, pelanggan,
+-- Merchant-POS — pengumuman resto memilih sasarannya: karyawan, pelanggan,
 -- atau keduanya.
 --
 -- Jalankan SETELAH announcement_categories.sql dan announcement_push.sql.

@@ -1,4 +1,4 @@
--- MerchantPOS — resto menentukan sendiri melayani Dine In, Take Away, atau
+-- Merchant-POS — resto menentukan sendiri melayani Dine In, Take Away, atau
 -- keduanya.
 --
 -- Aman dijalankan berulang kali.

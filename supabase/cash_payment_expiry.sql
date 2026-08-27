@@ -1,4 +1,4 @@
--- MerchantPOS — pesanan tunai yang tidak dilunasi di kasir hangus sendiri.
+-- Merchant-POS — pesanan tunai yang tidak dilunasi di kasir hangus sendiri.
 --
 -- Pelanggan yang memesan dari HP lalu memilih bayar tunai diarahkan ke
 -- meja kasir. Sebagian tidak pernah sampai ke sana: berubah pikiran,

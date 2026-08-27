@@ -1,4 +1,4 @@
-# MerchantPOS 1.31.0 — Owner & Multi-Resto
+# Merchant-POS 1.31.0 — Owner & Multi-Resto
 
 ## Yang harus kamu lakukan lebih dulu
 

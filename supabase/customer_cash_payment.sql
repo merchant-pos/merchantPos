@@ -1,4 +1,4 @@
--- MerchantPOS — pelanggan boleh memilih bayar tunai di kasir.
+-- Merchant-POS — pelanggan boleh memilih bayar tunai di kasir.
 --
 -- Jalankan SETELAH orders_gl_code.sql. Aman dijalankan berulang kali.
 --

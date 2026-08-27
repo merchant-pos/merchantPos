@@ -1,4 +1,4 @@
--- MerchantPOS — panggil Edge Function langsung dari database, tanpa webhook.
+-- Merchant-POS — panggil Edge Function langsung dari database, tanpa webhook.
 --
 -- Jalankan SETELAH fix_device_tokens_rls.sql. Aman dijalankan berulang
 -- kali.

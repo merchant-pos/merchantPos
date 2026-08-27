@@ -90,8 +90,8 @@ class PosApp extends StatelessWidget {
           // Recent Apps. Yang panjang cocok di tab — di sana ada ruang,
           // dan tab yang cuma bertulis nama tidak membedakan dirinya
           // dari puluhan tab lain. Di Recent Apps ruangnya sesempit
-          // ikonnya, dan sisanya dipotong jadi "MerchantPOS - Order Cep…".
-          title: kIsWeb ? 'MerchantPOS - Order Cepat, Merchant Hebat' : 'MerchantPOS',
+          // ikonnya, dan sisanya dipotong jadi "Merchant-POS - Order Cep…".
+          title: kIsWeb ? 'Merchant-POS - Order Cepat, Merchant Hebat' : 'Merchant-POS',
           debugShowCheckedModeBanner: false,
           theme: MerchantPosTheme.light(),
           darkTheme: MerchantPosTheme.dark(),

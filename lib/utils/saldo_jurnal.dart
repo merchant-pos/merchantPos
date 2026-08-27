@@ -21,7 +21,7 @@ List<GlJournalEntry> barisBerlaku(List<GlJournalEntry> semua) {
       .toList();
 }
 
-/// Saldo pembukuan MerchantPOS sendiri.
+/// Saldo pembukuan Merchant-POS sendiri.
 ///
 /// Total kredit dikurangi total debit atas **seluruh buku**, bukan atas
 /// satu akun tertentu.
@@ -33,7 +33,7 @@ List<GlJournalEntry> barisBerlaku(List<GlJournalEntry> semua) {
 /// uang — dan saat voucher terbit, jenisnya belum ada di sana.
 ///
 /// Yang kedua menjumlah pergerakan akun GL Total Saldo saja, dengan
-/// anggapan setiap uang bebas MerchantPOS lewat akun itu. Ternyata tidak:
+/// anggapan setiap uang bebas Merchant-POS lewat akun itu. Ternyata tidak:
 /// pendapatan langganan dikreditkan langsung ke GL Pendapatan
 /// Langganan, tidak pernah menyentuh GL Total Saldo. Yang lewat sana
 /// hanya voucher, jadi saldonya berbunyi minus sebesar voucher yang

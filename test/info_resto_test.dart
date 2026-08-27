@@ -31,14 +31,14 @@ void main() {
   });
 
   group('keterangannya', () {
-    test('menyebut MerchantPOS Admin dan cara menghubunginya', () {
+    test('menyebut Merchant-POS Admin dan cara menghubunginya', () {
       // Ditulis terpotong beberapa baris di sumbernya, jadi yang
       // diperiksa potongannya — digabung ulang tanpa jeda baris.
       final rapat = layar.replaceAll(RegExp(r"'\s*\n\s*'"), '');
       expect(
           rapat,
-          contains('Hanya MerchantPOS Admin yang bisa ubah nama merchant, '
-              'silahkan hubungi MerchantPOS Admin jika ada perubahan nama merchant'));
+          contains('Hanya Merchant-POS Admin yang bisa ubah nama merchant, '
+              'silahkan hubungi Merchant-POS Admin jika ada perubahan nama merchant'));
     });
 
     test('wording lamanya sudah tidak ada', () {

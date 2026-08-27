@@ -68,7 +68,7 @@ class MenuWeb {
   });
 }
 
-/// Percakapan yang menunggu jawaban MerchantPOS Admin.
+/// Percakapan yang menunggu jawaban Merchant-POS Admin.
 ///
 /// Dihitung dari aliran tiket yang sama dengan yang dipakai layar
 /// Customer Service — bukan permintaan terpisah. Dua sumber untuk satu
@@ -78,7 +78,7 @@ Stream<int> _supportBelumDibaca() => SupportRepository().semua().map(
       (tiket) => SupportRepository.belumDibaca(tiket, sebagaiAdmin: true),
     );
 
-/// Pembukuan MerchantPOS sendiri, bukan pembukuan merchant — ketiganya
+/// Pembukuan Merchant-POS sendiri, bukan pembukuan merchant — ketiganya
 /// selalu menunjuk resto semu 'merchantpos'.
 Widget _saldoMerchantPOS() => const FinanceBalanceScreen(restoId: kPlatformRestoId);
 Widget _mappingMerchantPOS() =>
@@ -166,7 +166,7 @@ const _superAdmin = <MenuWeb>[
     judul: 'Billing Merchant',
     layar: SuperAdminBillingScreen.new,
   ),
-  // Isi hub Finance MerchantPOS dibongkar ke sidebar.
+  // Isi hub Finance Merchant-POS dibongkar ke sidebar.
   //
   // Hub bertingkat masuk akal di ponsel: layarnya sempit, jadi tujuh
   // tujuan disembunyikan di balik satu kartu. Di sidebar yang memang
@@ -190,7 +190,7 @@ const _superAdmin = <MenuWeb>[
     layar: VoucherScreen.new,
   ),
   MenuWeb(
-    kelompok: 'Pembukuan MerchantPOS',
+    kelompok: 'Pembukuan Merchant-POS',
     ikon: Icons.account_balance_wallet_outlined,
     judul: 'Saldo & Pengeluaran',
     layar: _saldoMerchantPOS,
@@ -202,7 +202,7 @@ const _superAdmin = <MenuWeb>[
   ),
   MenuWeb(
     ikon: Icons.menu_book_outlined,
-    judul: 'Jurnal GL MerchantPOS',
+    judul: 'Jurnal GL Merchant-POS',
     layar: _jurnalMerchantPOS,
   ),
   MenuWeb(

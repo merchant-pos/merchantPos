@@ -40,7 +40,7 @@ extension EmployeeRoleDb on EmployeeRole {
 }
 
 const _roleDisplayLabels = {
-  EmployeeRole.superAdmin: 'MerchantPOS Admin',
+  EmployeeRole.superAdmin: 'Merchant-POS Admin',
   EmployeeRole.owner: 'Owner',
   EmployeeRole.admin: 'Admin',
   EmployeeRole.kasir: 'Kasir',
@@ -246,7 +246,7 @@ class AuthProvider extends ChangeNotifier {
   /// Alamat halaman ini, lengkap dengan jalurnya.
   ///
   /// Bukan `Uri.base.origin` saja. Di GitHub Pages aplikasinya tinggal
-  /// di `.../MerchantPOS/`, dan origin-nya saja menunjuk ke akar domain —
+  /// di `.../Merchant-POS/`, dan origin-nya saja menunjuk ke akar domain —
   /// tempat aplikasi ini tidak ada. Sesudah login orangnya akan mendarat
   /// di halaman 404 dengan sesinya menempel di alamat yang salah.
   ///
@@ -414,7 +414,7 @@ class AuthProvider extends ChangeNotifier {
       if (activeIds.isEmpty) {
         return const _EmployeeLookup(
           blockedReason: 'Merchant ini sedang dinonaktifkan sementara.\n'
-              'Silakan hubungi Call Center MerchantPOS untuk info lebih lanjut.',
+              'Silakan hubungi Call Center Merchant-POS untuk info lebih lanjut.',
         );
       }
 

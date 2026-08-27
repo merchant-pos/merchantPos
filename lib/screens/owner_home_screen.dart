@@ -87,7 +87,7 @@ class OwnerHomeScreen extends StatelessWidget {
             child: ResponsiveCenter(
               maxWidth: 900,
               child: ListView(
-                // Ruang di bawah untuk tombol mengambang MerchantPOS
+                // Ruang di bawah untuk tombol mengambang Merchant-POS
                 // Support — beranda ini memakai ListView polos, bukan
                 // HubMenuLayout yang sudah menyediakannya sendiri.
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, kFabSafeBottom),
@@ -273,7 +273,7 @@ class OwnerHomeScreen extends StatelessWidget {
                       color: const Color(0xFF8B5CF6),
                       onTap: () => _open(context, const PublishAnnouncementScreen()),
                     ),
-                      // Tagihan langganan MerchantPOS — bukan keuangan resto.
+                      // Tagihan langganan Merchant-POS — bukan keuangan resto.
                     // Ditaruh di kelompok pengelolaan, bukan di KEUANGAN,
                     // supaya tidak tertukar dengan pembukuan restonya
                     // sendiri: yang satu uang yang masuk ke resto, yang
@@ -281,7 +281,7 @@ class OwnerHomeScreen extends StatelessWidget {
                     HubMenuTile(
                       icon: Icons.receipt_long_outlined,
                       title: 'Tagihan Langganan',
-                      subtitle: 'Biaya bulanan MerchantPOS & bukti pembayaran',
+                      subtitle: 'Biaya bulanan Merchant-POS & bukti pembayaran',
                       color: const Color(0xFF6366F1),
                       onTap: () {
                         final restoId = context.read<AuthProvider>().restoId;

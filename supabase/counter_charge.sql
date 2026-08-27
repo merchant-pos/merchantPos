@@ -1,4 +1,4 @@
--- MerchantPOS — tagihan QRIS di meja kasir.
+-- Merchant-POS — tagihan QRIS di meja kasir.
 --
 -- Jalankan SETELAH payment_gateway.sql. Aman dijalankan berulang kali.
 --

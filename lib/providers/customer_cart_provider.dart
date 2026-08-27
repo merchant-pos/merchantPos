@@ -286,7 +286,7 @@ class CustomerCartProvider extends ChangeNotifier {
       // harga sebelum potongan berarti kasir menagih angka yang tidak
       // pernah dilihat pelanggannya.
       // Voucher ikut mengurangi yang dibayar. Potongannya ditanggung
-      // MerchantPOS, tapi yang dilihat pelanggan tetap satu angka — dan
+      // Merchant-POS, tapi yang dilihat pelanggan tetap satu angka — dan
       // angka itulah yang harus tersimpan sebagai total pesanannya.
       total: tax.total - (applied?.amount ?? 0) - voucherAmount,
       voucherClaimId: voucherClaimId,

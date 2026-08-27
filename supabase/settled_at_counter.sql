@@ -1,4 +1,4 @@
--- MerchantPOS — menandai pesanan mandiri yang uangnya diterima di meja
+-- Merchant-POS — menandai pesanan mandiri yang uangnya diterima di meja
 -- kasir, alih-alih menebaknya dari cara bayarnya.
 --
 -- Aman dijalankan berulang kali.

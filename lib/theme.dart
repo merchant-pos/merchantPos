@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 
-/// MerchantPOS's shared visual identity — one place that shapes how every
+/// Merchant-POS's shared visual identity — one place that shapes how every
 /// screen looks (colors, AppBar, cards, buttons, inputs) so the app
 /// reads as a single cohesive product instead of default-Material white.
 class MerchantPosTheme {
   MerchantPosTheme._();
 
-  static const brand = Color(0xFF4F46E5); // indigo/violet, MerchantPOS's core color
-  static const brandDark = Color(0xFF3730A3);
-  static const accent = Color(0xFFF59E0B); // warm amber accent for highlights
-  static const backgroundTint = Color(0xFFF4F5FB); // soft lavender-grey, not stark white
+  // Hijau, bukan indigo warisan salinan.
+  //
+  // Nilainya dipilih supaya tulisan putih di atasnya lolos kontras
+  // 4.5:1 — tombol utama aplikasi ini selalu berisi teks putih, dan
+  // hijau yang lebih terang terlihat lebih segar di layar desainer
+  // lalu tidak terbaca di layar kasir yang menghadap jendela.
+  static const brand = Color(0xFF047857); // emerald 700
+  static const brandDark = Color(0xFF065F46); // emerald 800
+
+  /// Amber tetap. Ia menandai hal yang perlu diperhatikan — dan
+  /// aksen yang bertetangga dengan warna mereknya sendiri berhenti
+  /// menandai apa pun.
+  static const accent = Color(0xFFF59E0B);
+
+  /// Latar terang dengan semburat hijau tipis, bukan putih pucat.
+  static const backgroundTint = Color(0xFFF2F7F4);
 
   // ── Warna gelap ────────────────────────────────────────────────────
   //

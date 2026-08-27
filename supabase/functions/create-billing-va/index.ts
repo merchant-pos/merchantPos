@@ -1,4 +1,4 @@
-// MerchantPOS — membuat Virtual Account untuk tagihan langganan resto.
+// Merchant-POS — membuat Virtual Account untuk tagihan langganan resto.
 //
 // Dipanggil aplikasi resto sambil menyebut nomor tagihannya saja.
 // Nominalnya **tidak** ikut dikirim: fungsi ini membacanya sendiri dari
@@ -9,14 +9,14 @@
 //   supabase functions deploy create-billing-va --project-ref xizpwtycczigjhzxegen
 //
 // Secret yang dibutuhkan:
-//   XENDIT_SECRET_KEY   kunci rahasia Xendit milik MerchantPOS
+//   XENDIT_SECRET_KEY   kunci rahasia Xendit milik Merchant-POS
 //
 // ── Bedanya dari create-qris, dan kenapa itu penting ─────────────────
 //
 // create-qris memasang header `for-user-id` berisi sub-akun restonya,
 // supaya dananya cair ke rekening resto itu. Fungsi ini **sengaja tidak
 // memasangnya**: tagihan langganan adalah satu-satunya aliran uang yang
-// tujuannya memang rekening MerchantPOS.
+// tujuannya memang rekening Merchant-POS.
 //
 // Salah memasang header itu di sini berarti resto membayar tagihan
 // langganan ke rekeningnya sendiri, dan tidak ada satu pun galat yang

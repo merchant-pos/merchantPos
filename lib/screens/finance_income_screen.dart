@@ -16,7 +16,7 @@ import '../utils/id_time.dart';
 class FinanceIncomeScreen extends StatefulWidget {
   /// Resto yang dibukukan. Kosong berarti resto tempat orangnya bekerja.
   ///
-  /// Diisi hanya oleh menu Finance Super Admin, yang membukukan MerchantPOS
+  /// Diisi hanya oleh menu Finance Super Admin, yang membukukan Merchant-POS
   /// sendiri — penyewa platform yang memakai mesin pembukuan yang sama
   /// persis dengan resto.
   final String? restoId;

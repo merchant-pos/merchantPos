@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../db/announcement_repository.dart';
 import '../models/announcement.dart';
 
-/// Memberi tahu bahwa ada versi MerchantPOS yang lebih baru.
+/// Memberi tahu bahwa ada versi Merchant-POS yang lebih baru.
 ///
 /// Ditujukan untuk orang yang memesan tanpa akun: mereka tidak punya
 /// kotak masuk, jadi tanpa ini tidak ada satu pun jalan pemberitahuan
@@ -72,7 +72,7 @@ class _UpdateBannerState extends State<UpdateBanner> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'MerchantPOS ${update.version} sudah tersedia',
+                  'Merchant-POS ${update.version} sudah tersedia',
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 13.5, color: Color(0xFF92400E)),
                 ),

@@ -1,11 +1,11 @@
 {
-    "name": "MerchantPOS - Order Cepat, Merchant Hebat",
-    "short_name": "MerchantPOS",
+    "name": "Merchant-POS - Order Cepat, Merchant Hebat",
+    "short_name": "Merchant-POS",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Konsol web MerchantPOS.",
+    "description": "Konsol web Merchant-POS.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

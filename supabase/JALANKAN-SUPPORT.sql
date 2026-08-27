@@ -1,4 +1,4 @@
--- MerchantPOS — bagian 58 dan 59: MerchantPOS Support berikut notifikasinya.
+-- Merchant-POS — bagian 58 dan 59: Merchant-POS Support berikut notifikasinya.
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 
 
@@ -6,12 +6,12 @@
 -- BAGIAN 58 — tiket, percakapan, dan penutupan otomatis
 -- ═══════════════════════════════════════════════════════════════════
 
--- MerchantPOS — pengaduan, tiket, dan percakapannya.
+-- Merchant-POS — pengaduan, tiket, dan percakapannya.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --
 -- Selama ini satu-satunya jalan mengadu adalah WhatsApp ke nomor
--- MerchantPOS Admin. Itu bekerja saat merchantnya lima. Pada merchant
+-- Merchant-POS Admin. Itu bekerja saat merchantnya lima. Pada merchant
 -- kelima puluh, tidak ada yang tahu keluhan mana yang sudah dijawab,
 -- mana yang tenggelam di bawah percakapan lain, dan mana yang sebenarnya
 -- masalah yang sama muncul untuk ketiga kalinya.
@@ -110,7 +110,7 @@ create index if not exists support_messages_ticket_idx
 alter table support_tickets enable row level security;
 alter table support_messages enable row level security;
 
--- Pengadu melihat tiketnya sendiri; MerchantPOS Admin melihat semuanya.
+-- Pengadu melihat tiketnya sendiri; Merchant-POS Admin melihat semuanya.
 --
 -- Pegawai merchant lain TIDAK melihat pengaduan rekannya. Keluhan
 -- sering berisi hal yang tidak ingin dibaca seruangan — termasuk
@@ -293,7 +293,7 @@ begin
   end if;
 
   if not v_admin and p_status <> 'closed' then
-    raise exception 'Hanya MerchantPOS Admin yang bisa mengubah status ini.';
+    raise exception 'Hanya Merchant-POS Admin yang bisa mengubah status ini.';
   end if;
 
   if p_status not in ('open', 'on_progress', 'confirm_customer', 'closed') then
@@ -363,7 +363,7 @@ $$;
 --
 -- Hanya tiket yang sedang menunggu jawaban pengadunya, dan hanya kalau
 -- pesan terakhirnya memang dari admin. Tiket yang pesan terakhirnya dari
--- pengadu berarti bolanya ada di MerchantPOS — menutupnya karena "tidak ada
+-- pengadu berarti bolanya ada di Merchant-POS — menutupnya karena "tidak ada
 -- jawaban" akan menghukum orang yang justru sudah menjawab.
 create or replace function close_idle_support_tickets()
 returns integer
@@ -434,7 +434,7 @@ grant execute on function mark_support_read(uuid) to authenticated;
 -- BAGIAN 59 — notifikasi push
 -- ═══════════════════════════════════════════════════════════════════
 
--- MerchantPOS — notifikasi untuk MerchantPOS Support.
+-- Merchant-POS — notifikasi untuk Merchant-POS Support.
 --
 -- Jalankan SETELAH support_tickets.sql dan push_notifications.sql.
 -- Aman diulang.
@@ -442,7 +442,7 @@ grant execute on function mark_support_read(uuid) to authenticated;
 -- Penanda di dalam aplikasi hanya terlihat oleh orang yang sedang
 -- membuka aplikasinya. Yang mengadu lalu menutup HP-nya — dan itulah
 -- yang dilakukan hampir semua orang setelah mengadu — tidak akan pernah
--- tahu keluhannya sudah dijawab sampai ia kebetulan membuka MerchantPOS
+-- tahu keluhannya sudah dijawab sampai ia kebetulan membuka Merchant-POS
 -- lagi. Balasan yang tidak sampai sama saja dengan tidak dibalas.
 
 -- Satu pemicu untuk kedua arah.
@@ -478,7 +478,7 @@ begin
         'audience', 'email',
         'email', t.reporter_email,
         'ticket_id', t.id::text,
-        'title', 'MerchantPOS Support — ' || t.subject,
+        'title', 'Merchant-POS Support — ' || t.subject,
         'body', v_cuplikan
       )
     );
@@ -486,7 +486,7 @@ begin
     v_nama := coalesce(nullif(btrim(coalesce(t.reporter_name, '')), ''),
                        split_part(t.reporter_email, '@', 1));
 
-    -- Ke MerchantPOS Admin. `resto_id` sengaja null: MerchantPOS Admin tidak
+    -- Ke Merchant-POS Admin. `resto_id` sengaja null: Merchant-POS Admin tidak
     -- terikat merchant mana pun, dan menyaring peran berdasarkan resto
     -- akan membuat kabarnya tidak sampai ke siapa pun.
     insert into push_outbox (resto_id, event, payload) values (

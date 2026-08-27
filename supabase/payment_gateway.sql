@@ -1,4 +1,4 @@
--- MerchantPOS — QRIS sungguhan lewat Xendit.
+-- Merchant-POS — QRIS sungguhan lewat Xendit.
 --
 -- Jalankan SETELAH customer_cash_payment.sql. Aman dijalankan berulang
 -- kali.

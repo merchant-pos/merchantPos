@@ -11,7 +11,7 @@ void main() {
       // ditampilkan utuh ke layar HP orang.
       final asli = ClientException(
         'Connection closed while receiving data',
-        Uri.parse('https://objects.githubusercontent.com/MerchantPOS.apk'),
+        Uri.parse('https://objects.githubusercontent.com/Merchant-POS.apk'),
       );
 
       final pesan = downloadErrorMessage(asli);

@@ -16,7 +16,7 @@ class RestaurantRepository {
   /// Seluruh resto sungguhan.
   ///
   /// Penyewa platform (`is_platform`) disaring di sini, bukan di tiap
-  /// layar pemanggilnya. MerchantPOS punya barisnya sendiri di tabel ini
+  /// layar pemanggilnya. Merchant-POS punya barisnya sendiri di tabel ini
   /// supaya bisa memakai mesin pembukuan yang sama dengan resto — dan
   /// baris itu tidak boleh pernah muncul sebagai pilihan resto di layar
   /// mana pun. Menyaringnya di satu tempat berarti tidak ada layar baru

@@ -1,4 +1,4 @@
-// MerchantPOS — membuat tagihan QRIS di Xendit.
+// Merchant-POS — membuat tagihan QRIS di Xendit.
 //
 // Dipanggil aplikasi pelanggan sambil menyebut nomor pesanannya saja.
 // Nominalnya **tidak** ikut dikirim: fungsi ini membacanya sendiri dari
@@ -130,7 +130,7 @@ async function createCharge(
     //
     // Inilah yang menentukan dananya cair ke rekening siapa. Tanpa ini,
     // pembayaran dibuat atas nama akun platform — dan uang milik resto
-    // orang lain mendarat di rekening MerchantPOS, yang justru ingin
+    // orang lain mendarat di rekening Merchant-POS, yang justru ingin
     // dihindari.
     const { data: account } = await admin
       .from("resto_payment_accounts")

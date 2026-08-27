@@ -169,12 +169,12 @@ class FinanceHomeScreen extends StatelessWidget {
                   ],
                 ),
                 // Berdiri sendiri, bukan di dalam Pembukuan: ini
-                // satu-satunya uang yang keluar dari resto ke MerchantPOS,
+                // satu-satunya uang yang keluar dari resto ke Merchant-POS,
                 // dan yang membayarnya memang bagian Finance.
                 HubMenuTile(
                   icon: Icons.receipt_long_outlined,
                   title: 'Tagihan Langganan',
-                  subtitle: 'Biaya bulanan MerchantPOS & bukti pembayaran',
+                  subtitle: 'Biaya bulanan Merchant-POS & bukti pembayaran',
                   color: const Color(0xFF6366F1),
                   onTap: () {
                     final restoId = context.read<AuthProvider>().restoId;

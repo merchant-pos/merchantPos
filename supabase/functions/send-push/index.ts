@@ -1,4 +1,4 @@
-// MerchantPOS — pengirim notifikasi push.
+// Merchant-POS — pengirim notifikasi push.
 //
 // Dipanggil trigger `push_outbox` lewat pg_net setiap kali sebuah baris
 // masuk ke sana. Tugasnya tiga: menentukan perangkat mana yang pantas
@@ -23,7 +23,7 @@ const FCM_PROJECT = "kaata-pos";
 
 // Kanal Android yang sudah dipakai notifikasi lokal. Disebut tegas di
 // tiap pesan: tanpa ini Android memakai kanal bawaan, dan nada dering
-// khusus MerchantPOS tidak pernah berbunyi untuk notifikasi yang datang
+// khusus Merchant-POS tidak pernah berbunyi untuk notifikasi yang datang
 // lewat push.
 const CHANNELS: Record<string, string> = {
   order_new: "kaata_new_order",

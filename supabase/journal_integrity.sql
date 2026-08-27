@@ -1,4 +1,4 @@
--- MerchantPOS — Journal integrity (run AFTER orders_gl_code.sql and
+-- Merchant-POS — Journal integrity (run AFTER orders_gl_code.sql and
 -- petty_cash_journal.sql — this is the last finance migration).
 --
 -- Closes five gaps that made the GL journal untrustworthy:

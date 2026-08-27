@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../theme.dart';
 import '../widgets/merchantpos_logo.dart';
 
-/// "Tentang MerchantPOS" — what the app is and what each role can do with
+/// "Tentang Merchant-POS" — what the app is and what each role can do with
 /// it. Reached from the small info icon on the role-choice screen, so
 /// someone handed the app for the first time can work out what it's for
 /// without having to log in as anything.
@@ -33,7 +33,7 @@ class _AboutScreenState extends State<AboutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MerchantPosTheme.backgroundOf(context),
-      appBar: AppBar(title: const Text('Tentang MerchantPOS')),
+      appBar: AppBar(title: const Text('Tentang Merchant-POS')),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
         children: [
@@ -43,7 +43,7 @@ class _AboutScreenState extends State<AboutScreen> {
                 const MerchantPosLogo(size: 72),
                 const SizedBox(height: 14),
                 const Text(
-                  'MerchantPOS',
+                  'Merchant-POS',
                   style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
@@ -73,9 +73,9 @@ class _AboutScreenState extends State<AboutScreen> {
           const _WebsiteLink(),
           const SizedBox(height: 14),
           _Section(
-            title: 'Apa itu MerchantPOS?',
+            title: 'Apa itu Merchant-POS?',
             child: Text(
-              'MerchantPOS adalah aplikasi kasir sekaligus pemesanan mandiri untuk '
+              'Merchant-POS adalah aplikasi kasir sekaligus pemesanan mandiri untuk '
               'restoran, kafe, dan warung. Satu aplikasi dipakai bersama oleh '
               'pemilik, karyawan, dan pelanggan — masing-masing masuk dengan '
               'akun sendiri dan langsung diarahkan ke tampilan sesuai perannya.\n\n'
@@ -97,7 +97,7 @@ class _AboutScreenState extends State<AboutScreen> {
               (Icons.timelapse, 'Lacak pesanan', 'Pantau pesanan dari dimasak sampai siap diambil'),
               (Icons.receipt_long_outlined, 'Struk digital', 'Simpan struk ke galeri atau kirim ke email'),
               (Icons.history, 'Riwayat pesanan', 'Tetap tersimpan walau memesan tanpa login'),
-              (Icons.confirmation_number_outlined, 'Voucher MerchantPOS', 'Tebus kode voucher dan pakai di merchant mana pun yang berlaku'),
+              (Icons.confirmation_number_outlined, 'Voucher Merchant-POS', 'Tebus kode voucher dan pakai di merchant mana pun yang berlaku'),
               (Icons.pin_outlined, 'Nomor pesanan', 'Nomor antrean harian, muncul sejak pesanan dibuat'),
               (Icons.near_me_outlined, 'Merchant terdekat', 'Daftar tempat dalam radius 5 km berikut fasilitasnya'),
             ]),
@@ -141,7 +141,7 @@ class _AboutScreenState extends State<AboutScreen> {
             child: OutlinedButton.icon(
               onPressed: () => bukaWhatsAppMerchantPOS(context),
               icon: const Icon(Icons.chat, size: 18, color: Color(0xFF25D366)),
-              label: const Text('Chat MerchantPOS Admin di WhatsApp'),
+              label: const Text('Chat Merchant-POS Admin di WhatsApp'),
               style: OutlinedButton.styleFrom(
                 minimumSize: const Size.fromHeight(48),
                 side: const BorderSide(color: Color(0xFF25D366)),
@@ -164,7 +164,7 @@ class _AboutScreenState extends State<AboutScreen> {
           const SizedBox(height: 10),
           Center(
             child: Text(
-              'Butuh bantuan? Hubungi MerchantPOS Admin lewat WhatsApp atau '
+              'Butuh bantuan? Hubungi Merchant-POS Admin lewat WhatsApp atau '
               'surel.',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 12, color: MerchantPosTheme.mutedOf(context)),
@@ -234,7 +234,7 @@ class _Section extends StatelessWidget {
   }
 }
 
-/// Tautan ke situs MerchantPOS.
+/// Tautan ke situs Merchant-POS.
 ///
 /// Ditaruh di layar ini karena inilah satu-satunya halaman yang bisa
 /// dibuka sebelum login — yang membukanya sering justru orang yang
@@ -242,7 +242,7 @@ class _Section extends StatelessWidget {
 /// berikutnya ada di situsnya: cara berlangganan, dan berkas
 /// pemasangnya.
 class _WebsiteLink extends StatelessWidget {
-  static const _url = 'https://bujejuki-spec.github.io/MerchantPOS-LandingPage/';
+  static const _url = 'https://bujejuki-spec.github.io/Merchant-POS-LandingPage/';
 
   const _WebsiteLink();
 
@@ -278,11 +278,11 @@ class _WebsiteLink extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Situs MerchantPOS',
+                    const Text('Situs Merchant-POS',
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                     const SizedBox(height: 2),
                     Text(
-                      'bujejuki-spec.github.io/MerchantPOS-LandingPage',
+                      'bujejuki-spec.github.io/Merchant-POS-LandingPage',
                       style: TextStyle(fontSize: 11.5, color: MerchantPosTheme.mutedOf(context)),
                       overflow: TextOverflow.ellipsis,
                     ),

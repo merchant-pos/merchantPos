@@ -87,7 +87,7 @@ class _CustomerCartScreenState extends State<CustomerCartScreen> {
   bool _memeriksaVoucher = false;
 
   /// Yang benar-benar dibayar: sesudah diskon resto, lalu sesudah
-  /// voucher MerchantPOS.
+  /// voucher Merchant-POS.
   ///
   /// Satu tempat, dipakai layar bayar maupun ringkasannya. Dua
   /// perhitungan terpisah akan berpisah, dan yang terlihat adalah

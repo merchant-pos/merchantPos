@@ -21,10 +21,10 @@ final _rupiah =
     NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
 final _tanggal = DateFormat('d MMM yyyy', 'id_ID');
 
-/// Voucher MerchantPOS — hanya Super Admin.
+/// Voucher Merchant-POS — hanya Super Admin.
 ///
 /// Menerbitkan voucher bukan sekadar membuat aturan potongan: dananya
-/// benar-benar berpindah dari saldo bebas MerchantPOS ke kantong voucher,
+/// benar-benar berpindah dari saldo bebas Merchant-POS ke kantong voucher,
 /// dan baru kembali kalau vouchernya hangus. Karena itu layar ini
 /// menampilkan nominalnya, bukan cuma nama dan kodenya.
 class VoucherScreen extends StatefulWidget {
@@ -110,7 +110,7 @@ class _VoucherScreenState extends State<VoucherScreen>
         title: const Text('Hapus voucher ini?'),
         content: Text(
           'Batch ${v.code} akan dibuang dan '
-          '${_rupiah.format(v.totalAmount)} kembali ke saldo MerchantPOS. '
+          '${_rupiah.format(v.totalAmount)} kembali ke saldo Merchant-POS. '
           'Pengumumannya di kotak masuk pelanggan ikut dicabut.',
         ),
         actionsAlignment: MainAxisAlignment.center,
@@ -612,7 +612,7 @@ class _FormBatchState extends State<_FormBatch> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
               const SizedBox(height: 4),
               Text(
-                'Dananya keluar dari saldo MerchantPOS saat diterbitkan, dan '
+                'Dananya keluar dari saldo Merchant-POS saat diterbitkan, dan '
                 'kembali lagi kalau tidak ditebus sampai kedaluwarsa.',
                 style:
                     TextStyle(fontSize: 11.5, color: MerchantPosTheme.mutedOf(context)),
@@ -846,7 +846,7 @@ class _FormBatchState extends State<_FormBatch> {
                     style: TextStyle(fontSize: 13.5)),
                 subtitle: Text(
                   'Hanya bisa ditebus yang belum pernah memesan lewat '
-                  'MerchantPOS, di merchant mana pun.',
+                  'Merchant-POS, di merchant mana pun.',
                   style: TextStyle(
                       fontSize: 11.5, color: MerchantPosTheme.mutedOf(context)),
                 ),

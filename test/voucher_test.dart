@@ -219,7 +219,7 @@ void main() {
       expect(layar, contains("title: 'GL Voucher',"));
     });
 
-    test('hanya muncul di pembukuan MerchantPOS', () {
+    test('hanya muncul di pembukuan Merchant-POS', () {
       // Resto tidak menerbitkan voucher; menghitungnya untuk mereka
       // membuat penanda "belum dipetakan" berbunyi selamanya.
       expect(layar, contains('_platformOnlyMethods'));
@@ -262,7 +262,7 @@ void main() {
 
     test('dananya pulang sebelum barisnya dibuang', () {
       // Batch yang dihapus tanpa mengembalikan alokasinya adalah saldo
-      // MerchantPOS yang berkurang selamanya untuk voucher yang tak ada.
+      // Merchant-POS yang berkurang selamanya untuk voucher yang tak ada.
       final blok = sql.substring(sql.indexOf('function delete_voucher_batch'));
       expect(blok.indexOf("_jurnal_merchantpos('total_balance'"),
           lessThan(blok.indexOf('delete from vouchers')));
@@ -424,7 +424,7 @@ void main() {
 
     test('pengguna baru berarti belum pernah punya pesanan terbayar', () {
       // Pesanan batal tidak dihitung: orang yang memesan lalu
-      // membatalkannya belum pernah benar-benar memakai MerchantPOS, dan
+      // membatalkannya belum pernah benar-benar memakai Merchant-POS, dan
       // menutup pintu untuknya justru menutup pintu bagi orang yang
       // paling ingin dibujuk kembali.
       expect(sql, contains('function _pelanggan_baru'));
@@ -432,7 +432,7 @@ void main() {
       expect(sql, contains('select not exists ('));
     });
 
-    test('batasnya seluruh MerchantPOS, bukan per merchant', () {
+    test('batasnya seluruh Merchant-POS, bukan per merchant', () {
       // Orang yang sudah rutin memesan di resto sebelah bukan pengguna
       // baru hanya karena belum pernah masuk resto ini.
       final fn = sql.substring(sql.indexOf('function _pelanggan_baru'),
@@ -446,7 +446,7 @@ void main() {
 
     test('alasan penolakannya menyebut sebab yang sebenarnya', () {
       expect(sql,
-          contains('Voucher ini hanya untuk pengguna baru MerchantPOS'));
+          contains('Voucher ini hanya untuk pengguna baru Merchant-POS'));
     });
 
     test('diperiksa sebelum kuota', () {

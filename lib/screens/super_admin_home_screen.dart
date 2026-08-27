@@ -39,7 +39,7 @@ class SuperAdminHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
-    final name = auth.employeeName?.isNotEmpty == true ? auth.employeeName! : 'MerchantPOS Admin';
+    final name = auth.employeeName?.isNotEmpty == true ? auth.employeeName! : 'Merchant-POS Admin';
     final email = auth.user?.email;
 
     return Scaffold(
@@ -52,7 +52,7 @@ class SuperAdminHomeScreen extends StatelessWidget {
           HubHeader(
             logo: const MerchantPosLogo(size: 64),
             title: name,
-            subtitle: email == null ? 'MerchantPOS Admin' : 'MerchantPOS Admin • $email',
+            subtitle: email == null ? 'Merchant-POS Admin' : 'Merchant-POS Admin • $email',
             colorA: MerchantPosTheme.brand,
             colorB: MerchantPosTheme.brandDark,
           ),
@@ -68,7 +68,7 @@ class SuperAdminHomeScreen extends StatelessWidget {
                     HubMenuTile(
                       icon: Icons.storefront_outlined,
                       title: 'List Merchant',
-                      subtitle: 'Lihat & edit semua merchant terdaftar di MerchantPOS',
+                      subtitle: 'Lihat & edit semua merchant terdaftar di Merchant-POS',
                       color: const Color(0xFF0EA5E9),
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => const RestaurantManageListScreen()),
@@ -88,7 +88,7 @@ class SuperAdminHomeScreen extends StatelessWidget {
                 HubGroupTile(
                   icon: Icons.workspace_premium_outlined,
                   title: 'Langganan & Keuangan',
-                  subtitle: 'Billing merchant, pendapatan, pembukuan MerchantPOS',
+                  subtitle: 'Billing merchant, pendapatan, pembukuan Merchant-POS',
                   color: const Color(0xFF10B981),
                   tiles: () => [
                     HubMenuTile(
@@ -103,7 +103,7 @@ class SuperAdminHomeScreen extends StatelessWidget {
                     HubMenuTile(
                       icon: Icons.account_balance_outlined,
                       title: 'Finance',
-                      subtitle: 'Pendapatan langganan, pembukuan MerchantPOS, jurnal semua merchant',
+                      subtitle: 'Pendapatan langganan, pembukuan Merchant-POS, jurnal semua merchant',
                       color: const Color(0xFF14B8A6),
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => const SuperAdminFinanceScreen()),

@@ -93,7 +93,7 @@ class _RootScreenState extends State<RootScreen> {
         child: const WebShellScreen(),
       );
       // Gerbang langganannya tetap berlaku, sama seperti di ponsel —
-      // kecuali untuk MerchantPOS Admin, yang justru membuka kuncinya.
+      // kecuali untuk Merchant-POS Admin, yang justru membuka kuncinya.
       return auth.isSuperAdmin ? shell : BillingGate(child: shell);
     }
 

@@ -35,7 +35,7 @@ const _referenceTypeLabels = {
 class FinanceJournalScreen extends StatefulWidget {
   /// Resto yang dibukukan. Kosong berarti resto tempat orangnya bekerja.
   ///
-  /// Diisi hanya oleh menu Finance Super Admin, yang membukukan MerchantPOS
+  /// Diisi hanya oleh menu Finance Super Admin, yang membukukan Merchant-POS
   /// sendiri — penyewa platform yang memakai mesin pembukuan yang sama
   /// persis dengan resto.
   final String? restoId;
@@ -136,7 +136,7 @@ class _FinanceJournalScreenState extends State<FinanceJournalScreen> {
   /// totals climb well past the money actually on hand — which made this
   /// card look like it was reporting a much larger balance than it was.
   int get _saldoTotal {
-    // Pembukuan MerchantPOS dihitung dari pergerakan akun GL Total Saldo,
+    // Pembukuan Merchant-POS dihitung dari pergerakan akun GL Total Saldo,
     // bukan dari daftar jenis transaksi. Daftar semacam itu harus
     // ditambahi tiap kali ada fitur baru yang memindahkan uang — dan
     // saat voucher terbit, jenisnya belum ada di daftar sehingga
@@ -150,8 +150,8 @@ class _FinanceJournalScreenState extends State<FinanceJournalScreen> {
 
     // Pendapatan datang dari dua sumber, tergantung siapa yang
     // dibukukan: penjualan resto ('order') dan biaya langganan yang
-    // dibayar resto ke MerchantPOS ('billing'). Menyebut 'order' saja
-    // membuat pembukuan MerchantPOS berbunyi Rp 0 selamanya — seluruh
+    // dibayar resto ke Merchant-POS ('billing'). Menyebut 'order' saja
+    // membuat pembukuan Merchant-POS berbunyi Rp 0 selamanya — seluruh
     // pendapatannya memang tidak pernah berasal dari pesanan.
     const sumberPemasukan = {'order', 'billing'};
 
@@ -234,7 +234,7 @@ class _FinanceJournalScreenState extends State<FinanceJournalScreen> {
         header: (context) => pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            pw.Text('MerchantPOS — Jurnal GL',
+            pw.Text('Merchant-POS — Jurnal GL',
                 style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold)),
             pw.SizedBox(height: 2),
             pw.Text(_restoName, style: const pw.TextStyle(fontSize: 13)),

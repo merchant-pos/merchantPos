@@ -9,14 +9,14 @@ class GlJournalRepository {
   /// Jurnal seluruh resto — hanya Super Admin yang bisa membacanya, dan
   /// hanya membaca: tidak ada kebijakan tulis untuk siapa pun.
   ///
-  /// Pembukuan MerchantPOS sendiri disaring keluar. Ia memang tersimpan di
+  /// Pembukuan Merchant-POS sendiri disaring keluar. Ia memang tersimpan di
   /// tabel yang sama — penyewa platform memakai mesin pembukuan yang
   /// sama persis dengan resto — tapi mencampurnya di satu layar membuat
   /// total debit/kredit menjumlahkan dua pembukuan yang tidak punya
   /// hubungan satu sama lain: penjualan resto, dan tagihan yang kami
   /// terbitkan kepada mereka.
   ///
-  /// Pembukuan MerchantPOS punya layarnya sendiri, Jurnal GL MerchantPOS.
+  /// Pembukuan Merchant-POS punya layarnya sendiri, Jurnal GL Merchant-POS.
   ///
   /// Disaring di kueri, bukan sesudah data sampai: baris platform yang
   /// ikut terangkut memakan jatah batas 1.000 baris, dan yang terpotong

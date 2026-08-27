@@ -1,4 +1,4 @@
--- MerchantPOS — PPN & biaya service (run AFTER restaurant_phone.sql and
+-- Merchant-POS — PPN & biaya service (run AFTER restaurant_phone.sql and
 -- orders_gl_code.sql).
 --
 -- Products store their ORIGINAL (pre-tax) price. The bill is built up

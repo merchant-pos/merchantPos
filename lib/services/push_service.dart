@@ -140,12 +140,12 @@ class PushService {
   /// Ajakan menilai ikut di sini dengan alasan yang sama: ia tidak
   /// punya aliran realtime yang menampilkannya, dan yang tiba selagi
   /// orangnya memandangi layar akan hilang tanpa pernah terlihat.
-  /// Pesan MerchantPOS Support ikut, dan alasannya sama sekali lain dari
+  /// Pesan Merchant-POS Support ikut, dan alasannya sama sekali lain dari
   /// pesanan.
   ///
   /// Pesanan punya aliran realtime yang menampilkannya di layar mana pun
   /// pegawainya berada. Percakapan support tidak: alirannya hanya hidup
-  /// selama layar percakapan ITU terbuka. MerchantPOS Admin yang sedang
+  /// selama layar percakapan ITU terbuka. Merchant-POS Admin yang sedang
   /// membuka daftar, membuka percakapan lain, atau membuka menu lain
   /// sama sekali tidak akan pernah tahu ada pesan masuk — persis
   /// keadaan yang paling sering terjadi.
@@ -193,7 +193,7 @@ class PushService {
     // dipakai API notifikasi milik peramban.
     if (kIsWeb) {
       tampilkanNotifWeb(
-        judul: notification.title ?? 'MerchantPOS',
+        judul: notification.title ?? 'Merchant-POS',
         isi: notification.body ?? '',
         tag: message.messageId,
       );

@@ -1,4 +1,4 @@
--- MerchantPOS — pengenal sub-akun Xendit jadi urusan Super Admin saja.
+-- Merchant-POS — pengenal sub-akun Xendit jadi urusan Super Admin saja.
 --
 -- Jalankan SETELAH resto_payment_accounts.sql. Aman diulang.
 --
@@ -6,7 +6,7 @@
 -- Pengaturan Pembayaran. Itu keliru dari dua sisi.
 --
 -- Yang pertama: dia tidak punya cara mengetahui nilainya. Sub-akunnya
--- dibuat di akun Xendit milik MerchantPOS dan pengenalnya ditentukan
+-- dibuat di akun Xendit milik Merchant-POS dan pengenalnya ditentukan
 -- Xendit — bukan sesuatu yang bisa dicari orang resto di mana pun.
 -- Kolom isian yang jawabannya tidak dimiliki siapa pun yang melihatnya
 -- hanya mengundang tebakan.

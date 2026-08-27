@@ -430,7 +430,7 @@ class _GuestNotice extends StatelessWidget {
               kIsWeb
                   ? 'Riwayat ini tersimpan di peramban ini saja, dan hilang '
                       'kalau data situsnya dibersihkan. Pasang aplikasi '
-                      'MerchantPOS untuk menyimpannya di akunmu.'
+                      'Merchant-POS untuk menyimpannya di akunmu.'
                   : 'Riwayat ini tersimpan di HP ini saja. Login dengan Gmail '
                       'supaya riwayatmu tetap ada walau ganti HP.',
               style: TextStyle(fontSize: 12, color: Colors.orange.shade900),

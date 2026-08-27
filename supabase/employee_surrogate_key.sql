@@ -1,4 +1,4 @@
--- MerchantPOS — email karyawan jadi bisa diubah.
+-- Merchant-POS — email karyawan jadi bisa diubah.
 --
 -- Jalankan SETELAH owner_multi_resto.sql. Aman dijalankan berulang kali.
 --

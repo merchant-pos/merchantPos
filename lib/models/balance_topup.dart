@@ -1,7 +1,7 @@
 /// Setoran modal ke saldo utama.
 ///
 /// Bukan penghasilan. Uangnya benar-benar masuk, tapi tidak dijual ke
-/// siapa pun — investor menyetor ke MerchantPOS, atau pemilik resto menaruh
+/// siapa pun — investor menyetor ke Merchant-POS, atau pemilik resto menaruh
 /// uang awal supaya kasnya tidak minus di hari pertama. Mencatatnya
 /// sebagai penghasilan membuat laporan penjualan memuat uang yang tidak
 /// pernah dijual.

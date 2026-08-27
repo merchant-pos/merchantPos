@@ -1,4 +1,4 @@
--- MerchantPOS — pesanan yang batal berhenti punya status dapur.
+-- Merchant-POS — pesanan yang batal berhenti punya status dapur.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --

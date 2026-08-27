@@ -1,10 +1,10 @@
--- MerchantPOS — keuangan MerchantPOS sendiri, terpisah dari keuangan resto.
+-- Merchant-POS — keuangan Merchant-POS sendiri, terpisah dari keuangan resto.
 --
 -- Jalankan SETELAH billing.sql dan billing_va.sql. Aman diulang.
 --
 -- Sampai sekarang seluruh pembukuan di aplikasi ini milik resto: uang
 -- yang masuk ke mereka, pengeluaran mereka, kas kecil mereka. Pendapatan
--- MerchantPOS sendiri — biaya langganan yang dibayarkan resto — tidak
+-- Merchant-POS sendiri — biaya langganan yang dibayarkan resto — tidak
 -- tercatat di mana pun kecuali sebagai baris tagihan berstatus lunas.
 --
 -- ── Kenapa memakai "resto" sendiri, bukan tabel baru ─────────────────
@@ -16,7 +16,7 @@
 -- satu sisi tidak pernah ikut ke sisi lain, dan yang menemukannya
 -- adalah selisih angka berbulan-bulan kemudian.
 --
--- Jadi MerchantPOS diberi satu barisnya sendiri di tabel restaurants,
+-- Jadi Merchant-POS diberi satu barisnya sendiri di tabel restaurants,
 -- ditandai is_platform. Seluruh layar keuangan yang sudah ada langsung
 -- bekerja untuknya.
 --
@@ -37,7 +37,7 @@ alter table restaurants add column if not exists is_platform boolean not null de
 -- untuk menyaring di tempat yang tidak melihat `active` — daftar resto
 -- di Super Admin, dan daftar langganan.
 insert into restaurants (id, name, address, active, is_platform)
-values ('merchantpos', 'MerchantPOS', 'Pembukuan internal MerchantPOS', false, true)
+values ('merchantpos', 'Merchant-POS', 'Pembukuan internal Merchant-POS', false, true)
 on conflict (id) do update set is_platform = true;
 
 -- Ia bukan pelanggan dirinya sendiri.
@@ -45,7 +45,7 @@ update resto_billing set active = false, monthly_price = 0
 where resto_id = 'merchantpos';
 
 -- ─────────────────────────────────────────────────────────────────────
--- Bagan akun MerchantPOS
+-- Bagan akun Merchant-POS
 -- ─────────────────────────────────────────────────────────────────────
 --
 -- Nomor 11xxxxx dipakai supaya berbeda jelas dari 19xxxxx milik resto.
@@ -56,18 +56,18 @@ insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values
   ('merchantpos', 'subscription',          '1100001', 'GL Pendapatan Langganan'),
   ('merchantpos', 'subscription_discount', '1100002', 'GL Diskon Langganan'),
-  ('merchantpos', 'cash',                  '1100010', 'GL Kas Tunai MerchantPOS'),
-  ('merchantpos', 'transfer',              '1100011', 'GL Rekening MerchantPOS'),
-  ('merchantpos', 'qris',                  '1100012', 'GL Penerimaan QRIS MerchantPOS'),
-  ('merchantpos', 'income_aggregate',      '1100020', 'GL Pendapatan MerchantPOS'),
-  ('merchantpos', 'petty_cash',            '1100030', 'GL Petty Cash MerchantPOS'),
-  ('merchantpos', 'total_balance',         '1100040', 'GL Total Saldo MerchantPOS'),
-  ('merchantpos', 'suspense',              '1100050', 'GL Suspense MerchantPOS'),
-  ('merchantpos', 'suspense_petty',        '1100051', 'GL Suspense Petty MerchantPOS'),
-  ('merchantpos', 'gateway_fee',           '1100060', 'GL Biaya Gateway MerchantPOS'),
-  ('merchantpos', 'ppn',                   '1100070', 'GL PPN MerchantPOS'),
-  ('merchantpos', 'service',               '1100071', 'GL Biaya Service MerchantPOS'),
-  ('merchantpos', 'discount',              '1100072', 'GL Diskon Lain MerchantPOS')
+  ('merchantpos', 'cash',                  '1100010', 'GL Kas Tunai Merchant-POS'),
+  ('merchantpos', 'transfer',              '1100011', 'GL Rekening Merchant-POS'),
+  ('merchantpos', 'qris',                  '1100012', 'GL Penerimaan QRIS Merchant-POS'),
+  ('merchantpos', 'income_aggregate',      '1100020', 'GL Pendapatan Merchant-POS'),
+  ('merchantpos', 'petty_cash',            '1100030', 'GL Petty Cash Merchant-POS'),
+  ('merchantpos', 'total_balance',         '1100040', 'GL Total Saldo Merchant-POS'),
+  ('merchantpos', 'suspense',              '1100050', 'GL Suspense Merchant-POS'),
+  ('merchantpos', 'suspense_petty',        '1100051', 'GL Suspense Petty Merchant-POS'),
+  ('merchantpos', 'gateway_fee',           '1100060', 'GL Biaya Gateway Merchant-POS'),
+  ('merchantpos', 'ppn',                   '1100070', 'GL PPN Merchant-POS'),
+  ('merchantpos', 'service',               '1100071', 'GL Biaya Service Merchant-POS'),
+  ('merchantpos', 'discount',              '1100072', 'GL Diskon Lain Merchant-POS')
 on conflict (resto_id, payment_method) do nothing;
 
 insert into expense_gl_accounts (resto_id, gl_code, gl_name)
@@ -214,7 +214,7 @@ $$;
 -- Jurnal pendapatan langganan
 -- ─────────────────────────────────────────────────────────────────────
 --
--- Dicatat di buku MerchantPOS, bukan di buku restonya. Bagi resto, biaya
+-- Dicatat di buku Merchant-POS, bukan di buku restonya. Bagi resto, biaya
 -- langganan adalah pengeluaran mereka — dan mereka mencatatnya sendiri
 -- lewat menu Pengeluaran kalau mau. Menuliskannya ke jurnal mereka dari
 -- sini berarti kami menulis di pembukuan orang lain.

@@ -15,7 +15,7 @@ class GatewaySettlementRepository {
   }
 
   /// Mencatat satu pencairan. Jurnalnya ditulis trigger database, bukan
-  /// di sini — sama seperti seluruh pergerakan uang lainnya di MerchantPOS.
+  /// di sini — sama seperti seluruh pergerakan uang lainnya di Merchant-POS.
   Future<void> create(GatewaySettlement settlement) async {
     await _client.from('gateway_settlements').insert(settlement.toMap());
   }

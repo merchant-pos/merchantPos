@@ -1,4 +1,4 @@
--- MerchantPOS — label menu, penilaian menu, dan angka terjualnya.
+-- Merchant-POS — label menu, penilaian menu, dan angka terjualnya.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman diulang.
 --

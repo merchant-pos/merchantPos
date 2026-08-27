@@ -20,16 +20,16 @@ final _rupiah =
     NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
 final _tanggal = DateFormat('d MMM yyyy', 'id_ID');
 
-/// Keuangan MerchantPOS sendiri — bukan keuangan resto.
+/// Keuangan Merchant-POS sendiri — bukan keuangan resto.
 ///
 /// Seluruh isinya memakai mesin pembukuan yang sama persis dengan resto,
-/// hanya dengan penyewa yang berbeda: MerchantPOS punya barisnya sendiri di
+/// hanya dengan penyewa yang berbeda: Merchant-POS punya barisnya sendiri di
 /// tabel restaurants, ditandai `is_platform`. Itulah kenapa layar Saldo,
 /// Mapping GL, dan Jurnal di bawah bisa dipakai apa adanya.
 ///
 /// Yang **tidak** ada di sini: Setor Saldo Cash. Menyetor tunai ke
 /// rekening sendiri adalah pekerjaan resto yang uangnya menumpuk di
-/// laci; MerchantPOS tidak punya laci.
+/// laci; Merchant-POS tidak punya laci.
 class SuperAdminFinanceScreen extends StatelessWidget {
   const SuperAdminFinanceScreen({super.key});
 
@@ -37,7 +37,7 @@ class SuperAdminFinanceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MerchantPosTheme.backgroundOf(context),
-      appBar: AppBar(title: const Text('Finance MerchantPOS')),
+      appBar: AppBar(title: const Text('Finance Merchant-POS')),
       body: ResponsiveCenter(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
@@ -71,7 +71,7 @@ class SuperAdminFinanceScreen extends StatelessWidget {
             HubMenuTile(
               icon: Icons.confirmation_number_outlined,
               title: 'Voucher Pelanggan',
-              subtitle: 'Promo MerchantPOS — ditanggung dari saldo sendiri',
+              subtitle: 'Promo Merchant-POS — ditanggung dari saldo sendiri',
               color: const Color(0xFFF59E0B),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (_) => const VoucherScreen(),
@@ -87,7 +87,7 @@ class SuperAdminFinanceScreen extends StatelessWidget {
             HubMenuTile(
               icon: Icons.account_balance_wallet_outlined,
               title: 'Saldo & Pengeluaran',
-              subtitle: 'Petty cash dan pengeluaran MerchantPOS',
+              subtitle: 'Petty cash dan pengeluaran Merchant-POS',
               color: const Color(0xFF0EA5E9),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (_) =>
@@ -108,8 +108,8 @@ class SuperAdminFinanceScreen extends StatelessWidget {
             const SizedBox(height: 12),
             HubMenuTile(
               icon: Icons.menu_book_outlined,
-              title: 'Jurnal GL MerchantPOS',
-              subtitle: 'Pergerakan uang di pembukuan MerchantPOS',
+              title: 'Jurnal GL Merchant-POS',
+              subtitle: 'Pergerakan uang di pembukuan Merchant-POS',
               color: const Color(0xFF14B8A6),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (_) =>
@@ -402,7 +402,7 @@ class _AllRestoJournalScreenState extends State<AllRestoJournalScreen> {
       if (!mounted) return;
       setState(() {
         _semua = entries;
-        // MerchantPOS tidak ikut: layar ini khusus pembukuan resto klien.
+        // Merchant-POS tidak ikut: layar ini khusus pembukuan resto klien.
         // Pembukuan sendiri punya layarnya sendiri di menu di atas.
         _namaResto = {for (final r in resto) r.id: r.name};
         _dibuka
@@ -649,7 +649,7 @@ class _AllRestoJournalScreenState extends State<AllRestoJournalScreen> {
                           : RefreshIndicator(
                               onRefresh: _muat,
                               // Tanpa pembatas lebar, sama seperti
-                              // Jurnal GL MerchantPOS di sebelahnya.
+                              // Jurnal GL Merchant-POS di sebelahnya.
                               //
                               // Daftarnya bukan bacaan mengalir yang
                               // barisnya perlu dipendekkan supaya

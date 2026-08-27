@@ -32,7 +32,7 @@ void main() {
     // Gerbang langganan berlaku sama di web maupun ponsel. Merchant
     // menunggak yang membuka konsol web tidak boleh menemukan pintu
     // belakang yang tidak ada di ponselnya.
-    test('gerbang langganan tetap dipasang, kecuali untuk MerchantPOS Admin', () {
+    test('gerbang langganan tetap dipasang, kecuali untuk Merchant-POS Admin', () {
       expect(root, contains('auth.isSuperAdmin ? shell : BillingGate(child: shell)'));
     });
   });
@@ -73,7 +73,7 @@ void main() {
       expect(auth, contains('redirectTo: _alamatKembali()'));
     });
 
-    // Di GitHub Pages aplikasinya tinggal di .../MerchantPOS/, dan origin
+    // Di GitHub Pages aplikasinya tinggal di .../Merchant-POS/, dan origin
     // saja menunjuk ke akar domain — tempat aplikasi ini tidak ada.
     test('alamat kembalinya membawa jalur, bukan origin saja', () {
       expect(auth, isNot(contains('redirectTo: Uri.base.origin')));
@@ -299,8 +299,8 @@ void main() {
       expect(blok('_admin'), contains('layar: PaymentInfoScreen.new'));
     });
 
-    // Di HP hanya MerchantPOS Admin yang punya jalan ke sana sama sekali.
-    test('kelola karyawan hanya untuk MerchantPOS Admin', () {
+    // Di HP hanya Merchant-POS Admin yang punya jalan ke sana sama sekali.
+    test('kelola karyawan hanya untuk Merchant-POS Admin', () {
       expect(blok('_superAdmin'), contains('EmployeeManagementScreen'));
       for (final peran in ['_owner', '_admin', '_finance']) {
         expect(blok(peran), isNot(contains('EmployeeManagementScreen')),
@@ -316,14 +316,14 @@ void main() {
     final blok = menu.substring(menu.indexOf('const _superAdmin'));
     final superAdmin = blok.substring(0, blok.indexOf('\n];'));
 
-    test('isi Finance MerchantPOS dibongkar ke sidebar', () {
+    test('isi Finance Merchant-POS dibongkar ke sidebar', () {
       for (final m in [
         'Riwayat Langganan',
         'Diskon Langganan',
         'Voucher Pelanggan',
         'Saldo & Pengeluaran',
         'Mapping GL Account',
-        'Jurnal GL MerchantPOS',
+        'Jurnal GL Merchant-POS',
         'Jurnal GL Semua Merchant',
       ]) {
         expect(superAdmin, contains("judul: '$m'"), reason: m);
@@ -333,9 +333,9 @@ void main() {
       expect(superAdmin, isNot(contains('SuperAdminFinanceScreen')));
     });
 
-    // Ketiganya membaca pembukuan MerchantPOS sendiri, bukan pembukuan
+    // Ketiganya membaca pembukuan Merchant-POS sendiri, bukan pembukuan
     // merchant mana pun — salah resto berarti angka orang lain.
-    test('pembukuan MerchantPOS menunjuk resto semu merchantpos', () {
+    test('pembukuan Merchant-POS menunjuk resto semu merchantpos', () {
       for (final f in ['_saldoMerchantPOS', '_mappingMerchantPOS', '_jurnalMerchantPOS']) {
         expect(menu, contains(f));
       }
@@ -394,7 +394,7 @@ void main() {
       expect(fab, contains('alignment: Alignment.bottomRight'));
       // Satu badan menu, dipakai dua bentuk — bukan dua salinan yang
       // bisa berpisah pada perubahan berikutnya.
-      expect("title: const Text('Chat MerchantPOS Admin')".allMatches(fab).length, 1);
+      expect("title: const Text('Chat Merchant-POS Admin')".allMatches(fab).length, 1);
     });
   });
 
@@ -405,15 +405,15 @@ void main() {
     // yang tidak dipakai sama sekali di web. Tanpa dipasang di
     // kerangkanya, pegawai merchant yang bekerja dari konsol tidak
     // punya satu pun jalan untuk mengadu atau bertanya.
-    test('MerchantPOS Support ada di kedua bentuk kerangka', () {
+    test('Merchant-POS Support ada di kedua bentuk kerangka', () {
       expect('floatingActionButton: _support(auth),'.allMatches(shell).length, 2);
       expect(shell, contains('child: SupportFab(),'));
     });
 
-    // MerchantPOS Admin berada di sisi seberang percakapan yang sama —
+    // Merchant-POS Admin berada di sisi seberang percakapan yang sama —
     // tombol mengadu di layarnya sendiri hanya membuat dia bisa
     // membuat tiket yang ujungnya dia jawab sendiri.
-    test('MerchantPOS Admin tidak mendapat tombolnya', () {
+    test('Merchant-POS Admin tidak mendapat tombolnya', () {
       expect(shell, contains('if (auth.isSuperAdmin) return null;'));
     });
 
@@ -549,7 +549,7 @@ void main() {
         File('lib/screens/super_admin_finance_screen.dart').readAsStringSync();
     final layar = isi.substring(isi.indexOf('class _AllRestoJournalScreenState'));
 
-    // Sama seperti Jurnal GL MerchantPOS di sebelahnya: daftarnya bukan
+    // Sama seperti Jurnal GL Merchant-POS di sebelahnya: daftarnya bukan
     // bacaan mengalir yang barisnya perlu dipendekkan — tiap barisnya
     // kartu bertumpu pada nomor akun di kiri dan nominal di kanan, dan
     // jarak itulah yang membuat keduanya terbaca sebagai sepasang.

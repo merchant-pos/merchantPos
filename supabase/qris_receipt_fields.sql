@@ -1,4 +1,4 @@
--- MerchantPOS — rincian kuitansi QRIS dari Xendit, jadi kolomnya sendiri.
+-- Merchant-POS — rincian kuitansi QRIS dari Xendit, jadi kolomnya sendiri.
 --
 -- Jalankan SETELAH payment_gateway.sql. Aman dijalankan berulang kali.
 --

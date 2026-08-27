@@ -13,7 +13,7 @@ import '../utils/id_time.dart';
 import '../widgets/responsive.dart';
 import 'support_chat_screen.dart';
 
-/// Customer Service — MerchantPOS Admin.
+/// Customer Service — Merchant-POS Admin.
 ///
 /// Daftar percakapan, bukan daftar tiket. Bentuknya sengaja mengikuti
 /// aplikasi pesan yang sudah dipakai semua orang: nama di kiri, cuplikan

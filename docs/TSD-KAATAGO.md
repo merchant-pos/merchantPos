@@ -1,4 +1,4 @@
-# MerchantPOS — Technical Specification Document
+# Merchant-POS — Technical Specification Document
 
 **Versi Aplikasi:** 2.16.0 (build 122)
 **Versi Dokumen:** 1.9
@@ -6,7 +6,7 @@
 **Status:** Rilis
 **Jenis Dokumen:** TSD — sisi teknis
 
-Dokumen ini menjelaskan **bagaimana** MerchantPOS dibangun: lapisannya,
+Dokumen ini menjelaskan **bagaimana** Merchant-POS dibangun: lapisannya,
 tabelnya, aturan keamanan barisnya, jalur uangnya di pembukuan, dan
 keputusan-keputusan yang bentuknya tidak jelas dari kodenya sendiri.
 Sisi fungsionalnya — siapa memakai apa, aturan bisnis apa yang berlaku —
@@ -72,7 +72,7 @@ miliknya sendiri**; yang dia punya adalah seluruh layar di atasnya.
 
 ![Arsitektur teknis](gambar/arsitektur-02-teknikal.png)
 
-MerchantPOS adalah aplikasi Flutter tunggal yang berbicara langsung ke
+Merchant-POS adalah aplikasi Flutter tunggal yang berbicara langsung ke
 Supabase. **Tidak ada server aplikasi milik sendiri di tengahnya.**
 
 Yang menggantikannya adalah RLS — aturan keamanan yang hidup di
@@ -583,7 +583,7 @@ Angka 30 menit ditulis di dua tempat — SQL dan
 
 ## 7.3 Langganan resto
 
-Satu-satunya aliran uang yang arahnya keluar dari resto menuju MerchantPOS.
+Satu-satunya aliran uang yang arahnya keluar dari resto menuju Merchant-POS.
 Dipisah sepenuhnya dari buku besar resto — jurnal GL mencatat uang yang
 masuk ke restonya, dan menyeret tagihan langganan ke sana akan membuat
 biaya kami muncul sebagai pengeluaran resto di laporan yang dibaca
@@ -657,7 +657,7 @@ fitur ini yang **tidak menghasilkan galat apa pun saat terjadi**.
 | | `create-qris` | `create-billing-va` |
 |---|---|---|
 | Header `for-user-id` | **Dipasang** — sub-akun resto | **Tidak dipasang** |
-| Uangnya ke | Rekening resto | Rekening MerchantPOS |
+| Uangnya ke | Rekening resto | Rekening Merchant-POS |
 | Untuk | Pesanan pelanggan | Tagihan langganan |
 
 Dengan `for-user-id` terpasang di jalur langganan, resto membayar
@@ -706,13 +706,13 @@ dengan harga daftar dan potongannya sebagai baris terpisah.
 
 ---
 
-### 7.4 Pembukuan MerchantPOS sendiri
+### 7.4 Pembukuan Merchant-POS sendiri
 
 Pendapatan langganan harus tercatat di suatu tempat, dan tempat itu
 bukan buku resto: bagi mereka, biaya langganan adalah pengeluaran
 mereka sendiri.
 
-**MerchantPOS diberi satu barisnya sendiri di tabel `restaurants`**,
+**Merchant-POS diberi satu barisnya sendiri di tabel `restaurants`**,
 ditandai `is_platform`, dengan id `merchantpos`. Seluruh mesin pembukuan
 yang sudah ada — bagan akun, jurnal, pengeluaran, kas kecil, berikut
 pemicu dan kebijakannya — bekerja per resto, jadi ia langsung bekerja
@@ -822,7 +822,7 @@ lain.
 
 **Pemakaian dicatat pemicu, bukan aplikasi.** `log_voucher_use()`
 berjalan `after insert on orders`: menandai klaimnya terpakai, mendebit
-`voucher_redeem` di buku MerchantPOS, dan mengkredit GL `transfer` restonya
+`voucher_redeem` di buku Merchant-POS, dan mengkredit GL `transfer` restonya
 lewat `_gl_account_for(new.resto_id, 'transfer')`. Pesanan yang masuk
 tanpa lewat layar keranjang tetap terjurnal.
 
@@ -902,7 +902,7 @@ disembunyikan — nol percobaan adalah tandanya kekurangan ada di sisi
 kita, bukan di Xendit. Konsekuensi yang sama berlaku untuk QRIS:
 `create-qris` memasang `for-user-id` hanya bila sub-akunnya ada,
 sehingga sampai xenPlatform aktif seluruh pembayaran resto mendarat di
-rekening MerchantPOS dan diteruskan di luar aplikasi.
+rekening Merchant-POS dan diteruskan di luar aplikasi.
 
 Saat berkas ini dijalankan, seluruh klaim berstatus `used` diantre
 sekaligus. Tanggal pemasangan bukan garis pemisah antara utang dan
@@ -1211,7 +1211,7 @@ bukan penjualan dan bukan biaya: ia uang yang sedang ditagihkan, dan
 tempatnya di sisi titipan sampai jelas jadi apa.
 
 Jurnalnya ditulis **pemicu** pada `cashier_shifts`, bukan oleh
-`close_shift`. Seluruh jurnal di MerchantPOS lahir dari pemicu supaya tidak
+`close_shift`. Seluruh jurnal di Merchant-POS lahir dari pemicu supaya tidak
 pernah ada jalan menutup shift tanpa jurnalnya ikut tertulis.
 
 Arahnya mengikuti kesepakatan buku ini — credit = uang masuk:
@@ -1265,7 +1265,7 @@ menghilangkannya menyebut omzet lebih kecil daripada yang diterima.
 
 ---
 
-### 7.14 MerchantPOS Support
+### 7.14 Merchant-POS Support
 
 `supabase/support_tickets.sql` dan `supabase/support_push.sql`.
 
@@ -1453,7 +1453,7 @@ Aturannya sekarang dikunci tes yang membaca **kedua berkas layar
 sekaligus** dan menuntut keduanya memakai kunci pasangan yang sama.
 
 
-Contoh kedua, dan lebih halus. Saldo MerchantPOS dulu dihitung dari
+Contoh kedua, dan lebih halus. Saldo Merchant-POS dulu dihitung dari
 **daftar jenis transaksi** (`{'order','billing'}` menambah,
 `{'expense','billing_discount'}` mengurangi). Daftar semacam itu harus
 ditambahi tiap kali ada fitur baru yang memindahkan uang — dan saat
@@ -1464,7 +1464,7 @@ Rp 115.000.
 
 Perbaikan pertamanya juga salah, dan cara gagalnya mengajarkan
 sesuatu. Aturan diganti jadi "kredit − debit **pada akun GL Total
-Saldo**", dengan anggapan setiap uang bebas MerchantPOS lewat akun itu.
+Saldo**", dengan anggapan setiap uang bebas Merchant-POS lewat akun itu.
 Anggapan itu tidak pernah diperiksa terhadap datanya: pendapatan
 langganan dikreditkan langsung ke GL Pendapatan Langganan (1100001) dan
 tidak pernah menyentuh 1100040. Yang lewat sana hanya voucher — karena
@@ -1545,7 +1545,7 @@ perangkat akhirnya tidak dijalankan.
 `scripts/release.sh` menjalankan seluruhnya sekali jalan:
 
 1. `flutter build apk --release`
-2. Salin ke `MerchantPOS Realase/` bernama versi
+2. Salin ke `Merchant-POS Realase/` bernama versi
 3. Unggah sebagai aset GitHub Release
 4. Hapus rilis lama — hanya yang terbaru tersisa
 5. Perbarui nomor versi & ukuran di landing page, lalu push
@@ -1555,7 +1555,7 @@ perangkat akhirnya tidak dijalankan.
 selamanya, jadi APK 83 MB yang "dihapus" di commit berikutnya tetap
 tinggal di riwayat — sepuluh rilis berarti repo 830 MB yang harus
 diunduh siapa pun yang clone. GitHub Release menyimpan asetnya di luar
-riwayat, dan URL `releases/latest/download/MerchantPOS.apk` selalu menunjuk
+riwayat, dan URL `releases/latest/download/Merchant-POS.apk` selalu menunjuk
 ke yang terbaru sehingga tautan di landing page tidak pernah perlu
 diganti.
 
@@ -1609,7 +1609,7 @@ tempat yang salah, dan jatuh jauh dari tempat asalnya.
 `onPressed: _menyimpan ? null : _kirim` baru berlaku setelah layarnya
 digambar ulang. Dua ketukan cepat sama-sama masuk lebih dulu.
 
-Di formulir pengaduan MerchantPOS Support akibatnya terlihat langsung: dua
+Di formulir pengaduan Merchant-POS Support akibatnya terlihat langsung: dua
 tiket terkirim, masing-masing membawa salinan fotonya sendiri.
 Penjaganya harus **di dalam fungsinya** — `if (_menyimpan) return;` —
 yang dibaca seketika, bukan diserahkan ke tombolnya.
@@ -1624,7 +1624,7 @@ Notifikasi pengaduan sempat disasar dengan `audience: 'role'` dan peran
 `super_admin`, dan gagal dengan **"tidak ada perangkat terdaftar"** —
 walau barisnya ada, walau emailnya benar.
 
-Sekarang disasar lewat email tiap MerchantPOS Admin yang dibaca dari tabel
+Sekarang disasar lewat email tiap Merchant-POS Admin yang dibaca dari tabel
 `employees`. Emailnya ditulis di **setiap** pendaftaran token, apa pun
 peran yang sedang dipegang saat itu. Konsekuensinya satu baris outbox
 per admin, bukan satu untuk semuanya — dan itu harga yang murah.
@@ -1637,7 +1637,7 @@ memakai aplikasinya dengan cara berbeda.
 `SupabaseStreamBuilder.order(String column, {bool ascending = false})` —
 **menurun**, kebalikan dari `select().order()` yang bawaannya menaik.
 
-`.order('created_at')` pada aliran pesan membuat percakapan MerchantPOS
+`.order('created_at')` pada aliran pesan membuat percakapan Merchant-POS
 Support terbaca terbalik: yang terbaru di paling atas. Aliran menu juga
 kena, dan itu bertahan jauh lebih lama tanpa ketahuan — menunya cuma
 berurut dari Z ke A, dan tidak ada yang menyadarinya karena

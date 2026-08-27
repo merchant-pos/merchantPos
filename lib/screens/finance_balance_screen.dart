@@ -56,7 +56,7 @@ import '../utils/lebar_web.dart';
 class FinanceBalanceScreen extends StatefulWidget {
   /// Resto yang dibukukan. Kosong berarti resto tempat orangnya bekerja.
   ///
-  /// Diisi hanya oleh menu Finance Super Admin, yang membukukan MerchantPOS
+  /// Diisi hanya oleh menu Finance Super Admin, yang membukukan Merchant-POS
   /// sendiri — penyewa platform yang memakai mesin pembukuan yang sama
   /// persis dengan resto.
   final String? restoId;
@@ -102,16 +102,16 @@ class _FinanceBalanceScreenState extends State<FinanceBalanceScreen> {
   String get _restoId =>
       widget.restoId ?? context.read<AuthProvider>().restoId!;
 
-  /// Yang dibukukan adalah MerchantPOS sendiri, bukan sebuah resto.
+  /// Yang dibukukan adalah Merchant-POS sendiri, bukan sebuah resto.
   ///
-  /// Bedanya bukan kosmetik. MerchantPOS tidak punya pesanan, laci kasir,
+  /// Bedanya bukan kosmetik. Merchant-POS tidak punya pesanan, laci kasir,
   /// atau setoran bank — seluruh uangnya bergerak lewat jurnal:
   /// langganan masuk, diskon dan voucher keluar. Menghitungnya dengan
   /// cara resto membuat layar ini berbunyi Rp 0 selamanya, sementara
   /// Jurnal GL di sebelahnya menyebut angka yang sebenarnya.
   bool get _untukPlatform => widget.restoId == kPlatformRestoId;
 
-  /// Jurnal MerchantPOS, dan nomor akun GL Total Saldo-nya.
+  /// Jurnal Merchant-POS, dan nomor akun GL Total Saldo-nya.
   List<GlJournalEntry> _jurnal = const [];
   String? _kodeTotalSaldo;
 
@@ -187,7 +187,7 @@ class _FinanceBalanceScreenState extends State<FinanceBalanceScreen> {
           _deposits = const [];
           _loading = false;
         });
-        // Pengeluaran dan petty cash MerchantPOS tetap dimuat — keduanya
+        // Pengeluaran dan petty cash Merchant-POS tetap dimuat — keduanya
         // dipakai, cuma sumber pemasukannya yang berbeda.
         final biaya = await _expenseRepo.getForResto(restoId);
         final akunBiaya = await _expenseGlRepo.getForResto(restoId);
@@ -318,7 +318,7 @@ class _FinanceBalanceScreenState extends State<FinanceBalanceScreen> {
   /// keluar dari resto. Tanpa baris ini setiap setoran akan terlihat
   /// seperti kehilangan uang.
   int get _totalBalance {
-    // Saldo MerchantPOS dihitung dari pergerakan akun GL Total Saldo —
+    // Saldo Merchant-POS dihitung dari pergerakan akun GL Total Saldo —
     // sumber yang sama persis dengan layar Jurnal GL, supaya keduanya
     // tidak pernah menyebut angka berbeda untuk uang yang sama.
     if (_untukPlatform) {
@@ -329,13 +329,13 @@ class _FinanceBalanceScreenState extends State<FinanceBalanceScreen> {
     return _incomeBalance + _pettyCashBalance + _depositedTotal;
   }
 
-  /// Uang masuk ke pembukuan MerchantPOS: langganan yang dibayar resto.
+  /// Uang masuk ke pembukuan Merchant-POS: langganan yang dibayar resto.
   int get _pemasukanPlatform {
     final kode = _kodeTotalSaldo;
     return kode == null ? 0 : pemasukanPlatform(_jurnal, kode);
   }
 
-  /// Uang keluar dari saldo bebas MerchantPOS: diskon langganan, dan dana
+  /// Uang keluar dari saldo bebas Merchant-POS: diskon langganan, dan dana
   /// yang dialokasikan ke voucher.
   int get _keluarPlatform {
     final kode = _kodeTotalSaldo;
@@ -608,7 +608,7 @@ class _FinanceBalanceScreenState extends State<FinanceBalanceScreen> {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      // MerchantPOS tidak punya laci kasir. Memecah
+                      // Merchant-POS tidak punya laci kasir. Memecah
                       // penghasilannya jadi tunai dan non-tunai berarti
                       // dua angka nol yang menyuruh orang mencari uang
                       // yang tidak pernah ada bentuk fisiknya.
@@ -653,7 +653,7 @@ class _FinanceBalanceScreenState extends State<FinanceBalanceScreen> {
                           Expanded(
                             child: _BalanceMiniCard(
                               icon: Icons.trending_down,
-                              // Untuk MerchantPOS yang dihitung bukan cuma
+                              // Untuk Merchant-POS yang dihitung bukan cuma
                               // pengeluaran operasional: diskon langganan
                               // dan dana yang dialokasikan ke voucher juga
                               // keluar dari saldo bebasnya.

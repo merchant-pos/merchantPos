@@ -1,4 +1,4 @@
--- MerchantPOS — notifikasi untuk MerchantPOS Support.
+-- Merchant-POS — notifikasi untuk Merchant-POS Support.
 --
 -- Jalankan SETELAH support_tickets.sql dan push_notifications.sql.
 -- Aman diulang.
@@ -6,7 +6,7 @@
 -- Penanda di dalam aplikasi hanya terlihat oleh orang yang sedang
 -- membuka aplikasinya. Yang mengadu lalu menutup HP-nya — dan itulah
 -- yang dilakukan hampir semua orang setelah mengadu — tidak akan pernah
--- tahu keluhannya sudah dijawab sampai ia kebetulan membuka MerchantPOS
+-- tahu keluhannya sudah dijawab sampai ia kebetulan membuka Merchant-POS
 -- lagi. Balasan yang tidak sampai sama saja dengan tidak dibalas.
 
 -- Satu pemicu untuk kedua arah.
@@ -43,7 +43,7 @@ begin
         'audience', 'email',
         'email', t.reporter_email,
         'ticket_id', t.id::text,
-        'title', 'MerchantPOS Support — ' || t.subject,
+        'title', 'Merchant-POS Support — ' || t.subject,
         'body', v_cuplikan
       )
     );
@@ -51,12 +51,12 @@ begin
     v_nama := coalesce(nullif(btrim(coalesce(t.reporter_name, '')), ''),
                        split_part(t.reporter_email, '@', 1));
 
-    -- Ke MerchantPOS Admin, satu baris per orang, disasar lewat emailnya.
+    -- Ke Merchant-POS Admin, satu baris per orang, disasar lewat emailnya.
     --
     -- Sempat memakai audiens 'role' dengan peran super_admin, dan itu
     -- gagal dengan "tidak ada perangkat terdaftar": baris token hanya
     -- punya peran kalau perangkatnya mendaftar setelah orangnya masuk
-    -- sebagai MerchantPOS Admin. Satu perangkat yang pernah dipakai masuk
+    -- sebagai Merchant-POS Admin. Satu perangkat yang pernah dipakai masuk
     -- sebagai peran lain, atau yang barisnya ditulis versi lama, tidak
     -- akan pernah terjaring.
     --
@@ -64,7 +64,7 @@ begin
     -- apa pun peran yang sedang dipegang saat itu.
     --
     -- Konsekuensinya satu baris outbox per admin, bukan satu untuk
-    -- semuanya. Jumlah MerchantPOS Admin dihitung jari, dan kabar yang
+    -- semuanya. Jumlah Merchant-POS Admin dihitung jari, dan kabar yang
     -- sampai lebih berharga daripada satu baris yang rapi.
     for v_admin in
       select distinct e.email

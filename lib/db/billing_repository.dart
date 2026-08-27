@@ -84,7 +84,7 @@ class BillingRepository {
     });
   }
 
-  /// MerchantPOS menerima atau menolak bukti bayar.
+  /// Merchant-POS menerima atau menolak bukti bayar.
   Future<void> review(String invoiceId,
       {required bool accept, String? reason}) async {
     await _client.rpc('review_billing_payment', params: {

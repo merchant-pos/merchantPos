@@ -1,4 +1,4 @@
--- MerchantPOS — GL Diskon terisi bawaannya di tiap resto.
+-- Merchant-POS — GL Diskon terisi bawaannya di tiap resto.
 --
 -- Jalankan SETELAH billing_journal_gross.sql. Aman diulang.
 --
@@ -36,10 +36,10 @@ where payment_method = 'discount'
   and coalesce(gl_code, '') = ''
   and resto_id in (select id from restaurants where is_platform = false);
 
--- MerchantPOS memakai golongan 11xxxxx untuk pembukuannya sendiri.
+-- Merchant-POS memakai golongan 11xxxxx untuk pembukuannya sendiri.
 insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values
-  ('merchantpos', 'discount',              '1100072', 'GL Diskon Lain MerchantPOS'),
+  ('merchantpos', 'discount',              '1100072', 'GL Diskon Lain Merchant-POS'),
   ('merchantpos', 'subscription_discount', '1100002', 'GL Diskon Langganan')
 on conflict (resto_id, payment_method) do nothing;
 

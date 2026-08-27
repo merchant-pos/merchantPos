@@ -1,4 +1,4 @@
--- MerchantPOS — GL Selisih Kasir, dan pelunasannya.
+-- Merchant-POS — GL Selisih Kasir, dan pelunasannya.
 --
 -- Jalankan SETELAH cashier_shift.sql dan default_gl_accounts.sql.
 -- Aman diulang.
@@ -132,7 +132,7 @@ commit;
 -- Lahirnya tagihan, dan jurnalnya
 -- ─────────────────────────────────────────────────────────────────────
 --
--- Ditulis pemicu, bukan oleh `close_shift`. Seluruh jurnal di MerchantPOS
+-- Ditulis pemicu, bukan oleh `close_shift`. Seluruh jurnal di Merchant-POS
 -- lahir dari pemicu supaya tidak pernah ada jalan menutup shift tanpa
 -- jurnalnya ikut tertulis — lihat catatan di gl_journal.sql.
 --

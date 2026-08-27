@@ -1,4 +1,4 @@
--- MerchantPOS — Backfill jurnal untuk transaksi yang sudah ada
+-- Merchant-POS — Backfill jurnal untuk transaksi yang sudah ada
 -- (run AFTER journal_integrity.sql).
 --
 -- The journal triggers only fire on new activity, so everything recorded

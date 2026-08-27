@@ -25,7 +25,7 @@ class TableQrCard {
   /// Tulisan-tulisan di kartunya. Nilai bawaannya adalah kartu meja,
   /// yang jadi satu-satunya pemakai kartu ini sampai kasir ikut
   /// mencetakkan QR pembayaran.
-  final String kicker; // di bawah tulisan MerchantPOS
+  final String kicker; // di bawah tulisan Merchant-POS
   final String caption; // di bawah nama resto, di dalam kartu putih
   final String badgePrefix; // sebelum [table] di lencana amber
   final String footer; // di bawah kartu putih
@@ -103,8 +103,8 @@ List<String> tableLabels({String prefix = '', required int count}) {
   return [for (var i = 1; i <= count; i++) '$prefix$i'];
 }
 
-const _brand = PdfColor.fromInt(0xFF4F46E5);
-const _brandDark = PdfColor.fromInt(0xFF3730A3);
+const _brand = PdfColor.fromInt(0xFF047857);
+const _brandDark = PdfColor.fromInt(0xFF065F46);
 const _accent = PdfColor.fromInt(0xFFF59E0B);
 
 /// Ukuran kartunya dalam titik PDF. Perbandingannya sengaja mendekati
@@ -127,7 +127,7 @@ Future<bool> saveTableQrToGallery(BuildContext context, TableQrCard card) async 
   return savePngToGallery(
     context,
     bytes,
-    successMessage: 'QR Meja ${card.table} tersimpan di galeri (album MerchantPOS).',
+    successMessage: 'QR Meja ${card.table} tersimpan di galeri (album Merchant-POS).',
     failurePrefix: 'Gagal menyimpan QR',
   );
 }
@@ -167,7 +167,7 @@ Future<int> saveTableQrBatchToGallery(
   }
 
   if (failed.isEmpty) {
-    toast.show('$saved QR Meja tersimpan di galeri (album MerchantPOS).');
+    toast.show('$saved QR Meja tersimpan di galeri (album Merchant-POS).');
   } else {
     toast.show(
       '$saved tersimpan, ${failed.length} gagal (meja ${failed.take(5).join(', ')}'
@@ -283,7 +283,7 @@ pw.Widget _card(TableQrCard card, pw.MemoryImage logo) {
                   pw.Image(logo, width: 22, height: 22),
                   pw.SizedBox(width: 7),
                   pw.Text(
-                    'MerchantPOS',
+                    'Merchant-POS',
                     style: pw.TextStyle(
                       fontSize: 17,
                       fontWeight: pw.FontWeight.bold,

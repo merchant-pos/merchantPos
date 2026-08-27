@@ -9,7 +9,7 @@ void main() {
   final sumber = File('lib/utils/invoice_pdf.dart').readAsStringSync();
 
   group('kepala surat invoice', () {
-    test('logonya dipasang di samping tulisan MerchantPOS', () {
+    test('logonya dipasang di samping tulisan Merchant-POS', () {
       expect(sumber, contains("rootBundle.load('assets/icon/merchantpos_icon.png')"));
       expect(sumber, contains('pw.Image(logo, width: 34, height: 34)'));
     });
@@ -17,7 +17,7 @@ void main() {
     test('logonya di kiri, sebelum tulisannya', () {
       final blok = sumber.substring(sumber.indexOf('pw.Row('));
       expect(blok.indexOf('pw.Image(logo'),
-          lessThan(blok.indexOf("pw.Text('MerchantPOS'")));
+          lessThan(blok.indexOf("pw.Text('Merchant-POS'")));
     });
 
     test('gagal memuat logo tidak menjatuhkan struknya', () {

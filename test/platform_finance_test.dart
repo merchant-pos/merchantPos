@@ -79,8 +79,8 @@ void main() {
   group('penyewa platform', () {
     final sql = File('supabase/platform_finance.sql').readAsStringSync();
 
-    test('MerchantPOS punya barisnya sendiri di tabel merchant', () {
-      expect(sql, contains("values ('merchantpos', 'MerchantPOS'"));
+    test('Merchant-POS punya barisnya sendiri di tabel merchant', () {
+      expect(sql, contains("values ('merchantpos', 'Merchant-POS'"));
       expect(kPlatformRestoId, 'merchantpos');
     });
 
@@ -111,7 +111,7 @@ void main() {
   group('jurnal pendapatan langganan', () {
     final sql = File('supabase/platform_finance.sql').readAsStringSync();
 
-    test('dicatat di buku MerchantPOS, bukan di buku restonya', () {
+    test('dicatat di buku Merchant-POS, bukan di buku restonya', () {
       // Bagi resto, biaya langganan adalah pengeluaran mereka.
       // Menuliskannya ke jurnal mereka dari sini berarti kami menulis di
       // pembukuan orang lain.
@@ -162,12 +162,12 @@ void main() {
     });
 
     test('tidak ada setor tunai di sisi platform', () {
-      // MerchantPOS tidak punya laci kasir; menyetor tunai ke rekening
+      // Merchant-POS tidak punya laci kasir; menyetor tunai ke rekening
       // sendiri adalah pekerjaan resto yang uangnya menumpuk di sana.
       final layar =
           File('lib/screens/super_admin_finance_screen.dart').readAsStringSync();
       expect(layar, isNot(contains('CashDepositScreen')));
-      expect(layar, contains('MerchantPOS tidak punya laci'));
+      expect(layar, contains('Merchant-POS tidak punya laci'));
     });
   });
 
@@ -269,7 +269,7 @@ void main() {
       expect(layar, contains("title: 'GL Diskon'"));
     });
 
-    test('akun langganan hanya tampil untuk pembukuan MerchantPOS', () {
+    test('akun langganan hanya tampil untuk pembukuan Merchant-POS', () {
       // Resto tidak menagih siapa pun.
       expect(layar, contains('if (_untukPlatform)'));
       expect(layar, contains("title: 'GL Langganan'"));
@@ -309,7 +309,7 @@ void main() {
       expect(sql, contains("'discount', '2200002', 'GL Diskon Penjualan'"));
     });
 
-    test('MerchantPOS dapat 1100002 untuk diskon langganan', () {
+    test('Merchant-POS dapat 1100002 untuk diskon langganan', () {
       expect(sql, contains("'subscription_discount', '1100002'"));
     });
 
@@ -425,12 +425,12 @@ void main() {
   });
 
 
-  group('saldo pembukuan MerchantPOS', () {
+  group('saldo pembukuan Merchant-POS', () {
     final layar =
         File('lib/screens/finance_journal_screen.dart').readAsStringSync();
 
     test('pendapatan langganan ikut dihitung', () {
-      // Menyebut 'order' saja membuat pembukuan MerchantPOS berbunyi Rp 0
+      // Menyebut 'order' saja membuat pembukuan Merchant-POS berbunyi Rp 0
       // selamanya — seluruh pendapatannya memang tidak pernah berasal
       // dari pesanan.
       expect(layar, contains("sumberPemasukan = {'order', 'billing'}"));
@@ -501,7 +501,7 @@ void main() {
   });
 
 
-  group('Jurnal Semua Merchant tidak mencampur pembukuan MerchantPOS', () {
+  group('Jurnal Semua Merchant tidak mencampur pembukuan Merchant-POS', () {
     final repo =
         File('lib/db/gl_journal_repository.dart').readAsStringSync();
     final layar =
@@ -514,13 +514,13 @@ void main() {
       expect(repo, contains("neq('resto_id', kPlatformRestoId)"));
     });
 
-    test('MerchantPOS tidak ada di daftar saringan', () {
+    test('Merchant-POS tidak ada di daftar saringan', () {
       expect(layar,
-          isNot(contains("kPlatformRestoId: 'MerchantPOS'")));
+          isNot(contains("kPlatformRestoId: 'Merchant-POS'")));
     });
 
-    test('pembukuan MerchantPOS tetap punya layarnya sendiri', () {
-      expect(layar, contains("title: 'Jurnal GL MerchantPOS'"));
+    test('pembukuan Merchant-POS tetap punya layarnya sendiri', () {
+      expect(layar, contains("title: 'Jurnal GL Merchant-POS'"));
     });
   });
 

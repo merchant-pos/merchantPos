@@ -1,8 +1,8 @@
--- MerchantPOS — banner promo per resto.
+-- Merchant-POS — banner promo per resto.
 --
 -- Jalankan kapan saja setelah schema.sql. Aman dijalankan berulang kali.
 --
--- Bannernya milik resto, bukan milik MerchantPOS: tiap resto memasang
+-- Bannernya milik resto, bukan milik Merchant-POS: tiap resto memasang
 -- promonya sendiri, dan customer hanya melihat banner resto yang sedang
 -- dia buka.
 

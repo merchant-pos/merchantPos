@@ -73,7 +73,7 @@ Future<void> cetakInvoiceLangganan({
                   pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
-                      pw.Text('MerchantPOS',
+                      pw.Text('Merchant-POS',
                           style: pw.TextStyle(
                               fontSize: 22, fontWeight: pw.FontWeight.bold)),
                       pw.SizedBox(height: 2),
@@ -146,7 +146,7 @@ Future<void> cetakInvoiceLangganan({
           ),
           pw.Spacer(),
           pw.Text(
-            'Dokumen ini dibuat otomatis oleh aplikasi MerchantPOS dan sah '
+            'Dokumen ini dibuat otomatis oleh aplikasi Merchant-POS dan sah '
             'tanpa tanda tangan.',
             style:
                 const pw.TextStyle(fontSize: 9, color: PdfColors.grey600),
@@ -158,7 +158,7 @@ Future<void> cetakInvoiceLangganan({
 
   await Printing.layoutPdf(
     onLayout: (format) async => doc.save(),
-    name: 'MerchantPOS-${invoice.id}.pdf',
+    name: 'Merchant-POS-${invoice.id}.pdf',
   );
 }
 

@@ -97,7 +97,7 @@ class _RestaurantCreateScreenState extends State<RestaurantCreateScreen> {
   /// Pengenal sub-akun Xendit resto ini.
   ///
   /// Tempatnya di sini, bukan di Pengaturan Pembayaran milik Finance.
-  /// Sub-akun dibuat di akun Xendit MerchantPOS dan pengenalnya ditentukan
+  /// Sub-akun dibuat di akun Xendit Merchant-POS dan pengenalnya ditentukan
   /// Xendit, bukan restonya — orang resto tidak punya cara mengetahui
   /// nilainya, tidak punya cara memeriksa benar atau salahnya, dan
   /// salah ketik satu huruf mengirim seluruh pembayaran QRIS-nya ke

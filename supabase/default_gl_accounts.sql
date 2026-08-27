@@ -1,4 +1,4 @@
--- MerchantPOS — resto baru langsung punya bagan akun dan tarif pajaknya.
+-- Merchant-POS — resto baru langsung punya bagan akun dan tarif pajaknya.
 --
 -- Aman dijalankan berulang kali.
 --

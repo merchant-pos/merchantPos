@@ -1,4 +1,4 @@
--- MerchantPOS — voucher khusus pengguna baru.
+-- Merchant-POS — voucher khusus pengguna baru.
 --
 -- Jalankan SETELAH voucher_manage.sql. Aman dijalankan berulang kali.
 --
@@ -20,10 +20,10 @@ commit;
 -- Yang belum pernah punya pesanan **terbayar** di resto mana pun.
 --
 -- Pesanan batal tidak dihitung: orang yang memesan lalu membatalkannya
--- belum pernah benar-benar memakai MerchantPOS, dan menutup pintu untuknya
+-- belum pernah benar-benar memakai Merchant-POS, dan menutup pintu untuknya
 -- justru menutup pintu bagi orang yang paling ingin dibujuk kembali.
 --
--- Batasnya seluruh MerchantPOS, bukan per resto. Voucher ini promo MerchantPOS,
+-- Batasnya seluruh Merchant-POS, bukan per resto. Voucher ini promo Merchant-POS,
 -- dan orang yang sudah rutin memesan di resto sebelah bukan pengguna
 -- baru hanya karena belum pernah masuk resto ini.
 create or replace function _pelanggan_baru(p_email text)
@@ -90,7 +90,7 @@ begin
   -- alasan penolakannya harus yang sebenarnya, bukan "sudah habis".
   if v.new_customers_only and not _pelanggan_baru(v_email) then
     return query select null::text, 0::bigint,
-      'Voucher ini hanya untuk pengguna baru MerchantPOS';
+      'Voucher ini hanya untuk pengguna baru Merchant-POS';
     return;
   end if;
 
@@ -193,13 +193,13 @@ begin
   -- daripada tahu sejak awal bahwa ini bukan untuk dirinya.
   v_syarat := case
     when coalesce(p_new_customers_only, false)
-      then ' Khusus pengguna baru yang belum pernah memesan lewat MerchantPOS.'
+      then ' Khusus pengguna baru yang belum pernah memesan lewat Merchant-POS.'
     else '' end;
 
   insert into app_announcements (
     title, body, category, audience, image_base64, created_by
   ) values (
-    'Voucher ' || v_nilai || ' dari MerchantPOS',
+    'Voucher ' || v_nilai || ' dari Merchant-POS',
     'Buruan tebus, kuotanya cuma ' || p_quantity || ' dan siapa cepat dia dapat! ' ||
     'Kode voucher: ' || v_code || E'\n\n' ||
     'Tiap voucher bernilai ' || v_nilai ||

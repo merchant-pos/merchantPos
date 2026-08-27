@@ -118,7 +118,7 @@ class _RoleChoiceScreenState extends State<RoleChoiceScreen> {
     await withLoadingOverlay(rootContext, () async {
       await auth.signInWithGoogle(intent: LoginIntent.customer);
       // Orders placed on this device before signing in follow them into
-      // the account, but only if the email is new to MerchantPOS — see
+      // the account, but only if the email is new to Merchant-POS — see
       // claimGuestOrdersForLogin. Folded into the same overlay so there's
       // one uninterrupted "signing you in" beat rather than two.
       if (auth.isLoggedIn && !auth.isEmployee) {
@@ -218,7 +218,7 @@ class _RoleChoiceScreenState extends State<RoleChoiceScreen> {
                   IconButton(
                     icon: const Icon(Icons.info_outline),
                     color: MerchantPosTheme.mutedOf(context),
-                    tooltip: context.tr('Tentang MerchantPOS'),
+                    tooltip: context.tr('Tentang Merchant-POS'),
                     onPressed: () => Navigator.of(context).push(
                       MaterialPageRoute(builder: (_) => const AboutScreen()),
                     ),
@@ -229,7 +229,7 @@ class _RoleChoiceScreenState extends State<RoleChoiceScreen> {
               const MerchantPosLogo(size: 96),
               const SizedBox(height: 20),
               Text(
-                'MerchantPOS',
+                'Merchant-POS',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -278,7 +278,7 @@ class _RoleChoiceScreenState extends State<RoleChoiceScreen> {
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
                     : const Icon(Icons.storefront_outlined);
-                final label = Text(context.tr('MerchantPOS Merchant'));
+                final label = Text(context.tr('Merchant-POS'));
                 final tekan = _signingInEmployee ? null : _chooseEmployee;
 
                 return SizedBox(

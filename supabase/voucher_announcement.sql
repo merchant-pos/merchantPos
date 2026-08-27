@@ -1,10 +1,10 @@
--- MerchantPOS — voucher yang terbit langsung mengabari pelanggan.
+-- Merchant-POS — voucher yang terbit langsung mengabari pelanggan.
 --
 -- Jalankan SETELAH vouchers.sql, announcement_audience.sql, dan
 -- announcement_categories.sql. Aman dijalankan berulang kali.
 --
 -- Voucher yang diterbitkan tapi tidak diumumkan adalah uang yang sudah
--- keluar dari saldo MerchantPOS untuk sesuatu yang tidak ada yang tahu.
+-- keluar dari saldo Merchant-POS untuk sesuatu yang tidak ada yang tahu.
 -- Kuotanya habis oleh siapa pun yang kebetulan membuka layar Voucher
 -- Saya, dan sisanya hangus tanpa pernah dilihat orang.
 --
@@ -87,7 +87,7 @@ begin
   -- tanpa membuka aplikasi.
   insert into app_announcements (title, body, category, audience, created_by)
   values (
-    'Voucher ' || v_nilai || ' dari MerchantPOS',
+    'Voucher ' || v_nilai || ' dari Merchant-POS',
     'Buruan tebus, kuotanya cuma ' || p_quantity || ' dan siapa cepat dia dapat! ' ||
     'Kode voucher: ' || v_code || E'\n\n' ||
     'Tiap voucher bernilai ' || v_nilai ||

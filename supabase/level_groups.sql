@@ -1,4 +1,4 @@
--- MerchantPOS — tiap resto menyusun sendiri kelompok levelnya.
+-- Merchant-POS — tiap resto menyusun sendiri kelompok levelnya.
 --
 -- Jalankan SETELAH product_level_groups.sql. Aman diulang.
 --

@@ -44,14 +44,14 @@ class _WebShellScreenState extends State<WebShellScreen> {
   static const _lebarMinimal = 1000.0;
   static const _lebarSidebar = 260.0;
 
-  /// Tombol mengambang MerchantPOS Support — hanya untuk sisi merchant.
+  /// Tombol mengambang Merchant-POS Support — hanya untuk sisi merchant.
   ///
   /// Di versi HP tombol ini menempel di beranda tiap peran merchant,
   /// dan beranda itu tidak dipakai sama sekali di web. Tanpa dipasang
   /// di kerangkanya, pegawai merchant yang bekerja dari konsol tidak
   /// punya satu pun jalan untuk mengadu atau bertanya.
   ///
-  /// MerchantPOS Admin tidak mendapatkannya. Dia berada di sisi seberang
+  /// Merchant-POS Admin tidak mendapatkannya. Dia berada di sisi seberang
   /// percakapan yang sama — yang dibukanya lewat menu Customer Service
   /// — dan tombol mengadu di layarnya sendiri hanya membuat dia bisa
   /// membuat tiket yang ujungnya dia jawab sendiri.
@@ -198,7 +198,7 @@ class _Sidebar extends StatelessWidget {
               const MerchantPosLogo(size: 34),
               const SizedBox(height: 10),
               Text(
-                (nama == null || nama.isEmpty) ? 'MerchantPOS' : nama,
+                (nama == null || nama.isEmpty) ? 'Merchant-POS' : nama,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(

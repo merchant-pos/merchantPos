@@ -482,8 +482,8 @@ class _RestaurantInfoScreenState extends State<RestaurantInfoScreen> {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      'Hanya MerchantPOS Admin yang bisa ubah nama merchant, '
-                      'silahkan hubungi MerchantPOS Admin jika ada perubahan '
+                      'Hanya Merchant-POS Admin yang bisa ubah nama merchant, '
+                      'silahkan hubungi Merchant-POS Admin jika ada perubahan '
                       'nama merchant',
                       style: TextStyle(
                         fontSize: 11.5,

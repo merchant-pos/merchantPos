@@ -19,7 +19,7 @@ final _rupiah =
     NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
 final _tanggal = DateFormat('d MMMM yyyy', 'id_ID');
 
-/// Tagihan langganan MerchantPOS untuk sebuah resto.
+/// Tagihan langganan Merchant-POS untuk sebuah resto.
 ///
 /// Dapat dibuka meski restonya sedang terkunci — inilah satu-satunya
 /// jalan keluar dari penguncian, dan mengunci jalan keluarnya sendiri
@@ -145,7 +145,7 @@ class _BillingScreenState extends State<BillingScreen> {
       );
       if (!mounted) return;
       showAppToast(context,
-          'Bukti terkirim. Menunggu diverifikasi MerchantPOS.');
+          'Bukti terkirim. Menunggu diverifikasi Merchant-POS.');
       _muat();
     } catch (e) {
       if (!mounted) return;
@@ -749,7 +749,7 @@ class _DialogBayarState extends State<_DialogBayar> {
             ),
             const SizedBox(height: 10),
             Text(
-              'Lampirkan bukti transfer. MerchantPOS memeriksanya lebih dulu '
+              'Lampirkan bukti transfer. Merchant-POS memeriksanya lebih dulu '
               'sebelum tagihan dinyatakan lunas.',
               style:
                   TextStyle(fontSize: 12, color: MerchantPosTheme.mutedOf(context)),

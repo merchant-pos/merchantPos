@@ -27,10 +27,10 @@ const Map<String, String> _en = {
   // ── Halaman awal & peran ──
   'Masuk sebagai': 'Sign in as',
   'Pelanggan': 'Customer',
-  'MerchantPOS Merchant': 'MerchantPOS Merchant',
+  'Merchant-POS': 'Merchant-POS',
   'Pesan sendiri dari meja atau dari rumah': 'Order from your table or from home',
   'Kasir, dapur, admin, dan keuangan': 'Cashier, kitchen, admin, and finance',
-  'Tentang MerchantPOS': 'About MerchantPOS',
+  'Tentang Merchant-POS': 'About Merchant-POS',
   'Bahasa': 'Language',
   'Tema': 'Theme',
   'Terang': 'Light',

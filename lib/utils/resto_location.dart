@@ -51,7 +51,7 @@ Future<Position> currentPosition() async {
   if (permission == LocationPermission.deniedForever) {
     throw const LocationFailure(
         'Izin lokasi diblokir permanen. Aktifkan lewat Setelan HP > Aplikasi > '
-        'MerchantPOS > Izin > Lokasi.');
+        'Merchant-POS > Izin > Lokasi.');
   }
 
   return Geolocator.getCurrentPosition(
@@ -78,7 +78,7 @@ Future<String?> addressOf(double latitude, double longitude) async {
 
   try {
     final response = await http
-        .get(uri, headers: {'User-Agent': 'MerchantPOS/1.0 (aplikasi kasir resto)'})
+        .get(uri, headers: {'User-Agent': 'Merchant-POS/1.0 (aplikasi kasir resto)'})
         .timeout(const Duration(seconds: 12));
     if (response.statusCode != 200) return null;
     final data = jsonDecode(response.body) as Map<String, dynamic>;

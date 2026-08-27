@@ -1,16 +1,16 @@
--- MerchantPOS — pencairan langsung ke rekening masing-masing resto.
+-- Merchant-POS — pencairan langsung ke rekening masing-masing resto.
 --
 -- Jalankan SETELAH payment_gateway.sql. Aman dijalankan berulang kali.
 --
 -- Sampai sekarang seluruh pembayaran QRIS masuk ke satu akun penyedia:
 -- yang kuncinya terpasang di server. Untuk resto milik sendiri itu tidak
 -- masalah. Untuk resto milik orang lain, itu berarti uang mereka mampir
--- dulu ke rekening MerchantPOS — dan menampung lalu meneruskan dana milik
+-- dulu ke rekening Merchant-POS — dan menampung lalu meneruskan dana milik
 -- pihak lain bukan sekadar urusan pembukuan.
 --
 -- Jalan keluarnya sub-akun: tiap resto punya akunnya sendiri di
 -- penyedia, dan pembayarannya dibuat atas nama akun itu. Dananya cair
--- langsung ke rekening restonya, tanpa pernah lewat rekening MerchantPOS.
+-- langsung ke rekening restonya, tanpa pernah lewat rekening Merchant-POS.
 --
 -- Yang disimpan di sini hanya PENGENAL sub-akunnya, bukan kuncinya.
 -- Menyimpan secret key milik resto lain berarti satu kebocoran database
@@ -63,7 +63,7 @@ commit;
 -- Setelah menjalankan ini
 -- ─────────────────────────────────────────────────────────────────────
 --
--- 1. Aktifkan xenPlatform di akun Xendit MerchantPOS (butuh verifikasi
+-- 1. Aktifkan xenPlatform di akun Xendit Merchant-POS (butuh verifikasi
 --    badan usaha; di mode uji bisa langsung dicoba).
 --
 -- 2. Buat sub-akun untuk tiap resto — lewat Dashboard atau API:

@@ -1,4 +1,4 @@
--- MerchantPOS — notifikasi yang tetap sampai walau aplikasinya tertutup.
+-- Merchant-POS — notifikasi yang tetap sampai walau aplikasinya tertutup.
 --
 -- Jalankan SETELAH customer_cash_payment.sql. Aman dijalankan berulang
 -- kali.

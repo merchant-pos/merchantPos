@@ -1,4 +1,4 @@
--- MerchantPOS — lets Finance edit payment settings too (previously admin-only).
+-- Merchant-POS — lets Finance edit payment settings too (previously admin-only).
 -- Admin's own "Pengaturan Pembayaran" screen is now view-only in the
 -- app; Finance is the one who actually edits it.
 drop policy if exists "settings: admin insert" on settings;

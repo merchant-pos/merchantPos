@@ -1,4 +1,4 @@
--- MerchantPOS — diskon dengan syarat jumlah pembelian.
+-- Merchant-POS — diskon dengan syarat jumlah pembelian.
 --
 -- Jalankan SETELAH discounts.sql. Aman diulang.
 --

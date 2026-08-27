@@ -150,7 +150,7 @@ class ReceiptView extends StatelessWidget {
             const SizedBox(width: 4),
             Image.asset('assets/icon/merchantpos_icon.png', width: 13, height: 13),
             const SizedBox(width: 4),
-            const Text('MerchantPOS',
+            const Text('Merchant-POS',
                 style: TextStyle(fontFamily: null, fontSize: 10, color: _inkSoft)),
           ],
         ),

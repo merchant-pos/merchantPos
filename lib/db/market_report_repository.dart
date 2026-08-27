@@ -17,7 +17,7 @@ class ReportRow {
   });
 }
 
-/// Angka pasar MerchantPOS — hanya untuk Super Admin.
+/// Angka pasar Merchant-POS — hanya untuk Super Admin.
 ///
 /// Seluruh perhitungannya di server. Mengunduh pesanan seluruh resto ke
 /// sebuah HP lalu menjumlahkannya di sini berarti batas 1.000 baris

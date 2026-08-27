@@ -19,7 +19,7 @@ import '../utils/lebar_web.dart';
 
 /// Mengelola banner promo yang tampil di halaman menu customer.
 ///
-/// Bannernya milik resto, bukan MerchantPOS: tiap resto memasang promonya
+/// Bannernya milik resto, bukan Merchant-POS: tiap resto memasang promonya
 /// sendiri, dan customer hanya melihat banner resto yang sedang dibuka.
 class PromoBannerScreen extends StatefulWidget {
   const PromoBannerScreen({super.key});

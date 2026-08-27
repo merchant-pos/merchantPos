@@ -6,7 +6,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import '../theme.dart';
 import 'merchantpos_logo.dart';
 
-/// Kartu QR bergaya MerchantPOS: bidang ungu bergradasi, siku amber di
+/// Kartu QR bergaya Merchant-POS: bidang ungu bergradasi, siku amber di
 /// keempat pojok, lambang di atas, dan kartu putih berisi kodenya.
 ///
 /// Dipakai dua tempat yang isinya berbeda tapi bentuknya harus sama —
@@ -14,7 +14,7 @@ import 'merchantpos_logo.dart';
 /// Ditulis sekali di sini, bukan disalin: dua salinan bentuk yang sama
 /// akan pelan-pelan berbeda pada perubahan berikutnya, dan yang paling
 /// mudah berbeda justru warnanya, yang justru itu yang membuat orang
-/// mengenalinya sebagai MerchantPOS.
+/// mengenalinya sebagai Merchant-POS.
 ///
 /// Versi cetaknya digambar terpisah dalam PDF (lihat
 /// `utils/table_qr_image.dart`) dengan koordinat yang sama, karena
@@ -100,7 +100,7 @@ class MerchantPosQrCard extends StatelessWidget {
                       MerchantPosLogo(size: _s(22), showBadgeBackground: false),
                       SizedBox(width: _s(7)),
                       Text(
-                        'MerchantPOS',
+                        'Merchant-POS',
                         style: TextStyle(
                           fontSize: _s(17),
                           fontWeight: FontWeight.bold,

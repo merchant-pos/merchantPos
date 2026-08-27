@@ -15,7 +15,7 @@ import 'gallery_saver.dart';
 import '../widgets/app_toast.dart';
 
 /// Renders [data] as a receipt-roll shaped PNG and drops it in the photo
-/// gallery under a "MerchantPOS" album.
+/// gallery under a "Merchant-POS" album.
 ///
 /// Goes via a PDF page rasterised by `printing` rather than screenshotting
 /// the widget tree: the on-screen receipt lives inside a scroll view, so a
@@ -39,7 +39,7 @@ Future<bool> saveReceiptToGallery(BuildContext context, ReceiptData data) async 
   return savePngToGallery(
     context,
     bytes,
-    successMessage: 'Struk tersimpan di galeri (album MerchantPOS).',
+    successMessage: 'Struk tersimpan di galeri (album Merchant-POS).',
     failurePrefix: 'Gagal menyimpan struk',
   );
 }
@@ -194,7 +194,7 @@ Future<pw.Document> _buildReceiptDoc(ReceiptData data, {double? pageHeight}) asy
               pw.SizedBox(width: 3),
               pw.Image(kaataIcon, width: 11, height: 11),
               pw.SizedBox(width: 3),
-              pw.Text('MerchantPOS',
+              pw.Text('Merchant-POS',
                   style: const pw.TextStyle(fontSize: 8, color: PdfColors.grey700)),
             ],
           ),

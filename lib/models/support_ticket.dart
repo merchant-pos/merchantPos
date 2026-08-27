@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Judul percakapan bebas dengan MerchantPOS Admin.
+/// Judul percakapan bebas dengan Merchant-POS Admin.
 ///
 /// Bukan pengaduan — sekadar bertanya. Dibedakan lewat judulnya, bukan
 /// lewat kolom baru: satu kolom lagi berarti satu migrasi lagi, dan yang
@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 /// sendiri setelah 24 jam. Mengubah teks ini berarti mengubah
 /// pemicunya juga, berbarengan; kalau tidak, chat berikutnya tercatat
 /// sebagai pengaduan tanpa satu pun galat yang menyebutkannya.
-const kSubjekChatUmum = 'Chat dengan MerchantPOS Admin';
+const kSubjekChatUmum = 'Chat dengan Merchant-POS Admin';
 
 /// Tahap sebuah pengaduan.
 ///
@@ -109,7 +109,7 @@ class SupportTicket {
   /// cuma bertanya merasa sedang mengurus perkara.
   bool get chatBebas => subject == kSubjekChatUmum;
 
-  /// Dari siapa pengaduan ini, dari sudut pandang MerchantPOS Admin.
+  /// Dari siapa pengaduan ini, dari sudut pandang Merchant-POS Admin.
   ///
   /// Yang menjawab perlu tahu ini sebelum membaca kalimat pertamanya:
   /// keluhan pelanggan dan keluhan merchant menuntut jawaban yang

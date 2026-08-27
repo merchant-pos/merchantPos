@@ -1,9 +1,9 @@
--- MerchantPOS — setoran modal ke saldo utama.
+-- Merchant-POS — setoran modal ke saldo utama.
 --
 -- Jalankan SETELAH vouchers.sql dan platform_finance.sql. Aman diulang.
 --
 -- Ada satu jenis uang masuk yang selama ini tidak punya tempat: modal.
--- Investor menyetor ke MerchantPOS, atau pemilik resto menaruh uang awal
+-- Investor menyetor ke Merchant-POS, atau pemilik resto menaruh uang awal
 -- supaya kasnya tidak minus di hari pertama. Keduanya uang sungguhan
 -- yang benar-benar masuk, tapi bukan penjualan dan bukan langganan —
 -- jadi tidak ada pemicu yang menjurnalnya, dan saldonya berbunyi nol
@@ -26,7 +26,7 @@ alter table gl_accounts add constraint gl_accounts_payment_method_check
      'subscription', 'subscription_discount', 'voucher', 'voucher_redeem',
      'capital', 'cash_variance'));
 
--- Untuk MerchantPOS — sederet dengan akun platform lainnya.
+-- Untuk Merchant-POS — sederet dengan akun platform lainnya.
 insert into gl_accounts (resto_id, payment_method, gl_code, gl_name)
 values ('merchantpos', 'capital', '1100003', 'GL Setoran Modal')
 on conflict (resto_id, payment_method) do nothing;
