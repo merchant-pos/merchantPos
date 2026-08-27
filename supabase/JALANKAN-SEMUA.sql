@@ -1073,6 +1073,14 @@ where a.resto_id = b.resto_id
   and a.gl_code = b.gl_code
   and a.created_at > b.created_at;
 
+-- Kunci asing di bawah dilepas lebih dulu, bukan sesudahnya.
+--
+-- Pada jalan kedua, expenses_gl_code_fkey sudah ada dan ia bersandar
+-- pada indeks unik yang baris berikutnya hendak lepas — Postgres
+-- menolak dengan "other objects depend on it". Jalan pertama tidak
+-- pernah menemuinya, karena kunci asingnya memang belum ada.
+alter table expenses drop constraint if exists expenses_gl_code_fkey;
+
 alter table expense_gl_accounts drop constraint if exists expense_gl_accounts_resto_code_key;
 alter table expense_gl_accounts add constraint expense_gl_accounts_resto_code_key
   unique (resto_id, gl_code);
