@@ -158,6 +158,18 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Melepas pesan galat yang sudah ditampilkan.
+  ///
+  /// Tanpa ini pesannya menempel selamanya, dan layar yang menampilkan
+  /// galat "kapan pun lastError terisi" akan memunculkannya lagi tiap
+  /// kali layarnya dibangun ulang — termasuk sesudah orangnya menekan
+  /// OK.
+  void bersihkanGalat() {
+    if (lastError == null) return;
+    lastError = null;
+    notifyListeners();
+  }
+
   /// Membaca niat login yang dititipkan, sekaligus menghapusnya.
   ///
   /// Dihapus apa pun hasilnya. Niat yang tertinggal akan menagih

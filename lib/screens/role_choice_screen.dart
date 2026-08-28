@@ -38,9 +38,31 @@ class _RoleChoiceScreenState extends State<RoleChoiceScreen> {
   /// mana lebih buruk daripada pintu yang tidak ada.
   bool get _hanyaMerchant => kIsWeb;
 
+  /// Galat login yang datang dari pengalihan web.
+  ///
+  /// Di ponsel, penolakan tampil di tempat: `signInWithGoogle` kembali,
+  /// lalu barisan sesudahnya membaca [AuthProvider.lastError] dan
+  /// memunculkan dialognya. Di web tidak ada "barisan sesudahnya" —
+  /// halamannya benar-benar ditinggalkan ke Google dan dimuat ulang
+  /// dari nol, jadi kode yang seharusnya menampilkan pesannya tidak
+  /// pernah dijalankan.
+  ///
+  /// Akibatnya yang emailnya belum terdaftar sebagai karyawan mendarat
+  /// kembali di layar ini tanpa sepatah kata pun — persis sama dengan
+  /// tampilan orang yang membatalkan sendiri login-nya.
+  Future<void> _tampilkanGalatTertunda() async {
+    final auth = context.read<AuthProvider>();
+    final pesan = auth.lastError;
+    if (pesan == null || !mounted) return;
+    await _showLoginBlocked(context, pesan);
+    auth.bersihkanGalat();
+  }
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _tampilkanGalatTertunda());
     // Nomor versi tidak berlaku di web: yang dibuka selalu versi yang
     // sedang dilayani servernya, tidak ada yang bisa tertinggal dan
     // perlu dicocokkan saat melapor masalah.
@@ -132,6 +154,7 @@ class _RoleChoiceScreenState extends State<RoleChoiceScreen> {
     if (auth.lastError != null) {
       // ignore: use_build_context_synchronously
       await _showLoginBlocked(rootContext, auth.lastError!);
+      auth.bersihkanGalat();
       return;
     }
     // Backed out of Google's account picker — nothing to do.
@@ -168,6 +191,7 @@ class _RoleChoiceScreenState extends State<RoleChoiceScreen> {
     // to explain.
     if (auth.lastError != null) {
       await _showLoginBlocked(context, auth.lastError!);
+      auth.bersihkanGalat();
     }
     // Otherwise: either cancelled (nothing logged in, no error — just
     // stay put), or they're a valid employee and RootScreen already

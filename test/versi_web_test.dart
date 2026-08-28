@@ -80,6 +80,22 @@ void main() {
       expect(auth, contains("Uri.base.replace(query: '', fragment: '')"));
     });
 
+    // Di web tidak ada "barisan sesudah signInWithGoogle" — halamannya
+    // ditinggalkan ke Google lalu dimuat ulang dari nol, jadi kode yang
+    // menampilkan penolakan tidak pernah dijalankan. Yang emailnya
+    // belum terdaftar mendarat kembali tanpa sepatah kata pun, persis
+    // sama dengan tampilan orang yang membatalkan sendiri login-nya.
+    test('penolakan sesudah pengalihan tetap ditampilkan', () {
+      final pilih =
+          File('lib/screens/role_choice_screen.dart').readAsStringSync();
+      expect(pilih, contains('_tampilkanGalatTertunda()'));
+      expect(pilih, contains('addPostFrameCallback'));
+      // Dibersihkan sesudah tampil, kalau tidak dialognya muncul lagi
+      // tiap kali layarnya dibangun ulang.
+      expect(pilih, contains('auth.bersihkanGalat()'));
+      expect(auth, contains('void bersihkanGalat()'));
+    });
+
     // Halamannya benar-benar ditinggalkan, jadi pemeriksaan pintu masuk
     // tidak bisa menunggu di fungsi yang memanggilnya.
     test('pintu masuknya dititipkan melewati pengalihan', () {
