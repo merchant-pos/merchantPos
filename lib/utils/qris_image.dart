@@ -46,6 +46,7 @@ Future<bool> saveQrisToGallery(
     context,
     bytes,
     successMessage: 'QR pembayaran tersimpan di galeri (album Merchant-POS).',
+    namaBerkas: 'QR Pembayaran Merchant-POS.png',
     failurePrefix: 'Gagal menyimpan QR',
   );
 }

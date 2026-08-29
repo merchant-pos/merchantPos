@@ -40,6 +40,7 @@ Future<bool> saveReceiptToGallery(BuildContext context, ReceiptData data) async 
     context,
     bytes,
     successMessage: 'Struk tersimpan di galeri (album Merchant-POS).',
+    namaBerkas: 'Struk Merchant-POS.png',
     failurePrefix: 'Gagal menyimpan struk',
   );
 }
@@ -116,7 +117,7 @@ Future<pw.Document> _buildReceiptDoc(ReceiptData data, {double? pageHeight}) asy
   final monoFont = await PdfGoogleFonts.robotoMonoRegular();
 
   final kaataIcon = pw.MemoryImage(
-    (await rootBundle.load('assets/icon/merchantpos_icon.png')).buffer.asUint8List(),
+    (await rootBundle.load('assets/icon/kaata_icon.png')).buffer.asUint8List(),
   );
   final restoLogo = data.restoLogoBase64 != null && data.restoLogoBase64!.isNotEmpty
       ? pw.MemoryImage(base64Decode(data.restoLogoBase64!))

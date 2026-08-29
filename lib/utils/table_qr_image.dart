@@ -103,8 +103,8 @@ List<String> tableLabels({String prefix = '', required int count}) {
   return [for (var i = 1; i <= count; i++) '$prefix$i'];
 }
 
-const _brand = PdfColor.fromInt(0xFF047857);
-const _brandDark = PdfColor.fromInt(0xFF065F46);
+const _brand = PdfColor.fromInt(0xFF4F46E5);
+const _brandDark = PdfColor.fromInt(0xFF3730A3);
 const _accent = PdfColor.fromInt(0xFFF59E0B);
 
 /// Ukuran kartunya dalam titik PDF. Perbandingannya sengaja mendekati
@@ -128,6 +128,7 @@ Future<bool> saveTableQrToGallery(BuildContext context, TableQrCard card) async 
     context,
     bytes,
     successMessage: 'QR Meja ${card.table} tersimpan di galeri (album Merchant-POS).',
+    namaBerkas: 'QR Meja ${namaBerkasAman(card.table)}.png',
     failurePrefix: 'Gagal menyimpan QR',
   );
 }
@@ -158,7 +159,10 @@ Future<int> saveTableQrBatchToGallery(
   final failed = <String>[];
   for (final card in cards) {
     try {
-      await putPngInGallery(await renderTableQrPng(card));
+      await putPngInGallery(
+        await renderTableQrPng(card),
+        namaBerkas: 'QR Meja ${namaBerkasAman(card.table)}.png',
+      );
       saved++;
     } catch (_) {
       failed.add(card.table);
@@ -238,7 +242,7 @@ Future<pw.Document> _buildDoc(List<TableQrCard> cards) async {
   final regularFont = await PdfGoogleFonts.notoSansRegular();
   final boldFont = await PdfGoogleFonts.notoSansBold();
   final logo = pw.MemoryImage(
-    (await rootBundle.load('assets/icon/merchantpos_icon.png')).buffer.asUint8List(),
+    (await rootBundle.load('assets/icon/kaata_icon.png')).buffer.asUint8List(),
   );
 
   final doc = pw.Document();
