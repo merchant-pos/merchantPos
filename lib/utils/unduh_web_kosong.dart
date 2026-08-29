@@ -5,3 +5,6 @@ import 'dart:typed_data';
 /// Ada supaya berkas yang memanggilnya tetap bisa dibangun untuk
 /// Android tanpa percabangan `kIsWeb` di tempat pemakaiannya.
 void unduhPngWeb(Uint8List bytes, String namaBerkas) {}
+
+/// Sisi bukan-web: tidak pernah dipanggil.
+void unduhBerkasWeb(Uint8List bytes, String namaBerkas, String tipe) {}

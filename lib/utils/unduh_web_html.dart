@@ -12,8 +12,12 @@ import 'dart:html' as html;
 /// diminta untuk menulis ke sana. Yang setara adalah unduhan: berkasnya
 /// masuk ke folder unduhan, lalu orangnya sendiri yang memindahkannya
 /// ke mana pun dia mau.
-void unduhPngWeb(Uint8List bytes, String namaBerkas) {
-  final blob = html.Blob(<Object>[bytes], 'image/png');
+void unduhPngWeb(Uint8List bytes, String namaBerkas) =>
+    unduhBerkasWeb(bytes, namaBerkas, 'image/png');
+
+/// Mengunduh [bytes] sebagai berkas bernama [namaBerkas] bertipe [tipe].
+void unduhBerkasWeb(Uint8List bytes, String namaBerkas, String tipe) {
+  final blob = html.Blob(<Object>[bytes], tipe);
   final url = html.Url.createObjectUrlFromBlob(blob);
 
   html.AnchorElement(href: url)

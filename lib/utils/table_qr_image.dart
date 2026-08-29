@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:archive/archive.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
@@ -9,6 +11,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../widgets/app_toast.dart';
 import 'gallery_saver.dart';
+import 'unduh_web.dart';
 
 /// Satu meja: yang dibutuhkan untuk menggambar satu kartu QR.
 class TableQrCard {
@@ -98,9 +101,14 @@ const kMaxTableBatch = 100;
 ///
 /// Jumlah yang tidak masuk akal mengembalikan daftar kosong, dan itulah
 /// yang mematikan tombol-tombolnya di layar.
-List<String> tableLabels({String prefix = '', required int count}) {
+List<String> tableLabels({
+  String prefix = '',
+  required int count,
+  int mulai = 1,
+}) {
   if (count < 1 || count > kMaxTableBatch) return const [];
-  return [for (var i = 1; i <= count; i++) '$prefix$i'];
+  if (mulai < 1) return const [];
+  return [for (var i = 0; i < count; i++) '$prefix${mulai + i}'];
 }
 
 const _brand = PdfColor.fromInt(0xFF4F46E5);
@@ -170,6 +178,7 @@ Future<int> saveTableQrBatchToGallery(
   // Sebagai satu aliran, urutannya dijaga paketnya sendiri — dan di
   // ponsel pun ini lebih cepat, karena fontnya dimuat sekali bukan
   // sepuluh kali.
+  final arsip = Archive();
   try {
     final doc = await _buildDoc(cards);
     final data = await doc.save();
@@ -180,11 +189,23 @@ Future<int> saveTableQrBatchToGallery(
       dpi: 200,
     )) {
       final card = cards[i];
+      final nama = 'QR Meja ${namaBerkasAman(card.table)}.png';
       try {
-        await putPngInGallery(
-          await page.toPng(),
-          namaBerkas: 'QR Meja ${namaBerkasAman(card.table)}.png',
-        );
+        final png = await page.toPng();
+        if (kIsWeb) {
+          // Di web semuanya dikumpulkan dulu, lalu diunduh sekali
+          // sebagai satu zip.
+          //
+          // Mengunduhnya satu per satu berarti empat puluh unduhan
+          // beruntun: peramban menanyakan izin di unduhan kedua, dan
+          // yang menolaknya — atau tidak sempat menjawabnya —
+          // mendapat satu berkas dari empat puluh tanpa tahu sisanya
+          // ke mana. Satu zip juga memudahkan yang mencetaknya:
+          // berkasnya berurutan di dalam satu map.
+          arsip.addFile(ArchiveFile(nama, png.length, png));
+        } else {
+          await putPngInGallery(png, namaBerkas: nama);
+        }
         saved++;
       } catch (_) {
         failed.add(card.table);
@@ -198,13 +219,25 @@ Future<int> saveTableQrBatchToGallery(
     for (; i < cards.length; i++) {
       failed.add(cards[i].table);
     }
+
+    if (kIsWeb && arsip.isNotEmpty) {
+      final zip = ZipEncoder().encode(arsip);
+      final namaResto = namaBerkasAman(cards.first.restoName);
+      unduhBerkasWeb(
+        Uint8List.fromList(zip),
+        'QR Meja $namaResto (${arsip.length}).zip',
+        'application/zip',
+      );
+    }
   } catch (e) {
     toast.show('Gagal membuat QR: $e', isError: true);
     return saved;
   }
 
   if (failed.isEmpty) {
-    toast.show('$saved QR Meja tersimpan di galeri (album Merchant-POS).');
+    toast.show(kIsWeb
+        ? '$saved QR Meja diunduh sebagai satu zip.'
+        : '$saved QR Meja tersimpan di galeri (album Merchant-POS).');
   } else {
     toast.show(
       '$saved tersimpan, ${failed.length} gagal (meja ${failed.take(5).join(', ')}'

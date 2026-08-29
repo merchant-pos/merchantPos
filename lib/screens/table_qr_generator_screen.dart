@@ -31,6 +31,7 @@ class _TableQrGeneratorScreenState extends State<TableQrGeneratorScreen> {
   final _tableCtrl = TextEditingController();
   final _prefixCtrl = TextEditingController();
   final _countCtrl = TextEditingController(text: '10');
+  final _mulaiCtrl = TextEditingController(text: '1');
   final _restoRepo = RestaurantRepository();
 
   String _restoName = '';
@@ -64,6 +65,7 @@ class _TableQrGeneratorScreenState extends State<TableQrGeneratorScreen> {
     _tableCtrl.dispose();
     _prefixCtrl.dispose();
     _countCtrl.dispose();
+    _mulaiCtrl.dispose();
     super.dispose();
   }
 
@@ -84,7 +86,20 @@ class _TableQrGeneratorScreenState extends State<TableQrGeneratorScreen> {
 
     final count = int.tryParse(_countCtrl.text.trim());
     if (count == null) return const [];
-    return tableLabels(prefix: _prefixCtrl.text.trim(), count: count);
+    return tableLabels(
+      prefix: _prefixCtrl.text.trim(),
+      count: count,
+      mulai: _mulai,
+    );
+  }
+
+  /// Nomor meja pertama. Kosong dianggap 1 — itu yang paling sering
+  /// dipakai, dan memaksa mengetiknya cuma menambah satu isian wajib
+  /// untuk hal yang sudah jelas.
+  int get _mulai {
+    final teks = _mulaiCtrl.text.trim();
+    if (teks.isEmpty) return 1;
+    return int.tryParse(teks) ?? 0;
   }
 
   /// Keterangan kenapa mode banyak belum bisa dijalankan, atau null kalau
@@ -95,6 +110,7 @@ class _TableQrGeneratorScreenState extends State<TableQrGeneratorScreen> {
     if (count == null) return 'Isi jumlah mejanya.';
     if (count < 1) return 'Jumlah meja minimal 1.';
     if (count > kMaxTableBatch) return 'Maksimal $kMaxTableBatch meja sekali buat.';
+    if (_mulai < 1) return 'Nomor awal minimal 1.';
     return null;
   }
 
@@ -286,6 +302,7 @@ class _TableQrGeneratorScreenState extends State<TableQrGeneratorScreen> {
                   _BulkFields(
                     prefixCtrl: _prefixCtrl,
                     countCtrl: _countCtrl,
+                    mulaiCtrl: _mulaiCtrl,
                     problem: _bulkProblem,
                     tables: tables,
                     onChanged: () => setState(() {}),
@@ -333,6 +350,7 @@ class _TableQrGeneratorScreenState extends State<TableQrGeneratorScreen> {
 class _BulkFields extends StatelessWidget {
   final TextEditingController prefixCtrl;
   final TextEditingController countCtrl;
+  final TextEditingController mulaiCtrl;
   final String? problem;
   final List<String> tables;
   final VoidCallback onChanged;
@@ -340,6 +358,7 @@ class _BulkFields extends StatelessWidget {
   const _BulkFields({
     required this.prefixCtrl,
     required this.countCtrl,
+    required this.mulaiCtrl,
     required this.problem,
     required this.tables,
     required this.onChanged,
@@ -361,6 +380,26 @@ class _BulkFields extends StatelessWidget {
             counterText: '',
             helperText: 'Kosongkan kalau mejanya cuma bernomor. '
                 'Diisi "A" jadi A1, A2, A3, …',
+          ),
+          onChanged: (_) => onChanged(),
+        ),
+        const SizedBox(height: 12),
+        // Nomor awal, bukan selalu 1.
+        //
+        // Merchant yang menambah lantai dua tidak mulai dari meja 1
+        // lagi — dan tanpa isian ini, satu-satunya jalan adalah membuat
+        // 30 QR lalu membuang 15 yang pertama.
+        TextFormField(
+          controller: mulaiCtrl,
+          keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          maxLength: 3,
+          decoration: const InputDecoration(
+            labelText: 'Nomor Awal',
+            hintText: '1',
+            prefixIcon: Icon(Icons.first_page),
+            counterText: '',
+            helperText: 'Kosongkan kalau mulai dari 1.',
           ),
           onChanged: (_) => onChanged(),
         ),
