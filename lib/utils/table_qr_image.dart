@@ -157,17 +157,50 @@ Future<int> saveTableQrBatchToGallery(
 
   var saved = 0;
   final failed = <String>[];
-  for (final card in cards) {
-    try {
-      await putPngInGallery(
-        await renderTableQrPng(card),
-        namaBerkas: 'QR Meja ${namaBerkasAman(card.table)}.png',
-      );
-      saved++;
-    } catch (_) {
-      failed.add(card.table);
+
+  // Satu dokumen berisi semua kartu, satu kali raster — bukan satu
+  // panggilan Printing.raster per kartu.
+  //
+  // Di web pemanggilan berulangnya menggantung: yang pertama selesai,
+  // yang kedua tidak pernah kembali, dan layarnya berhenti di
+  // "Menyimpan 1/10..." selamanya. Rasternya di sana dikerjakan pdf.js
+  // di balik layar, dan memanggilnya lagi sebelum yang sebelumnya
+  // benar-benar tuntas membuat keduanya saling menunggu.
+  //
+  // Sebagai satu aliran, urutannya dijaga paketnya sendiri — dan di
+  // ponsel pun ini lebih cepat, karena fontnya dimuat sekali bukan
+  // sepuluh kali.
+  try {
+    final doc = await _buildDoc(cards);
+    final data = await doc.save();
+    var i = 0;
+    await for (final page in Printing.raster(
+      data,
+      pages: List.generate(cards.length, (n) => n),
+      dpi: 200,
+    )) {
+      final card = cards[i];
+      try {
+        await putPngInGallery(
+          await page.toPng(),
+          namaBerkas: 'QR Meja ${namaBerkasAman(card.table)}.png',
+        );
+        saved++;
+      } catch (_) {
+        failed.add(card.table);
+      }
+      i++;
+      onProgress?.call(i);
     }
-    onProgress?.call(saved + failed.length);
+    // Halaman yang tidak pernah keluar dari alirannya tetap harus
+    // dihitung gagal, kalau tidak angkanya berhenti di tengah tanpa
+    // ada yang menyebutkan sisanya.
+    for (; i < cards.length; i++) {
+      failed.add(cards[i].table);
+    }
+  } catch (e) {
+    toast.show('Gagal membuat QR: $e', isError: true);
+    return saved;
   }
 
   if (failed.isEmpty) {
@@ -242,7 +275,7 @@ Future<pw.Document> _buildDoc(List<TableQrCard> cards) async {
   final regularFont = await PdfGoogleFonts.notoSansRegular();
   final boldFont = await PdfGoogleFonts.notoSansBold();
   final logo = pw.MemoryImage(
-    (await rootBundle.load('assets/icon/kaata_icon.png')).buffer.asUint8List(),
+    (await rootBundle.load('assets/icon/merchantpos_icon.png')).buffer.asUint8List(),
   );
 
   final doc = pw.Document();

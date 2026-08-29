@@ -32,10 +32,14 @@ void main() {
     // Bytes-nya menetap di memori tab sampai halamannya ditutup kalau
     // tidak dilepas — dan pada layar yang menyimpan puluhan QR meja
     // sekaligus, itu puluhan salinan yang tidak pernah dipakai lagi.
-    test('object URL-nya dilepas sesudah dipakai', () {
+    // Melepasnya tepat sesudah click() membatalkan unduhannya sendiri
+    // di sebagian peramban: tautannya sudah diklik, tapi berkasnya
+    // belum sempat dibaca.
+    test('object URL-nya dilepas belakangan, bukan seketika', () {
       final html = File('lib/utils/unduh_web_html.dart').readAsStringSync();
       expect(html, contains('revokeObjectUrl'));
-      expect(html, contains('finally {'));
+      expect(html, isNot(contains('finally {')));
+      expect(html, contains('Future<void>.delayed('));
     });
   });
 
@@ -62,5 +66,52 @@ void main() {
       final isi = File('lib/utils/$f.dart').readAsStringSync();
       expect(isi, contains('namaBerkas:'), reason: f);
     }
+  });
+
+  // Di web, memanggil Printing.raster lagi sebelum yang sebelumnya
+  // tuntas membuat keduanya saling menunggu: yang pertama selesai,
+  // yang kedua tidak pernah kembali, dan layarnya berhenti di
+  // "Menyimpan 1/10..." selamanya.
+  test('QR meja massal dirender sekali, bukan sekali per kartu', () {
+    final qr = File('lib/utils/table_qr_image.dart').readAsStringSync();
+    final blok = qr.substring(qr.indexOf('Future<int> saveTableQrBatchToGallery'));
+    // Penutup fungsinya '\n}\n' — bukan '\n}', yang lebih dulu cocok
+    // dengan '})' penutup daftar parameternya.
+    final badan = blok.substring(0, blok.indexOf('\n}\n'));
+    expect('Printing.raster('.allMatches(badan).length, 1);
+    expect(badan, contains('await for (final page in'));
+    // Halaman yang tidak pernah keluar dari alirannya tetap dihitung
+    // gagal, kalau tidak angkanya berhenti di tengah tanpa penjelasan.
+    expect(badan, contains('for (; i < cards.length; i++)'));
+  });
+
+  // Paket printing memuat pdf.js sendiri dari unpkg, lalu mengambil
+  // `pdfjsLib` dari window. Kalau CDN-nya tidak terjangkau — atau
+  // skripnya termuat tanpa memasang globalnya — dereference itu jatuh
+  // ke null, dan yang terlihat orang cuma "Null check operator used on
+  // a null value" saat menyimpan QR meja.
+  group('pdf.js dilayani sendiri', () {
+    final index = File('web/index.html').readAsStringSync();
+
+    test('dimuat sebelum Flutter, bukan dari CDN', () {
+      expect(index, contains('<script src="pdf.min.js"></script>'));
+      expect(index, isNot(contains('unpkg.com')));
+      expect(index.indexOf('pdf.min.js'),
+          lessThan(index.indexOf('flutter_bootstrap.js')));
+    });
+
+    // Plugin melewati pemuatannya sendiri hanya kalau KEDUANYA ada:
+    // globalnya terpasang, dan workerSrc sudah diisi.
+    test('workerSrc ikut diisi', () {
+      expect(index, contains("workerSrc = 'pdf.worker.min.js'"));
+    });
+
+    test('berkasnya benar-benar ikut terkirim', () {
+      for (final f in ['web/pdf.min.js', 'web/pdf.worker.min.js']) {
+        final b = File(f);
+        expect(b.existsSync(), isTrue, reason: f);
+        expect(b.lengthSync(), greaterThan(100000), reason: f);
+      }
+    });
   });
 }

@@ -44,6 +44,31 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <!--
+    pdf.js dilayani dari situs ini sendiri, bukan dari CDN.
+
+    Paket `printing` memuatnya sendiri dari unpkg saat dibutuhkan, lalu
+    mengambil `pdfjsLib` dari window. Kalau CDN-nya tidak terjangkau —
+    jaringan kantor, pemblokir iklan, atau sekadar lambat — atau kalau
+    skripnya termuat tapi tidak memasang globalnya, baris itu jatuh ke
+    null dan yang terlihat orang cuma "Null check operator used on a
+    null value" saat menyimpan QR meja.
+
+    Dimuat lebih dulu di sini, plugin itu melewati seluruh pemuatan
+    CDN-nya: ia memeriksa `typeof pdfjsLib` dan `workerSrc` sebelum
+    melakukan apa pun.
+
+    Versinya dipatok 3.2.146 — angka yang sama dengan konstanta di
+    dalam printing 5.14.3. Menaikkannya tanpa memeriksa paketnya
+    berarti dua pihak memakai pdf.js yang berbeda.
+  -->
+  <script src="pdf.min.js"></script>
+  <script>
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
+    }
+  </script>
+
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
