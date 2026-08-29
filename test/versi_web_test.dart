@@ -389,6 +389,84 @@ void main() {
     });
   });
 
+  // Kotak Masuk masih ada di sidebar Owner dan Finance; Customer
+  // Service tidak, jadi penandanya cuma dipasang di kotak masuk.
+  group('penanda belum dibaca di sidebar', () {
+    final shell = File('lib/screens/web_shell_screen.dart').readAsStringSync();
+
+    // Angka yang cuma tampil sesudah menunya dibuka datang terlambat:
+    // yang perlu tahu ada pesan baru justru yang belum membukanya.
+    test('Kotak Masuk membawa angkanya di semua peran', () {
+      final pasang = 'belumDibaca: _inboxBelumDibaca'.allMatches(menu).length;
+      final punya = "judul: 'Kotak Masuk'".allMatches(menu).length;
+      expect(punya, greaterThan(0));
+      expect(pasang, punya,
+          reason: 'ada Kotak Masuk yang tidak membawa penandanya');
+    });
+
+    // Kotak masuk milik orang per orang: pengumuman untuk merchant lain
+    // bukan urusannya, dan yang sudah dibaca tidak boleh ikut terhitung.
+    test('kotak masuk dihitung per orang, bukan seluruh pengumuman', () {
+      expect(menu, contains('auth.user?.email'));
+      expect(menu, contains('restoId: auth.restoId'));
+      expect(menu, contains('.where((a) => !a.read)'));
+    });
+
+    // Kotak masuk tidak punya langganan realtime: bacaannya digabung
+    // dari dua tabel, dan itu tidak bisa dijadikan satu stream Postgres.
+    test('kotak masuk ditanyakan berkala, gagalnya tidak menghentikan', () {
+      expect(menu, contains('Duration(seconds: 40)'));
+      expect(menu, contains('} catch (_) {'));
+    });
+
+    // Beranda menampilkan menu yang sama sebagai kartu; angka yang cuma
+    // ada di salah satunya membuat keduanya bertentangan.
+    test('kartu di Beranda ikut menampilkannya', () {
+      expect('_PenandaMenu('.allMatches(shell).length, greaterThanOrEqualTo(3));
+    });
+
+    // Angka yang diperbarui berkala selalu tertinggal sebanyak selang
+    // waktunya, dan yang menunggu jawaban membaca keterlambatan itu
+    // sebagai "harus muat ulang dulu".
+    // Aliran baru tiap sidebar dibangun ulang berarti langganan baru
+    // tiap kali, dan yang lama tidak pernah ditutup.
+    test('alirannya dibuat sekali, bukan tiap build', () {
+      expect(shell, contains('StreamBuilder<int>('));
+      expect(shell, contains('_aliran = widget.hitung(widget.auth);'));
+    });
+
+    // Sidebar sudah memuat semuanya, jadi ini bukan satu-satunya jalan
+    // ke mana pun — gunanya memakai ruang kosong di sebelah sidebar
+    // untuk menunjukkan apa saja yang ada.
+    test('beranda berisi pintasan ke seluruh menu perannya', () {
+      expect(menu, contains('const menuBerandaWeb = MenuWeb('));
+      expect(shell, contains('if (tujuan.isNotEmpty) menuBerandaWeb'));
+      expect(shell, contains('class _Beranda'));
+    });
+
+    // Kartunya dirakit per kelompok, dan yang berada sebelum judul
+    // kelompok pertama tidak akan ikut terpasang sama sekali.
+    test('tiap peran mulai dengan sebuah kelompok', () {
+      for (final peran in ['_superAdmin', '_owner', '_admin', '_finance']) {
+        final b = menu.substring(menu.indexOf('const $peran = <MenuWeb>['));
+        final pertama = b.substring(0, b.indexOf('judul:'));
+        expect(pertama, contains('kelompok:'), reason: peran);
+      }
+    });
+
+    // Lembar bawah selalu selebar jendela dan menempel di dasarnya; di
+    // jendela lebar ia jadi panel raksasa di pojok yang berlawanan
+    // dengan tombol yang barusan ditekan.
+    test('menu Support menempel pada tombolnya di web', () {
+      final fab = File('lib/widgets/support_fab.dart').readAsStringSync();
+      expect(fab, contains('if (kIsWeb) {'));
+      expect(fab, contains('alignment: Alignment.bottomRight'));
+      // Satu badan menu, dipakai dua bentuk — bukan dua salinan yang
+      // bisa berpisah pada perubahan berikutnya.
+      expect("title: const Text('Chat Merchant-POS Admin')".allMatches(fab).length, 1);
+    });
+  });
+
   group('popup Support', () {
     final fab = File('lib/widgets/support_fab.dart').readAsStringSync();
 
